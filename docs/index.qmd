@@ -1,0 +1,11 @@
+---
+title: "Welcome to Bio 724"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## About
+
+You're probably looking for the [Bio 724 Course Wiki](https://github.com/Bio724D/Bio724D_2024_2025/wiki).
