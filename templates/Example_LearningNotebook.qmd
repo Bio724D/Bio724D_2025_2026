@@ -1,0 +1,267 @@
+---
+title: "Example Learning Notebook"
+format: 
+  html:
+    embed-resources: true
+---
+
+## To Log onto the VM:
+
+-   First refresh the VM page (https://vcm.duke.edu/reservations/XXXX) and click "power on"
+
+-   Go into command prompt and type in: `ssh netid\@vcm-XXXX.vm.duke.edu`
+
+-   It will ask for a password, use your normal userid password. You will not be able to see any letters as you type but it is typing.
+
+-   Done correctly, it will load a bunch of text about ubuntu and the updates and tell you when you last logged in
+
+## Sending Files around:
+
+-   To send files from the desktop to the VM:
+
+    -   Open Windows Powershell
+
+    -   Type `scp FILENAME netid@vcm-XXXX.vm.duke.edu:~` (DONT FORGET THE :\~)!!!
+
+    -   It will ask for a password if done correctly. See above for how the password works
+
+-   To send files from the VM back to the desktop:
+
+    -   Open Windows Powershell
+
+    -   Type `scp netid@vcm-XXXX.vm.duke.edu:~/FILENAME ./`
+
+    -   It will ask for a password if done correctly. See above for how the password works
+
+-   To download files from the web use wget
+
+    -   Ex: 
+        ```
+        wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.gff.gz
+        ```
+
+    -   The .gz indicates it is a compressed file, compressed using gzip. Unzip it using:
+
+        ```
+        gunzip GCF_009858895.2_ASM985889v3_genomic.gff.gz
+        ```
+        
+        to create an unzipped file named `GCF_009858895.2_ASM985889v3_genomic.gff`
+
+
+    -   Uncompressed files will be easier, for example: 
+    
+        ```
+        wget https://github.com/Bio724/Bio724-Example-Data/raw/main/yeast_genome_features_R40-1-1.txt
+        ```
+
+## Commands for navigating the file systems:
+
+-   ls -- lists the files in the current directory
+
+-   cd -- change directory
+
+-   pwd --gives the current working directory
+
+-   mkdir -- make a new directory
+
+    -   Ex: `mkdir \~/genome_annotations`
+
+-   rmdir -- remove directory (must be empty)
+
+-   rm -- removes a file
+
+-   cp --copies a file
+
+-   mv -- moves a file or directory
+
+    -   ex: `mv foo.txt bar.txt`
+
+    -   `mv foo_dir foo.dir` or `mv file.txt ~/genome_annotations/`
+
+-   ln -- makes links between files. Symbolic links (like shortcuts on a windows system) are useful to create references to files located in a deep directory nest, or with long/tedious names. Symbolic links are made by using the switch -s
+
+    -   Ex: `ln -s directorypath/filename ~/shortcutname`
+
+## Shortcuts when working with the file systems
+
+-   `~` -- refers to the users home directory
+
+       
+-   Ex: `cd ~` changes to my home directory
+
+-   Ex: `ls ~/*.txt` list all files ending with the `.txt` extension in my home directory
+```
+
+-   `.` -- the current directory
+
+         
+-   EX: `cd ./tmp` move to the directory called tmp that is located in the directory the cd command is executed from
+
+
+-   `..` -- the directory above the current directory (if it exists)
+
+-    Ex: `cd ..` move up one level in the directory hierarchy.
+
+
+-   `/` -- the root directory of the file system
+
+    -   EX: `cd /data` -- move to the data directory that is the subdirectory of the root
+
+    -   EX: `ls /` -- list all files and directories in the root directory
+
+-   `\t` = TAB
+
+-   `\n` = newline
+
+## Command line options/switches:
+
+-   Short switches are a single letter preceded by a hyphen. Multiple single letter options can be written together after a single hyphen and the order doesn't matter (?). Arguments (if any) follow the switch and can be optionally separated by a whitespace.
+
+    -   EX: `ls -a`
+
+    -   EX: `ls -l -a` == `ls -la`  == `ls -al`
+
+    -   EX: `cut -f 3 filt.txt` == `cut -f3 file.txt`
+
+-   Keyword options are designated by two hyphens followed by a keyword.These cannot be strung together without separating whitespace. Arguments (if any) can be separated by either whitespace or a single "="
+
+    -   EX: `ls --all`
+
+    -   EX: `ls --hide=".txt"` (lists files, hiding everything that matches the given pattern)
+
+## Basic commands for manipulating files:
+
+-   cat -- prints the contents of a file to the terminal or concatenates
+
+    -   Ex: `cat file.txt` writes to terminal
+
+    -   EX: `cat file1.txt file2.txt > file1and2.txt` concatenates two files
+
+-   echo -- writes a file
+
+    -   ex: `echo "Hello, file!"` to write to the terminal
+
+    -   Ex: `echo "Hello world" > hello.txt` send the text to a new file hello.txt using the assign operator (see below)
+
+    -   Ex: `echo -e "Hello\nWorld"` where we wrap the input in quotes to use the "backslash escape" representation of a new line. The -e argument tells echo to interpret the `\n` appropriately
+
+    -   EX: `"Hello World" | wc -m` sends the text to another command using the pipe operator
+
+-   `>` -- assigns. Sends things on the left to the thing on the right. If the thing on the right already exists it will be overwritten, if not it will be created
+
+    -   ex: `echo "Hello, file!" > hello.txt` to write "Hello, file!" to the hello.txt file
+
+-   `>>` -- append. Like the `>` operator but appends instead of creating/overwriting
+
+-   `<` -- redirect input.
+
+    -   ex: redirect the text from a file to do manipulations on it:
+
+    -   For example:
+    
+        ```
+        tr "[:upper:]" "[:lower:]" < hello.txt
+        ```
+        
+        will translate the letter from upper to lower and read to the terminal.
+
+    -   In contrast, 
+    
+        ```
+        tr "[:upper:]" "[:lower:]" < hello.txt > lower.txt
+        ```
+        
+        will translate the letter from upper to lower and save it as a new file lower.txt
+
+-   `|` -- pipe operator. The output from the command on the left is used as the input on the right.
+
+    - Ex: `ls .jpg | wc -l` (list all the files ending in .jpg and could how many there are using the wc utility)
+
+    - Ex: if you wanted to run a pipe chain to count all the words in a file and save it:
+    
+      ```
+      cat FILENAME.txt | tr "[:space:]" "\n" |tr -d "[:punct:]" | tr [:upper:] [:lower:] | grep -v '^$' | sort | uniq -c | sort -k 1 -r -n > "NEWFILENAME.txt"
+      ```
+
+-   tr -- "Translate" (substitute) or delete characters in input. Will not take a file as an argument, so typically use cat to send the contents of a file through tr
+
+    -   Ex: `echo ATGCAA | tr A a` substitute a for A
+
+    -   EX: `echo ATGCAA | tr -d A` delete all the "A" characters
+
+    -   Ex: `echo ATGCAA | tr ATGC TACG` substitute each character in the first set ("ATGC") with the matching character in the second set ("TAGC")
+
+-   wc -- counts bytes, characters, words or lines
+
+    -   Ex: `wc -l file.txt` (count the number of lines in file.txt)
+
+    -   Ex: `wc -m file.txt` (count the number of characters in file.txt)
+
+-   less -- a "pager" program that allows you to read text one page at a time. Advance with <space>/b and quit with q
+
+-   cut -- removes sections (bytes, characters, or fields) from input. See `cut --help` for switch options. For these examples create a file (columns.txt) with the following command (`\t` = TAB character, `\n` = newline character):
+
+    ```
+    echo -e 'one\ttwo\tthree\nfour\tfive\tsix' > columns.txt
+    
+    ````
+    
+    If you open the file you will see it is formatted like this:
+    
+    ```
+    one  two  three
+    four five six
+    ```
+
+    -   Ex: `cut -f 2 columns.txt` to get just the second column
+
+    -   Ex: `cut -f1,3 columns.txt` to get the first and third columns sort -- sorts lines of input. See --help for switch options
+
+    -   Ex: `sort file.txt` (sort lines in file.txt)
+
+    -   Ex: `sort -k 3 -n columns.txt` (sort numerically on the third column of the file) Use --debug if you are getting unexpected results, or see [this page](https://github.com/Bio724/Bio724-Lecture-Notes/blob/main/lecture-filesystems-terminals-unix/unexpected-sorting.md), or the [GNU FAQ page](https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021)
+
+-   uniq -- report/omit ADJACENT repeated lines. The adjacent requirement means you usually need to sort the input first
+
+    -   Ex: `echo 1235231443551 | fold -w 1 | sort | uniq`
+
+-   head/tail -- output the first/last part of a file. Default to 10 lines. -n switch can be used to specify the number of lines
+
+-   fold -- wraps lines to a specific width, printing to terminal Ex: `echo 123456789 | fold -w 2`
+
+- rev -- reverse input
+
+    -   Ex: `echo ATCGAA | rev | tr ATGC TACG`
+
+-   comm -- compares two sorted files, line by line. By default produces three-column output where column 1 is unique to file 1, column 2 is unique to file 2, and column 3 is common to both
+
+    -   Ex: `comm file1.txt file2.txt` (shows all three columns, difficult to read!) 
+    
+    - Ex: `comm -23 file1.txt file2.txt` (only shows things unique to file ONE)
+
+    -   Ex: `comm -13 file1.txt file2.txt` (only shows things unique to file TWO)
+
+    -   Ex: `comm -22 file1.txt file2.txt` (only shows things common to BOTH)
+
+-   paste -- merge corresponding lines from inputs
+
+    -   Ex: `paste columns.txt columns.txt`
+
+    -   Ex: `tac columns.txt | paste columns.txt -`: the dash (-) here specifies that input should come from stdin. Can you guess what the command tac does?
+
+    -   Ex: `paste -s columns.txt`: The -s command merges lines within the file. This gives us behavior that is like the inverse of the fold command we saw previously.
+
+-   sed --sed is a "stream editor" which allows for powerful text manipulation. Right now, we only focus on text substitution:
+
+    -   Ex: `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/'` (substitute the first occurrence of "Hello" with "Goodbye")
+
+    -   Ex: `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/g'` (substitute the all occurrences of "Hello" with "Goodbye" -- the `g` at the end of the sed command means "globally")
+
+    -   Ex: `echo "Hello world, Hello universe" | sed 's/Hello//g'` (delete all occurrences of "Hello")
+
+-   grep -- find regions of input that match the specified pattern. Pattern matching used Regular Expressions (regex). See [a short introduction to grep](https://informatics.fas.harvard.edu/short-introduction-to-grep.html) and [the Grep Manual](https://www.gnu.org/software/grep/manual/grep.html) for more details.
+
+-   See more [here from Paul](https://github.com/Bio724/Bio724-Lecture-Notes/blob/main/lecture-filesystems-terminals-unix/unix-coreutils.md)
+
+-   See more here from [the GNU Coreutils manual](https://www.gnu.org/software/coreutils/manual/html_node/index.html#SEC_Contents)

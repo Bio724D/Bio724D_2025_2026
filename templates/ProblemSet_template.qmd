@@ -1,0 +1,63 @@
+---
+title: "Problem Set XX"
+author: "Your Name, NetID"
+date: today
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+
+# Instructions
+
+Answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**. 
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignment number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2023.qmd`
+
+Submit both your markdown file and the generated HTML document via the Assignments submission section on Sakai.
+
+
+
+# Problems
+
+### 1. 
+
+Describe problem 1
+
+```{r}
+# Your code here
+```
+
+
+### 2. 
+
+Describe problem 2.
+
+Add `error=TRUE` to your code block header if it has an error but you don't want that error to interrupt execution of the rest of your notebook.
+
+```{r, error=TRUE}
+# Code that generates an error
+```
+
+Provide a written description of how you've tried to diagnose the issues you're running into that generate the error above.
+
+### 3. 
+
+Describe problem 3.
+
+```{r}
+# more code here
+```
+
+If necessary or useful provide a description of how your code solves the problem.
+
