@@ -1,0 +1,121 @@
+---
+title: "A whirlwind tour of Quarto and the Tidyverse"
+author: "Paul M. Magwene"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+# Installing packaages
+
+See in class demo on the Packages install dialog.
+
+-   Install the tidyverse package
+
+
+
+# Quarto
+
+Quarto is a tool for scientific documentation and publishing. In this class we'll be using Quarto documents as the primary method for writing, testing, and exploring R code.
+
+## In-class tour of Quarto
+
+-   Create a Quarto document
+
+-   Review Quarto interface in RStudio
+
+-   Visual vs Source editor view
+
+-   Code blocks
+
+-   Interactive notebook model vs document rendering – discuss differences and possible points of confusion about execution models
+
+    -   Take-home: When testing your notebooks (e.g. homeworks!) use the `Session > Restart R and Run All Chunks` menu item to make sure your code runs without error
+    
+    
+# Loading packages
+
+Once a package is installed we can load it the the `library` function:
+
+```{r}
+library(tidyverse)
+```
+
+    
+
+# Data import using the readr package
+
+The `readr` package is one of the libraries included when we installed the tidyverse. The readr package provide a wide variety of functions for loading common data formats like CSV, TSV, and other delimited data types.
+
+
+
+## Load a data file using `readcsv`
+
+If you haven't already, download [`penguins.csv`](), save it to the folder we asked you to create in your home directory (`~/Bio724`) and load it as follows:
+
+```{r}
+penguins <- read_csv("~/Bio724/penguins.csv")
+```
+
+
+# Simple data frame manipulations
+
+When the penguins data set is loaded it is treated as a "data frame", which is an R data structure that represents tabular data. The data frame is the data structure we'll be using most often in this class.
+
+Basic functions for getting a handle on what's in a data frame
+
+-   `View`
+-   `dim`
+-   `head` and `tail`
+-   `str`
+
+# Basic plots
+
+## Raw data plot and jittering
+
+
+## Histograms
+
+
+## Density plots
+
+
+## Violin plots
+
+
+## Boxplots
+
+
+## Representing a categorical variable
+
+
+# Faceting
+
+
+
+# Some basic data analysis
+
+
+
+## ANOVA to test difference in group means
+
+
+# Bivariate scatter plots
+
+
+
+
+# Basic filtering with dplyr
+
+
+
+# Faceting on multiple variables
+
+
+## 2D density plot
+
+
+# Grouping on multiple variables to produce summaries of interest
+
