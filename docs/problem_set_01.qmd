@@ -1,0 +1,134 @@
+---
+title: "Assignment 01: Working with Markdown in R; Basic numerical operations in R"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**.
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2024.qmd`
+
+Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) via the Assignments submission section on Sakai.
+
+# Problems
+
+## Getting practice with Markdown
+
+1.  Create an Quarto Markdown document that illustrates the following features of the Markdown format.
+
+    For a detailed discussion of R Markdown formatting see the [Quarto Manual](https://quarto.org/docs/authoring/markdown-basics.html).
+
+    Features of R Markdown to include:
+
+    -   Includes a title and author (your name and NetID)
+
+    -   Has first, second, and third level headers
+
+    -   Includes a un-ordered list with at least two levels
+
+    -   Includes an ordered (numbered) list with at least two levels
+
+    -   Includes *emphasized* (italic), **bold**, and `verbatim` (monospaced) text.
+
+    -   Includes a table
+
+
+    -   Includes a hyperlink to a [website](https://www.youtube.com/watch?v=dQw4w9WgXcQ?&autoplay=1&mute=1 ).
+
+    -   Includes a footnote[^1].
+    
+## Numerical operations
+
+2. Below are a series of numerical calculations involving common arithmetic operators (`+`, `^`, `%%`, etc) in R. Evaluate each of the following operations in its own code block and give a short explanation of what each operator does.  We encourage you to use the R help here.
+
+
+```{r,eval=FALSE}
+10 + 2 
+10 - 2 
+10 * 2 
+10 / 2
+10 ^ 2 
+10 %% 3 
+10 %/% 3
+```
+
+3. Evaluate the following two statements. Do they return the values you expected? Why or why not?
+
+```{r, eval=FALSE}
+(10 + 2)/4-5  
+(10 + 2)/(4-5) 
+```
+
+
+4.  Some common numerical operations are implemented as functions. Evaluate each of the following in its own code block and provide an explanation of what they do.  Again, use the R help docs to aid your understanding.
+
+
+```{r,eval=FALSE}
+sqrt(10)
+10 ^ 0.5 # compare to sqrt(10)
+log(10)
+log10(10)
+exp(1)
+abs(-10)
+sin(3.14)  # R knows some common constants!
+cos(pi)
+```
+
+
+    
+
+5. Some arithmetic operations can return irrational or invalid values. Evaluate each of the below in its own code block and explain each of the values returned.
+
+```{r, eval=FALSE}
+1/0
+-1/0
+0/0
+```
+
+
+6.  Binary relational operators allow you to test  relationships between numerical values. They return `TRUE` or `FALSE` values (called "logicals" in R, often referred to as Booleans in other program languages).  Evaluate the following examples in their own code blocks and provide a brief written explanation of what each operator does.
+
+
+```{r, eval=FALSE}
+10 > 2
+10 < 2
+10 < (2 * 5)
+10 <= (2 * 5)
+10 >= (3 * 3)
+10 == (2 * 5)
+10 != (2 * 6)
+```
+
+
+
+8. Evaluate each of the following statements in turn in its own code block. Do any of the answers you get surprise you? We'll discuss these examples in class.
+
+```{r, eval=FALSE}
+sqrt(4)
+sqrt(10)
+sqrt(4)^2
+sqrt(10)^2
+sqrt(4)^2 == 4
+sqrt(10)^2 == 10
+all.equal(sqrt(10)^2, 10) # look up help for all.equal
+```
+
+
+
+
+    
+    
+
+[^1]: Like this one!
