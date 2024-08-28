@@ -1,0 +1,24 @@
+---
+title: "Data import and data frame basics"
+author: "Paul M. Magwene"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+
+## Readr package
+
+* `readr` included in tidyverse
+
+```{r}
+ 
+```
+
+
+```{r}
+library(tidyverse)
+```
+

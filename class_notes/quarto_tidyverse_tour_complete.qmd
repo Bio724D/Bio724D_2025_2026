@@ -1,0 +1,291 @@
+---
+title: "A whirlwind tour of Quarto and the Tidyverse"
+author: "Paul M. Magwene"
+format: html
+---
+
+# Installing packaages
+
+See in class demo on the Packages install dialog.
+
+-   Install the tidyverse package
+
+# Loading packages
+
+Once a package is installed we can load it the the `library` function:
+
+```{r}
+library(tidyverse)
+```
+
+# Quarto
+
+Quarto is a tool for scientific documentation and publishing. In this class we'll be using Quarto documents as the primary method for writing, testing, and exploring R code.
+
+## In-class tour of Quarto
+
+-   Create a Quarto document
+
+-   Review Quarto interface in RStudio
+
+-   Visual vs Source editor view
+
+-   Code blocks
+
+-   Interactive notebook model vs document rendering – discuss differences and possible points of confusion about execution models
+
+    -   Take home: When testing your notebooks (e.g. homeworks!) use the `Session > Restart R and Run All Chunks` menu item to make sure your code runs without error
+
+# Data import using the readr package
+
+The `readr` package is one of the libraries included when we installed the tidyverse. The readr package provide a wide variety of functions for loading common data formats like CSV, TSV, and other delimited data types.
+
+
+
+## Load a data file using `readcsv`
+
+Download `penguins.csv`
+
+```{r}
+penguins <- read_csv("~/Bio724/penguins.csv")
+```
+
+
+# Simple data frame manipulations
+
+When the penguins data set is loaded it is treated as a "data frame", which is an R data structure that represents tabular data. The data frame is the data structure we'll be using most often in this class.
+
+Basic functions for getting a handle on what's in a data frame
+
+-   `View`
+-   `dim`
+-   `head` and `tail`
+-   `str`
+
+# Basic plots
+
+## Raw data plot and jittering
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, y = 0)) + 
+  geom_point(alpha=0.5)
+```
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, y = 0)) + 
+  geom_jitter(width=0, height=0.2, alpha=0.5) + 
+  ylim(-1, 5)
+```
+
+## Histograms
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g)) + 
+  geom_histogram()
+```
+
+## Density plots
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_density() +
+  geom_rug()
+```
+
+## Violin plots
+
+```{r}
+ggplot(penguins, aes(x = 1, y = body_mass_g)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.05, alpha=0.5)
+  
+```
+
+## Boxplots
+
+```{r}
+ggplot(penguins, aes(x = 1, y = body_mass_g)) +
+  geom_boxplot() + 
+  geom_jitter(height=0, width=0.05, alpha=0.5)
+```
+
+## Representing a categorical variable
+
+* Raw data
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, y = 0, color=species)) + 
+  geom_jitter(width=0, height=0.2, alpha=0.5) + 
+  ylim(-1, 5)
+```
+
+
+* Histogram
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, fill = species)) + 
+  geom_histogram(bins=25)
+```
+
+Note the above is a stacked histogram, not three different histograms.
+
+To represent each of the species with it's own histogram we need to specifying the position argument as below.
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, fill = species)) + 
+  geom_histogram(bins=25, position="identity", alpha=0.75)
+```
+
+
+* Density plots
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, color = species)) + 
+  geom_density()
+```
+
+* Violin plot w/raw data depicted
+
+```{r}
+ggplot(penguins, aes(x = species, y = body_mass_g, color=species)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.15, alpha=0.5)
+```
+
+
+* Boxplot w/raw data
+
+```{r}
+ggplot(penguins, aes(x = species, y = body_mass_g, color=species)) +
+  geom_boxplot(outliers = FALSE) + 
+  geom_jitter(height=0, width=0.15, alpha=0.5)
+```
+
+
+# Faceting
+
+Faceting is equivalent to generating plots of the conditional distributions of one or more categorical variable:
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, fill = species)) + 
+  geom_histogram(bins=15) + 
+  facet_wrap(~species, ncol=1)
+```
+
+
+
+# Some basic data analysis
+
+`na.rm` require here to remove missing data before calculating means and standard deviations.
+
+```{r}
+penguins |>
+  summarize(mean_bodymass = mean(body_mass_g, na.rm = TRUE), 
+            sd_bodymass = sd(body_mass_g, na.rm = TRUE))
+```
+
+
+Alternate approach is to remove observations with `NA` values
+
+```{r}
+penguins |>
+  filter(!is.na(body_mass_g)) |>  # filter out the NA values before summarize
+  summarize(mean_bodymass = mean(body_mass_g),
+            sd_bodymass = sd(body_mass_g))
+  
+```
+
+
+If we want the conditional means and standard deviations we can use `group_by` before summarize.  Note the parallel with faceting above.
+
+```{r}
+penguins |>
+  filter(!is.na(body_mass_g)) |>
+  group_by(species) |>
+  summarize(mean_bodymass = mean(body_mass_g),
+            sd_bodymass = sd(body_mass_g))
+```
+
+## ANOVA to test difference in group means
+
+```{r}
+anova_bodymass <- aov(body_mass_g ~ species, data = penguins)
+anova_bodymass
+```
+
+Generate standard ANOVA output table
+
+```{r}
+summary(anova_bodymass)
+```
+
+# Bivariate plots
+
+-   Scatter plots
+
+Plot the filtered data, using color and shape to represent both species and sex variables simultaneously.
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g, 
+                     y = flipper_length_mm, 
+                     color = species,
+                     shape = sex)) + 
+  geom_point()
+```
+
+# Basic filtering with dplyr
+
+```{r}
+penguins_filtered <-
+  filter(penguins, !is.na(sex), species != "Gentoo")
+```
+
+
+Notice the legend no longer includes NA, and we've also filtered out all the Gentoo penguins.
+
+```{r}
+ggplot(penguins_filtered, aes(x = body_mass_g, 
+                     y = flipper_length_mm, 
+                     color=species,
+                     shape=sex)) + 
+  geom_point()
+```
+
+# Faceting on multiple variables
+
+```{r}
+ggplot(penguins_filtered, aes(x = body_mass_g, 
+                     y = flipper_length_mm, 
+                     color=species,
+                     shape=sex)) + 
+  geom_point(alpha=0.5) + 
+  facet_wrap(~species) + 
+  labs(x = "Body Mass (g)", y = "Flipper length (mm)") +
+  theme_classic() +
+  theme(aspect.ratio = 1.5)
+```
+
+## 2D density plot
+
+```{r}
+ggplot(penguins_filtered, aes(x = body_mass_g, 
+                     y = flipper_length_mm, 
+                     color=species,
+                     shape=sex)) + 
+  geom_point(alpha=0.75) + 
+  geom_density2d(alpha=0.5) +
+  facet_wrap(sex~species) + 
+  labs(x = "Body Mass (g)", y = "Flipper length (mm)") +
+  theme_classic() +
+  theme(legend.position = "none",
+        aspect.ratio=1)
+```
+
+# Grouping on multiple variables to produce summaries of interest
+
+```{r}
+penguins_filtered |>
+  group_by(species, sex) |>
+  summarise(across(c(body_mass_g, flipper_length_mm), 
+                   list(mean = mean, sd = sd)))
+```
