@@ -22,7 +22,7 @@ Make sure to "Render" your document before submission to confirm that all code b
 
 When completed, title your markdown file as follows (replace `XX` with the assignment number, e.g. `01`, `02`, etc):
 
--   `netid-assignment_XX.qmd`
+-   `netid_problemset_XX.qmd`
 
 Submit both your markdown file and the generated HTML document via the Assignments submission section on Sakai.
 
