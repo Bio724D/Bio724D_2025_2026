@@ -1,0 +1,111 @@
+---
+title: "bio724_class_02"
+format: html
+---
+
+
+## Libraries
+
+```{r}
+library(tidyverse)
+```
+
+# Base R vs The Tidyverse
+
+We're emphasizing the use of the tidyverse in this class
+
+In some cases Tidyverse packages provide similar functionality to base R functions, but with slightly different names and different behaviors.
+
+We (and many others) consider the Tidyverse to be a greator boon for R and particularly those just learning to use R. Therefore, for consistency and interoperability between tidyverse packages all of our 
+
+
+e.g. `read_csv` (from readr) and `read.csv` (a base R package) both read CSVs but have different arguments and different default behaviors.  Usually, the output of these two functions will be similar but there are some gotchas lurking if you substitue one for the other.  Neither one is necessarily better than the other, but we recommend that for this class you stick to the Tidyverse functions we illustrate.  Once you get a foundation in R you're free to explore the different behaviors between different functions.
+
+
+# More on Data import
+
+## More on data import using readr
+
+When we installed the Tidyverse metapackage, among the packages included were several libraries that make data import / export easier.  The one we'll most commonly use in this class is the `readr` package.
+
+`readr` provides convenient tools for working with data in CSV (comma separated values) and TSV (tab separated values) files.
+
+```{r}
+# illustrate read_tsv
+```
+
+Look at help for read_csv / read_tsv
+
+
+* Dealing with files without header names
+* Selecting a subset of columns
+* Specifying columns types
+* Missing data 
+
+## Reading excel files with `readxl`
+
+`readxl` provides `read_excel` function
+
+Key differences:
+* sheets
+
+
+
+# Data frame manipulation using dplyr
+
+The package `dplyr` provides a "grammar of data manipulation" (note ggplot is a "grammar of graphics"; there's a trend here!)
+
+Some Basic "verbs" of dplyr (we'll see more next lecture)
+* select -- get specific columns
+* filter -- get specific rows
+* mutate -- create new columns
+* arrange -- order rows
+
+
+## select examples
+
+positive and negative selection
+
+selecting on types
+
+selecting on string matches (more on string matching in later lecture)
+
+## mutate
+
+Create a derived column
+
+rename columns
+
+
+## filter examples
+
+Filter on positive and negative matches
+
+Multiple filters are "ands"
+
+Show explict and (&) and or (|) operations
+
+is.na/!is.na for matching on missing values
+
+
+
+
+# Base R functions for column and row subset
+
+## Column indexing by vectors of strings
+
+## Row and column indexing using numerical values
+
+## Column indexing using `$` operator
+
+Note that everything up to now has returned a new data frame; `$` operator returns a vector
+
+
+
+
+
+
+
+
+
+
