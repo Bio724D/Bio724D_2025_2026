@@ -13,9 +13,14 @@ format:
 Download the following files to your `~/Bio724` directory. These are direct links to the raw files; right click and "Save Link As..." (or equivalent):
 
 * [`penguins.csv`](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/penguins.csv)
-* [`spellman-1998-expression.tsv`](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/spellman-1998-expression.tsv)
+* [`spellman-1998-expression.tsv`](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/spellman-1998-expression.tsv)[^1]
 * [`cryptococcus_tecan_run.txt`](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/cryptococcus_tecan_run.txt)
-* [`Nagalakshmi_et_al_2008_TableS2.xls`](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/Nagalakshmi_et_al_2008_TableS2.xls)
+* [`Nagalakshmi_et_al_2008_TableS2.xls`](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/Nagalakshmi_et_al_2008_TableS2.xls)[^2]
+
+[^1]: Spellman PT, Sherlock G, Zhang MQ, Iyer VR, Anders K, Eisen MB, Brown PO, Botstein D, Futcher B. Comprehensive identification of cell cycle-regulated genes of the yeast Saccharomyces cerevisiae by microarray hybridization. Mol Biol Cell. 1998 Dec;9(12):3273-97. doi: 10.1091/mbc.9.12.3273. PMID: 9843569; PMCID: PMC25624.
+
+[^2]: Nagalakshmi U, Wang Z, Waern K, Shou C, Raha D, Gerstein M, Snyder M. The transcriptional landscape of the yeast genome defined by RNA sequencing. Science. 2008 Jun 6;320(5881):1344-9. doi: 10.1126/science.1158441. Epub 2008 May 1. PMID: 18451266; PMCID: PMC2951732.
+
 
 ### Libraries
 
@@ -55,7 +60,6 @@ Look at help for `read_csv` / `read_tsv` / `read_delim`:
 You've already seen how to import a "well formed" CSV file:
 
 ```{r}
-#| output: false
 penguins <- read_csv("~/Bio724/penguins.csv")
 ```
 
@@ -64,18 +68,20 @@ penguins <- read_csv("~/Bio724/penguins.csv")
 ### Load a fairly well formed TSV file
 
 
-The next data files is a TSV file, that is "mostly" well formed:
+The next  file, `spellman-1998-expression.tsv` is a TSV file, that is "mostly" well formed:
 
 ```{r}
-spellman <- read_tsv("~/Bio724/spellman-1998-expression.tsv")
+# read spellman TSV data
 ```
 
 
 #### Loading only a subset of columns
 
+You can read only a subset of columns using the `col_select` argument to the `read_` functions:
+
 ```{r}
-spellman_subset <- read_tsv("~/Bio724/spellman-1998-expression.tsv",
-                     col_select = 1:6)  # load first 6 columns
+# read first six columns of data file
+
 ```
 
 
@@ -90,10 +96,10 @@ ASCII and unicode encoded files are the most common file types you're likely to 
 tecan <- read_tsv("~/Bio724/cryptococcus_tecan_run.txt")
 ```
 
-
+We can use the `locale` argument to `read_tsv` to specify the encoding (assuming we know what it is):
 
 ```{r}
-# fix the error by specifying the correct encoding
+# fix the error by specifying the correct encoding using the local argument
 # also tell read_tsv there are no col_names
 
 tecan <- read_tsv("~/Bio724/cryptococcus_tecan_run.txt",
@@ -108,7 +114,7 @@ There are still some problems with our data file (see the warning above). If we 
 problems(tecan)
 ```
 
-If you go back and look at the raw data file, you'll see that the last two line of the file have some accessory information about the instrument run. These are not properly formatted data rows. We'll see how to deal with these issues below.
+If you go back and look at the raw data file, you'll see that the last two lines of the file have some accessory information about the instrument run. These are not properly formatted data rows. We'll see how to deal with these issues below.
 
 
 ## Reading excel files with `readxl`
@@ -123,28 +129,27 @@ Key arguments for `read_excel`:
 
 #### Example
 
-Download supplementary Table S2 from Nagalakshmi et al. 2008 [^1] from [this link]() to `~/Bio724`. This file illustrates both complications highlighted above.
+The file `Nagalakshmi_et_al_2008_TableS2.xls` illustrates both common Excel complications highlighted above.
 
-[^1]: Nagalakshmi U, Wang Z, Waern K, Shou C, Raha D, Gerstein M, Snyder M. The transcriptional landscape of the yeast genome defined by RNA sequencing. Science. 2008 Jun 6;320(5881):1344-9. doi: 10.1126/science.1158441. Epub 2008 May 1. PMID: 18451266; PMCID: PMC2951732.
 
 
 ```{r}
 # use read_excel to extract the low expression table 
 # from Nagalakshmi Supp Table 2
-
 library(readxl)
 
-low <- read_excel("~/Bio724/Nagalakshmi_et_al_2008_TableS2.xls",
-                  sheet = "Low",
-                  range = "A5:G235")
 ```
 
 
 ## renaming columns after import
 
 
+The `rename` function provides a convenient syntax for renaming columns.
+
+Rename the first column of the Spellman data frame to "ID":
+
 ```{r}
-spellman <- rename(spellman, ID = ...1)
+# rename spellman first column to "ID"
 ```
 
 
@@ -167,72 +172,44 @@ Some Basic "verbs" of dplyr (we'll see more next lecture):
 ### positive and negative selection
 
 ```{r}
-spellman |>
-  select(ID, starts_with("alpha"))
+# get only species and "bill" columns from penguin data 
 ```
 ```{r}
-spellman |>
-  select(ID, !starts_with("alpha"))
+# get everything except "bill" columns from penguins
 ```
 
 
 ### selecting on types
 
+The `where` helper function in conjunction with `select` can be use to form predicate statements:
+
 ```{r}
-
-spellman |>
-  select(ID, where(is.numeric))
-
+# get numeric columns from penguin data
 ```
 
 
 ### selecting on string matches 
 
+The `matches` function can be used to match column names by string matching:
+
 ```{r}
-
-clb_cln <-
-  spellman |>
-  select(ID, matches("cln3|clb2"))
-
-clb_cln
+# get all the "length" columns from penguins
 ```
 
 
-
-More on string matching in later lecture.
-
-
-### selecting using predicate functions
-
-```{r}
-
-all.na <- function(x) {
-  all(is.na(x))
-}
-
-
-spellman |>
-  select(ID, where(all.na))
-```
+We'll cover more details about string matching and searching in a later lecture.
 
 
 
 
 ## `mutate`
 
-Create a derived column:
+`mutate` can be used to create derived or new columns:
 
 ```{r}
-new_penguins <-
-  penguins |>
-  mutate(body_mass_kg = body_mass_g/1000) |>
-  select(species, island, starts_with("body_mass"))
+# create a derived column, body_mass_kg, in penguins
 
-new_penguins
 ```
-
-
-
 
 
 
@@ -243,23 +220,15 @@ new_penguins
 ### Filter on positive and negative matches
 
 ```{r}
-only_gentoo <-
-  penguins |>
-  filter(species == "Gentoo")
+# get only the rows representing Gentoo penguins
 
-unique(only_gentoo$species)
 ```
 
 
 ```{r}
-no_gentoo <-
-  penguins |>
-  filter(species != "Gentoo") 
+# exclude the rows that are Gentoo penguins
 
-unique(no_gentoo$species)
 ```
-
-
 
 
 
@@ -267,14 +236,14 @@ unique(no_gentoo$species)
 
 
 ```{r}
-big_gentoo <-
-  penguins |>
-  filter(species == "Gentoo", body_mass_g > 4500)
+# get the Gentoo penguins bigger than 4.5 kg
 ```
 
 
 ```{r}
-# will return an empty table because multiple clauses are treated as and
+#| output: false
+# This will return an empty table because multiple arguments to filter 
+# are treated as AND; in this data, no penguin is both a "Gentoo" and an "Adelie" penguin
 penguins |>
   filter(species == "Gentoo", species == "Adelie" )
 
@@ -283,15 +252,13 @@ penguins |>
 ### More complex filters using and (&), or (|), and %in% 
 
 ```{r}
-penguins |>
-  filter(species == "Gentoo" | species == "Adelie" ) # | is "OR" operator
+# get both Gentoo and Adelie penguins using the OR operator
 ```
 
 ### %in% allows you to filter  on sets
 
 ```{r}
-penguins |>
-  filter(species %in% c("Gentoo","Adelie"))
+# Get Gentoo and Adelie penguins using the %in% operator
 ```
 
 
@@ -299,32 +266,25 @@ penguins |>
 ### Filtering on missing data and complete cases
 
 ```{r}
-penguins |>
-  filter(is.na(body_mass_g))
+# find rows where body_mass_g has NA values
 ```
 
 
 ```{r}
-penguins |>
-  filter(!is.na(body_mass_g)) |>
-  dim()
+# get all rows where body_mass data is NOT missing
 ```
 
 
 Dropping missing values is so common that there is a specific function for this in the Tidyverse package `tidyr`, called `drop_na`:
 
 ```{r}
-penguins |>
-  drop_na(body_mass_g) |>
-  dim()
+# drop any rows where body_mass_g is missing using drop_na
 ```
 
 When you don't pass one or more column names to `drop_na` it only returns rows where there are no missing values anywhere:
 
 ```{r}
-penguins |>
-  drop_na() |>
-  dim()
+# drop rows where any variable has an NA value
 ```
 
 
@@ -351,6 +311,7 @@ penguins[1:4]
 ```
 
 We can index columns using vector of strings like so:
+
 ```{r}
 penguins[c("species", "island", "body_mass_g", "sex")]
 ```
@@ -363,13 +324,15 @@ Note that everything up to now has returned a new data frame; the `$` operator r
 
 
 ```{r}
-penguins$body_mass_g
+penguins$body_mass_g |>
+  head(50)
 ```
 
 Compare the above to:
 
 ```{r}
-penguins[c("body_mass_g")]
+penguins[c("body_mass_g")] |>
+  head(50)
 ```
 
 

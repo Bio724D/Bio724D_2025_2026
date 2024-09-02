@@ -3108,9 +3108,9 @@ vertical-align: -.125em;
 <p>Download the following files to your <code>~/Bio724</code> directory. These are direct links to the raw files; right click and “Save Link As…” (or equivalent):</p>
 <ul>
 <li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/penguins.csv"><code>penguins.csv</code></a></li>
-<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/spellman-1998-expression.tsv"><code>spellman-1998-expression.tsv</code></a></li>
+<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/spellman-1998-expression.tsv"><code>spellman-1998-expression.tsv</code></a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 <li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/cryptococcus_tecan_run.txt"><code>cryptococcus_tecan_run.txt</code></a></li>
-<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/Nagalakshmi_et_al_2008_TableS2.xls"><code>Nagalakshmi_et_al_2008_TableS2.xls</code></a></li>
+<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/Nagalakshmi_et_al_2008_TableS2.xls"><code>Nagalakshmi_et_al_2008_TableS2.xls</code></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 </ul>
 </section>
 <section id="libraries" class="level3">
@@ -3149,40 +3149,29 @@ vertical-align: -.125em;
 <p>You’ve already seen how to import a “well formed” CSV file:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;~/Bio724/penguins.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 344 Columns: 8
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (3): species, island, sex
+dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
 </div>
 </section>
 <section id="load-a-fairly-well-formed-tsv-file" class="level3">
 <h3 class="anchored" data-anchor-id="load-a-fairly-well-formed-tsv-file">Load a fairly well formed TSV file</h3>
-<p>The next data files is a TSV file, that is “mostly” well formed:</p>
+<p>The next file, <code>spellman-1998-expression.tsv</code> is a TSV file, that is “mostly” well formed:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>spellman <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;~/Bio724/spellman-1998-expression.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>New names:
-Rows: 6178 Columns: 83
-── Column specification
-──────────────────────────────────────────────────────── Delimiter: &quot;\t&quot; chr
-(1): ...1 dbl (77): cln3-1, cln3-2, clb2-2, clb2-1, alpha0, alpha7, alpha14,
-alpha21, ... lgl (5): clb, alpha, cdc15, cdc28, elu
-ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-Specify the column types or set `show_col_types = FALSE` to quiet this message.
-• `` -&gt; `...1`</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read spellman TSV data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="loading-only-a-subset-of-columns" class="level4">
 <h4 class="anchored" data-anchor-id="loading-only-a-subset-of-columns">Loading only a subset of columns</h4>
+<p>You can read only a subset of columns using the <code>col_select</code> argument to the <code>read_</code> functions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>spellman_subset <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;~/Bio724/spellman-1998-expression.tsv&quot;</span>,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">col_select =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)  <span class="co"># load first 6 columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>New names:
-Rows: 6178 Columns: 6
-── Column specification
-──────────────────────────────────────────────────────── Delimiter: &quot;\t&quot; chr
-(1): ...1 dbl (4): cln3-1, cln3-2, clb2-2, clb2-1 lgl (1): clb
-ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-Specify the column types or set `show_col_types = FALSE` to quiet this message.
-• `` -&gt; `...1`</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read first six columns of data file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -3190,19 +3179,20 @@ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 <h3 class="anchored" data-anchor-id="loading-a-file-with-a-non-standard-encoding">Loading a file with a non-standard encoding</h3>
 <p>ASCII and unicode encoded files are the most common file types you’re likely to work with, but you may encounter files with unusual encodings. For example the file <a href><code>cryptococcus_tecan_run.txt</code></a> is a TSV file produced by an instrument in my lab. One of the data columns includes a degree Celsius symbol, and the file is encoded in a legacy format called <a href="https://en.wikipedia.org/wiki/Windows-1252">“windows-1252” encoding</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will generate an error</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tecan <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;~/Bio724/cryptococcus_tecan_run.txt&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will generate an error</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tecan <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;~/Bio724/cryptococcus_tecan_run.txt&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in nchar(x, &quot;width&quot;): invalid multibyte string, element 1</code></pre>
 </div>
 </div>
+<p>We can use the <code>locale</code> argument to <code>read_tsv</code> to specify the encoding (assuming we know what it is):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the error by specifying the correct encoding</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># also tell read_tsv there are no col_names</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>tecan <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;~/Bio724/cryptococcus_tecan_run.txt&quot;</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;windows-1252&quot;</span>),</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the error by specifying the correct encoding using the local argument</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># also tell read_tsv there are no col_names</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>tecan <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;~/Bio724/cryptococcus_tecan_run.txt&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;windows-1252&quot;</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
 e.g.:
@@ -3223,7 +3213,7 @@ lgl  (1): X99
 </div>
 <p>There are still some problems with our data file (see the warning above). If we follow the instructions to use the <code>problems</code> function on our data frame, we’ll get some additional info about what R sees as wrong with our data import:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">problems</span>(tecan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">problems</span>(tecan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
     row   col expected   actual    file                                         
@@ -3232,7 +3222,7 @@ lgl  (1): X99
 2   291     1 99 columns 1 columns /Users/pmagwene/Bio724/cryptococcus_tecan_ru…</code></pre>
 </div>
 </div>
-<p>If you go back and look at the raw data file, you’ll see that the last two line of the file have some accessory information about the instrument run. These are not properly formatted data rows. We’ll see how to deal with these issues below.</p>
+<p>If you go back and look at the raw data file, you’ll see that the last two lines of the file have some accessory information about the instrument run. These are not properly formatted data rows. We’ll see how to deal with these issues below.</p>
 </section>
 </section>
 <section id="reading-excel-files-with-readxl" class="level2">
@@ -3242,23 +3232,20 @@ lgl  (1): X99
 <p>Key arguments for <code>read_excel</code>: * sheet * range</p>
 <section id="example" class="level4">
 <h4 class="anchored" data-anchor-id="example">Example</h4>
-<p>Download supplementary Table S2 from Nagalakshmi et al. 2008 <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> from <a href>this link</a> to <code>~/Bio724</code>. This file illustrates both complications highlighted above.</p>
+<p>The file <code>Nagalakshmi_et_al_2008_TableS2.xls</code> illustrates both common Excel complications highlighted above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use read_excel to extract the low expression table </span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from Nagalakshmi Supp Table 2</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>low <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;~/Bio724/Nagalakshmi_et_al_2008_TableS2.xls&quot;</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">&quot;Low&quot;</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">range =</span> <span class="st">&quot;A5:G235&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use read_excel to extract the low expression table </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from Nagalakshmi Supp Table 2</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="renaming-columns-after-import" class="level2">
 <h2 class="anchored" data-anchor-id="renaming-columns-after-import">renaming columns after import</h2>
+<p>The <code>rename</code> function provides a convenient syntax for renaming columns.</p>
+<p>Rename the first column of the Spellman data frame to “ID”:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>spellman <span class="ot">&lt;-</span> <span class="fu">rename</span>(spellman, <span class="at">ID =</span> ...<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rename spellman first column to &quot;ID&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -3278,166 +3265,33 @@ lgl  (1): X99
 <section id="positive-and-negative-selection" class="level3">
 <h3 class="anchored" data-anchor-id="positive-and-negative-selection">positive and negative selection</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>spellman <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ID, <span class="fu">starts_with</span>(<span class="st">&quot;alpha&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6,178 × 20
-   ID      alpha alpha0 alpha7 alpha14 alpha21 alpha28 alpha35 alpha42 alpha49
-   &lt;chr&gt;   &lt;lgl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 YAL001C NA     -0.15  -0.15   -0.21    0.17   -0.42   -0.44   -0.15    0.24
- 2 YAL002W NA     -0.11   0.1     0.01    0.06    0.04   -0.26    0.04    0.19
- 3 YAL003W NA     -0.14  -0.71    0.1    -0.32   -0.4    -0.58    0.11    0.21
- 4 YAL004W NA     -0.02  -0.48   -0.11    0.12   -0.03    0.19    0.13    0.76
- 5 YAL005C NA     -0.05  -0.53   -0.47   -0.06    0.11   -0.07    0.25    0.46
- 6 YAL007C NA     -0.6   -0.45   -0.13    0.35   -0.01    0.49    0.18    0.43
- 7 YAL008W NA     -0.28  -0.22   -0.06    0.22    0.25    0.13    0.34    0.44
- 8 YAL009W NA     -0.03  -0.27    0.17   -0.12   -0.27    0.06    0.23    0.11
- 9 YAL010C NA     -0.05   0.13    0.13   -0.21   -0.45   -0.21    0.06    0.32
-10 YAL011W NA     -0.31  -0.43   -0.3    -0.23   -0.13   -0.07    0.08    0.12
-# ℹ 6,168 more rows
-# ℹ 10 more variables: alpha56 &lt;dbl&gt;, alpha63 &lt;dbl&gt;, alpha70 &lt;dbl&gt;,
-#   alpha77 &lt;dbl&gt;, alpha84 &lt;dbl&gt;, alpha91 &lt;dbl&gt;, alpha98 &lt;dbl&gt;, alpha105 &lt;dbl&gt;,
-#   alpha112 &lt;dbl&gt;, alpha119 &lt;dbl&gt;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get only species and &quot;bill&quot; columns from penguin data </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>spellman <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ID, <span class="sc">!</span><span class="fu">starts_with</span>(<span class="st">&quot;alpha&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6,178 × 64
-   ID      `cln3-1` `cln3-2` clb   `clb2-2` `clb2-1` cdc15 cdc15_10 cdc15_30
-   &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
- 1 YAL001C     0.15    NA    NA       -0.22     0.07 NA       -0.16     0.09
- 2 YAL002W    -0.07    -0.76 NA       -0.12    -0.25 NA       NA       NA   
- 3 YAL003W    -1.22    -0.27 NA       -0.1      0.23 NA       -0.37    -0.22
- 4 YAL004W    -0.09     1.2  NA        0.16    -0.14 NA       NA       NA   
- 5 YAL005C    -0.6      1.01 NA        0.24     0.65 NA       -0.43    -1.33
- 6 YAL007C     0.65     1.39 NA       -0.29    -0.54 NA       NA       NA   
- 7 YAL008W    -0.36    -0.22 NA       -0.2      0.1  NA       -0.2      0.04
- 8 YAL009W     0.25    -0.79 NA       -0.22    -0.54 NA       NA       -0.02
- 9 YAL010C    -0.3     -0.6  NA       -0.18     0.01 NA       -0.24    -0.06
-10 YAL011W    -0.15    -0.71 NA       -0.15    -0.25 NA       NA       NA   
-# ℹ 6,168 more rows
-# ℹ 55 more variables: cdc15_50 &lt;dbl&gt;, cdc15_70 &lt;dbl&gt;, cdc15_80 &lt;dbl&gt;,
-#   cdc15_90 &lt;dbl&gt;, cdc15_100 &lt;dbl&gt;, cdc15_110 &lt;dbl&gt;, cdc15_120 &lt;dbl&gt;,
-#   cdc15_130 &lt;dbl&gt;, cdc15_140 &lt;dbl&gt;, cdc15_150 &lt;dbl&gt;, cdc15_160 &lt;dbl&gt;,
-#   cdc15_170 &lt;dbl&gt;, cdc15_180 &lt;dbl&gt;, cdc15_190 &lt;dbl&gt;, cdc15_200 &lt;dbl&gt;,
-#   cdc15_210 &lt;dbl&gt;, cdc15_220 &lt;dbl&gt;, cdc15_230 &lt;dbl&gt;, cdc15_240 &lt;dbl&gt;,
-#   cdc15_250 &lt;dbl&gt;, cdc15_270 &lt;dbl&gt;, cdc15_290 &lt;dbl&gt;, cdc28 &lt;lgl&gt;, …</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get everything except &quot;bill&quot; columns from penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="selecting-on-types" class="level3">
 <h3 class="anchored" data-anchor-id="selecting-on-types">selecting on types</h3>
+<p>The <code>where</code> helper function in conjunction with <code>select</code> can be use to form predicate statements:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>spellman <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ID, <span class="fu">where</span>(is.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6,178 × 78
-   ID      `cln3-1` `cln3-2` `clb2-2` `clb2-1` alpha0 alpha7 alpha14 alpha21
-   &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 YAL001C     0.15    NA       -0.22     0.07  -0.15  -0.15   -0.21    0.17
- 2 YAL002W    -0.07    -0.76    -0.12    -0.25  -0.11   0.1     0.01    0.06
- 3 YAL003W    -1.22    -0.27    -0.1      0.23  -0.14  -0.71    0.1    -0.32
- 4 YAL004W    -0.09     1.2      0.16    -0.14  -0.02  -0.48   -0.11    0.12
- 5 YAL005C    -0.6      1.01     0.24     0.65  -0.05  -0.53   -0.47   -0.06
- 6 YAL007C     0.65     1.39    -0.29    -0.54  -0.6   -0.45   -0.13    0.35
- 7 YAL008W    -0.36    -0.22    -0.2      0.1   -0.28  -0.22   -0.06    0.22
- 8 YAL009W     0.25    -0.79    -0.22    -0.54  -0.03  -0.27    0.17   -0.12
- 9 YAL010C    -0.3     -0.6     -0.18     0.01  -0.05   0.13    0.13   -0.21
-10 YAL011W    -0.15    -0.71    -0.15    -0.25  -0.31  -0.43   -0.3    -0.23
-# ℹ 6,168 more rows
-# ℹ 69 more variables: alpha28 &lt;dbl&gt;, alpha35 &lt;dbl&gt;, alpha42 &lt;dbl&gt;,
-#   alpha49 &lt;dbl&gt;, alpha56 &lt;dbl&gt;, alpha63 &lt;dbl&gt;, alpha70 &lt;dbl&gt;, alpha77 &lt;dbl&gt;,
-#   alpha84 &lt;dbl&gt;, alpha91 &lt;dbl&gt;, alpha98 &lt;dbl&gt;, alpha105 &lt;dbl&gt;,
-#   alpha112 &lt;dbl&gt;, alpha119 &lt;dbl&gt;, cdc15_10 &lt;dbl&gt;, cdc15_30 &lt;dbl&gt;,
-#   cdc15_50 &lt;dbl&gt;, cdc15_70 &lt;dbl&gt;, cdc15_80 &lt;dbl&gt;, cdc15_90 &lt;dbl&gt;,
-#   cdc15_100 &lt;dbl&gt;, cdc15_110 &lt;dbl&gt;, cdc15_120 &lt;dbl&gt;, cdc15_130 &lt;dbl&gt;, …</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get numeric columns from penguin data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="selecting-on-string-matches" class="level3">
 <h3 class="anchored" data-anchor-id="selecting-on-string-matches">selecting on string matches</h3>
+<p>The <code>matches</code> function can be used to match column names by string matching:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>clb_cln <span class="ot">&lt;-</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  spellman <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ID, <span class="fu">matches</span>(<span class="st">&quot;cln3|clb2&quot;</span>))</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>clb_cln</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6,178 × 5
-   ID      `cln3-1` `cln3-2` `clb2-2` `clb2-1`
-   &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
- 1 YAL001C     0.15    NA       -0.22     0.07
- 2 YAL002W    -0.07    -0.76    -0.12    -0.25
- 3 YAL003W    -1.22    -0.27    -0.1      0.23
- 4 YAL004W    -0.09     1.2      0.16    -0.14
- 5 YAL005C    -0.6      1.01     0.24     0.65
- 6 YAL007C     0.65     1.39    -0.29    -0.54
- 7 YAL008W    -0.36    -0.22    -0.2      0.1 
- 8 YAL009W     0.25    -0.79    -0.22    -0.54
- 9 YAL010C    -0.3     -0.6     -0.18     0.01
-10 YAL011W    -0.15    -0.71    -0.15    -0.25
-# ℹ 6,168 more rows</code></pre>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get all the &quot;length&quot; columns from penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>More on string matching in later lecture.</p>
-</section>
-<section id="selecting-using-predicate-functions" class="level3">
-<h3 class="anchored" data-anchor-id="selecting-using-predicate-functions">selecting using predicate functions</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>all.na <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">all</span>(<span class="fu">is.na</span>(x))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>spellman <span class="sc">|&gt;</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ID, <span class="fu">where</span>(all.na))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6,178 × 6
-   ID      clb   alpha cdc15 cdc28 elu  
-   &lt;chr&gt;   &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;
- 1 YAL001C NA    NA    NA    NA    NA   
- 2 YAL002W NA    NA    NA    NA    NA   
- 3 YAL003W NA    NA    NA    NA    NA   
- 4 YAL004W NA    NA    NA    NA    NA   
- 5 YAL005C NA    NA    NA    NA    NA   
- 6 YAL007C NA    NA    NA    NA    NA   
- 7 YAL008W NA    NA    NA    NA    NA   
- 8 YAL009W NA    NA    NA    NA    NA   
- 9 YAL010C NA    NA    NA    NA    NA   
-10 YAL011W NA    NA    NA    NA    NA   
-# ℹ 6,168 more rows</code></pre>
-</div>
-</div>
+<p>We’ll cover more details about string matching and searching in a later lecture.</p>
 </section>
 </section>
 <section id="mutate" class="level2">
 <h2 class="anchored" data-anchor-id="mutate"><code>mutate</code></h2>
-<p>Create a derived column:</p>
+<p><code>mutate</code> can be used to create derived or new columns:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>new_penguins <span class="ot">&lt;-</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  penguins <span class="sc">|&gt;</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">body_mass_kg =</span> body_mass_g<span class="sc">/</span><span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, island, <span class="fu">starts_with</span>(<span class="st">&quot;body_mass&quot;</span>))</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>new_penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 344 × 4
-   species island    body_mass_g body_mass_kg
-   &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;
- 1 Adelie  Torgersen        3750         3.75
- 2 Adelie  Torgersen        3800         3.8 
- 3 Adelie  Torgersen        3250         3.25
- 4 Adelie  Torgersen          NA        NA   
- 5 Adelie  Torgersen        3450         3.45
- 6 Adelie  Torgersen        3650         3.65
- 7 Adelie  Torgersen        3625         3.62
- 8 Adelie  Torgersen        4675         4.68
- 9 Adelie  Torgersen        3475         3.48
-10 Adelie  Torgersen        4250         4.25
-# ℹ 334 more rows</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a derived column, body_mass_kg, in penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="filter-examples" class="level2">
@@ -3446,132 +3300,51 @@ lgl  (1): X99
 <section id="filter-on-positive-and-negative-matches" class="level3">
 <h3 class="anchored" data-anchor-id="filter-on-positive-and-negative-matches">Filter on positive and negative matches</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>only_gentoo <span class="ot">&lt;-</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  penguins <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Gentoo&quot;</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(only_gentoo<span class="sc">$</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;Gentoo&quot;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get only the rows representing Gentoo penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>no_gentoo <span class="ot">&lt;-</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  penguins <span class="sc">|&gt;</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">&quot;Gentoo&quot;</span>) </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(no_gentoo<span class="sc">$</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;Adelie&quot;    &quot;Chinstrap&quot;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># exclude the rows that are Gentoo penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="multiple-filters-are-ands" class="level3">
 <h3 class="anchored" data-anchor-id="multiple-filters-are-ands">Multiple filters are “ands”</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>big_gentoo <span class="ot">&lt;-</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  penguins <span class="sc">|&gt;</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Gentoo&quot;</span>, body_mass_g <span class="sc">&gt;</span> <span class="dv">4500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the Gentoo penguins bigger than 4.5 kg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># will return an empty table because multiple clauses are treated as and</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Gentoo&quot;</span>, species <span class="sc">==</span> <span class="st">&quot;Adelie&quot;</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 0 × 8
-# ℹ 8 variables: species &lt;chr&gt;, island &lt;chr&gt;, bill_length_mm &lt;dbl&gt;,
-#   bill_depth_mm &lt;dbl&gt;, flipper_length_mm &lt;dbl&gt;, body_mass_g &lt;dbl&gt;, sex &lt;chr&gt;,
-#   year &lt;dbl&gt;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will return an empty table because multiple arguments to filter </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># are treated as AND; in this data, no penguin is both a &quot;Gentoo&quot; and an &quot;Adelie&quot; penguin</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Gentoo&quot;</span>, species <span class="sc">==</span> <span class="st">&quot;Adelie&quot;</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="more-complex-filters-using-and-or-and-in" class="level3">
 <h3 class="anchored" data-anchor-id="more-complex-filters-using-and-or-and-in">More complex filters using and (&amp;), or (|), and %in%</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Gentoo&quot;</span> <span class="sc">|</span> species <span class="sc">==</span> <span class="st">&quot;Adelie&quot;</span> ) <span class="co"># | is &quot;OR&quot; operator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 276 × 8
-   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-   &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
- 1 Adelie  Torgersen           39.1          18.7               181        3750
- 2 Adelie  Torgersen           39.5          17.4               186        3800
- 3 Adelie  Torgersen           40.3          18                 195        3250
- 4 Adelie  Torgersen           NA            NA                  NA          NA
- 5 Adelie  Torgersen           36.7          19.3               193        3450
- 6 Adelie  Torgersen           39.3          20.6               190        3650
- 7 Adelie  Torgersen           38.9          17.8               181        3625
- 8 Adelie  Torgersen           39.2          19.6               195        4675
- 9 Adelie  Torgersen           34.1          18.1               193        3475
-10 Adelie  Torgersen           42            20.2               190        4250
-# ℹ 266 more rows
-# ℹ 2 more variables: sex &lt;chr&gt;, year &lt;dbl&gt;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get both Gentoo and Adelie penguins using the OR operator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="in-allows-you-to-filter-on-sets" class="level3">
 <h3 class="anchored" data-anchor-id="in-allows-you-to-filter-on-sets">%in% allows you to filter on sets</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Gentoo&quot;</span>,<span class="st">&quot;Adelie&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 276 × 8
-   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-   &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
- 1 Adelie  Torgersen           39.1          18.7               181        3750
- 2 Adelie  Torgersen           39.5          17.4               186        3800
- 3 Adelie  Torgersen           40.3          18                 195        3250
- 4 Adelie  Torgersen           NA            NA                  NA          NA
- 5 Adelie  Torgersen           36.7          19.3               193        3450
- 6 Adelie  Torgersen           39.3          20.6               190        3650
- 7 Adelie  Torgersen           38.9          17.8               181        3625
- 8 Adelie  Torgersen           39.2          19.6               195        4675
- 9 Adelie  Torgersen           34.1          18.1               193        3475
-10 Adelie  Torgersen           42            20.2               190        4250
-# ℹ 266 more rows
-# ℹ 2 more variables: sex &lt;chr&gt;, year &lt;dbl&gt;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get Gentoo and Adelie penguins using the %in% operator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="filtering-on-missing-data-and-complete-cases" class="level3">
 <h3 class="anchored" data-anchor-id="filtering-on-missing-data-and-complete-cases">Filtering on missing data and complete cases</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(body_mass_g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 8
-  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-  &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt;
-1 Adelie  Torgersen             NA            NA                NA          NA
-2 Gentoo  Biscoe                NA            NA                NA          NA
-# ℹ 2 more variables: sex &lt;chr&gt;, year &lt;dbl&gt;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find rows where body_mass_g has NA values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(body_mass_g)) <span class="sc">|&gt;</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 342   8</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get all rows where body_mass data is NOT missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dropping missing values is so common that there is a specific function for this in the Tidyverse package <code>tidyr</code>, called <code>drop_na</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(body_mass_g) <span class="sc">|&gt;</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 342   8</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop any rows where body_mass_g is missing using drop_na</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When you don’t pass one or more column names to <code>drop_na</code> it only returns rows where there are no missing values anywhere:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 333   8</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows where any variable has an NA value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -3581,7 +3354,7 @@ lgl  (1): X99
 <p>So far we’ve been looking at subsetting rows and columns using dplyr functions.</p>
 <p>It’s good to know some of the base R syntax for working with columns and rows. The act of specifying particular regions of a data structure is called “indexing”. When dealing with a tabular data structure, we need to index both rows and columns.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span>, <span class="dv">1</span>]  <span class="co"># row 1, col 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span>, <span class="dv">1</span>]  <span class="co"># row 1, col 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   species
@@ -3590,7 +3363,7 @@ lgl  (1): X99
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]  <span class="co"># rows 1 to 5, columns 1 to 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]  <span class="co"># rows 1 to 5, columns 1 to 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   species island    bill_length_mm
@@ -3604,7 +3377,7 @@ lgl  (1): X99
 </div>
 <p>Columns are taken to represent variables in R data frames. If we don’t specify rows, R assumes we’re working with columns:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 344 × 4
    species island    bill_length_mm bill_depth_mm
@@ -3624,7 +3397,7 @@ lgl  (1): X99
 </div>
 <p>We can index columns using vector of strings like so:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;island&quot;</span>, <span class="st">&quot;body_mass_g&quot;</span>, <span class="st">&quot;sex&quot;</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;island&quot;</span>, <span class="st">&quot;body_mass_g&quot;</span>, <span class="st">&quot;sex&quot;</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 344 × 4
    species island    body_mass_g sex   
@@ -3646,38 +3419,21 @@ lgl  (1): X99
 <h2 class="anchored" data-anchor-id="column-indexing-using-operator">Column indexing using <code>$</code> operator</h2>
 <p>Note that everything up to now has returned a new data frame; the <code>$</code> operator returns a vector instead of a data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">$</span>body_mass_g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">$</span>body_mass_g <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] 3750 3800 3250   NA 3450 3650 3625 4675 3475 4250 3300 3700 3200 3800 4400
- [16] 3700 3450 4500 3325 4200 3400 3600 3800 3950 3800 3800 3550 3200 3150 3950
- [31] 3250 3900 3300 3900 3325 4150 3950 3550 3300 4650 3150 3900 3100 4400 3000
- [46] 4600 3425 2975 3450 4150 3500 4300 3450 4050 2900 3700 3550 3800 2850 3750
- [61] 3150 4400 3600 4050 2850 3950 3350 4100 3050 4450 3600 3900 3550 4150 3700
- [76] 4250 3700 3900 3550 4000 3200 4700 3800 4200 3350 3550 3800 3500 3950 3600
- [91] 3550 4300 3400 4450 3300 4300 3700 4350 2900 4100 3725 4725 3075 4250 2925
-[106] 3550 3750 3900 3175 4775 3825 4600 3200 4275 3900 4075 2900 3775 3350 3325
-[121] 3150 3500 3450 3875 3050 4000 3275 4300 3050 4000 3325 3500 3500 4475 3425
-[136] 3900 3175 3975 3400 4250 3400 3475 3050 3725 3000 3650 4250 3475 3450 3750
-[151] 3700 4000 4500 5700 4450 5700 5400 4550 4800 5200 4400 5150 4650 5550 4650
-[166] 5850 4200 5850 4150 6300 4800 5350 5700 5000 4400 5050 5000 5100 4100 5650
-[181] 4600 5550 5250 4700 5050 6050 5150 5400 4950 5250 4350 5350 3950 5700 4300
-[196] 4750 5550 4900 4200 5400 5100 5300 4850 5300 4400 5000 4900 5050 4300 5000
-[211] 4450 5550 4200 5300 4400 5650 4700 5700 4650 5800 4700 5550 4750 5000 5100
-[226] 5200 4700 5800 4600 6000 4750 5950 4625 5450 4725 5350 4750 5600 4600 5300
-[241] 4875 5550 4950 5400 4750 5650 4850 5200 4925 4875 4625 5250 4850 5600 4975
-[256] 5500 4725 5500 4700 5500 4575 5500 5000 5950 4650 5500 4375 5850 4875 6000
-[271] 4925   NA 4850 5750 5200 5400 3500 3900 3650 3525 3725 3950 3250 3750 4150
-[286] 3700 3800 3775 3700 4050 3575 4050 3300 3700 3450 4400 3600 3400 2900 3800
-[301] 3300 4150 3400 3800 3700 4550 3200 4300 3350 4100 3600 3900 3850 4800 2700
-[316] 4500 3950 3650 3550 3500 3675 4450 3400 4300 3250 3675 3325 3950 3600 4050
-[331] 3350 3450 3250 4050 3800 3525 3950 3650 3650 4000 3400 3775 4100 3775</code></pre>
+<pre><code> [1] 3750 3800 3250   NA 3450 3650 3625 4675 3475 4250 3300 3700 3200 3800 4400
+[16] 3700 3450 4500 3325 4200 3400 3600 3800 3950 3800 3800 3550 3200 3150 3950
+[31] 3250 3900 3300 3900 3325 4150 3950 3550 3300 4650 3150 3900 3100 4400 3000
+[46] 4600 3425 2975 3450 4150</code></pre>
 </div>
 </div>
 <p>Compare the above to:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="fu">c</span>(<span class="st">&quot;body_mass_g&quot;</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="fu">c</span>(<span class="st">&quot;body_mass_g&quot;</span>)] <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 344 × 1
+<pre><code># A tibble: 50 × 1
    body_mass_g
          &lt;dbl&gt;
  1        3750
@@ -3690,7 +3446,7 @@ lgl  (1): X99
  8        4675
  9        3475
 10        4250
-# ℹ 334 more rows</code></pre>
+# ℹ 40 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -3700,7 +3456,8 @@ lgl  (1): X99
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Nagalakshmi U, Wang Z, Waern K, Shou C, Raha D, Gerstein M, Snyder M. The transcriptional landscape of the yeast genome defined by RNA sequencing. Science. 2008 Jun 6;320(5881):1344-9. doi: 10.1126/science.1158441. Epub 2008 May 1. PMID: 18451266; PMCID: PMC2951732.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Spellman PT, Sherlock G, Zhang MQ, Iyer VR, Anders K, Eisen MB, Brown PO, Botstein D, Futcher B. Comprehensive identification of cell cycle-regulated genes of the yeast Saccharomyces cerevisiae by microarray hybridization. Mol Biol Cell. 1998 Dec;9(12):3273-97. doi: 10.1091/mbc.9.12.3273. PMID: 9843569; PMCID: PMC25624.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Nagalakshmi U, Wang Z, Waern K, Shou C, Raha D, Gerstein M, Snyder M. The transcriptional landscape of the yeast genome defined by RNA sequencing. Science. 2008 Jun 6;320(5881):1344-9. doi: 10.1126/science.1158441. Epub 2008 May 1. PMID: 18451266; PMCID: PMC2951732.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main>
 <!-- /main column -->
