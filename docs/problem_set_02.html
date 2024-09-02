@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data import and simple data frame manipulation</title>
+<title>Assignment 02: dplyr basics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,40 +18,6 @@ ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
-}
-
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-{ counter-reset: source-line 0; }
-pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-}
-pre.numberSource { margin-left: 3em; padding-left: 4px; }
-div.sourceCode
-{ }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -3084,7 +3050,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data import and simple data frame manipulation</h1>
+<h1 class="title">Assignment 02: dplyr basics</h1>
 </div>
 
 
@@ -3101,369 +3067,53 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="data-and-libraries" class="level1">
-<h1>Data and libraries</h1>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>Download the following files to your <code>~/Bio724</code> directory. These are direct links to the raw files; right click and “Save Link As…” (or equivalent):</p>
+<section id="instructions" class="level1">
+<h1>Instructions</h1>
+<p>Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however <strong>each of your solutions should show how to generate the answer using R code</strong>.</p>
+<p>Write “robust” solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately “robust” is to ask yourself “If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?”</p>
+<p>Make sure your markdown is nicely formatted – use headers, bullets, numbering, etc so that the structure of the document is clear.</p>
+<p>Make sure to “Render” your document before submission to confirm that all code blocks and formatting is as you expect.</p>
+<p>When completed, title your markdown file as follows (replace <code>XX</code> with the assignemnt number, e.g. <code>01</code>, <code>02</code>, etc):</p>
 <ul>
-<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/penguins.csv"><code>penguins.csv</code></a></li>
-<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/spellman-1998-expression.tsv"><code>spellman-1998-expression.tsv</code></a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
-<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/cryptococcus_tecan_run.txt"><code>cryptococcus_tecan_run.txt</code></a></li>
-<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/Nagalakshmi_et_al_2008_TableS2.xls"><code>Nagalakshmi_et_al_2008_TableS2.xls</code></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li><code>netid-assignment_XX-Fall2024.qmd</code></li>
 </ul>
-</section>
-<section id="libraries" class="level3">
-<h3 class="anchored" data-anchor-id="libraries">Libraries</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="base-r-vs-the-tidyverse" class="level1">
-<h1>Base R vs The Tidyverse</h1>
-<p>The <a href="https://www.tidyverse.org/">Tidyverse</a> is a “meta-package” of useful libraries designed with similar interfaces working with data. Key libraries in the Tidyverse include ggplot2, dplyr, readr, tidyr, and others. We’re emphasizing the use of Tidyverse packages in this class because they provide a consistent and relatively intuitive approach for working with data.</p>
-<p>In some cases Tidyverse packages provide similar functionality to base R functions, but with slightly different names and different behaviors. For example <code>read_csv</code> (from readr) and <code>read.csv</code> (a base R package) both read CSVs but have different arguments and different default behaviors. Usually, the output of these two functions will be similar but there are some gotchas lurking if you substitute one for the other. Neither one is necessarily better than the other, but we recommend that for this class you stick to the Tidyverse functions we illustrate. Once you get a foundation in R you’re free to explore the different interfaces and behaviors that similar Tidyverse and base R functions provide.</p>
-</section>
-<section id="data-import" class="level1">
-<h1>Data import</h1>
-<section id="reading-delimited-files-csv-tsv-other-using-readr" class="level2">
-<h2 class="anchored" data-anchor-id="reading-delimited-files-csv-tsv-other-using-readr">Reading delimited files (CSV, TSV, other) using <code>readr</code></h2>
-<p><code>readr</code> provides convenient tools for working with data from files in CSV (comma separated values), TSV (tab separated values), or other delimited formats (<code>read_delim</code>).</p>
+<p>Submit both your markdown file (<code>.qmd</code>) and the generated HTML document (<code>.html</code>) on your Github site.</p>
+<section id="data-set-nc-births" class="level2">
+<h2 class="anchored" data-anchor-id="data-set-nc-births">Data set: NC Births</h2>
+<p>This set of problems uses a data set that contains information on 150 cases of mothers and their newborns in North Carolina in 2004. This data set is available at the following URL:</p>
 <ul>
-<li><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf"><code>readr</code> cheat sheet</a></li>
+<li>https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt</li>
 </ul>
-<section id="rtfm-for-the-read_csv-and-related" class="level3">
-<h3 class="anchored" data-anchor-id="rtfm-for-the-read_csv-and-related">RTFM for the <code>read_csv</code> and related</h3>
-<p>Look at help for <code>read_csv</code> / <code>read_tsv</code> / <code>read_delim</code>:</p>
+<p>This file is formatted as Tab-Separated Values (TSV). The variables in the data set are:</p>
 <ul>
-<li>Dealing with files without header names</li>
-<li>Selecting a subset of columns</li>
-<li>Specifying columns types</li>
-<li>Missing data</li>
-<li>Comment lines</li>
+<li>father’s age (<code>fAge</code>),</li>
+<li>mother’s age (<code>mAge</code>),<br>
+</li>
+<li>weeks of gestation (<code>weeks</code>)</li>
+<li>whether the birth was premature or full term (<code>premature</code>)</li>
+<li>number of OB/GYN visits (<code>visits</code>)</li>
+<li>mother’s weight gained in pounds (<code>gained</code>)</li>
+<li>babies birth weight in pounds (<code>weight</code>)</li>
+<li>sex of the baby (<code>sexBaby</code>)</li>
+<li>whether the mother was a smoker (<code>smoke</code>).</li>
 </ul>
+<p>Include appropriate code to load the NC births data set from the URL above before answering the following.</p>
 </section>
-<section id="load-a-well-formed-csv-file" class="level3">
-<h3 class="anchored" data-anchor-id="load-a-well-formed-csv-file">Load a well formed CSV file</h3>
-<p>You’ve already seen how to import a “well formed” CSV file:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;~/Bio724/penguins.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 344 Columns: 8
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (3): species, island, sex
-dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-</section>
-<section id="load-a-fairly-well-formed-tsv-file" class="level3">
-<h3 class="anchored" data-anchor-id="load-a-fairly-well-formed-tsv-file">Load a fairly well formed TSV file</h3>
-<p>The next file, <code>spellman-1998-expression.tsv</code> is a TSV file, that is “mostly” well formed:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read spellman TSV data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="loading-only-a-subset-of-columns" class="level4">
-<h4 class="anchored" data-anchor-id="loading-only-a-subset-of-columns">Loading only a subset of columns</h4>
-<p>You can read only a subset of columns using the <code>col_select</code> argument to the <code>read_</code> functions:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read first six columns of data file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="loading-a-file-with-a-non-standard-encoding" class="level3">
-<h3 class="anchored" data-anchor-id="loading-a-file-with-a-non-standard-encoding">Loading a file with a non-standard encoding</h3>
-<p>ASCII and unicode encoded files are the most common file types you’re likely to work with, but you may encounter files with unusual encodings. For example the file <a href><code>cryptococcus_tecan_run.txt</code></a> is a TSV file produced by an instrument in my lab. One of the data columns includes a degree Celsius symbol, and the file is encoded in a legacy format called <a href="https://en.wikipedia.org/wiki/Windows-1252">“windows-1252” encoding</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will generate an error</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tecan <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;~/Bio724/cryptococcus_tecan_run.txt&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in nchar(x, &quot;width&quot;): invalid multibyte string, element 1</code></pre>
-</div>
-</div>
-<p>We can use the <code>locale</code> argument to <code>read_tsv</code> to specify the encoding (assuming we know what it is):</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the error by specifying the correct encoding using the local argument</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># also tell read_tsv there are no col_names</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>tecan <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;~/Bio724/cryptococcus_tecan_run.txt&quot;</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;windows-1252&quot;</span>),</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
-e.g.:
-  dat &lt;- vroom(...)
-  problems(dat)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 291 Columns: 99
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;\t&quot;
-chr  (2): X1, X2
-dbl (96): X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17...
-lgl  (1): X99
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-<p>There are still some problems with our data file (see the warning above). If we follow the instructions to use the <code>problems</code> function on our data frame, we’ll get some additional info about what R sees as wrong with our data import:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">problems</span>(tecan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-    row   col expected   actual    file                                         
-  &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;                                        
-1   290     1 99 columns 1 columns /Users/pmagwene/Bio724/cryptococcus_tecan_ru…
-2   291     1 99 columns 1 columns /Users/pmagwene/Bio724/cryptococcus_tecan_ru…</code></pre>
-</div>
-</div>
-<p>If you go back and look at the raw data file, you’ll see that the last two lines of the file have some accessory information about the instrument run. These are not properly formatted data rows. We’ll see how to deal with these issues below.</p>
-</section>
-</section>
-<section id="reading-excel-files-with-readxl" class="level2">
-<h2 class="anchored" data-anchor-id="reading-excel-files-with-readxl">Reading excel files with <code>readxl</code></h2>
-<p><a href="https://readxl.tidyverse.org/"><code>readxl</code></a> provides a <code>read_excel</code> function for reading data directly from Excel spreadsheets.</p>
-<p>A key difference to be aware of when working with Excel files is the presence of multiple “sheets” within a single document. Another frequent complication of Excel files is that Excel users often start tables in non-standard positions within a sheet. <code>read_excel</code> provides some arguments to deal with such cases.</p>
-<p>Key arguments for <code>read_excel</code>: * sheet * range</p>
-<section id="example" class="level4">
-<h4 class="anchored" data-anchor-id="example">Example</h4>
-<p>The file <code>Nagalakshmi_et_al_2008_TableS2.xls</code> illustrates both common Excel complications highlighted above.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use read_excel to extract the low expression table </span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from Nagalakshmi Supp Table 2</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="interactive-data-import-in-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="interactive-data-import-in-rstudio">Interactive data import in RStudio</h2>
-<p>See class demo of the “Import Dataset” button in RStudio.</p>
-</section>
-<section id="renaming-columns-after-import" class="level2">
-<h2 class="anchored" data-anchor-id="renaming-columns-after-import">renaming columns after import</h2>
-<p>The <code>rename</code> function provides a convenient syntax for renaming columns.</p>
-<p>Rename the first column of the Spellman data frame to “ID”:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rename spellman first column to &quot;ID&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="data-frame-manipulation-using-dplyr" class="level1">
-<h1>Data frame manipulation using dplyr</h1>
-<p>The package <code>dplyr</code> provides a “grammar of data manipulation” (note ggplot is a “grammar of graphics”; there’s a trend here!)</p>
-<p>Some Basic “verbs” of dplyr (we’ll see more next lecture):</p>
-<ul>
-<li><code>select</code> – get specific columns</li>
-<li><code>mutate</code> – create new columns</li>
-<li><code>filter</code> – get specific rows</li>
-<li><code>arrange</code> – order rows</li>
-</ul>
-<section id="select" class="level2">
-<h2 class="anchored" data-anchor-id="select"><code>select</code></h2>
-<p><code>select</code> subsets columns</p>
-<section id="positive-and-negative-selection" class="level3">
-<h3 class="anchored" data-anchor-id="positive-and-negative-selection">positive and negative selection</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get only species and &quot;bill&quot; columns from penguin data </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get everything except &quot;bill&quot; columns from penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="selecting-on-types" class="level3">
-<h3 class="anchored" data-anchor-id="selecting-on-types">selecting on types</h3>
-<p>The <code>where</code> helper function in conjunction with <code>select</code> can be use to form predicate statements:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get numeric columns from penguin data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="selecting-on-string-matches" class="level3">
-<h3 class="anchored" data-anchor-id="selecting-on-string-matches">selecting on string matches</h3>
-<p>The <code>matches</code> function can be used to match column names by string matching:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get all the &quot;length&quot; columns from penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We’ll cover more details about string matching and searching in a later lecture.</p>
-</section>
-</section>
-<section id="mutate" class="level2">
-<h2 class="anchored" data-anchor-id="mutate"><code>mutate</code></h2>
-<p><code>mutate</code> can be used to create derived or new columns:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a derived column, body_mass_kg, in penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="filter-examples" class="level2">
-<h2 class="anchored" data-anchor-id="filter-examples"><code>filter</code> examples</h2>
-<p><code>filter</code> subsets rows.</p>
-<section id="filter-on-positive-and-negative-matches" class="level3">
-<h3 class="anchored" data-anchor-id="filter-on-positive-and-negative-matches">Filter on positive and negative matches</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get only the rows representing Gentoo penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># exclude the rows that are Gentoo penguins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="multiple-filters-are-ands" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-filters-are-ands">Multiple filters are “ands”</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the Gentoo penguins bigger than 4.5 kg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will return an empty table because multiple arguments to filter </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># are treated as AND; in this data, no penguin is both a &quot;Gentoo&quot; and an &quot;Adelie&quot; penguin</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">&quot;Gentoo&quot;</span>, species <span class="sc">==</span> <span class="st">&quot;Adelie&quot;</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="more-complex-filters-using-and-or-and-in" class="level3">
-<h3 class="anchored" data-anchor-id="more-complex-filters-using-and-or-and-in">More complex filters using and (&amp;), or (|), and %in%</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get both Gentoo and Adelie penguins using the OR operator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="in-allows-you-to-filter-on-sets" class="level3">
-<h3 class="anchored" data-anchor-id="in-allows-you-to-filter-on-sets">%in% allows you to filter on sets</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get Gentoo and Adelie penguins using the %in% operator</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="filtering-on-missing-data-and-complete-cases" class="level3">
-<h3 class="anchored" data-anchor-id="filtering-on-missing-data-and-complete-cases">Filtering on missing data and complete cases</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find rows where body_mass_g has NA values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get all rows where body_mass data is NOT missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Dropping missing values is so common that there is a specific function for this in the Tidyverse package <code>tidyr</code>, called <code>drop_na</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop any rows where body_mass_g is missing using drop_na</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>When you don’t pass one or more column names to <code>drop_na</code> it only returns rows where there are no missing values anywhere:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows where any variable has an NA value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-</section>
-<section id="base-r-indexing-for-column-and-row-subsetting" class="level1">
-<h1>Base R indexing for column and row subsetting</h1>
-<p>So far we’ve been looking at subsetting rows and columns using dplyr functions.</p>
-<p>It’s good to know some of the base R syntax for working with columns and rows. The act of specifying particular regions of a data structure is called “indexing”. When dealing with a tabular data structure, we need to index both rows and columns.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span>, <span class="dv">1</span>]  <span class="co"># row 1, col 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  species
-  &lt;chr&gt;  
-1 Adelie </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]  <span class="co"># rows 1 to 5, columns 1 to 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 3
-  species island    bill_length_mm
-  &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;
-1 Adelie  Torgersen           39.1
-2 Adelie  Torgersen           39.5
-3 Adelie  Torgersen           40.3
-4 Adelie  Torgersen           NA  
-5 Adelie  Torgersen           36.7</code></pre>
-</div>
-</div>
-<p>Columns are taken to represent variables in R data frames. If we don’t specify rows, R assumes we’re working with columns:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 344 × 4
-   species island    bill_length_mm bill_depth_mm
-   &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
- 1 Adelie  Torgersen           39.1          18.7
- 2 Adelie  Torgersen           39.5          17.4
- 3 Adelie  Torgersen           40.3          18  
- 4 Adelie  Torgersen           NA            NA  
- 5 Adelie  Torgersen           36.7          19.3
- 6 Adelie  Torgersen           39.3          20.6
- 7 Adelie  Torgersen           38.9          17.8
- 8 Adelie  Torgersen           39.2          19.6
- 9 Adelie  Torgersen           34.1          18.1
-10 Adelie  Torgersen           42            20.2
-# ℹ 334 more rows</code></pre>
-</div>
-</div>
-<p>We can index columns using vector of strings like so:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="fu">c</span>(<span class="st">&quot;species&quot;</span>, <span class="st">&quot;island&quot;</span>, <span class="st">&quot;body_mass_g&quot;</span>, <span class="st">&quot;sex&quot;</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 344 × 4
-   species island    body_mass_g sex   
-   &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt; 
- 1 Adelie  Torgersen        3750 male  
- 2 Adelie  Torgersen        3800 female
- 3 Adelie  Torgersen        3250 female
- 4 Adelie  Torgersen          NA &lt;NA&gt;  
- 5 Adelie  Torgersen        3450 female
- 6 Adelie  Torgersen        3650 male  
- 7 Adelie  Torgersen        3625 female
- 8 Adelie  Torgersen        4675 male  
- 9 Adelie  Torgersen        3475 &lt;NA&gt;  
-10 Adelie  Torgersen        4250 &lt;NA&gt;  
-# ℹ 334 more rows</code></pre>
-</div>
-</div>
-<section id="column-indexing-using-operator" class="level2">
-<h2 class="anchored" data-anchor-id="column-indexing-using-operator">Column indexing using <code>$</code> operator</h2>
-<p>Note that everything up to now has returned a new data frame; the <code>$</code> operator returns a vector instead of a data frame.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">$</span>body_mass_g <span class="sc">|&gt;</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] 3750 3800 3250   NA 3450 3650 3625 4675 3475 4250 3300 3700 3200 3800 4400
-[16] 3700 3450 4500 3325 4200 3400 3600 3800 3950 3800 3800 3550 3200 3150 3950
-[31] 3250 3900 3300 3900 3325 4150 3950 3550 3300 4650 3150 3900 3100 4400 3000
-[46] 4600 3425 2975 3450 4150</code></pre>
-</div>
-</div>
-<p>Compare the above to:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="fu">c</span>(<span class="st">&quot;body_mass_g&quot;</span>)] <span class="sc">|&gt;</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 50 × 1
-   body_mass_g
-         &lt;dbl&gt;
- 1        3750
- 2        3800
- 3        3250
- 4          NA
- 5        3450
- 6        3650
- 7        3625
- 8        4675
- 9        3475
-10        4250
-# ℹ 40 more rows</code></pre>
-</div>
-</div>
-</section>
-</section>
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Spellman PT, Sherlock G, Zhang MQ, Iyer VR, Anders K, Eisen MB, Brown PO, Botstein D, Futcher B. Comprehensive identification of cell cycle-regulated genes of the yeast Saccharomyces cerevisiae by microarray hybridization. Mol Biol Cell. 1998 Dec;9(12):3273-97. doi: 10.1091/mbc.9.12.3273. PMID: 9843569; PMCID: PMC25624.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Nagalakshmi U, Wang Z, Waern K, Shou C, Raha D, Gerstein M, Snyder M. The transcriptional landscape of the yeast genome defined by RNA sequencing. Science. 2008 Jun 6;320(5881):1344-9. doi: 10.1126/science.1158441. Epub 2008 May 1. PMID: 18451266; PMCID: PMC2951732.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<section id="problems" class="level2">
+<h2 class="anchored" data-anchor-id="problems">Problems</h2>
+<ol type="1">
+<li><p>Removed the <code>gained</code> data column</p></li>
+<li><p>Write a code block showing how to use <code>dplyr::filter</code> to get all the cases where the age of both the mother and father was 20 years or younger.</p></li>
+<li><p>Write a code block that uses <code>mutate</code> to create a derived column <code>weight_kg</code> giving each babies weight in kilograms.</p></li>
+<li><p>Write a code block that shows how to use <code>dplyr::arrange</code> to sort the data by the babies birth weight in ascending order.</p></li>
+<li><p>Generate a data frame with the ten lightest babies.</p></li>
+<li><p>Generate a data frame with only the premature babies, and then remove the redundant “premature” column (this is no longer variable in your derived data)</p></li>
+<li><p>Generate a data frame with babies that were both premature and for whom their mother was a smoker.</p></li>
 </ol>
-</section></div></main>
+</section>
+</section>
+
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

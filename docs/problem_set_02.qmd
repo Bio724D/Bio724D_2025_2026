@@ -1,0 +1,71 @@
+---
+title: "Assignment 02: dplyr basics"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**.
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2024.qmd`
+
+Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) on your Github site.
+
+
+
+## Data set: NC Births
+
+This set of problems uses a data set that contains information on 150 cases of mothers and their newborns in North Carolina in 2004. This data set is available at the following URL:
+
+* https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt
+
+This file is formatted as Tab-Separated Values (TSV). The variables in the data set are: 
+  
+  * father's age (`fAge`),
+  * mother's age (`mAge`),  
+  * weeks of gestation (`weeks`)
+  * whether the birth was premature or full term (`premature`)
+  * number of OB/GYN visits (`visits`)
+  * mother's weight gained in pounds (`gained`)
+  * babies birth weight in pounds (`weight`) 
+  * sex of the baby (`sexBaby`)
+  * whether the mother was a smoker (`smoke`).
+
+
+Include appropriate code to load the NC births data set from the URL above before answering the following.
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+library(tidyverse)
+births <- read_tsv("https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt")
+```
+
+## Problems
+
+1. Removed the `gained` data column
+
+1.  Write a code block showing how to use `dplyr::filter` to get all the cases where the age of both the mother and father was 20 years or younger.
+
+1. Write a code block that uses `mutate` to create a derived column `weight_kg` giving each babies weight in kilograms.
+
+1. Write a code block that shows how to use `dplyr::arrange` to sort the  data by the babies birth weight in ascending order.
+
+1. Generate a data frame with the ten lightest babies.
+
+1. Generate a data frame with only the premature babies, and then remove the redundant "premature" column (this is no longer variable in your derived data)
+
+1. Generate a data frame with babies that were both premature and for whom their mother was a smoker.
+  
+
+
+

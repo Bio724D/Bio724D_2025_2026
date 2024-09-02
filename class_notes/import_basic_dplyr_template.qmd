@@ -132,13 +132,16 @@ Key arguments for `read_excel`:
 The file `Nagalakshmi_et_al_2008_TableS2.xls` illustrates both common Excel complications highlighted above.
 
 
-
 ```{r}
 # use read_excel to extract the low expression table 
 # from Nagalakshmi Supp Table 2
 library(readxl)
-
 ```
+
+
+## Interactive data import in RStudio
+
+See class demo of the "Import Dataset" button in RStudio.
 
 
 ## renaming columns after import
@@ -151,6 +154,8 @@ Rename the first column of the Spellman data frame to "ID":
 ```{r}
 # rename spellman first column to "ID"
 ```
+
+
 
 
 # Data frame manipulation using dplyr
@@ -285,6 +290,27 @@ When you don't pass one or more column names to `drop_na` it only returns rows w
 
 ```{r}
 # drop rows where any variable has an NA value
+```
+
+# Sorting data using `arrange`
+
+Arrange sorts a data frame on the column(s) you specify:
+
+```{r}
+# sort penguins by bill_length_mm
+```
+
+By default, the data are arrange in ascending order (smallest to biggest). To sort in descending order use the`desc` helper function:
+```{r}
+# sort penguins by bill_length_mm from biggest to smallest
+penguins |>
+  arrange(desc(bill_length_mm))
+```
+
+`arrange` can be used with multiple columns to break ties:
+
+```{r}
+# sort penguins by flipper_length and  bill_length
 ```
 
 
