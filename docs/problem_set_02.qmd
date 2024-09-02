@@ -1,5 +1,5 @@
 ---
-title: "Assignment 02: dplyr basics"
+title: "Assignment 02: Data types and dplyr basics"
 format: 
   html:
     embed-resources: true
@@ -67,5 +67,8 @@ births <- read_tsv("https://github.com/Bio723-class/example-datasets/raw/master/
 1. Generate a data frame with babies that were both premature and for whom their mother was a smoker.
   
 
+## Data lunch assignment
+
+1. Identify something that you learned from the presentation or discussion on Thursday that you found valuable. Provide a brief reflection here (1-5 sentences) and include code or pseudo-code if useful. Hint: if you have specific code examples, consider adding it to your notebook as well.
 
 
