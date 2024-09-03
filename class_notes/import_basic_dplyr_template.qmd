@@ -34,7 +34,7 @@ library(tidyverse)
 The [Tidyverse](https://www.tidyverse.org/) is a "meta-package" of useful libraries designed with similar interfaces  working with data. Key libraries in the Tidyverse include ggplot2, dplyr, readr, tidyr, and others. We're emphasizing the use of Tidyverse packages in this class because they provide a consistent and relatively intuitive approach for working with data.  
 
 
-In some cases Tidyverse packages provide similar functionality to base R functions, but with slightly different names and different behaviors. For example `read_csv` (from readr) and `read.csv` (a base R package) both read CSVs but have different arguments and different default behaviors.  Usually, the output of these two functions will be similar but there are some gotchas lurking if you substitute one for the other.  Neither one is necessarily better than the other, but we recommend that for this class you stick to the Tidyverse functions we illustrate. Once you get a foundation in R you're free to explore the different interfaces and behaviors that similar Tidyverse and base R functions provide.
+In some cases Tidyverse packages provide similar functionality to base R functions, but with slightly different names and different behaviors. For example `read_csv` (from readr) and `read.csv` (a base R package) both read CSVs but have different arguments and different default behaviors.  Usually, the output of these two functions will be similar but there are some gotchas lurking if you substitute one for the other.  Neither one is necessarily better than the other, but it's good to be aware of which one you're using.
 
 
 # Data import
