@@ -35,7 +35,7 @@ v3 <- c(2.0, 2L, "2", "two")
 v4 <- c("FALSE", 0, FALSE)
 ```
 
-1. Logical vectors are surprisingly useful, as we will see from examples during the next few weeks. For now, let's get comfortable with the ways the R handles values that converted to logical. Run each statement below and try substituting other values. What are the values that can be stored in logical vectors? What are the rules for coercion of other data types into logical vectors when using the `as.logical()` function? This is an unusual case where we want you to figure it out completely on your own and *not* use the help function in RStudio, the web, or friends. Just experiment: this is one of the best ways to become a more proficient programmer!  
+2. Logical vectors are surprisingly useful, as we will see from examples during the next few weeks. For now, let's get comfortable with the ways the R handles values that converted to logical. Run each statement below and try substituting other values. What are the values that can be stored in logical vectors? What are the rules for coercion of other data types into logical vectors when using the `as.logical()` function? This is an unusual case where we want you to figure it out completely on your own and *not* use the help function in RStudio, the web, or friends. Just experiment: this is one of the best ways to become a more proficient programmer!  
 
 ```{r eval = FALSE}
 v5 <- c(TRUE, T, FALSE, F, NA)
@@ -47,7 +47,7 @@ v10 <- as.logical()
 v11 <- as.logical(NA)
 ```
 
-1. Sometimes it's useful to generate a vector composed of a pattern of numbers. Below are some assignment statements that automatically generate numeric vectors. Evaluate each statement, then try substituting values to understand how each works. Based on your experimentation, explain the limitations of the colon operator `:` to generate numeric vectors. Next, write a brief definition of the functions `seq()` and `rep()`, including how each argument contributes to the overall pattern. As with question 2 above, we want you to figure this out on your own through experimentation.  
+3. Sometimes it's useful to generate a vector composed of a pattern of numbers. Below are some assignment statements that automatically generate numeric vectors. Evaluate each statement, then try substituting values to understand how each works. Based on your experimentation, explain the limitations of the colon operator `:` to generate numeric vectors. Next, write a brief definition of the functions `seq()` and `rep()`, including how each argument contributes to the overall pattern. As with question 2 above, we want you to figure this out on your own through experimentation.  
 
 ```{r}
 p1 <- 1:11
