@@ -1,0 +1,131 @@
+---
+title: "Data types in R"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Set up
+
+Load the tidyverse package and the `penguins.csv` dataset:
+
+```{r include = FALSE}
+library(tidyverse)
+penguins <- read_csv("penguins.csv")
+```
+
+## Metadata
+
+R provides several functions to learn about an object's metadata. 
+
+```{r}
+
+# every variable has at least two attributes (types of metadata):
+
+# R provides additional ways to learn about metadata:
+
+# data frames have additional metadata:
+
+```
+
+## Data types
+
+R automatically assigns a data type based on the value to you provide. Sometimes it needs a little help to make the right choice. Experiment to learn how to avoid unexpected data type assignment. There are six basic ("atomic") data types in R: four are common (numeric, integer, character, and logical) and two are rarely used (complex and raw).
+
+```{r}
+
+```
+
+## Reassignment
+
+R allows you to update the value of variable. If you update with a value of a different data type, R silently changes the data type of the variable. This is convenient, but beware that it can lead to problems if you are not careful!
+
+```{r}
+
+```
+
+## Data type coercion
+
+R allows you to change the type of a variable *after* assignment, but only if it makes sense. This is known as *coercion*. You can also coerce data type during assignment.
+
+```{r}
+
+```
+
+And with the `penguins` data frame for practice:
+
+```{r}
+
+```
+
+## Vectors
+
+In R, atomic data types are always vectors. If you provide just one value, R will create a vector of length 1. The `c` function is an easy way to create longer vectors.
+
+```{r}
+
+```
+
+## Missing values
+
+R has three special values to represent missing, invalid, and undefined data. The most common is NA, which is short for not available, and indicates missing data. R provides several tools for working with NA values.
+
+```{r}
+
+```
+
+## Lists
+
+R will automatically coerce values to the most general type if you pass obviously different kinds of values in an assignment statement. If you instead intend to create a list, you will need to use the list generator function.
+
+```{r}
+
+```
+
+Make a list that approximates a dataframe, then add column names:
+
+```{r}
+
+```
+
+## Vectorized operations
+
+R allows you to apply a mathematic operation or function to a vector in a single step, without the need for a loop. 
+
+```{r}
+
+```
+
+More practice with the `penguins` data frame:
+
+```{r}
+
+```
+
+## Working with atomic vectors
+
+Practice the following operations with atomic vectors to become comfortable with common operations you'll need later. 
+
+Updating individual items in a data frame:
+
+```{r}
+
+```
+
+Exploring values:
+
+```{r}
+
+```
+
+Extracting distinct values and summary statistics:
+
+```{r}
+
+```
+
+
+
