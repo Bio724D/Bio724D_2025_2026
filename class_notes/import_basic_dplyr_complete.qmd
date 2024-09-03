@@ -72,12 +72,20 @@ The next  file, `spellman-1998-expression.tsv` is a TSV file, that is "mostly" w
 
 ```{r}
 # read spellman TSV data
-
+spellman <- read_tsv("~/Bio724/spellman-1998-expression.tsv")
 ```
+
+
+Notice that  during import you got a message about new names being assigned. If you look at the original Spellman data you'll see that the first column didn't have a header.  The `readr` functions will automatically assign a name to a missing column; in this case the value `...1`.
 
 
 ```{r}
 # examine dimension, names, etc
+dim(spellman)
+```
+
+```{r}
+names(spellman)
 ```
 
 
@@ -88,8 +96,24 @@ You can read only a subset of columns using the `col_select` argument to the `re
 
 ```{r}
 # read first six columns of data file
-
+spellman_6 <- read_tsv("~/Bio724/spellman-1998-expression.tsv",
+                       col_select = 1:6)
 ```
+
+```{r}
+head(spellman_6)
+```
+
+You can also load subsets of columns using syntax similar to the `select` function (see below):
+
+```{r}
+# read first six columns of data file
+spellman_alpha<- read_tsv("~/Bio724/spellman-1998-expression.tsv",
+                       col_select = c(1, starts_with("alpha")))
+
+head(spellman_alpha)
+```
+
 
 
 
@@ -143,7 +167,13 @@ The file `Nagalakshmi_et_al_2008_TableS2.xls` illustrates both common Excel comp
 # use read_excel to extract the low expression table 
 # from Nagalakshmi Supp Table 2
 library(readxl)
+
+low <- read_excel("~/Bio724/Nagalakshmi_et_al_2008_TableS2.xls",
+                  sheet = "Low",
+                  range = "A5:G235")
 ```
+
+
 
 
 ## Interactive data import in RStudio
@@ -160,6 +190,7 @@ Rename the first column of the Spellman data frame to "ID":
 
 ```{r}
 # rename spellman first column to "ID"
+spellman <- rename(spellman, ID = ...1)
 ```
 
 

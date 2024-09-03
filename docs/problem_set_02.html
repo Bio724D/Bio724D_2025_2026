@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -3078,9 +3112,84 @@ vertical-align: -.125em;
 <li><code>netid-assignment_XX-Fall2024.qmd</code></li>
 </ul>
 <p>Submit both your markdown file (<code>.qmd</code>) and the generated HTML document (<code>.html</code>) on your Github site.</p>
-<section id="data-set-nc-births" class="level2">
-<h2 class="anchored" data-anchor-id="data-set-nc-births">Data set: NC Births</h2>
-<p>This set of problems uses a data set that contains information on 150 cases of mothers and their newborns in North Carolina in 2004. This data set is available at the following URL:</p>
+<section id="working-with-atomic-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-atomic-vectors">Working with atomic vectors</h3>
+<ol type="1">
+<li>If you combine values representing multiple data types during assignment, R will coerce them into the most general data type that makes sense. Use <code>typeof()</code> to check what data types the following assignments create. Did any of the data types or coercions surprise you? What is the most general data type of all (the one into which every other data type can be successfully coerced)?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">27</span>L, <span class="fl">3.14159</span>, <span class="dv">42</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>v2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">66</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>v3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.0</span>, <span class="dv">2</span>L, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;two&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>v4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;FALSE&quot;</span>, <span class="dv">0</span>, <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>Logical vectors are surprisingly useful, as we will see from examples during the next few weeks. For now, let’s get comfortable with the ways the R handles values that converted to logical. Run each statement below and try substituting other values. What are the values that can be stored in logical vectors? What are the rules for coercion of other data types into logical vectors when using the <code>as.logical()</code> function? This is an unusual case where we want you to figure it out completely on your own and <em>not</em> use the help function in RStudio, the web, or friends. Just experiment: this is one of the best ways to become a more proficient programmer!</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>v5 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, T, <span class="cn">FALSE</span>, F, <span class="cn">NA</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>v6 <span class="ot">&lt;-</span> <span class="fu">c</span>(true, t, false, f, na)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>v7 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;T&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;NA&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>v8 <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(<span class="fu">c</span>(<span class="dv">101</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>v9 <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(<span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&#39;world&#39;</span>, <span class="st">&#39;&#39;</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>v10 <span class="ot">&lt;-</span> <span class="fu">as.logical</span>()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>v11 <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(<span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>Sometimes it’s useful to generate a vector composed of a pattern of numbers. Below are some assignment statements that automatically generate numeric vectors. Evaluate each statement, then try substituting values to understand how each works. Based on your experimentation, explain the limitations of the colon operator <code>:</code> to generate numeric vectors. Next, write a brief definition of the functions <code>seq()</code> and <code>rep()</code>, including how each argument contributes to the overall pattern. As with question 2 above, we want you to figure this out on your own through experimentation.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">:-</span><span class="dv">5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">200</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="sc">-</span><span class="fl">1.5</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">times =</span> <span class="dv">3</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>), <span class="at">each =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Square-bracket indexing can be used on either side of an assignment statement to access specific items in an atomic vector. Evaluate the assignment statement below to create atomic vector <code>my_vec</code>. Update the <code>9999</code> value in <code>my_vec</code> to <code>NA</code> (for context, some programs use <code>9999</code> to represent missing data, so this is a real world operation that you may need to use). Then add extend the length of <code>my_vec</code> by adding two new values: <code>6</code> and <code>3</code>. Next, extract just the second, third, and fifth items and store them in a new vector called <code>new_vec</code>. Finally, replace all the <code>NA</code> values in <code>your_vec</code> with the value <code>0</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9999</span>, <span class="dv">2</span>, <span class="dv">9</span>)         <span class="co"># 9999 sometimes represents missing data!</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>your_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="cn">NA</span>, <span class="dv">52</span>, <span class="dv">58</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">49</span>, <span class="dv">60</span>, <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="working-with-lists" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-lists">Working with lists</h3>
+<ol start="5" type="1">
+<li>Evaluate the expression below to create <code>my_list</code>, then use <code>length()</code> to learn how many items are in it. What does R consider to be an item in a list? Next, separately extract the second item in <code>my_list</code> using <code>[ ]</code> and <code>[[ ]]</code> and assign each to a new variable. How does the method of indexing affect the type of the extracted data? Now try converting the two new variables into a floating point atomic vector using the function <code>as.double()</code>. Why does this only work with one of them?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">27</span>, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="st">&quot;banana&quot;</span>, <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>))   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li>Named lists provide another method of indexing. Create the list <code>study_sites</code> using the first statement below. Extract the information for the <code>grassy_meadow</code> study site using its name and assign it to a new variable. Now extract just the elevation (first item) and assign it to a different variable. If you wanted to compute the average elevation, this would be an awkward process. It’s usually much easier to work with data like these when they are in a data frame rather than a list of lists.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>study_sites <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;windy_ridge&quot;</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">2235</span>, <span class="st">&quot;grassland&quot;</span>), </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;pine_valley&quot;</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1450</span>, <span class="st">&quot;forest&quot;</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;stoney_creek&quot;</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">900</span>, <span class="st">&quot;stream&quot;</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;grassy_meadow&quot;</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1670</span>, <span class="st">&quot;grassland&quot;</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;oak_glen&quot;</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1302</span>, <span class="st">&quot;forest&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="7" type="1">
+<li>Many functions return lists as their output. You will often want to extract specific values from those lists for plotting or further processing. Evaluate the assignment statements below. Inspect <code>sample1</code> and <code>sample2</code> and access help to understand what the <code>rnorm()</code> function does. Next, carry out a t-test and display the default results. To access individual items as needed, start by assigning the results to the variable <code>test_results</code>. Use <code>names()</code> to show the names of the values stored in the list that is returned. Using this information, use dollar-sign indexing to assign the p-value and the confidence interval to separate values.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate example data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sample1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sample2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="fl">0.5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># carry out a t-test</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(sample1, sample2)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># assign results to a variable</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>test_results <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sample1, sample2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="practice-with-dplyr" class="level2">
+<h2 class="anchored" data-anchor-id="practice-with-dplyr">Practice with dplyr</h2>
+<section id="data-set-nc-births" class="level3">
+<h3 class="anchored" data-anchor-id="data-set-nc-births">Data set: NC Births</h3>
+<p>The questions below use a data set that contains information on 150 cases of mothers and their newborns in North Carolina in 2004. This data set is available at the following URL:</p>
 <ul>
 <li>https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt</li>
 </ul>
@@ -3099,23 +3208,24 @@ vertical-align: -.125em;
 </ul>
 <p>Include appropriate code to load the NC births data set from the URL above before answering the following.</p>
 </section>
-<section id="problems" class="level2">
-<h2 class="anchored" data-anchor-id="problems">Problems</h2>
-<ol type="1">
-<li><p>Removed the <code>gained</code> data column</p></li>
-<li><p>Write a code block showing how to use <code>dplyr::filter</code> to get all the cases where the age of both the mother and father was 20 years or younger.</p></li>
+<section id="dplyr-problems" class="level3">
+<h3 class="anchored" data-anchor-id="dplyr-problems">dplyr problems</h3>
+<ol start="8" type="1">
+<li><p>Write a code block showing how to load the <code>nc-births.txt</code> data.</p></li>
+<li><p>Write a code block showing how to create a derived data frame with the <code>gained</code> column removed, and assign it to a variable <code>births_trimmed</code>.</p></li>
+<li><p>Show how to compute the dimensions of <code>births_trimmed</code> (from the prior step).</p></li>
 <li><p>Write a code block that uses <code>mutate</code> to create a derived column <code>weight_kg</code> giving each babies weight in kilograms.</p></li>
-<li><p>Write a code block that shows how to use <code>dplyr::arrange</code> to sort the data by the babies birth weight in ascending order.</p></li>
-<li><p>Generate a data frame with the ten lightest babies.</p></li>
+<li><p>Write a code block that shows how to use <code>arrange</code> to sort the data by the babies birth weight in ascending order.</p></li>
+<li><p>Starting with the output of the previous question, write a code block showing how generate a data frame with only the ten lightest babies.</p></li>
+<li><p>Write a code block showing how to use <code>filter</code> to get all the cases where the mother smoked and the father’s age was greater than 40.</p></li>
 <li><p>Generate a data frame with only the premature babies, and then remove the redundant “premature” column (this is no longer variable in your derived data)</p></li>
-<li><p>Generate a data frame with babies that were both premature and for whom their mother was a smoker.</p></li>
+<li><p>Using <code>groupby</code> and <code>summarize</code>, generate a data frame that gives the median birth weight of premature babies grouped by mother’s smoking status.</p></li>
 </ol>
+</section>
 </section>
 <section id="data-lunch-assignment" class="level2">
 <h2 class="anchored" data-anchor-id="data-lunch-assignment">Data lunch assignment</h2>
-<ol type="1">
-<li>Identify something that you learned from the presentation or discussion on Thursday that you found valuable. Provide a brief reflection here (1-5 sentences) and include code or pseudo-code if useful. Hint: if you have specific code examples, consider adding it to your notebook as well.</li>
-</ol>
+<p>Identify something that you learned from the presentation or discussion on Thursday that you found valuable. Provide a brief reflection here (1-5 sentences) and include code or pseudo-code if useful. Hint: if you have specific code examples, consider adding them to your notebook as well.</p>
 </section>
 </section>
 

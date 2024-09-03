@@ -24,9 +24,84 @@ Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`
 
 
 
-## Data set: NC Births
+### Working with atomic vectors
 
-This set of problems uses a data set that contains information on 150 cases of mothers and their newborns in North Carolina in 2004. This data set is available at the following URL:
+1. If you combine values representing multiple data types during assignment, R will coerce them into the most general data type that makes sense. Use `typeof()` to check what data types the following assignments create. Did any of the data types or coercions surprise you? What is the most general data type of all (the one into which every other data type can be successfully coerced)?
+
+```{r}
+v1 <- c(27L, 3.14159, 42)
+v2 <- c(TRUE, 1, 0, 66, FALSE)
+v3 <- c(2.0, 2L, "2", "two")
+v4 <- c("FALSE", 0, FALSE)
+```
+
+1. Logical vectors are surprisingly useful, as we will see from examples during the next few weeks. For now, let's get comfortable with the ways the R handles values that converted to logical. Run each statement below and try substituting other values. What are the values that can be stored in logical vectors? What are the rules for coercion of other data types into logical vectors when using the `as.logical()` function? This is an unusual case where we want you to figure it out completely on your own and *not* use the help function in RStudio, the web, or friends. Just experiment: this is one of the best ways to become a more proficient programmer!  
+
+```{r eval = FALSE}
+v5 <- c(TRUE, T, FALSE, F, NA)
+v6 <- c(true, t, false, f, na)
+v7 <- c("TRUE", "T", "FALSE", "F", "NA")
+v8 <- as.logical(c(101, -1, 0, 1))
+v9 <- as.logical(c("hello", "", 'world', ''))
+v10 <- as.logical()
+v11 <- as.logical(NA)
+```
+
+1. Sometimes it's useful to generate a vector composed of a pattern of numbers. Below are some assignment statements that automatically generate numeric vectors. Evaluate each statement, then try substituting values to understand how each works. Based on your experimentation, explain the limitations of the colon operator `:` to generate numeric vectors. Next, write a brief definition of the functions `seq()` and `rep()`, including how each argument contributes to the overall pattern. As with question 2 above, we want you to figure this out on your own through experimentation.  
+
+```{r}
+p1 <- 1:11
+p2 <- 5:-5
+p3 <- seq(0, 200, by = 5)
+p4 <- seq(20, 10, by = -1.5)
+p5 <- rep(c(1:5), times = 3)
+p6 <- rep(c(3,5,7), each = 3)
+```
+
+4. Square-bracket indexing can be used on either side of an assignment statement to access specific items in an atomic vector. Evaluate the assignment statement below to create atomic vector `my_vec`. Update the `9999` value in `my_vec` to `NA` (for context, some programs use `9999` to represent missing data, so this is a real world operation that you may need to use). Then add extend the length of `my_vec` by adding two new values: `6` and `3`. Next, extract just the second, third, and fifth items and store them in a new vector called `new_vec`.  Finally, replace all the `NA` values in `your_vec` with the value `0`.
+
+```{r}
+my_vec <- c(3, 4, 7, 9999, 2, 9)         # 9999 sometimes represents missing data!
+your_vec <- c(55, NA, 52, 58, NA, NA, 49, 60, NA)
+```
+
+
+### Working with lists
+
+5. Evaluate the expression below to create `my_list`, then use `length()` to learn how many items are in it. What does R consider to be an item in a list? Next, separately extract the second item in `my_list` using `[ ]` and `[[ ]]` and assign each to a new variable. How does the method of indexing affect the type of the extracted data? Now try converting the two new variables into a floating point atomic vector using the function `as.double()`. Why does this only work with one of them? 
+
+```{r}
+my_list <- list(27, c(1:5), "banana", c(FALSE, FALSE, TRUE, FALSE, TRUE))   
+```
+
+6. Named lists provide another method of indexing. Create the list `study_sites` using the first statement below. Extract the information for the `grassy_meadow` study site using its name and assign it to a new variable. Now extract just the elevation (first item) and assign it to a different variable. If you wanted to compute the average elevation, this would be an awkward process. It's usually much easier to work with data like these when they are in a data frame rather than a list of lists. 
+
+```{r}
+study_sites <- list("windy_ridge" = list(2235, "grassland"), 
+                    "pine_valley" = list(1450, "forest"),
+                    "stoney_creek" = list(900, "stream"),
+                    "grassy_meadow" = list(1670, "grassland"),
+                    "oak_glen" = list(1302, "forest"))
+```
+
+
+7. Many functions return lists as their output. You will often want to extract specific values from those lists for plotting or further processing. Evaluate the assignment statements below. Inspect `sample1` and `sample2` and access help to understand what the `rnorm()` function does. Next, carry out a t-test and display the default results. To access individual items as needed, start by assigning the results to the variable `test_results`. Use `names()` to show the names of the values stored in the list that is returned. Using this information, use dollar-sign indexing to assign the p-value and the confidence interval to separate values.
+
+```{r, results='hide'}
+# generate example data
+sample1 <- rnorm(10, mean = 0, sd = 1)
+sample2 <- rnorm(10, mean = 0.5, sd = 1)
+# carry out a t-test
+t.test(sample1, sample2)
+# assign results to a variable
+test_results <- t.test(sample1, sample2)
+```
+
+## Practice with dplyr
+
+### Data set: NC Births
+
+The questions below use a data set that contains information on 150 cases of mothers and their newborns in North Carolina in 2004. This data set is available at the following URL:
 
 * https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt
 
@@ -50,25 +125,29 @@ library(tidyverse)
 births <- read_tsv("https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt")
 ```
 
-## Problems
+### dplyr problems
 
-1. Removed the `gained` data column
+8. Write a code block showing how to load the `nc-births.txt` data.
 
-1.  Write a code block showing how to use `dplyr::filter` to get all the cases where the age of both the mother and father was 20 years or younger.
+9. Write a code block showing how to create a derived data frame with the `gained`  column removed, and assign it to a variable `births_trimmed`.
 
-1. Write a code block that uses `mutate` to create a derived column `weight_kg` giving each babies weight in kilograms.
+10. Show how to compute the dimensions of `births_trimmed` (from the prior step).
 
-1. Write a code block that shows how to use `dplyr::arrange` to sort the  data by the babies birth weight in ascending order.
+11. Write a code block that uses `mutate` to create a derived column `weight_kg` giving each babies weight in kilograms.
 
-1. Generate a data frame with the ten lightest babies.
+12. Write a code block that shows how to use `arrange` to sort the data by the babies birth weight in ascending order.
 
-1. Generate a data frame with only the premature babies, and then remove the redundant "premature" column (this is no longer variable in your derived data)
+13. Starting with the output of the previous question, write a code block showing how generate a data frame with only the ten lightest babies.
 
-1. Generate a data frame with babies that were both premature and for whom their mother was a smoker.
+14. Write a code block showing how to use `filter` to get all the cases where the mother smoked and the father's age was greater than 40.
+
+15. Generate a data frame with only the premature babies, and then remove the redundant "premature" column (this is no longer variable in your derived data)
+
+16. Using `groupby` and `summarize`, generate a data frame that gives the median birth weight of premature babies grouped by mother's smoking status.
   
 
 ## Data lunch assignment
 
-1. Identify something that you learned from the presentation or discussion on Thursday that you found valuable. Provide a brief reflection here (1-5 sentences) and include code or pseudo-code if useful. Hint: if you have specific code examples, consider adding it to your notebook as well.
+Identify something that you learned from the presentation or discussion on Thursday that you found valuable. Provide a brief reflection here (1-5 sentences) and include code or pseudo-code if useful. Hint: if you have specific code examples, consider adding them to your notebook as well.
 
 
