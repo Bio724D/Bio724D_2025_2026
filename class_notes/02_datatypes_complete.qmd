@@ -1,0 +1,234 @@
+---
+title: "Data types in R"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Set up
+
+Load the tidyverse package and the `penguins.csv` dataset:
+
+```{r include = FALSE}
+library(tidyverse)
+penguins <- read_csv("penguins.csv")
+```
+
+## Metadata
+
+R provides several functions to learn about an object's metadata. 
+
+```{r}
+
+# every variable has at least two attributes (types of metadata):
+typeof(penguins)
+length(penguins)
+typeof(penguins$species)
+typeof(penguins$bill_length_mm)
+length(penguins$species)
+length(penguins$bill_length_mm)
+
+# R provides additional ways to learn about metadata:
+str(penguins)
+class(penguins)
+
+# data frames have additional metadata:
+attributes(penguins) 
+names(penguins)
+row.names(penguins)
+
+```
+
+## Data types
+
+R automatically assigns a data type based on the value to you provide. Sometimes it needs a little help to make the right choice. Experiment to learn how to avoid unexpected data type assignment. There are six basic ("atomic") data types in R: four are common (numeric, integer, character, and logical) and two are rarely used (complex and raw).
+
+```{r}
+my_dub <- 42              # any real number is by default type double
+typeof(my_dub)
+my_int <- 42L             # the L (no space!) indicates it should be type integer
+typeof(my_int)
+my_char <- '42'           # single and double quotes work (but don't mix)
+typeof(my_char)
+my_logical <- TRUE        # other allowed values: FALSE, NULL (all-caps, no quotes!)
+typeof(my_logical)
+my_imaginary <- 4+2i      # note the syntax
+typeof(my_imaginary)
+my_raw <- raw(42)         # creates a vector of length 42 containing value 00  
+typeof(my_raw)
+my_raw
+```
+
+## Reassignment
+
+R allows you to update the value of variable. If you update with a value of a different data type, R silently changes the data type of the variable. This is convenient, but beware that it can lead to problems if you are not careful!
+
+```{r}
+my_var <- 42
+typeof(my_var)
+my_var <- FALSE
+typeof(my_var)
+my_var <- '42'
+typeof(my_var)
+```
+
+## Data type coercion
+
+R allows you to change the type of a variable *after* assignment, but only if it makes sense. This is known as *coercion*. You can also coerce data type during assignment.
+
+```{r}
+my_var <- 42L                   # start by assigning to integer type
+my_var
+typeof(my_var)
+my_var <- as.double(my_var)     # re-assign the result or it will be lost!
+my_var
+typeof(my_var)
+my_var <- as.character(my_var)
+my_var
+typeof(my_var)
+my_var <- as.logical(42)        # non-zero numbers and characters are TRUE
+my_var
+typeof(my_var)
+my_var <- as.integer(FALSE)     # FALSE becomes 1L, TRUE becomes 0L
+my_var
+typeof(my_var)
+```
+
+And with the `penguins` data frame for practice:
+
+```{r}
+penguins$species[5] <- 'Macaroni'
+head(penguins$species)
+penguins$species[5] <- FALSE      # coerces values to match the existing column type
+head(penguins$species)
+penguins$species[5] <- 33L
+head(penguins$species)
+penguins$body_mass_g[5] <- 33L    # allows numeric in a numeric column
+head(penguins$body_mass_g)
+```
+
+## Vectors
+
+In R, atomic data types are always vectors. If you provide just one value, R will create a vector of length 1. The `c` function is an easy way to create longer vectors.
+
+```{r}
+v1 <- 99
+length(v1)
+v1 <- c(12, -4, 300)
+length(v1)
+v2 <- c(11, 23, 44)
+long_vec <- c(v1, v2)         # join vectors using the c operator
+long_vec
+long_vec <- c(v2, v1)         # vectors are joined in the order given
+long_vec
+v3 <- 1:20                    # create sequences using the colon operator
+v3
+v4 <- 10:0                    # works in reverse
+v4
+```
+
+## Missing values
+
+R has three special values to represent missing, invalid, and undefined data. The most common is NA, which is short for not available, and indicates missing data. R provides several tools for working with NA values.
+
+```{r}
+is.na(penguins$body_mass_g)              # returns a logical vector with NAs TRUE
+sum(is.na(penguins$body_mass_g))         # count of NA values for a single column
+which(is.na(penguins$body_mass_g))       # position of NAs for a single column
+colSums(is.na(penguins))                 # count of NA values for all columns
+```
+
+## Lists
+
+R will automatically coerce values to the most general type if you pass obviously different kinds of values in an assignment statement. If you instead intend to create a list, you will need to use the list generator function.
+
+```{r}
+my_list <- c(999, 'hello', FALSE)           # doesn't actually create a list!
+my_list
+typeof(my_list)                            
+my_list <- list(999, 'hello', FALSE)        # creates a list
+my_list
+typeof(my_list)
+```
+
+Make a list that approximates a dataframe, then add column names:
+
+```{r}
+my_dataframish_thing <- list(c(1,2,3), c('A','B','C'), c(FALSE,TRUE,FALSE))
+my_dataframish_thing
+typeof(my_dataframish_thing)
+typeof(my_dataframish_thing[3])
+length(my_dataframish_thing)
+typeof(my_dataframish_thing[[3]])
+length(my_dataframish_thing)
+names(my_dataframish_thing) <- c('foo', 'bar', 'baz')
+str(my_dataframish_thing)
+```
+
+## Vectorized operations
+
+R allows you to apply a mathematic operation or function to a vector in a single step, without the need for a loop. 
+
+```{r}
+summed_vec <- v1 + v2          # warning: only do this with vectors of equal length!
+summed_vec
+squared_vec <- v1 * v1
+squared_vec
+squared_vec <- v1^2            # same as above but with ^ (exponent) operator
+squared_vec
+sines_vec <- sin(v1)           # works with functions
+sines_vec
+```
+
+More practice with the `penguins` data frame:
+
+```{r}
+penguins$body_mass_g <- penguins$body_mass_g / 1000
+head(penguins$body_mass_g)               # converted to mass in kilograms
+names(penguins)[6] <- 'body_mass_kg'     # now we need to change the column name!
+names(penguins)
+interesting_ratio <- penguins$bill_length_mm / penguins$flipper_length_mm
+head(interesting_ratio)                  
+```
+
+## Working with atomic vectors
+
+Practice the following operations with atomic vectors to become comfortable with common operations you'll need later. 
+
+Updating individual items in a data frame:
+
+```{r}
+head(penguins$species, 10)             # note optional second argument
+penguins$species[5] <- 'Macaroni'      # repeat from earlier, new variations below
+head(penguins$species, 10)         
+penguins$species[5:7] <- 'Macaroni'
+head(penguins$species, 10)         
+penguins$species[5:7] <- c('Macaroni', 'Snares', 'Royal')
+head(penguins$species, 10)  
+```
+
+Exploring values:
+
+```{r}
+unique(penguins$species)               # quick way to check for some kinds of errors
+length(unique(penguins$species))       # returns number of unique values
+sort(penguins$body_mass_g)             # works with numeric and character values
+sort(penguins$body_mass_g, decreasing = TRUE)
+sort(unique(penguins$island))          # works with numeric and character values
+```
+
+Extracting distinct values and summary statistics:
+
+```{r}
+max(penguins$body_mass_g)                # not the result we want!
+max(penguins$body_mass_g, na.rm = TRUE)  # remove missing values
+min(penguins$body_mass_g, na.rm = TRUE)
+mean(penguins$bill_depth_mm, na.rm = TRUE)
+table(penguins$year)                     # tallies of each unique value
+```
+
+
+
