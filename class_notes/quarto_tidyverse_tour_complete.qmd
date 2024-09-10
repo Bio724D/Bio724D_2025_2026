@@ -1,7 +1,10 @@
 ---
 title: "A whirlwind tour of Quarto and the Tidyverse"
 author: "Paul M. Magwene"
-format: html
+date-format: iso
+format: 
+  html:
+    embed-resources: true
 ---
 
 # Installing packaages
