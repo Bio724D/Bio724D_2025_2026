@@ -40,7 +40,7 @@ Using the [NC Births dataset](https://github.com/Bio723-class/example-datasets/r
 
 5. Draw a scatter plot showing the relationship between mothers age and fathers age. Use `coord_equal()` to insure that the x- and y-axes have a fixed ratio, and modify the plot limits to include the origin. Color the points by birth status.
 
-6. Use the [patchwork library](https://patchwork.data-imaginist.com/) to combine the following four plots into a single 2 x 2 grid of plots, with labels A to D.
+6. Use the [patchwork library](https://patchwork.data-imaginist.com/) to combine the previous four plots into a single 2 x 2 grid of plots, with labels A to D.
 
 
 
