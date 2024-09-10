@@ -18,12 +18,17 @@ library(RColorBrewer)
 library(palmerpenguins)  # easy access to the penguins data
 ```
 
+## References
+
+* ggplot2 website -- https://ggplot2.tidyverse.org/
+
+* ggplot2 book -- https://ggplot2-book.org/
+
 
 
 ## Data, geoms, and aesthetics
 
 Basic idea of specifying a plot as combination of data, geometry, and aesthetic properties
-
 
 Illustrate different ways of specifying aesthetics and overriding aesthetics.
 
