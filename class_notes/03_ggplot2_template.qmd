@@ -1,0 +1,41 @@
+---
+title: "ggplot2 tour"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+---
+
+## Libraries
+
+```{r}
+library(ggplot2)
+library(ggdist) # nice distributional plots
+library(ggtext) # useful for text formatting
+library(patchwork) # laying out sub-figures
+library(RColorBrewer)
+
+library(palmerpenguins)  # easy access to the penguins data
+```
+
+
+
+## Data, geoms, and aesthetics
+
+Basic idea of specifying a plot as combination of data, geometry, and aesthetic properties
+
+
+Illustrate different ways of specifying aesthetics and overriding aesthetics.
+
+Illustrate idea of assigning plots or plot elements to variables and lists
+
+## Color
+
+## Axis scaling
+
+## Themes
+
+## Geom tour
+
+See slides
+
