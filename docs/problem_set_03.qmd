@@ -29,8 +29,18 @@ Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`
 1. Locate a graphic in a publication that you think does *not* represent graphical excellence. Provide the reference and figure number. Download or grab a screenshot of the graphic and insert it into your homework notebook. Explain what is not great about the graphic and what you think could be done better. 
 
 
-2. 
+Using the [NC Births dataset](https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt) (see last week's HW for details), generate the following plots. For each plot use appropriate readable axis labels, colors, etc. 
 
+
+2. A scatter plot showing the relationship between weeks of gestation and birth weight, with points colored by birth status (premature vs full term).
+
+3. A density plot showing the distribution of baby birth weights for smoking and non-smoking mothers. Use `geom_rug` to depict the marginal distributions.
+
+4. A boxplot comparing birth weight for premature and full term babies, with mother's smoking status indicated by color.
+
+5. Draw a scatter plot showing the relationship between mothers age and fathers age. Use `coord_equal()` to insure that the x- and y-axes have a fixed ratio, and modify the plot limits to include the origin. Color the points by birth status.
+
+6. Use the [patchwork library](https://patchwork.data-imaginist.com/) to combine the following four plots into a single 2 x 2 grid of plots, with labels A to D.
 
 
 
