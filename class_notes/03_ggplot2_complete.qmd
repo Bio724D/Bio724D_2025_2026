@@ -1,0 +1,319 @@
+---
+title: "ggplot2 tour"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+---
+
+## Libraries
+
+```{r}
+library(tidyverse)  # loads ggplot2, dplyr, and others
+
+library(ggdist) # nice distributional plots
+library(ggtext) # useful for text formatting
+library(patchwork) # laying out sub-figures
+library(RColorBrewer) # color palettes
+
+library(palmerpenguins)  # easy access to the penguins data
+```
+
+## References
+
+There are lots of ggplot2 tutorials on the web, but the ggplot2 website and book are definitive resources if you really want to understand how to use and extend ggplot2:
+
+* ggplot2 website -- https://ggplot2.tidyverse.org/
+
+* ggplot2 book -- https://ggplot2-book.org/
+
+
+## Data
+
+```{r}
+# uncomment if you want o review the penguins data set in
+# the spreadsheet viewer
+
+# View(penguins)  
+```
+
+
+
+## Required layers: Data, geometry, and aesthetics
+
+Every ggplot2 figure requires us to define three elements:
+
+1. Data, in the form of a data frame
+
+2. One or more geometric mappings that specify the plot type(s)
+
+3. Aesthetics, specifying what gets mapped to the various aspects of the geometric mapping
+
+
+### Multiple ways to specify the layers
+
+* Aesthetics specified in `ggplot` call, inherited by all geoms:
+
+```{r}
+# both geoms inherit the aesthetics
+ggplot(penguins, aes(x = body_mass_g)) +  
+  geom_density() + 
+  geom_rug()
+
+```
+
+* Aesthetics specified in an independent call to `aes`:
+
+```{r}
+# again aesthetics inherited by geoms that follow
+ggplot(penguins) +
+  aes(x = body_mass_g) +
+  geom_density() +
+  geom_rug()
+
+```
+
+
+
+* Aesthetics specified in the geoms themselves:
+
+```{r}
+# here each geom needs to redefine the aesthetics
+ggplot(penguins) +
+  geom_density(aes(x = body_mass_g)) +
+  geom_rug(aes(x = body_mass_g))
+```
+
+* Here's an example where it's useful to specify specific aesthetics in a geom:
+
+```{r}
+ggplot(penguins, aes(x = species, y = body_mass_g)) + 
+  geom_boxplot(outliers = FALSE) + 
+  geom_jitter(mapping = aes(color = species), 
+              alpha = 0.5,
+              width = 0.15)
+```
+
+## ggplot elements can be assigned to variables
+
+
+```{r}
+data_layer <- ggplot(penguins)
+aes_layer <- aes(x = body_mass_g, 
+                 y = flipper_length_mm,
+                 color = species)
+
+my_plot <-
+  data_layer +
+  aes_layer +
+  geom_point(alpha=0.75) 
+
+my_plot
+```
+
+## Optional aspects of ggplot figures
+
+Specifying data, aesthetics, and geoms are required to create a plot.  The following aspects are optional, but are often critical in terms of effectively exploring or depicting key features of data
+
+### Axis labels, titles, 
+
+* The `labs` function is used to specify axis labels, titles, subtitles, etc.
+
+
+```{r}
+better_plot <-
+  my_plot +
+  labs(x = "Body mass (g)",
+       y = "Flipper length (mm)",
+       title = "Penguin morphology",
+       caption = "Data from palmerpenguins")
+
+better_plot
+```
+
+
+## Changing plot limits
+
+If you want to change the limits of a plot, the recommended way to do so is to use the `coord_cartesian` function to specify x and y limits.
+
+```{r}
+# zoom in on a particular region of the plot
+better_plot +
+  coord_cartesian(xlim = c(4000,5000), ylim=c(180,210))
+```
+
+```{r}
+# zoom out to include margins
+better_plot +
+  coord_cartesian(xlim = c(0,6500), ylim=c(0,240))
+```
+
+
+An alternate functions, `lims` can also be used to specify limits, but `lims`  removes data rather than just changing the limits. This can be important if the plot includes a representation of a statistical function, such a linear model.
+
+
+
+
+### Themes
+
+Themes change key aspects of the non-data related aspects of plots.
+
+There are a variety of default themes:
+
+```{r}
+better_plot + theme_classic()
+```
+
+```{r}
+better_plot + theme_minimal()
+```
+
+## Color palettes
+
+Color palettes can be used to specify the color used in plot.
+
+The RColorBrewer package provides a number of well designed color schemes, but there are other packages that provide color palettes and you can specify your own palette as well.
+
+The pre-definied RColorBrewer palette's can be seen [at this link](https://renenyffenegger.ch/notes/development/languages/R/packages/RColorBrewer/index). You can also view these palettes in your Quarto document as follows:
+
+```{r}
+#| fig-width: 6
+#| fig-height: 8
+
+# the lines above are special Quarto related syntax for formatting figures
+# see the following link about figure options that can be set in quarto docs
+# https://quarto.org/docs/reference/formats/html.html#figures
+
+display.brewer.all()
+```
+
+### Color and fill
+
+Color and fill are the chief aesthetic properties that are effected by palettes and in geoms that use both, they can be set indepedently.  Color modify functions in ggplot start with `scale_color_` while fill modifying functions start with `scale_fill_`.
+
+
+If we wish to use one of the RColorBrewer palettes to changes the color of points in a scatter plot, `scale_color_brewer` can be used:
+
+```{r}
+# For categorical data I like the "Dark2" color scheme
+better_plot +
+  scale_color_brewer(palette = "Dark2") 
+```
+
+Here's another one of the RColorBrewer palettes.
+
+```{r}
+better_plot + 
+  scale_color_brewer(palette = "Set1") 
+```
+
+### Defining your own color palettes
+
+If you want to define your own palette you can do it as so:
+
+```{r}
+# colors can be specified in various ways
+# ggplot recognizes both hex codes, SVG color names (https://johndecember.com/html/spec/colorsvg.html) 
+# In this example we construct a custom palette using color names
+
+custom_colors <- c("firebrick", "steelblue", "goldenrod")
+
+
+better_plot + 
+  scale_color_manual(values = custom_colors) 
+
+```
+
+### scale_fill_ examples
+
+`geom_density` and `geom_histogram` have both color and fill aesthetics:
+
+
+```{r}
+ggplot(penguins, aes(x = body_mass_g,
+                     color = species,
+                     fill = species)) +
+  geom_density(alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  scale_color_brewer(palette = "Dark2")
+```
+
+It can be useful to specify both fill and color palettes in a list, and assign that a variable name so you can refer to those settings easily:
+
+```{r}
+preferred_palette = "Dark2"
+
+my_colors = list(
+  scale_fill_brewer(palette = "Dark2"),
+  scale_color_brewer(palette = "Dark2")
+)
+
+
+ggplot(penguins, aes(x = body_mass_g,
+                     color = species,
+                     fill = species)) +
+  geom_density(alpha = 0.5) + 
+  my_colors
+
+
+```
+
+## Facets
+
+Faceting is the process of subdividing our data based on one or more categorical variables when plotting. 
+
+
+```{r}
+# an example that involves filtering (via dplyr)
+# and facetting to compare conditional distributions
+
+penguins |>
+  filter(!is.na(sex)) |>
+  ggplot(aes(x = body_mass_g, fill = species)) +
+  geom_histogram() +
+  facet_wrap(vars(sex, species), ncol = 3) +
+  labs(x = "Body Mass (g)", y = "# Observations",
+       title = "Distribution of penguin body mass by sex and species",
+       caption = "Data from Palmer Penguins library") +
+  my_colors
+  
+```
+
+## Organizing plots with patchwork
+
+The [patchwork library](https://patchwork.data-imaginist.com/) is useful for combining multiple plots into a single figure.  
+
+Patchwork uses a simple syntax for specifying the layout of plots, as illustrated below. See the patchwork docs for more details and lots of examples:
+
+
+```{r}
+#| warning: false
+
+plot1 <-
+  ggplot(penguins, aes(x = body_mass_g, fill = species)) + 
+  geom_histogram(position = "identity",  # for non-stacked histograms
+                 alpha = 0.5) +
+  my_colors
+
+
+plot2 <-
+  ggplot(penguins, aes(x = flipper_length_mm, fill = species)) + 
+  geom_histogram(position = "identity",  
+                 alpha = 0.5) +
+  my_colors
+
+
+plot3 <-
+  ggplot(penguins, aes(x = body_mass_g, y = flipper_length_mm, color = species)) + 
+  geom_point() + 
+  my_colors
+
+# adding draws plots horizontally
+# dividing specifies vertical stacking
+layout <- (plot1 + plot2) / (plot3)
+
+layout
+
+```
+
+
