@@ -26,13 +26,17 @@ execute:
   warning: false
 ---
 
+::: {.callout-note collapse="true"}
+## Libraries
+
 ```{r}
-#| echo: false
+#| echo: true
 #| output: false
 library(tidyverse)
-library(knitr)
+library(palmerpenguins)
 set.seed(20240916)
 ```
+:::
 
 # Data
 
@@ -194,70 +198,106 @@ yeast_grouped2 |>
 ::: {.callout-note collapse="true"}
 ## Row-wise summaries
 
+`summarize` works across rows, but sometimes you want to make calculations across columns. The `rowwise` function facilitates this:
+
+
+
 ```{r}
 yeast |>
   rowwise() |>
-  mutate(mean.Adhes = mean(c_across(Adhes.a:Adhes.c)),
+  mutate(mean.Adhes = mean(c_across(starts_with("Adhes"))),
          mean.CM = mean(c_across(CM.a:CM.c))) 
+
+# two different ways to select columns above
+# Note that ranges can be fragile when data gets reordered
 ```
 :::
 
 
 # More complex operations on groups
 
+For the following examples, we'll return to using the `penguins` data set. Remember to load the `palmerpenguins` data set first.
+
 ::: {.callout-note collapse="true"}
 ## `mutate` after `group_by`
 
+`mutate` is "group aware", and will apply it's calculations in a group-wise manner on a grouped data frame.
+
+Compare the following:
+
+* Ungrouped data frame
 ```{r}
-yeast_grouped |>
-  mutate(group_mean_Cyr1.expr = mean(Cyr1.expr, na.rm = TRUE))
+penguins |>
+  mutate(deviation = body_mass_g - mean(body_mass_g, na.rm = TRUE)) |>
+  pull(deviation) |> # pull is similar to $
+  head(5)
 ```
+
+
+* Grouped data frame
+```{r}
+penguins |>
+  group_by(species) |>
+  mutate(deviation = body_mass_g - mean(body_mass_g, na.rm = TRUE)) |>
+  pull(deviation) |> # pull is similar to $
+  head(5)
+```
+
+
 :::
 
 ::: {.callout-note collapse="true"}
 ## Applying functions by group using `group_map` and `group_modify`
 
+
+Sometimes we want to do grouped operations that are relatively complex, such as fitting a linear regression to sub-groups within the data.  
+
+This is relatively easy to generate a plot such as this in ggplot.
+
 ```{r}
-
-yeast_grouped_Cyr1 <-
-  yeast |>
-  rowwise() |>
-  mutate(mean.Adhes = mean(c_across(Adhes.a:Adhes.c)),
-         mean.CM = mean(c_across(CM.a:CM.c)),
-         log2.Adhes = log2(mean.Adhes),
-         log2.Flo11 = log2(Flo11.expr)) |> 
-  filter(Cyr1.geno != "H") |>
-  group_by(Cyr1.geno) 
-
-ggplot(yeast_grouped_Cyr1, aes(x = log2.Flo11, 
-                               y = log2.Adhes,
-                               color = Cyr1.geno)) +
-  geom_point() + 
-  geom_smooth(method = lm)
-
-
+penguins |>
+  filter(!is.na(sex)) |>
+  ggplot(aes(x = body_mass_g,
+                     y = flipper_length_mm,
+                     color = species,
+                     shape = sex)) +
+  geom_point(alpha = 0.5) + 
+  geom_smooth(method = lm, alpha=0.5)
 
 ```
 
-```{r}
-lm_by_Cyr1 <-
-  yeast_grouped_Cyr1 |>
-  group_map(~lm(log2.Adhes ~ log2.Flo11, data = .x))
+ggplot is clearly fitting 6 different linear models to the grouped data (sex and species) "behind the scenes".  How could we do these calculations succinctly and efficiently ourselves? The function `group_map` and `group_modify` are useful to solve this problem.
 
-lm_by_Cyr1
+
+`group_map` applies an arbitrary function to the groups in a grouped data frame, and returns the results in the form of a list.  Here's an example of using `group_map` to fit linear models to every combination of species and sex in the 
+
+```{r}
+
+penguins_by_species_sex <-
+  penguins |>
+  filter(!is.na(sex)) |>
+  group_by(species, sex)
+
+lm_by_species_sex <-
+  penguins_by_species_sex |>
+  group_map(~lm(flipper_length_mm ~ body_mass_g, data = .x))
+
+lm_by_species_sex
 
 ```
+
+`group_modify` is similar to `group_map` but requires that the output of the function is a data frame.  Since the `lm` function does not return it's results in the form of a data frame,  we turn to a package called [`broom`](https://broom.tidymodels.org/index.html) which is a library that turns model fit output into data frames for us.  Broom has three basic functions: `tidy`, `glance`, and `augment`.  Here we use the `tidy` function to report information about the coefficients of the linear models that are fit to each group in the data:
 
 
 
 ```{r}
 library(broom)
 
-lm_by_Cyr1_df <-
-  yeast_grouped_Cyr1 |>
-  group_modify(~ broom::glance(lm(log2.Adhes ~ log2.Flo11, data = .x)))
+lm_by_species_sex_df <-
+  penguins_by_species_sex |>
+  group_modify(~ broom::tidy(lm(flipper_length_mm ~ body_mass_g, data = .x)))
 
-lm_by_Cyr1_df
+lm_by_species_sex_df
 ```
 
 

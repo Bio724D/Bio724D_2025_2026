@@ -1,0 +1,266 @@
+---
+title: "Data types in R"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Set up
+
+Load the tidyverse package and two practice datasets:
+
+```{r include = FALSE, silent = TRUE}
+library(tidyverse)
+library(palmerpenguins)
+penguins <- penguins
+yeast <- read_csv("seg_strain_table.csv")
+```
+
+## Indexing methods
+
+Indexing is how you tell R which items within a data object you want to work with. Base R provides three methods for indexing data objects, and `dplyr` provides a fourth method. Here, we will look at how these four indexing methods apply to data frames specifically. 
+
+**Square-bracket indexing** `[ ]` is the most general method, and can be applied to any data object. Square bracket indexing usually preserves the class of the items, so indexing a column in a data frame will return a list. In general, using numbers to index data objects is efficient for one-time operations but using names is better for code you want to keep. 
+
+```{r eval = FALSE}
+# columns can be indexed by integer
+penguins[4]             # returns the 4th column
+penguins[1:3]           # works with ranges; but not best practice
+penguins[c(1,5)]        # works with vectors of columns
+penguins[c(5,1)]        # returns columns in the order specified
+
+# columns can also be indexed by name; quotes are required
+penguins["island"]      # returns the 2nd column; all variations above work 
+
+# rows can be indexed by integer (but usually not by name)
+# note the comma!
+penguins[2,]            # returns the 2nd row
+penguins[1:20,]         # works with ranges
+penguins[c(5,10),]      # use vectors to return discontinuous rows
+
+# combinations of rows and columns can be indexed by integers and column names
+penguins[1, 4]          # the first value is row, the second value is column 
+penguins[1:10, 4]       # works with ranges
+penguins[1:10, 1:4]     # and ranges for both rows and columns
+penguins[1, "sex"]      # row number and column names can be combined  
+
+# R will complain if integers are out of range or names don't exist
+penguins[11]            # throws an error and provides an explanation
+penguins["age"]         # same
+```
+
+**Double square bracket indexing** `[[ ]]` is useful when you want only the *values* in a column of a data. This is an important distinction: square bracket indexing usually returns a list, while double square bracket indexing returns an atomic vector without the column name. This can be important in pipes, as we will see later. 
+
+```{r eval = FALSE}
+# compare what happens when you use single and double square backets to index
+penguins[6]                      # returns a tibble composed of one column
+typeof(penguins[6])             
+penguins[[6]]                    # returns an atomic vector
+typeof(penguins[[6]])            
+
+# column names also work
+penguins["body_mass_g"]
+penguins[["body_mass_g"]]
+```
+
+**Dollar-sign indexing** `$` only works if columns have names. Quotes are not needed around names, as they are part of the metadata of the object. When applied to a data frame, dollar sign indexing returns an atomic vector. Only 1 column can be indexed at a time.
+
+```{r eval = FALSE}
+# indexing a column in a data frame should be familiar by now
+penguins$species                # quotes are not needed (but tolerated)
+typeof(penguins$species)        # returns an atomic vector
+
+# don't try to index multiple columns!
+my_thing <- c(penguins$species, penguins$bill_depth_mm)     
+typeof(my_thing)                # unexpected result
+```
+
+**Indexing with dplyr** `dplyr` functions ("verbs") provide  more flexible indexing than the Base R methods. To index columns, use the `select` verb and index by name; quotes are not needed. (Dollar sign indexing does *not* work.) Note that `select` returns a tibble. If you need to index columns in a pipe and pass the results to a function that expects values (rather than list), use the dplyr verb `pull` or use dollar sign indexing. Note also that the conventions illustrated below apply to many other `dplyr` verbs. 
+
+```{r eval = FALSE}
+# basic indexing using select as an example 
+select(penguins, species)               # no quotes (tolerated but not recommended)
+select(penguins, c(species, island))    # multiple columns, can be discontinuous
+select(penguins, c(island, species))    # returns columns in order specified
+select(penguins, body_mass_g:year)      # ranges work but are not recommended
+
+# many "helper" functions are available
+select(penguins, -(species))            # returns all columns except the one specified
+select(penguins, -c(species, sex))      # use -c() to remove multiple columns
+select(penguins, starts_with("bill"))
+select(penguins, ends_with("mm"))
+select(penguins, contains("length"))
+select(penguins, is.numeric)            # is.character, is.logical, etc. also work
+select(penguins, -is.numeric)           # most helper functions can be negated
+```
+
+## Filtering in R
+
+Filtering is the process of extracting a specific subset of rows from a data frame. Paul introduced the `dplyr` verb `filter` in session 02. (Note that there is also a base R `filter` function that works somewhat differently.) 
+
+Today, we're going to briefly review basic filtering, then move on to some intermediate filtering methods using logical and factor data types.   
+
+**Recap of piping basics**
+
+Filtering is commonly used in pipes Two things to keep in mind when piping are missing values and what kind of data structure the next function expects.  
+
+```{r eval = FALSE}
+# many functions don't accept NA values (check function documentation)
+penguins$bill_depth_mm |> mean()              # silently returns NA, not what we want
+penguins$bill_depth_mm |> mean(na.rm = TRUE)  # now it works!
+
+# some functions require vectors as input (check function documentation)
+select(penguins, bill_depth_mm) |> mean()     # throws a warning and returns NA
+select(penguins, bill_depth_mm) |> typeof()   # select returns lists
+select(penguins, bill_depth_mm) |> unlist() |> mean(na.rm = TRUE)  # now it works!
+penguins$bill_depth_mm |> mean(na.rm = TRUE)  # also works and is simpler
+```
+
+**Recap of filtering basics**
+
+The `filter` verb provides a way to subset rows by condition.   
+
+```{r eval = FALSE}
+# basic format for filtering
+penguins |> filter(bill_length_mm > 52)                    # simple filtering operation
+
+penguins |>                                                # multiple lines for clarity
+  filter(bill_length_mm > 52) |>                              
+  count()
+  
+penguins |> 
+  filter(sex == "female", flipper_length_mm > 200) |>      # remember to use == 
+  select(sex, flipper_length_mm)
+
+penguins |> 
+  filter(island != "Biscoe", flipper_length_mm > 200) |>   # use != for not equals 
+  select(sex, flipper_length_mm)
+
+# two ways to make the previous expression clearer
+penguins |>
+  filter(sex == "female" & flipper_length_mm > 200) |>     # use & to replace the comma
+  select(sex, flipper_length_mm)
+
+penguins |> 
+  filter(sex == "female") |>                               # filter in 2 steps
+  filter(flipper_length_mm > 200) |>                       
+  select(sex, flipper_length_mm)
+
+# functions can be embedded directly into filtering conditions
+# find the female with the shortest flippers
+penguins |> 
+  filter(sex == "female") |> 
+  filter(flipper_length_mm == min(flipper_length_mm)) 
+```
+
+**Filtering with Boolean indexing**  
+
+Boolean indexing involves creating a vector that contains logical (TRUE/FALSE) values based on some condition or combination of conditions that you specificy. This vector can then be use to filter rows where the index column is TRUE.
+
+To illustrate how this works, consider two vectors.
+
+```{r eval = FALSE}
+# ceate an integer vector and a logical vector of equal lengths
+my_vector <- c(1:6)                       
+my_bool <- c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE)
+
+# now we can filter the first vector based on truth values
+my_vector[my_bool]
+```
+
+Now let's apply this process to a column in a data frame. Using a descriptive name for the new index column helps to make the code easier to interpret later.
+
+```{r eval = FALSE}
+# first, create the index column
+penguins <- mutate(penguins, thick_billed = (bill_length_mm / bill_depth_mm) < 2.0)
+
+# second, filter using the index column
+filter(penguins, thick_billed) 
+
+# this becomes more powerful when you use it in a pipe  
+penguins |> 
+  filter(thick_billed) |> 
+  count()
+
+# and then use it later in another operation, and then another operation...
+```
+
+
+**Filtering with factors** 
+
+You may encounter data frames containing factors, so it is important to know how to recognize them. 
+
+```{r eval = FALSE}
+# factors look like ordinary character columns
+typeof(penguins$species)          # returns integer! what is going on?
+class(penguins$species)           # returns factor (mystery solved)
+
+# the best way to check is with a logical test
+is.factor(penguins$species)       
+```
+
+Factors have several useful properties. One of the most important advantages is that they help catch data input errors. Note that R uses "levels" to referr to the values of a factor. 
+
+```{r eval = FALSE}
+# factors only allow pre-defined values
+levels(penguins$species)          # returns all valid values
+penguins[1,1] <- "Macaroni"       # error: 'Macaroni' is not an allowed value
+```
+
+To explore how to work with factors, we will switch to the yeast data frame.  
+
+```{r eval = FALSE}
+# convert an existing character column into a factor column
+typeof(yeast$Pool)                     # returns character
+yeast$Pool <- as.factor(yeast$Pool)    # coerce the column to factor
+is.factor(yeast$Pool)                  # returns TRUE
+levels(yeast$Pool)                     # returns a list of allowed values
+
+# filtering by factor is based on the character representation
+# identify the strain with 'C' morphology that has the lowest cAMP concentration
+yeast |> 
+  filter(Pool == 'C') |> 
+  select(cAMP) |> 
+  min(na.rm = TRUE)       
+
+# take a quick look at colony morphology scores
+yeast <- mutate(yeast, CM.mean = (CM.a + CM.b + CM.c) / 3)
+ggplot(yeast, aes(x = CM.mean)) +
+  geom_bar(aes(fill = Pool))
+ 
+# add a new allowable value
+# here, we want to allow for intermediate complexity 
+levels(yeast$Pool) <- c(levels(yeast$Pool), "I")
+levels(yeast$Pool)                     # "I" is now a valid value
+yeast[69,3] <- "I"                     # updates one value to "I"
+
+# add another allowable value
+# here, we use boolean indexing to identify the most extreme complexity
+#  first create the new level
+levels(yeast$Pool) <- c(levels(yeast$Pool), "X")
+levels(yeast$Pool)                     
+#  next, create a boolean index
+yeast <- mutate(yeast, extreme = (CM.mean > 4.0))
+#  last, filter for extreme complexity and assign the new value "X"
+yeast |>
+  filter(extreme) |>                   # filter using the boolean index
+  mutate(Pool = "X")                   # now update the relevant values
+
+# Note that mutate allows assignment of values (not covered previously). 
+#   If the column specified does not exist, it is created
+#   If the column already exists
+#   In both cases, the values in the column are assigned based on the condition
+```
+
+By default, factor values are represented in alphabetical order. Sometimes it is useful to have factors in a different order because this represents a property of the data. This is why factor values are called "levels" in R. 
+
+```{r eval = FALSE}
+levels(yeast$Pool)                # our factor levels are not in a sensible order
+yeast$Pool <- fct_relevel(yeast$Pool, c("S", "I", "C", "X"))
+levels(yeast$Pool)                # now they are in a biologically meaningful order
+```
+
+
