@@ -34,49 +34,26 @@ execute:
 #| echo: true
 #| output: false
 library(tidyverse)
-library(palmerpenguins)
-set.seed(20240916)
 ```
 :::
 
 # Data
 
-::: {.callout-note collapse="true"}
-## Data set: Yeast colony morphology
-
-### Reference
-
-Granek, J. A., D. Murray, Ö. Kayıkçı, and P. M. Magwene. 2013. The genetic architecture of biofilm formation in a clinical isolate of *Saccharomyces cerevisiae*. Genetics 193(2):587-600.[https://doi.org/10.1534/genetics.112.142067](https://academic.oup.com/genetics/article/193/2/587/6065366)
-
-### Data availability on Dryad
-
-[Dryad link: https://doi.org/10.5061/dryad.mn71g](https://doi.org/10.5061/dryad.mn71g)
-
-### Brief description
-
--   70 offspring from a genetic cross used to carry out QTL mapping
--   Genotype information at two major QTLs \[grouping variable\]
--   Organismal and molecular phenotypes such as colony complexity score, gene expression, concentration of cyclic AMP \[discrete and continuous traits\]
--   See `README_for_seg_strain_table.csv` on [Dryad](https://datadryad.org/stash/dataset/doi:10.5061/dryad.mn71g) for explanation of columns
-
-::: {style="text-align:center;"}
-![Yeast colonies](colonies.png){width="33%"}
-:::
-:::
 
 ::: {.callout-note collapse="true"}
-## Loading the yeast data
+## Load data
 
-Yeast colony morphology data from Granek et al. 2013:
+We'll use the `penguins` data and the yeast colony morphology data that Greg introduced in the first part of this lecture.
+
 
 ```{r}
-data_URL <- "https://tinyurl.com/36h67mhm"
-yeast <- read_csv(data_URL)
+library(palmerpenguins)
 
-glimpse(yeast)  # a prettier version of str
-
-# View(yeast)   # look at the data frame in the RStudio viewer
+yeast_URL <- "https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/seg_strain_table.csv"
+yeast <- read_csv(yeast_URL)
+glimpse(yeast)
 ```
+
 :::
 
 # Grouping
@@ -84,21 +61,21 @@ glimpse(yeast)  # a prettier version of str
 ::: {.callout-note collapse="true"}
 ## Grouping using `group_by`
 
-The function `group_by` "decorates" a data frame with grouping information that you specify
+The function `group_by` "decorates" a data frame with grouping information:
 
 -   `group_by` by itself doesn't do any further calculations
 
 -   Multiple variables can be used in a grouping statement
 
 
-```{r}
-#| eval: true
-#| output: true
+After grouping, there is no visible restructuring of the data frame:
 
+```{r}
 yeast_grouped <-
   yeast |> 
   group_by(Pool)
 
+# Use View() to view the group DF
 # use glimpse or str to view the grouped df
 ```
 
@@ -116,13 +93,17 @@ yeast_grouped2 <-
 ::: {.callout-note collapse="true"}
 ## Functions for exploring grouped data frames
 
-Although a grouped data frame doesn't look different, its has additional information attached to it that affect how it works with group-aware operations. There are a variety of dplyr functions for querying a data frame about it's grouping structure (if any):
+Although a grouped data frame doesn't look different, its has additional information attached to it that affect how it works with group-aware operations. There are a variety of dplyr functions for querying a data frame about it's grouping structure (if any).
+
+### `is.grouped_df`
 
 You can check if a data frame is grouped using `is.grouped_df`
 
 ```{r}
 is.grouped_df(yeast_grouped)
 ```
+
+### `groups`
 
 `groups` returns the variable(s) the data frame is grouped on:
 
@@ -131,12 +112,16 @@ groups(yeast_grouped)
 groups(yeast_grouped2)
 ```
 
+### `group_keys`
+
 `group_keys` returns a data frame describing the groups:
 
 ```{r}
 group_keys(yeast_grouped)
 group_keys(yeast_grouped2)
 ```
+
+### `group_size`
 
 `group_size` returns the number of observations in each group:
 
@@ -147,7 +132,7 @@ group_size(yeast_grouped2)
 :::
 
 ::: {.callout-important collapse="true"}
-## ★ Grouping: Your turn
+## ★ Grouping: Self exploration
 
 Use the help and code exploration to understand what the functions `group_rows`, `group_indices` and `group_split` do.
 :::
@@ -181,6 +166,21 @@ If counting is all you want to do, then you don't need to explicitly group befor
 yeast |>
   count(Pool, Cyr1.geno)
 ```
+
+When generating a table of counts on two or more grouping variables, the output is essentially a contingency table. We can turn this counts data frame into a more conventional contingency table layout using the `xtabs` function from base R:
+
+```{r}
+# NOTE: the underscore "_" in the call to 
+# xtabs below is a placeholder you can use when
+# the value you're passing in a pipe isn't the first
+# argument to the function on the right. 
+
+yeast |>
+  count(Pool, Cyr1.geno) |>
+  xtabs(n ~ Pool + Cyr1.geno, data = _)
+```
+
+
 :::
 
 ::: {.callout-note collapse="true"}
