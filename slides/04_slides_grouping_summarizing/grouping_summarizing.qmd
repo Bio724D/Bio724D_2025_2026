@@ -1,0 +1,264 @@
+---
+title: "Grouping and summarizing in R"
+author: "Bio724D: Fall 2024"
+date: today
+
+format: 
+  html:
+    theme: [default, custom.scss]
+    df-print: paged
+    toc: true
+    toc-depth: 3    
+    toc-expand: 3
+    code-line-numbers: false
+    embed-resources: true  
+  revealjs:
+    theme: [simple, custom.scss]
+    df-print: paged
+    scrollable: true
+    slide-level: 2
+    code-line-numbers: false
+    embed-resources: true  
+    output-file: grouping_pivoting_joins_revealjs.html    
+execute:
+  echo: true
+  eval: true
+  warning: false
+---
+
+```{r}
+#| echo: false
+#| output: false
+library(tidyverse)
+library(knitr)
+set.seed(20240916)
+```
+
+# Data
+
+::: {.callout-note collapse="true"}
+## Data set: Yeast colony morphology
+
+### Reference
+
+Granek, J. A., D. Murray, Ö. Kayıkçı, and P. M. Magwene. 2013. The genetic architecture of biofilm formation in a clinical isolate of *Saccharomyces cerevisiae*. Genetics 193(2):587-600.[https://doi.org/10.1534/genetics.112.142067](https://academic.oup.com/genetics/article/193/2/587/6065366)
+
+### Data availability on Dryad
+
+[Dryad link: https://doi.org/10.5061/dryad.mn71g](https://doi.org/10.5061/dryad.mn71g)
+
+### Brief description
+
+-   70 offspring from a genetic cross used to carry out QTL mapping
+-   Genotype information at two major QTLs \[grouping variable\]
+-   Organismal and molecular phenotypes such as colony complexity score, gene expression, concentration of cyclic AMP \[discrete and continuous traits\]
+-   See `README_for_seg_strain_table.csv` on [Dryad](https://datadryad.org/stash/dataset/doi:10.5061/dryad.mn71g) for explanation of columns
+
+::: {style="text-align:center;"}
+![Yeast colonies](colonies.png){width="33%"}
+:::
+:::
+
+::: {.callout-note collapse="true"}
+## Loading the yeast data
+
+Yeast colony morphology data from Granek et al. 2013:
+
+```{r}
+data_URL <- "https://tinyurl.com/36h67mhm"
+yeast <- read_csv(data_URL)
+
+glimpse(yeast)  # a prettier version of str
+
+# View(yeast)   # look at the data frame in the RStudio viewer
+```
+:::
+
+# Grouping
+
+::: {.callout-note collapse="true"}
+## Grouping using `group_by`
+
+The function `group_by` "decorates" a data frame with grouping information that you specify
+
+-   `group_by` by itself doesn't do any further calculations
+
+-   Multiple variables can be used in a grouping statement
+
+
+```{r}
+#| eval: true
+#| output: true
+
+yeast_grouped <-
+  yeast |> 
+  group_by(Pool)
+
+# use glimpse or str to view the grouped df
+```
+
+In this second example, we group by both morphology and genotype:
+
+```{r}
+yeast_grouped2 <-
+  yeast |>
+  group_by(Pool, Cyr1.geno)
+
+# as before, use glimpse to take a look at this df
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Functions for exploring grouped data frames
+
+Although a grouped data frame doesn't look different, its has additional information attached to it that affect how it works with group-aware operations. There are a variety of dplyr functions for querying a data frame about it's grouping structure (if any):
+
+You can check if a data frame is grouped using `is.grouped_df`
+
+```{r}
+is.grouped_df(yeast_grouped)
+```
+
+`groups` returns the variable(s) the data frame is grouped on:
+
+```{r}
+groups(yeast_grouped)
+groups(yeast_grouped2)
+```
+
+`group_keys` returns a data frame describing the groups:
+
+```{r}
+group_keys(yeast_grouped)
+group_keys(yeast_grouped2)
+```
+
+`group_size` returns the number of observations in each group:
+
+```{r}
+group_size(yeast_grouped)
+group_size(yeast_grouped2)
+```
+:::
+
+::: {.callout-important collapse="true"}
+## ★ Grouping: Your turn
+
+Use the help and code exploration to understand what the functions `group_rows`, `group_indices` and `group_split` do.
+:::
+
+::: {.callout-note collapse="true"}
+## Removing grouping information using `ungroup`
+
+Grouping can be removed using the `ungroup` function:
+
+```{r}
+yeast_ungrouped <- ungroup(yeast_grouped)
+
+is.grouped_df(yeast_ungrouped)
+```
+:::
+
+# Counting and Summarizing
+
+::: {.callout-note collapse="true"}
+## Counting
+
+The function `dplyr::count` when applied to a grouped data frame will return a data frame giving the count of observations per group:
+
+```{r}
+count(yeast_grouped2)
+```
+
+If counting is all you want to do, then you don't need to explicitly group before hand as the `count` function takes grouping variables as arguments:
+
+```{r}
+yeast |>
+  count(Pool, Cyr1.geno)
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Summarizing
+
+The `summarize` function allows us to create group-wise data summaries. This is a very powerful tool for calculate summary statistics for marginal distributions.
+
+```{r}
+yeast_grouped2 |>
+  summarize(nobs = n(),
+            mean_Cyr1.exp = mean(Cyr1.expr, na.rm = TRUE),
+            sd_Cyr1.exp = sd(Cyr1.expr, na.rm = TRUE))
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Row-wise summaries
+
+```{r}
+yeast |>
+  rowwise() |>
+  mutate(mean.Adhes = mean(c_across(Adhes.a:Adhes.c)),
+         mean.CM = mean(c_across(CM.a:CM.c))) 
+```
+:::
+
+
+# More complex operations on groups
+
+::: {.callout-note collapse="true"}
+## `mutate` after `group_by`
+
+```{r}
+yeast_grouped |>
+  mutate(group_mean_Cyr1.expr = mean(Cyr1.expr, na.rm = TRUE))
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Applying functions by group using `group_map` and `group_modify`
+
+```{r}
+
+yeast_grouped_Cyr1 <-
+  yeast |>
+  rowwise() |>
+  mutate(mean.Adhes = mean(c_across(Adhes.a:Adhes.c)),
+         mean.CM = mean(c_across(CM.a:CM.c)),
+         log2.Adhes = log2(mean.Adhes),
+         log2.Flo11 = log2(Flo11.expr)) |> 
+  filter(Cyr1.geno != "H") |>
+  group_by(Cyr1.geno) 
+
+ggplot(yeast_grouped_Cyr1, aes(x = log2.Flo11, 
+                               y = log2.Adhes,
+                               color = Cyr1.geno)) +
+  geom_point() + 
+  geom_smooth(method = lm)
+
+
+
+```
+
+```{r}
+lm_by_Cyr1 <-
+  yeast_grouped_Cyr1 |>
+  group_map(~lm(log2.Adhes ~ log2.Flo11, data = .x))
+
+lm_by_Cyr1
+
+```
+
+
+
+```{r}
+library(broom)
+
+lm_by_Cyr1_df <-
+  yeast_grouped_Cyr1 |>
+  group_modify(~ broom::glance(lm(log2.Adhes ~ log2.Flo11, data = .x)))
+
+lm_by_Cyr1_df
+```
+
+
+:::

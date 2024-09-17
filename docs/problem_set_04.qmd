@@ -1,0 +1,130 @@
+---
+title: "Assignment 04: Indexing, Factors, Grouping, and Summarizing"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**.
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2024.qmd`
+
+Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) on your Github site.
+
+
+
+### Problems
+
+### NC Births
+
+Using the [NC Births dataset](https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt) (see last week's HW for details), solve the following problems:
+
+1. Write a code block that uses `count` to get the counts of cases by mother’s smoking status and the baby’s term status (premature or full term). That is, we want the output to tell us four pieces of information
+
+* how many non-smoking mothers had full term babies
+* how many non-smoking mothers had premature babies
+* how many smoking mothers had full term babies
+* how many smoking mothers had premature babies.
+
+2. Use `group_by` and `summarize` to calculate the median weights of babies for all four combinations of term classification and mother’s smoking status. 
+
+### Penguins
+
+Use the `penguins` data from the `palmerpenguins` package in the following problems:
+
+3. `slice` is a dplyr function that allows you to index rows by their integer locations. Show how to use the `seq` function and slice to get every fifth row in the penguins data set.
+
+4. Read the help documentation for the dplyr function `slice_sample` and then write a pipeline uses `group_by` and `slice_sample` that selects 5 random individuals from each of the species in the penguins data set.
+
+
+### Factors from continuous data
+
+The `cut` function is useful for turning numerical data into factors. The key arguments are the `breaks` specifying the intervals for binning the data and the `labels` indicating the factor categories you want to create.
+
+```{r}
+x <- 1:10
+x
+factored_x <- cut(x, 
+                  breaks = c(0, 4, 7, 10), 
+                  labels = c("small","medium","large"),
+                  ordered_result = TRUE)
+factored_x
+```
+
+
+Use the [Yeast Colony Morphology](https://tinyurl.com/36h67mhm) data set to answer the following questions.
+
+A histogram of the `Flo11.expr` (FLO11 expression) from the yeast colony morphology data set hints at two or three modes in the distribution, as illustrated below:
+
+
+```{r, fig.align='center',fig.width=6, fig.height=4, out.width="70%"}
+#| echo: false
+#| warning: false
+library(tidyverse)
+data_URL <- "https://tinyurl.com/36h67mhm"
+yeast <- read_csv(data_URL)
+
+  
+ggplot(yeast, aes(x = Flo11.expr)) + 
+  geom_histogram(bins = 11) +
+  geom_rug() + 
+  geom_vline(xintercept = 1e5, linetype="dashed", color="red")+
+  geom_vline(xintercept = 3e5, linetype="dashed", color="red")+
+  labs(x = "FLO11 Expression", y = "Count") +
+  annotate(geom="text", x=0, y=18, label="Low", color="red") +
+  annotate(geom="text", x=2e5, y=18, label="Intermediate", color="red") +
+  annotate(geom="text", x=4e5, y=18, label="High", color="red")
+```
+
+
+5. Complete the following code to create an ordered factor with the  categories "Low", "Intermediate", and "High", indicating a coarse categorization of FLO11 expression as illustrated in the figure above:
+
+
+```{r}
+#| echo: true
+#| eval: false
+yeast |>
+  mutate(Flo11.group = cut(
+    ## your code here
+  ) |>
+  filter(!is.na(Flo11.group)) |>
+  ggplot(aes(x = Flo11.group, y = Flo11.expr)) + 
+  geom_point(alpha=0.5) + 
+  labs(x = "FLO11 Factor", y = "FLO11 Expression")
+```
+
+If correct, your code should produce the following output:
+
+```{r, fig.align='center',fig.width=6, fig.height=4, out.width="75%"}
+#| echo: false
+yeast |>
+  mutate(Flo11.group = cut(Flo11.expr,
+                 breaks = c(0, 1e5, 3e5, 7e5),
+                 labels = c("Low", "Intermediate", "High"),
+                 ordered_result = TRUE)) |>
+  filter(!is.na(Flo11.group)) |>
+  ggplot(aes(x = Flo11.group, y = Flo11.expr)) + 
+    geom_point(alpha=0.5) + 
+    labs(x = "FLO11 Group", y = "FLO11 Expression")
+```
+
+
+
+
+
+## Data lunch assignment
+
+Identify something that you learned from the presentation or discussion on Thursday that you found valuable. Provide a brief reflection here (1-5 sentences) and include code or pseudo-code if useful. Hint: if you have specific code examples, consider adding them to your notebook as well.
+
+
