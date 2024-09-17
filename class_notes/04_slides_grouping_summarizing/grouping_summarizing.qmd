@@ -23,6 +23,7 @@ format:
 execute:
   echo: true
   eval: true
+  output: false
   warning: false
 ---
 
@@ -255,12 +256,14 @@ Sometimes we want to do grouped operations that are relatively complex, such as 
 This is relatively easy to generate a plot such as this in ggplot.
 
 ```{r}
+#| output: true
+
 penguins |>
   filter(!is.na(sex)) |>
   ggplot(aes(x = body_mass_g,
-                     y = flipper_length_mm,
-                     color = species,
-                     shape = sex)) +
+             y = flipper_length_mm,
+             color = species,
+             shape = sex)) +
   geom_point(alpha = 0.5) + 
   geom_smooth(method = lm, alpha=0.5)
 
@@ -300,5 +303,134 @@ lm_by_species_sex_df <-
 lm_by_species_sex_df
 ```
 
+
+:::
+
+
+
+::: {.callout-note collapse="true"}
+## Extended example: ANOVA visualized
+
+```{r}
+#| output: true
+
+clean_penguins <-
+  penguins |>
+  filter(!is.na(sex))
+
+penguins_grand <-
+  clean_penguins |>
+  summarize(mean_bodymass = mean(body_mass_g))
+
+penguins_group <-
+  clean_penguins |>
+  group_by(species) |>
+  summarize(mean_bodymass = mean(body_mass_g))  
+
+```
+
+
+```{r}
+#| output: true
+
+jitterpos <- position_jitter(width=0.25, height=0,
+                             seed = 20240917)
+
+clean_penguins |>
+  ggplot(aes(x = species, y = body_mass_g,
+             color = species)) +
+  geom_point(position = jitterpos, alpha=0.5) +
+  ylim(2500,6500) +
+  labs(title = "Body mass by species")  
+  
+```
+
+```{r}
+#| output: true
+
+p_total <-
+  clean_penguins |>
+  ggplot(aes(x = species, 
+             y = body_mass_g,
+             color = species)) +
+  geom_point(position = jitterpos, 
+             alpha=0.5,
+             size=0.5) +   
+  geom_linerange(aes(ymin = penguins_grand$mean_bodymass,
+                     ymax = body_mass_g),
+                 position = jitterpos,
+                 alpha=0.5) +
+  geom_hline(yintercept = penguins_grand$mean_bodymass, linetype='dashed') +
+  ylim(2500,6500) +
+  labs(title = "Deviation of observations\naround the grand mean")
+
+p_total
+```
+
+```{r}
+#| output: true
+
+p_between <-
+  penguins_group |>
+  ggplot(aes(x = species,
+             y = mean_bodymass,
+             color = species)) +
+  geom_point(size = 3) +
+  geom_linerange(aes(ymin = penguins_grand$mean_bodymass,
+                     ymax = mean_bodymass),
+                 alpha=0.75, size=2) +  
+  geom_hline(yintercept = penguins_grand$mean_bodymass, 
+             linetype='dashed') +
+  ylim(2500,6500) +
+  labs(title = "Deviation of group means\naround the grand mean")
+  
+p_between
+  
+```
+
+
+
+```{r}
+#| output: true
+
+
+p_within <-
+  clean_penguins |>
+  group_by(species) |>
+  mutate(group_mean_bodymass = mean(body_mass_g, na.rm = TRUE)) |>
+  ggplot(aes(x = species, 
+             y = body_mass_g,
+             color = species)) +
+  geom_point(position = jitterpos, 
+             alpha=0.35,
+             size=0.5) +   
+  geom_linerange(aes(ymin = group_mean_bodymass,
+                     ymax = body_mass_g),
+                 position = jitterpos,
+                 alpha=0.35) +
+  geom_point(data = penguins_group,
+             aes(x = species, y = mean_bodymass),
+             size = 3) +
+  ylim(2500,6500) +
+  labs(title = "Deviation of observations\naround group means")
+
+
+p_within
+```
+
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+#| output: true
+
+
+library(patchwork)
+
+combined <- (p_total + theme(legend.position = "none")) + 
+  (p_between + theme(legend.position = "none")) +
+  (p_within + theme(legend.position = "none")) 
+
+combined
+```
 
 :::
