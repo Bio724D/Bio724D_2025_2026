@@ -1,0 +1,176 @@
+---
+title: "Data types in R"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Set up
+
+Load the tidyverse package and two practice datasets:
+
+```{r include = FALSE, silent = TRUE}
+library(tidyverse)
+library(palmerpenguins)
+penguins <- penguins
+yeast <- read_csv("seg_strain_table.csv")
+```
+
+## Indexing methods
+
+Indexing is how you tell R which items within a data object you want to work with. Base R provides three methods for indexing data objects, and `dplyr` provides a fourth method. Here, we will look at how these four indexing methods apply to data frames specifically. 
+
+**Square-bracket indexing** `[ ]` is the most general method, and can be applied to any data object. Square bracket indexing usually preserves the class of the items, so indexing a column in a data frame will return a list. In general, using numbers to index data objects is efficient for one-time operations but using names is better for code you want to keep. 
+
+```{r eval = FALSE}
+# columns can be indexed by integer
+
+# columns can also be indexed by name; quotes are required
+
+# rows can be indexed by integer (but usually not by name)
+# note the comma!
+
+# combinations of rows and columns can be indexed by integers and column names
+
+# R will complain if integers are out of range or names don't exist
+
+# out-of-range errors also occur with the other indexing methods
+```
+
+**Double square bracket indexing** `[[ ]]` is useful when you want only the *values* in a column of a data. This is an important distinction: square bracket indexing usually returns a list, while double square bracket indexing returns an atomic vector without the column name. This can be important in pipes, as we will see later. 
+
+```{r eval = FALSE}
+# compare what happens when you use single and double square brackets to index
+
+# column names also work
+
+```
+
+**Dollar-sign indexing** `$` only works if columns have names. Quotes are not needed around names, as they are part of the metadata of the object. When applied to a data frame, dollar sign indexing returns an atomic vector. Only 1 column can be indexed at a time.
+
+```{r eval = FALSE}
+# indexing a column in a data frame should be familiar by now
+
+# don't try to index multiple columns!
+
+```
+
+**Indexing with dplyr** `dplyr` functions ("verbs") provide  more flexible indexing than the Base R methods. To index columns, use the `select` verb and index by name; quotes are not needed. (Dollar sign indexing does *not* work.) Note that `select` returns a tibble. If you need to index columns in a pipe and pass the results to a function that expects values (rather than list), use the dplyr verb `pull` or use dollar sign indexing. Note also that the conventions illustrated below apply to many other `dplyr` verbs. 
+
+```{r eval = FALSE}
+# basic indexing using select as an example 
+
+# many "helper" functions are available
+
+```
+
+## Filtering in R
+
+Filtering is the process of extracting a specific subset of rows from a data frame. Paul introduced the `dplyr` verb `filter` in session 02. (Note that there is also a base R `filter` function that works slightly differently.) 
+
+Today, we will briefly review basic filtering, then move on to some intermediate filtering methods using logical and factor data types.   
+
+**Recap of piping basics**
+
+Filtering rows and selecting columns is commonly done in pipes. Two things to keep in mind when piping are how missing values are handled and what kind of data structure the next step expects.  
+
+```{r eval = FALSE}
+# many functions don't accept NA values (check function documentation)
+
+# some functions require vectors as input (check function documentation)
+
+```
+
+**Recap of filtering basics**
+
+The `filter` verb provides a way to subset rows by condition. The following examples illustrate some simple conditions based on numerical comparisons, but bear in mind that conditions can also involve testing for set membership, string composition, logic comparisons, values returned by embedded functions, and more.   
+
+```{r eval = FALSE}
+# basic format for filtering
+
+# functions can be embedded directly into filtering conditions
+# find the female with the shortest flippers
+
+```
+
+**Filtering with Boolean indexing**  
+
+Boolean indexing involves creating a vector that contains logical (TRUE/FALSE) values based on some condition or combination of conditions that you specificy. This vector can then be use to filter rows where the index column is TRUE.
+
+To illustrate how this works, consider two vectors.
+
+```{r eval = FALSE}
+# ceate an integer vector and a logical vector of equal lengths
+
+# now we can filter the first vector based on truth values
+
+```
+
+Now let's apply this process to a column in a data frame. Using a descriptive name for the new index column helps to make the code easier to interpret later.
+
+```{r eval = FALSE}
+# first, create the index column
+
+# second, filter using the index column
+
+# this becomes more powerful when you use it in a pipe  
+
+# and then use it later in another operation, and then another operation...
+```
+
+
+**Filtering with factors** 
+
+You may encounter data frames containing factors, so it is important to know how to recognize them. 
+
+```{r eval = FALSE}
+# factors look like ordinary character columns
+
+# the best way to check is with a logical test
+
+```
+
+Factors have several useful properties. One of the most important advantages is that they help catch data input errors. Note that R uses "levels" to referr to the values of a factor. 
+
+```{r eval = FALSE}
+# factors only allow pre-defined values
+
+```
+
+To explore how to work with factors, we will switch to the yeast data frame.  
+
+```{r eval = FALSE}
+# convert an existing character column into a factor column
+
+# filtering by factor is based on the character representation
+# identify the strain with 'C' morphology that has the lowest cAMP concentration
+
+# take a quick look at colony morphology scores
+
+# add a new allowable value
+# here, we want to allow for intermediate complexity 
+
+# add another allowable value
+# here, we use boolean indexing to identify the most extreme complexity
+#  first create the new level
+
+#  next, create a boolean index
+
+#  last, filter for extreme complexity and assign the new value "X"
+
+# Note that mutate allows assignment of values (not covered previously). 
+#   If the column specified does not exist, it is created
+#   If the column already exists
+#   In both cases, the values in the column are assigned based on the condition
+```
+
+By default, factor values are represented in alphabetical order. Sometimes it is useful to have factors in a different order because this represents a property of the data. This is why factor values are called "levels" in R. 
+
+```{r eval = FALSE}
+
+```
+
+
