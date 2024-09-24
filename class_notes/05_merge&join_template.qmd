@@ -1,0 +1,206 @@
+---
+title: "Merges and joins in R"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Set up
+
+Load the tidyverse package and some practice datasets:
+
+```{r include = FALSE, silent = TRUE}
+library(tidyverse)
+library(palmerpenguins)
+penguins_extras <- read_csv("penguins_extras.csv")
+penguins_extras_full <- read_csv("penguins_extras_full.csv")
+more_penguins <- read_csv("more_penguins.csv")
+```
+
+## Merge
+
+Merge operations allow you to "paste together" rows or columns from two data frames. Think of this as simply attaching two data frames along one dimension or the other. For this to make sense with your data, the two data frames should have a similar composition in the dimension not being merged: rows should match for column merges, and columns should match for row merges.
+
+Although merges are simpler to understand than joins, they are much less versatile and powerful. In addition, because merge operations don't consider the values within the tables, they are more likely to produce unintended or incorrect results. In practice, only use merges for simple situations where you know for sure that the values in the two data frames will match up in a meaningful way after the merge. 
+
+We will start by experimenting with some tiny data frames to get a feel for the behavior of merges. Here, and later, these tiny data frames match the examples shown in the `dplyr cheatsheet` and slides from class.
+
+```{r tiny-data-frames}
+# create tiny data frames 
+A <- c("a", "b", "c")                      # generate the columns
+A2 <- c("a", "b", "d")
+B <- c("t", "u", "v")
+B2 <- c("t", "u", "w")
+C <- c(1, 2, 3)
+D <- c(3, 2, 1)
+x <- data.frame(A = A, B = B, C = C)       # generate data frames containing the columnns
+y <- data.frame(A = A2, B = B2, D = D)
+x                                          # check your work!
+class(x)    
+y
+class(y)
+```
+
+**Column merge** 
+
+This is the simplest possible way to combine values from two data frames into one. The `bind_cols()` function attaches two data frames together "horizontally" in the order provided. The data frames must have the same number of rows. Data frames by definition allow any combination of columns of different types. Because of this, you need to be very careful that the result is what you want.
+
+```{r eval = FALSE}
+# simple column merge
+
+# best practice is to provide distinct names prior to the merge
+
+# before merging, check that both data frames contain the same number of rows
+
+```
+
+**Row merge**  
+
+Row merges are only slightly more complicated than column merges. The `bind_rows()` function attaches two data fromes together "vertically". We can also filter for duplicates, unique rows, or set differences during the merge using `union()`, `intersect()`, or `set_difference()`, respectively; see documentation for details. 
+
+```{r}
+# first, we need to make a new table y to match the slides and cheatsheet
+A <- c("c", "d")
+B <- c("v", "w")
+C <- c(3, 4)
+y <- data.frame(A = A, B = B, C = C)
+
+# for a simple row merge, use bind_rows()
+
+# to keep track of which rows came from which original data frame
+
+# to remove any rows that duplicate values in previous rows, use union()
+
+```
+
+Row merges do not require an equal number of columns. This is an important difference from column merges. Beware that even minor spelling differences in column names will produce unwanted consequences!
+
+```{r}
+# row merges are very strict with column names
+
+# row merges tolerate a different number of columns
+
+```
+
+**Practicing merges**
+
+Now let's try out some merges on the `penguins` data set. Refer to the results of these merges to answer question ## in the problem set. 
+
+```{r eval = FALSE}
+# first, a column merge
+
+# go back to the original data set
+
+# second, a row merge
+
+```
+
+
+## Join
+
+Like merges, joins allow you to combine data from two data frames. However, joins work quite differently from merges. During a join operation, values in a specified *join column* (or join columns) determine what ends up in the result. Values in other columns are ignored. In addition, an explicit set logic is used to specific how the values in the join column(s) should be interpreted.  
+
+While joins are initially more challenging to understand than merges, they are remarkably powerful and useful. In addition, joins are safer than merges (when used correctly), because they are based on the  values in the data frame rather than position or column name. Joins are used commonly and in diverse situations, so it's important to become familiar with how they work and what they can do for you. `dplyr` offers seven different join functions, but most are rarely used. We will work with the most common operations here: left joins and inner joins. As you become comfortable applying these two joins, you will be to identify situations where one of the other joins might be useful.
+
+First, regenerate the tiny data frames x and y using the code below (this is a copy of an earlier code chunk, repeated here so you don't have to scroll up to the top several times).
+
+```{r}
+# create tiny data frames
+A <- c("a", "b", "c")                      # generate the columns
+A2 <- c("a", "b", "d")
+B <- c("t", "u", "v")
+B2 <- c("t", "u", "w")
+C <- c(1, 2, 3)
+D <- c(3, 2, 1)
+x <- data.frame(A = A, B = B, C = C)       # generate data frames containing the columnns
+y <- data.frame(A = A2, B = B2, D = D)
+```
+
+**Left joins**
+
+See the left join slide for a visual and algorthmic description of how a left join works. 
+
+Left joins always return at least the number of rows in the first data frame, and may return more. The order of the data frames matters when specifying a left join, since values are compared asymmetrically, from the second to the first (or from right to left). This is not the case for some other join methods, where values are compared in both directions. 
+
+```{r}
+# default join syntax is simple
+
+# for a left join, order matters
+
+```
+
+By default, all of the `dplyr` join functions will use all columns with the same name in the two data frames as join columns. This is usually, but not always, what you want. Best practice is to specify the join column(s) explicitly for any code that you want to keep, since it signals what you intend rather than what `dplyr` assumes by default. 
+
+```{r}
+# specify joining by just one column
+
+# to be clear about what you want, specify A and B as join columns
+
+```
+
+**Inner joins**
+
+See the inner join slide for a visual and algorthmic description of how an inner join works.
+
+Inner joins produce the smallest (or equal to the smallest) return of the three join methods we will cover in class. This is because values in the join column must match in both directions. This also means that order in which data frames are specified in the join statement does not change what is returned.
+
+During an inner join, no missing values are generated. This is in contrast with left and full joins. (If there are any missing values *before* an inner join, they are of course passed on.) 
+
+```{r}
+# inner join syntax
+
+# order does not matter for an inner join 
+
+```
+
+**Full joins**
+
+See the full join slide for a visual and algorthmic description of how an full join works.
+
+A full join returns every row of both data frames, only joining rows that have a match in the join column(s). For this reason, full joins often generate a lot of missing values. Because values in the join column are compared in both directions, order does not matter.
+
+```{r}
+# full join syntax
+
+# order does not matter for a full join
+
+```
+
+**Practicing joins**
+
+A frequent use case for left joins is when you have a data frame and want to add one more columns to each row based on information in a different data frame. To do this, you will need a column or combination of columns in both data frames that provides a unique identifier (observation, individual, date, geolocation, gene, species, etc.) that you can use to associate rows between the two data frames. Importantly, the order of the rows can differ in the two data frames, since the values in the join column(s) provide the basis for identifying which rows to join. In addition, the relationship does not need to be 1:1 for the join columns(s) in the two tables.     
+
+We will use the Spellman data set to illustrate how this works. Our objective is to annotate each gene with some information about what it does. We can extract that information from the [Gene Ontology database](https://geneontology.org) (GO). This resource uses a controlled vocabulary to describe the product of a gene in three categories: cellular component, molecular function, and biological process. The file `go_slim_mapping.tab` contains GO terms for most genes in the *S. cerevisiae* genome. Both this GO file and the Spellman data use the same set of names for genes. This allows us to link information between the two data frames using the gene ID columns in each as the join column.  
+
+```{r}
+# import the two data sets
+spellman <- read_tsv("spellman-1998-expression.tsv")
+GO <- read_tsv("go_slim_mapping.tab", col_names = FALSE)
+
+# prepare the GO data frame: remove unnecessary columns, provide column names, and pivot wider
+
+# we can make concatenate multiple terms into a single string with commas separating terms
+
+# now add some informative names to the GO columns
+
+# perepare the Spellman data frame: repair the first column name
+
+# left join to add GO terms to every gene
+spellman_GO_annotated <- left_join(spellman, GO_wide, by = join_by(gene_ID))
+glimpse(spellman_GO_annotated)
+```
+
+Often, it is helpful to reorganize and trim the result of a large join like the one we just did. The code below first rearranges the order of the gene name and GO columns to be near the gene_ID column, then removes columns unrelated to the "alpha" experiment.
+
+```{r}
+# move annotations to the left side of the data frame
+
+# remove columns not related to the "alpha" experiment 
+
+# now we can focus on just one experiment with annotations regarding each gene's function
+
+```
+
