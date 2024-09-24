@@ -1,5 +1,5 @@
 ---
-title: "Assignment 04: Indexing, Factors, Grouping, and Summarizing"
+title: "Assignment 05: Data wrangling"
 format: 
   html:
     embed-resources: true
@@ -26,98 +26,39 @@ Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`
 
 ### Problems
 
-### NC Births
+### Wrangling a messy data set
 
-Using the [NC Births dataset](https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt) (see last week's HW for details), solve the following problems:
+Gasch AP, Spellman PT, Kao CM, Carmel-Harel O, Eisen MB, Storz G, Botstein D, Brown PO. Genomic expression programs in the response of yeast cells to environmental changes. Mol Biol Cell. 2000 Dec;11(12):4241-57. doi: 10.1091/mbc.11.12.4241. PMID: 11102521; PMCID: PMC15070.
 
-1. Write a code block that uses `count` to get the counts of cases by mother’s smoking status and the baby’s term status (premature or full term). That is, we want the output to tell us four pieces of information
+Gasch et al. (2000) is another "classic" gene expression data set from the early days of functional genomics. The file [`gasch1k.csv`](https://github.com/Bio724D/Bio724D_2024_2025/raw/refs/heads/main/data/gasch1k.csv) is a subset of the data from that study.
 
-* how many non-smoking mothers had full term babies
-* how many non-smoking mothers had premature babies
-* how many smoking mothers had full term babies
-* how many smoking mothers had premature babies.
+A few notes about this data set:
 
-2. Use `group_by` and `summarize` to calculate the median weights of babies for all four combinations of term classification and mother’s smoking status. 
+* The first column of data describes the experimental conditions but this column has no header
 
-### Penguins
+* Subsequent columns are genes, with systematic gene IDs as headers
 
-Use the `penguins` data from the `palmerpenguins` package in the following problems:
+* The experimental conditions in the first column are not particularly consisten in terms of how they designate the conditions (and time points where appropriate)
 
-3. `slice` is a dplyr function that allows you to index rows by their integer locations. Show how to use the `seq` function and slice to get every fifth row in the penguins data set.
+#### Working with the Gasch data
 
-4. Read the help documentation for the dplyr function `slice_sample` and then write a pipeline uses `group_by` and `slice_sample` that selects 5 random individuals from each of the species in the penguins data set.
+Wrangle the data by carrying out the following steps, in order:
 
+1. Import the data, fixing any column naming issues
 
-### Factors from continuous data
+2. Remove any columns (genes) that have more than 10 missing values ('NA')
 
-The `cut` function is useful for turning numerical data into factors. The key arguments are the `breaks` specifying the intervals for binning the data and the `labels` indicating the factor categories you want to create.
+3. Subset the rows of the data set to include ONLY the experimental conditions that have time points on the scales of minutes (conditions with "min", "minutes", etc).
 
-```{r}
-x <- 1:10
-x
-factored_x <- cut(x, 
-                  breaks = c(0, 4, 7, 10), 
-                  labels = c("small","medium","large"),
-                  ordered_result = TRUE)
-factored_x
-```
+4. Apply pivoting to create a "long" version of the data frame with "gene" and "expression" as their own columns.
+
+5. CHALLENGING/ADVANCED: See if you can come up with a strategy for extracting the time information from the experimental condition column. The inconsistency of the naming scheme makes this a difficult and frustrating task.  A verbal description of what steps you'd take to solve this problem is sufficient. If you manage to write code to solve this, your string wrangling skills are already quite strong!
 
 
-Use the [Yeast Colony Morphology](https://tinyurl.com/36h67mhm) data set to answer the following questions.
-
-A histogram of the `Flo11.expr` (FLO11 expression) from the yeast colony morphology data set hints at two or three modes in the distribution, as illustrated below:
 
 
-```{r, fig.align='center',fig.width=6, fig.height=4, out.width="70%"}
-#| echo: false
-#| warning: false
-library(tidyverse)
-data_URL <- "https://tinyurl.com/36h67mhm"
-yeast <- read_csv(data_URL)
-
-  
-ggplot(yeast, aes(x = Flo11.expr)) + 
-  geom_histogram(bins = 11) +
-  geom_rug() + 
-  geom_vline(xintercept = 1e5, linetype="dashed", color="red")+
-  geom_vline(xintercept = 3e5, linetype="dashed", color="red")+
-  labs(x = "FLO11 Expression", y = "Count") +
-  annotate(geom="text", x=0, y=18, label="Low", color="red") +
-  annotate(geom="text", x=2e5, y=18, label="Intermediate", color="red") +
-  annotate(geom="text", x=4e5, y=18, label="High", color="red")
-```
 
 
-5. Complete the following code to create an ordered factor with the  categories "Low", "Intermediate", and "High", indicating a coarse categorization of FLO11 expression as illustrated in the figure above:
-
-
-```{r}
-#| echo: true
-#| eval: false
-yeast |>
-  mutate(Flo11.group = cut(
-    ## your code here
-  ) |>
-  filter(!is.na(Flo11.group)) |>
-  ggplot(aes(x = Flo11.group, y = Flo11.expr)) + 
-  geom_point(alpha=0.5) + 
-  labs(x = "FLO11 Factor", y = "FLO11 Expression")
-```
-
-If correct, your code should produce the following output:
-
-```{r, fig.align='center',fig.width=6, fig.height=4, out.width="75%"}
-#| echo: false
-yeast |>
-  mutate(Flo11.group = cut(Flo11.expr,
-                 breaks = c(0, 1e5, 3e5, 7e5),
-                 labels = c("Low", "Intermediate", "High"),
-                 ordered_result = TRUE)) |>
-  filter(!is.na(Flo11.group)) |>
-  ggplot(aes(x = Flo11.group, y = Flo11.expr)) + 
-    geom_point(alpha=0.5) + 
-    labs(x = "FLO11 Group", y = "FLO11 Expression")
-```
 
 
 
