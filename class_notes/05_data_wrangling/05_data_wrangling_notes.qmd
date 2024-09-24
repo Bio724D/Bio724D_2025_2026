@@ -84,7 +84,7 @@ If you look at the Spellman data set in your spreadsheet program you might have 
 Our first task is to give the first column a more meaningful name.  This column gives "systematic gene names" -- a standardized naming scheme for genes in the yeast genome.  We'll use `dplyr::rename()` to rename `...1` to `gene`.  Note that `rename` can take multiple arguments if you need to rename multiple columns simultaneously.
 
 ```{r}
-spellman_clean <- 
+spellman <- 
   spellman |>
   rename(gene = "...1")
 ```
@@ -100,7 +100,7 @@ We can use `dplyr::select()` to drop columns by prepending column names with the
 ```{r}
 # drop the alpha column keeping all others
 spellman_clean <-
-  spellman_clean |>
+  spellman |>
   select(-alpha)  
 ```
 
@@ -110,99 +110,64 @@ Note that usually `select()`  keeps only the variables you specify.  However if 
 
 In the example above, we looked at the data and saw that the "alpha" column was empty, and thus dropped it.  This worked  because there are only a modest number of columns in the data frame in its initial form.  However, if our data frame contained thousands of columns, this "look and see" procedure would be inefficient.  Can we come up with a general solution for removing empty columns from a data frame?
 
-When you load a data frame from a spreadsheet, empty cells are given the value `NA`.  I'm going to illustrate two ways to work with `NA` values to remove empty columns from our data frame.  
+### Boolean indexing to the rescue
 
-
-#### Solution using colSums() and standard indexing
-
-In previous class sessions we were introduced to the function `is.na()` which tests each value in a vector or data frame for whether it's NA or not.  We can count NA values in a vector by summing the output of `is.na()`. Conversely we can count the number of "not NA" items by using the negation operator (`!`):
+The function `is.na` provides the core functionality for finding `NA` values in a vector:
 
 ```{r}
-# count number of NA values in the alpha0 column
-sum(is.na(spellman_clean$alpha0))
+# is.na returns a logical (Boolean) vector
+is.na(spellman$alpha0) |>
+  head(10)
 
-# count number of values that are NOT NA in alpha0
-sum(!is.na(spellman_clean$alpha0))
+# count the number of NA values in a vector
+sum(is.na(spellman$alpha0))
 ```
 
-This seems like it should get us close to a solution but `sum(is.na(..))` when applied to a data frame counts NAs across the entire data frame, not column-by-column.
+We can combine `is.na` with the function `all` to test whether all items in a vector are `NA`
 
 ```{r}
-# doesn't do what we hoped!
-sum(is.na(spellman_clean))
+# are all values NA? should return FALSE
+all(is.na(spellman$alpha0))
+
+# another test -- this one should return TRUE
+all(is.na(spellman$elu))
 ```
 
-
-If we want sums of NAs by column, we can use the `colSums()` function instead of `sum()` as illustrated below:
-
-```{r}
-# get number of NAs by column
-colSums(is.na(spellman_clean))
-```
-
-Columns with *all* missing values can be more conveniently found by asking for those columns where the number of "not missing" values is zero:
+Since we're going to be using the combination `all` and `is.na` to test many different vectors, it makes sense to turn this into a function:
 
 ```{r}
-# get number of NAs by column
-colSums(!is.na(spellman_clean))
-```
 
-To get the corresponding names of the columns where all values are missing we can do the following:
-
-```{r}
-# get names of all columns for which all rows are NA
-# using standard indexing
-names(spellman_clean)[colSums(!is.na(spellman_clean)) == 0]
-```
-
-The solution to removing all empty columns thus becomes:
-
-```{r}
-empty_columns <- names(spellman_clean)[colSums(!is.na(spellman_clean)) == 0]
-
-spellman_clean |>
-  # The minus sign before any_of() indicates negation
-  # So read this as "drop any of these columns"
-  select(-any_of(empty_columns)) |>
-  names()
-```
-#### Solution using the `where()` helper function
-
-An alternate approach is to use the `where()` helper function that works with `dplyr::select()`.  
-
-To use `where()` we need to define a predicate function which returns a Boolean (logical) value depending on whether a vector is "all NA". Here is a simple implementation such a function based on the use of the built-in `all()` function.
-
-```{r}
+# custom function of te
 all.na <- function(x) {
   all(is.na(x))
 }
+
 ```
 
-Having defined `all.na()` above we can now use this with `select()` and `where()` as follows:
+We'll study how to write functions in R in a later class section, but hopefully the basic syntax above is self explanatory.
+
+
+#### A solution using the `where()` helper function
+
+`select()` can be called be called with a number of "helper functions" ([Selection language](https://tidyselect.r-lib.org/reference/language.html)). `where` is one of these select helper functions that allows us to select columns based on a predicate function returning a Boolean (logical) value.  The `all.na` function we defined above is one such function:
+
 
 ```{r}
 spellman_clean <-
-  spellman_clean |>
-  select(-where(all.na))
+  spellman |>
+  select(-where(all.na))  # note negation
   
 dim(spellman_clean) # note number of columns has been reduced
 ```
 
-Version 4.1 of R introduced a new shorthand syntax of "anonymous functions"  (sometimes called "lambda expressions" in other programming languages), so we could have defined our predicate function "inline" as so:
-
-```{r}
-spellman_clean |>
-  select(-where(\(x) all(is.na(x))))  |>
-  names()
-```
 
 
-Tidyverse packages support an [alternate syntax for writing anonymous functions](https://adv-r.hadley.nz/functionals.html#purrr-shortcuts), as shown below:
+Tidyverse packages support a [syntax for writing anonymous functions](https://adv-r.hadley.nz/functionals.html#purrr-shortcuts). We could have defined our predicate `all.na` function "inline" as so:
 
 
 ```{r}
-# Yet another way to write the anonymous function
-spellman_clean |>
+# using an "inline" definition of our predicate function
+spellman |>
   select(-where( ~ all(is.na(.x))))  |>
   names()
 ```
@@ -212,7 +177,7 @@ spellman_clean |>
 
 Only two time points from the cln3 and clb2 experiments were reported in the original publication. The column names associated with these experiments are of the form "cln3-1", "cln3-2", "cln2-1", etc. Since complete time series are unavailable for these two experimental conditions we will drop them from further consideration.  
 
-`select()` can be called be called with a number of "helper functions" ([Selection language](https://tidyselect.r-lib.org/reference/language.html)). Here we'll illustrate the `matches()` helper function which matches column names to a "regular expression".  Regular expressions (also referred to as "regex" or "regexp") are a way of specifying patterns in strings. We'll cover regular expressions in a later lecture. For the purposes of this document we'll illustrate  regexs by example; for a more detailed explanation of regular expressions see the the regex help(`?regex`) and the [Chapter on Strings in "R for Data Analysis"](http://r4ds.had.co.nz/strings.html): 
+ Here we'll illustrate the `matches()` helper function which matches column names to a "regular expression".  Regular expressions (also referred to as "regex" or "regexp") are a way of specifying patterns in strings. We'll cover regular expressions in a later lecture. For the purposes of this document we'll illustrate  regexs by example; for a more detailed explanation of regular expressions see the the regex help(`?regex`) and the [Chapter on Strings in "R for Data Analysis"](http://r4ds.had.co.nz/strings.html): 
 
 Let's see how to drop all the "cln3" and "clb2" columns from the data frame using `matches()`:
 
@@ -233,24 +198,35 @@ spellman_clean <-
 
 In this second example, the character "|" is specifing an OR match within the regular expression, so this regular expression matches column names that contain "cln3" OR "clb2".
 
+### Reviewing what we've done so far
+
+At this point, it's worth reviewing what we've done so far:
+
+* Gave the unnamed first column a meaningful name
+* Dropped empty columns
+* Dropped columns with data we're not interested in
+
+That's progress
 
 ## Reshaping data with tidyr
 
 The `tidyr` package provides functions for reshaping or tidying data frames.  `tidyr` is yet another component of the tidyverse, and thus was loaded by the `library(tidyverse)`. 
 
-We're going to look at two functions `tidyr::pivot_longer()` and `tidyr::extract()`, and how they can be combined with now familiar `dplyr` functions we've seen previously.  The reading assignment for today's class session covers a variety of other functions defined in `tidyr`.
+We're going to look at the functions `tidyr::pivot_longer()` and `tidyr::separate_wider_*()`, and how they can be combined with now familiar `dplyr` functions we've seen previously.  The reading assignment for today's class session covers a variety of other functions defined in `tidyr`.
  
 The Spellman data, as I provided it to you, is in what we would call "wide" format.  Each column (besides the `gene` column) corresponds to an experimental condition *and* time point.  For example, "alpha0" is the alpha-factor experiment at time point 0 mins; "alpha7" is the alpha-factor experiment at time point 7 mins, etc.  The cells within each column correspond to the expression of a corresponding gene (given by the first column which we renamed `gene`) in that particular experiment at that particular time point.
 
-In every expression column, the cells represents the same abstract property of interest -- the expression of a gene of interest in a particular experiment/time point.  Our first task will be to rearrange our "wide" data frame that consists of many different columns representing gene expression into a "long" data frame with just a single column representing expression.  We'll also create a new column to keep track of  which experiment and time point the measurement came from.
+In every expression column, the cells represents the same abstract property of interest -- the expression of a gene of interest in a particular experiment at a given time point.  Our first task will be to rearrange our "wide" data frame that consists of many different columns representing gene expression into a "long" data frame with just a single column representing expression.  We'll also create a new column to keep track of  which experiment and time point the measurement came from.
 
 ### Wide to long conversions using `pivot_longer()`
 
 NOTE: `tidyr::pivot_longer()` and `tidyr::pivot_wider()` replace the "superseded" tidyr functions, `tidyr::gather()` and `tidyr::spread()` that work similarly. I recommend you read the [tidyr vignette on pivoting](https://tidyr.tidyverse.org/articles/pivot.html).
 
-To use `pivot_longer()` you need to specify: 1) the columns your are collapsing; 2) the name of a new column that will hold the names of the columns collapsed; and 3) the name of a new column  will hold the values of the collapsed columns. 
+`pivot_longer` rearranges (stacks) data from columns into rows. Every item in a pivoted column gets turned into a row of the form `pivoted_column_name, pivot_column_value`.
 
-Here we want to collapse all 73 of the expression columns -- "alpha0" to "elu390" -- into two columns: 1) a column to represent the expt/time point of the measurement, and 2) a column to represent the corresponding expression value.  The column we don't want to touch are the `gene`, `std.name`, and `description`.
+To use `pivot_longer()` you need to specify: 1) the columns your are pulling data from; 2) the name of a new column that will hold the names of the columns you pulled from; and 3) the name of a new column  will hold the values of the collapsed columns. 
+
+Here we want to collapse all 73 of the expression columns -- "alpha0" to "elu390" -- into two columns: 1) a column to represent the expt/time point of the measurement, and 2) a column to represent the corresponding expression value.  The only column we don't want to touch is the `gene` column.
 
 ```{r}
 spellman_long <-
@@ -273,9 +249,9 @@ dim(spellman_clean)  # for comparison
 dim(spellman_long)
 ```
 
-As you see, we've gone from a data frame with `r nrow(spellman_clean)` rows and `r ncol(spellman_clean)` columns (wide format), to a new data frame with `r nrow(spellman_long)` rows and `r ncol(spellman_long)` columns (long format). 
 
-### Extracting information from combined variables using `separate_wider_regex`
+
+### Extracting information from combined variables using `separate_wider_delim`
 
 The column `expt.and.time` violates one of our principles of tidy data: "Each variable must have its own column."  This column conflates two different types of information -- the experiment type and the time point of the measurement.  Our next task is to split this information up into two new variables, which will help to facilitate downstream plotting and analysis.
 
@@ -285,110 +261,42 @@ One complicating factor is that the different experiments/time combinations have
 
   * In the "cdc15" and "cdc28" experiments the convention is slightly different; they are of the form "cdc15_0", "cdc15_10", "cdc28_0", "cdc28_10", etc.  Here the part of the string before the underscore gives the experiment type, and the digits after the underscore give the time point.
   
-Because of the differences in naming conventions, we will find it easiest to break up `spellman_long` into a series of sub-data sets corresponding to each experiment type in order to extract out the experiment and time information.  After processing each data subset separately, we will join the modified sub-data frames back together.
+This inconsistency of naming will complicate our further processing, so let's first "correct" this inconsistency before splitting up the `expt.and.time` column into separate `expt` and `time` columns.  Fixing inconsistencies like this is a common data wrangling task.
 
-###  Subsetting rows 
+### Fixing an inconsistency using string replacement
 
-Let's start by getting just the rows corresponding to the "alpha" experiment/times. Here we use `dplyr::filter` in combination with `stringr::str_detect` to get all those rows in which the `expt.and.time` variable contains the string "alpha". We can't use `matches` here, because that is a `select` helper function and doesn't work with `filter`.
-
+The `stringr::str_replace` function combined with `mutate` makes this fix fairly straightforward.  For simplicity we make two separate mutate calls, fixing the "alpha" rows first and then the "elu" rows.
 
 ```{r}
-alpha.long <- 
+spellman_long <-
   spellman_long |>
-  filter(str_detect(expt.and.time, "alpha"))
-
-# look at the new data frame
-dim(alpha.long)
-head(alpha.long, n = 10)
+  mutate(expt.and.time = str_replace(expt.and.time, "alpha", "alpha_")) |>
+  mutate(expt.and.time = str_replace(expt.and.time, "elu", "elu_"))
 ```
+
+Let's check the unique set of values in the `expt.and.time` column to reassure ourselves that we did the right thing:
+
+```{r}
+unique(spellman_long$expt.and.time)
+```
+
 
 ### Splitting columns
 
-Having subsetted the data, we can now split `expt.and.time` into two new variables -- `expt` and `time`.  To do this we use `tidyr::separate_wider_regex` function to do regular expression matching and splitting.
+Having fixed the naming inconsistency, we can now split `expt.and.time` into two new variables -- `expt` and `time`.  To do this we use `tidyr::separate_wider_delim` function to split each string on a given delimiter (the underscore in this case):
 
 ```{r}
-alpha.long <-
-  alpha.long |>
-  separate_wider_regex(
-    cols = expt.and.time,  # column we're extracting from
-    patterns=c(expt = "alpha", time = "[[:digit:]]+"))  |>
+spellman_long <-
+  spellman_long |>
+  separate_wider_delim(
+    cols = expt.and.time,     # column we're extracting from
+    delim = "_",
+    names = c("expt", "time") # new names
+    ) |> 
   mutate(time = as.integer(time))  # convert new time column to integer
 ```
 
 
-
-
-Let's take a moment to look at the `patterns` argument to `separate_wider_regex`.  This argument specifies the column names and corresponding regular expression used to extract the column data.  In this case we are going to extract two columns, `expt` and `time`.  The `expt` regex is a simple matching, it simply says find and extra the string `alpha`. The `time` regex reads `[[:digit:]]+`. `[[:digit:]]` indicates we're looking for a numeric digit.  The `+` after `[[:digit:]]` indicates that we want to match  *one or more* digits (i.e. to get a match we need to find at least one digit, but more than one digit should also be a match).
-
-
-Let's take a look at the new version of `alpha.long` following application of `separate_wider_regex`:
-
-```{r}
-glimpse(alpha.long)
-```
-
-
-A data frame for the elutriation ("elu") data can be created similarly:
-
-```{r}
-elu.long <-
-  spellman_long |>
-  filter(str_detect(expt.and.time, "elu")) |>
-  separate_wider_regex(
-    cols = expt.and.time,  
-    patterns=c(expt="elu", time="[[:digit:]]+"))  |>
-  mutate(time = as.integer(time))  
-```
-
-
-#### A fancier regex for the cdc experiments
-
-Now let's process the cdc experiments (cdc15 and cdc28).  As before we extract the corresponding rows of the data frame using `filter` and `str_detect`.  However, here we can use a simpler function `separate_wider_delim` because the experiment type is consistently separated from the time field by an underscore:
-
-
-```{r}
-cdc.long <- 
-  spellman_long |>
-  # both cdc15 and cdc28 contain "cdc" as a sub-string
-  filter(str_detect(expt.and.time, "cdc")) |>
-  separate_wider_delim(
-    cols = expt.and.time,  
-    delim = "_",
-    names = c("expt", "time"))  |>
-  mutate(time = as.integer(time))  
-```
-
-
-
-### Combining data frames
-
-If you have two or more data frames with identical columns, the rows of the data frames can be combined into a single data frame using `dplyr::bind_rows` .  For example, to reassemble the `alpha.long`, `elu.long`, and `cdc.long` data frames into a single data frame we do:
-
-```{r}
-spellman.final <- bind_rows(alpha.long, elu.long, cdc.long)
-
-# check the dimensions of the new data frame
-dim(spellman.final)
-```
-
-### Sorting data frame rows
-
-Currently the `spellman.final` data frame is sorted by time point and experiment.  
-
-```{r}
-head(spellman.final, n = 10)
-```
-
-It might be useful instead to sort by gene and experiment.  To do this we can use `dplyr::arrange`:
-
-```{r}
-spellman.final <-
-  spellman.final |>
-  arrange(gene, expt)
-
-# look again at the rearranged data
-head(spellman.final, n = 10)
-```
 
 ## Using your tidy data
 
@@ -401,7 +309,7 @@ Let's start by walking through a series of visualizations of gene expression tim
 First a single gene in a single experimental condition:
 
 ```{r}
-spellman.final |>
+spellman_long |>
   filter(expt == "alpha", gene == "YAL022C") |>
   ggplot(aes(x = time, y = expression)) + 
     geom_line() + 
@@ -413,7 +321,7 @@ We can easily modify the above code block to visualize the expression of multipl
 ```{r}
 genes.of.interest <- c("YAL022C", "YAR018C", "YGR188C")
 
-spellman.final |>
+spellman_long |>
   filter(gene %in% genes.of.interest, expt == "alpha") |>
   ggplot(aes(x = time, y = expression, color = gene)) +
     geom_line() + 
@@ -424,7 +332,7 @@ spellman.final |>
 By employing `facet_wrap()` we can visualize the relationship between this set of genes in each of the experiment types:
 
 ```{r}
-spellman.final |>
+spellman_long |>
   filter(gene %in% genes.of.interest) |>
   ggplot(aes(x = time, y = expression, color = gene)) +
     geom_line() + 
@@ -436,7 +344,7 @@ spellman.final |>
 The different experimental treatments were carried out for varying lengths of time due to the differences in their physiological effects. Plotting them all on the same time scale can obscure that patterns of oscillation we might be interested in, so let's modify our code block so that plots that share the same y-axis, but have differently scaled x-axes.
 
 ```{r}
-spellman.final |>
+spellman_long |>
   filter(gene %in% genes.of.interest) |>
   ggplot(aes(x = time, y = expression, color = gene)) +
     geom_line() + 
@@ -452,7 +360,7 @@ When dealing with vary large data sets, one ad hoc filtering criteria that is of
 
 ```{r}
 by.variance <-
-  spellman.final |>
+  spellman_long |>
   group_by(gene) |> 
   summarize(expression.var = var(expression, na.rm = TRUE)) |>
   arrange(desc(expression.var))
@@ -464,7 +372,7 @@ The code above calculates the variance of each gene but ignores the fact that we
 
 ```{r}
 by.avg.variance <-
-  spellman.final |>
+  spellman_long |>
   group_by(gene, expt) |>
   summarize(expression.var = var(expression, na.rm = TRUE)) |>
   group_by(gene) |>
@@ -484,29 +392,12 @@ top.genes.1k <-
 head(top.genes.1k)
 ```
 
-For simplicities sake we will restrict our attention to the cdc28 experiment, and only consider the 1000 most variables genes with no more than one missing observation in this experimental condition.
-
+Let's create a data frame with only the top 1000 most variable genes:
 ```{r}
-cdc28 <-
-  spellman.final |>
-  filter(expt == "cdc28") |>
-  group_by(gene) |>
-  filter(sum(is.na(expression)) <= 1) |>
-  ungroup()   # removes grouping information from data frame
-
-top1k.genes <-
-  cdc28 |>
-  group_by(gene) |>
-  summarize(expression.var = var(expression, na.rm = TRUE)) |>
-  slice_max(expression.var, n = 1000) |>
-  pull(gene)
-    
-top1k.cdc28 <- 
-  cdc28 |>
-  filter(gene %in% top1k.genes)
+spellman_1k <-
+  spellman_long |>
+  filter(gene %in% top.genes.1k)
 ```
-
-
 
 
 
@@ -521,21 +412,21 @@ To accomplish this reshaping of data, we'll use the function `tidyr::pivot_wider
 Here let's use `pivot_wider` to spread the gene name and expression value columns to create a new data frame where the genes are the primary variables (columns) of the data. 
 
 ```{r}
-spellman.wide <-
-  spellman.final |>
+spellman_wide <-
+  spellman_long |>
   pivot_wider(names_from = gene, values_from = expression)
 ```
 
 Now let's examine the dimensions of this wide version of the data:
 
 ```{r}
-dim(spellman.wide)
+dim(spellman_wide)
 ```
 
 And here's a visual view of the first few rows and columns of the wide data:
 
 ```{r}
-spellman.wide[1:5, 1:8]
+spellman_wide[1:5, 1:8]
 ```
 
 From this view we infer that the rows of the data set represent the various combination of experimental condition and time points, and the  columns represents the 6178 genes in the data set plus the two columns for `expt` and `time`.
@@ -547,8 +438,8 @@ The "long" version of our data frame proved useful for exploring how gene expres
 
 ```{r}
 two.gene.plot <-
-  spellman.wide |>
-  filter(!is.na(YAR018C) & !is.na(YAL022C)) |>  # remove NAs
+  spellman_wide |>
+  drop_na(YAR018C, YAL022C) |>  # move time points where either variable is NA
   ggplot(aes(x = YAR018C, y = YAL022C)) +
     geom_point() + 
     theme(aspect.ratio = 1)
@@ -569,8 +460,8 @@ Correlation is a standard measure the degree of association between pairs of con
 Let's calculate the correlation between YAR018C and YAL022C:
 
 ```{r}
-spellman.wide |>
-  filter(!is.na(YAR018C) & !is.na(YAL022C)) |>
+spellman_wide |>
+  drop_na(YAR018C, YAL022C) |>
   summarize(cor = cor(YAR018C, YAL022C))
 ```
 
@@ -579,8 +470,8 @@ The value of the correlation coefficient for YAR018C and YAL022C, ~0.69, indicat
 As we did for our visualization, we can also calculate the correlation coefficients for the two genes under each experimental condition:
 
 ```{r}
-spellman.wide %>%
-  filter(!is.na(YAR018C) & !is.na(YAL022C)) |>  
+spellman_wide %>%
+  drop_na(YAR018C, YAL022C) |>
   group_by(expt) |>
   summarize(cor = cor(YAR018C, YAL022C))
 ```
@@ -589,21 +480,20 @@ This table suggests that the the strength of correlation between YAR018C and YAL
 
 ### Large scale patterns of correlations
 
-Now we'll move from considering the correlation between two specific genes to looking at the correlation between many pairs of genes.  As we did in the previous section, we'll focus specifically on the 1000 most variable genes in the cdc28 experiment.
+Now we'll move from considering the correlation between two specific genes to looking at the correlation between many pairs of genes.  We'll focus specifically on the 1000 most variable genes in the data.
 
-First we filter our wide data set to only consider the cdc28 experiment and those genes in the top 1000 most variable genes in cdc28:
 
 ```{r}
-top1k.cdc28.wide <- 
-  top1k.cdc28 |>
+spellman_1k_wide <- 
+  spellman_1k |>
   pivot_wider(names_from = gene, values_from = expression)
 ```
 
 With this restricted data set, we can then calculate the correlations between every pair of genes as follows:
 
 ```{r}
-cdc28.correlations <- 
-  top1k.cdc28.wide |>
+gene_correlations <- 
+  spellman_1k_wide |>
   select(-expt, -time)  |> # drop expt and time
   cor(use = "pairwise.complete.obs")
 ```
@@ -613,30 +503,40 @@ The argument `use = "pairwise.complete.obs"` tells the correlation function that
 Given $n$ genes, there are $n \times n$ pairs of correlations, as seen by the dimensions of the correlation matrix.
 
 ```{r}
-dim(cdc28.correlations)
+dim(gene_correlations)
 ```
 
 To get the correlations with a gene of interest, we can index with the gene name on the rows of the correlation matrix. For example, to get the correlations between the gene YAR018C and the first 10 genes in the top 1000 set:
 
 ```{r}
-cdc28.correlations["YAR018C",1:10]  
+gene_correlations["YAR018C",1:10]  
 ```
 
-In the next statement we extract the names of the genes that have correlations with YAR018C greater than 0.6.   First we test genes to see if they have a correlation with YAR018C greater than 0.6, which returns a vector of TRUE or FALSE values.  This vector of Boolean values is than used to index into the row names of the correlation matrix, pulling out the gene names where the statement was true.
+In the next statement we extract the names of the genes that have correlations with YAR018C greater than 0.5.   First we test genes to see if they have a correlation with YAR018C greater than 0.5, which returns a vector of TRUE or FALSE values.  This vector of Boolean values is than used to index into the row names of the correlation matrix, pulling out the gene names where the statement was true.
 
 ```{r}
-pos.corr.YAR018C <- rownames(cdc28.correlations)[cdc28.correlations["YAR018C",] > 0.6]
+pos.corr.YAR018C <- rownames(gene_correlations)[gene_correlations["YAR018C",] > 0.5]
 length(pos.corr.YAR018C)
 ```
 
 We then return to our long data to show this set of genes that are strongly positively correlated with YAR018C.  
 
 ```{r}
-top1k.cdc28 |>
+#| fig-width: 5
+#| fig-height: 5
+
+spellman_1k |>
   filter(gene %in% pos.corr.YAR018C) |>
   ggplot(aes(x = time, y = expression, group = gene)) + 
     geom_line(alpha = 0.33) +
-    theme(legend.position = "none")
+    geom_line(aes(x = time, y = expression),
+            data = filter(spellman_long, gene == "YAR018C"),
+            color = "Red", size = 1,alpha=0.5) +  
+    facet_wrap(~ expt, scales = "free_x") +
+    labs(title = "Genes positively correlated with YAR018C",
+       subtitle = "YAR018C shown in red",
+       x = "Time (mins)", y = "Expression")  +
+    theme(legend.position = "none") 
 ```
 
 As is expected, genes with strong positive correlations with YAR018C show similar temporal patterns with YAR018C. 
@@ -645,16 +545,19 @@ As is expected, genes with strong positive correlations with YAR018C show simila
 We can similarly filter for genes that have negative correlations with YAR018C. 
 
 ```{r}
-neg.corr.YAR018C <- colnames(cdc28.correlations)[cdc28.correlations["YAR018C",] <= -0.6]
+neg.corr.YAR018C <- colnames(gene_correlations)[gene_correlations["YAR018C",] <= -0.5]
 ```
 
 As before we generate a line plot showing these genes:
 
 ```{r}
-top1k.cdc28 |>
+spellman_1k |>
   filter(gene %in% neg.corr.YAR018C) |>
   ggplot(aes(x = time, y = expression, group = gene)) +
     geom_line(alpha = 0.33) +
+    facet_wrap(~ expt, scales = "free_x") +
+    labs(title = "Genes negatively correlated with YAR018C",
+       x = "Time (mins)", y = "Expression")  +  
     theme(legend.position = "none")  
 ```
 
@@ -665,12 +568,12 @@ Now let's create a new data frame by: 1) filtering on our list of genes that hav
 
 ```{r}
 pos.corr.df <- 
-  top1k.cdc28 |>
+  spellman_1k |>
   filter(gene %in% pos.corr.YAR018C) |>
   mutate(corr.with.YAR018C = "positive")
 
 neg.corr.df <- 
-  top1k.cdc28 |>
+  spellman_1k |>
   filter(gene %in% neg.corr.YAR018C) |>
   mutate(corr.with.YAR018C = "negative")
 
@@ -679,17 +582,20 @@ combined.pos.neg <- rbind(pos.corr.df, neg.corr.df)
 
 Finally, we plot the data, colored according to the correlation with YAR018C: 
 
-```{r, fig.width = 8, fig.height=4, warning=FALSE}
+```{r, warning=FALSE}
+#| fig-width: 8
+#| fig-height: 7
+
 ggplot(combined.pos.neg, 
        aes(x = time, y = expression,  group = gene,
            color = corr.with.YAR018C)) + 
-  geom_line(alpha=0.25) + 
+  geom_line(alpha=0.35) + 
   # changes legend title and values for color scale
   scale_color_manual(name = "Correlation with YAR018C",
-                       values = c("blue", "red"))  + 
-  labs(title = "Genes strongly positively and negatively correlated with YAR018C",
+                       values = c("darkblue", "firebrick"))  + 
+  labs(title = "Genes positively and negatively correlated with YAR018C",
        x = "Time (mins)", y = "Expression") + 
-  facet_wrap(~corr.with.YAR018C, nrow=1)
+  facet_wrap(~ expt, scales = "free_x")
 ```
 
 
