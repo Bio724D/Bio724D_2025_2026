@@ -49,6 +49,9 @@ Below is code to generate the representation of a contour plot for the same func
 zfunc <- function(x,y) {
   sin(x) + cos(y)
 }
+# try some other functions! 
+# e.g. z = sin(sqrt(x^2 + y^2))
+
 
 # create sets of points over which to evaluate zfunc
 x <- seq(-2*pi, 2*pi, length = 100)  
