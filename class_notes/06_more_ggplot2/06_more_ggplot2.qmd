@@ -6,6 +6,7 @@ output:
     toc: true
     theme: cosmo
     toc_float: true
+    embed-resources: true    
 ---
 
 
@@ -87,7 +88,7 @@ Here we create a heat map showing gene expression over time for about 700 genes 
 
 First load and filter the data:
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 yeast_long <- read_csv("spellman-long.csv")
 cell_cycle <- read_csv("spellman-cell-cycle-list.txt")
 
@@ -150,8 +151,12 @@ better_heat <-
        subtitle = "Sorted by time of peak expression") +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
-ggsave("cdc28-heatmap.png", better_heat, 
-       width = 4, height = 12, dpi=600)
+better_heat
+```
+
+
+```{r}
+ggsave("cdc28-heatmap.png", better_heat,  width = 4, height = 12, dpi=600)
 ```
 
 
@@ -227,45 +232,39 @@ penguins |>
 ```
 
 
-## Labeling points
+### Labeling points
+
+Labeling points with text is another form of annotation.  The function `geom_text` supports basically labeling, but as we'll see below it has some limitations. A ggplot extension package called `ggrepel` extends the functionality of `geom_text`, allowing for nicer automatic labelling of points.
+
+#### Example data: Microbescope
+
+The website [Information is Beautiful](https://informationisbeautiful.net/) has lots of interesting data visualizations and “data stories”. One of the data stories of biomedical interest is the [MicrobeScope](https://informationisbeautiful.net/visualizations/the-microbescope-infectious-diseases-in-context/), which presents data on the contagiousness of various microbes and its relationship to deadliness, fatality rate, media coverage, etc.
+
+![Microscope figures](./microbescope_image.png)
 
 
-## Loading in Dataset 
+I’ve made a cleaned up version of the data used to produce the figure above available to you as a CSV file at the following URL:
+
+  * [microbescope_clean.csv](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/microbescope_clean.csv) – this data was derived from the “original data” sheet in the data provided at http://bit.ly/KIB_Microbescope
+
 
 ```{r, warning=FALSE, message=FALSE}
-data_url <- "https://github.com/Bio724/Bio724-Example-Data/raw/main/Microbescope_original_data.csv"
-
-data <- read_csv(data_url)
-
-data <-
-  data |>
-  rename(disease = ...1) |>
-  rename_with(~ str_replace_all(.x, " ", "_")) |>
-  select(disease, 
-         case_fatality_rate, average_basic_reproductive_rate, 
-         pathogen_type, primary_mode_of_transmission) |>
-  slice(-1) |>
-  mutate(case_fatality_rate = as.double(str_replace(case_fatality_rate, "%", "")),
-         average_basic_reproductive_rate = as.double(average_basic_reproductive_rate))
-  
-
-write_csv(data, "microbescope_clean.csv")
+microbescope <- read_csv("microbescope_clean.csv")
 ```
 
 
+#### Basic `geom_text` plot
 
 ```{r}
 #| fig-width: 8
 #| fig-height: 6
 
-ggplot(data) + 
+ggplot(microbescope) + 
   aes(x = average_basic_reproductive_rate,
       y = case_fatality_rate, 
       shape = pathogen_type,
       color = primary_mode_of_transmission) +
   geom_point() + 
-  # scale_y_sqrt(breaks=c(0,0.1,1,seq(10,100,10)),
-  #              minor_breaks = NULL) +
   geom_text(aes(label=disease),
             size = 6,
             size.unit = "pt",
@@ -274,34 +273,43 @@ ggplot(data) +
   coord_cartesian(xlim = c(0,20))
 ```
 
+#### Extended version using ggrepel
 
-```{r}
-#| fig-width: 14
-#| fig-height: 8
+```{r, warning=FALSE, message=FALSE}
+#| fig-width: 15
+#| fig-height: 10
 
-data |>
+
+my_colors <- c("#335060","#9d9353","#e13698","#37251e",
+               "#81aea3","#ff8106","#888888", "firebrick")
+
+microbescope |>
   drop_na() |>
   filter(average_basic_reproductive_rate < 20) |>
-  ggplot() +
-  aes(x = average_basic_reproductive_rate,
-      y = case_fatality_rate, 
-      shape = pathogen_type,
-      color = primary_mode_of_transmission) +
-  geom_rect(ymin=0, ymax=1,xmin=-1,xmax=21, alpha=0.003,color='#D3D3D3',linetype="dashed") +
-  geom_rect(aes(ymin=20, ymax=50,xmin=-1,xmax=21), alpha=0.003,color='#D3D3D3',linetype="dashed") +  
-  geom_point(size=2) + 
-  scale_color_manual(values=c("#335060","#9d9353","#e13698","#37251e","#81aea3","#ff8106","#888888", "firebrick")) +    
+  ggplot(aes(x = average_basic_reproductive_rate,
+             y = case_fatality_rate, 
+             shape = pathogen_type,
+             color = primary_mode_of_transmission)) +
+  # draw background rectangles
+  geom_rect(aes(ymin=0, ymax=1,xmin=-1,xmax=21), 
+            alpha=0.003,color='#D3D3D3', linetype="dashed") +
+  geom_rect(aes(ymin=20, ymax=50,xmin=-1,xmax=21), 
+            alpha=0.003,color='#D3D3D3', linetype="dashed") +  
+  # draw points
+  geom_point(size=4, alpha=0.6) + 
+  scale_color_manual(values = my_colors) +
+  # draw labels
+  geom_text_repel(aes(label=disease), 
+                  size = 4,
+                  force = 1,
+                  force_pull = 2) +  
   scale_y_sqrt(breaks=c(0,0.1,1,seq(10,100,10)),
                minor_breaks = NULL, 
                sec.axis = dup_axis(name = "",
                                    breaks = c(0.2, 8, 35, 80),
                                    labels = c("Less deadly", "Quite deadly", "Deadly", "Extremely Deadly"))) +
-  geom_text_repel(aes(label=disease), 
-                  size = 3,
-                  force = 1,
-                  force_pull = 2) +
-  coord_cartesian(xlim = c(0,20)) +
 
+  coord_cartesian(xlim = c(0,20)) +
   labs(x = "Contagiousness: R0",
        y = "Deadliness: Case fatality rate (%)") +
   
@@ -317,284 +325,6 @@ ggsave("microbescope.png", width = 14, height=8)
 
 
 
-
-```{r}
-library(palmerpenguins)
-```
-
-
-```{r}
-penguins |>
-  drop_na(sex) |>
-  ggplot(aes(x = body_mass_g, y = flipper_length_mm)) +
-  geom_point(
-    data = filter(penguins, body_mass_g > 6200 | body_mass_g < 2800), 
-    color = "orange",
-    size = 3
-  ) +  
-  geom_point() +
-  annotate(
-    geom = "curve", x = 6000, y = 200, xend = 6300, yend = 220, 
-    curvature = .3, arrow = arrow(length = unit(2, "mm"))
-  ) +
-  annotate(geom = "text", x = 6000, y = 198, label = "Kowalski", hjust = "center") +
-  annotate(
-    geom = "curve", x = 2800, y = 210, xend = 2690, yend = 193, 
-    curvature = .3, arrow = arrow(length = unit(2, "mm"))
-  ) +
-  annotate(geom = "text", x = 2800, y = 212, label = "Pingu", hjust = "center")
-  
-```
-
-
-
-```{r}
-yeast.long <- read_csv("spellman-long.csv")
-```
-
-
-```{r}
-cdc28 <-
-  yeast.long |>
-  filter(expt == "cdc28") 
-
-var.cdc28 <-
-  cdc28 |>
-  group_by(gene) |>
-  summarize(var = var(expression, na.rm = TRUE),
-            num.na = sum(is.na(expression))) |>
-  filter(num.na < 3)
-
-top.1k <-
-  var.cdc28 |>
-  arrange(desc(var)) |>
-  slice_head(n = 1000)
-
-cdc28.1k <-
-  cdc28 |>
-  filter(gene %in% top.1k$gene)
-
-cdc28.1k.wide <-
-  cdc28.1k |>
-  pivot_wider(values_from = expression, names_from = gene)
-
-cdc28.correlations <- 
-  cdc28.1k.wide |>
-  select(-expt, -time)  |> # drop expt and time
-  cor(use = "pairwise.complete.obs")
-
-
-pos.corr.YAR018C <- rownames(cdc28.correlations)[cdc28.correlations["YAR018C",] > 0.5]
-neg.corr.YAR018C <- colnames(cdc28.correlations)[cdc28.correlations["YAR018C",] <= -0.5]
-
-
-pos.corr.df <- 
-  cdc28.1k |>
-  filter(gene %in% pos.corr.YAR018C) |>
-  mutate(corr.with.YAR018C = "positive")
-
-neg.corr.df <- 
-  cdc28.1k |>
-  filter(gene %in% neg.corr.YAR018C) |>
-  mutate(corr.with.YAR018C = "negative")
-
-combined.pos.neg <- rbind(pos.corr.df, neg.corr.df)
-```
-
-
-```{r}
-combined.pos.neg$gene <- 
-  factor(combined.pos.neg$gene, 
-         levels = c(pos.corr.YAR018C, neg.corr.YAR018C))
-```
-
-```{r}
-#| fig-width: 10
-#| fig-height: 20
-
-
-
-library(RColorBrewer)
-color.scheme <- rev(brewer.pal(9,"RdBu"))
-
-combined.pos.neg |>
-  ggplot(aes(x = time, y = gene)) + 
-    geom_tile(aes(fill = expression)) +
-    scale_fill_gradientn(colors=color.scheme) + 
-    xlab("Time (mins)")
-```
-
-```{r}
-pos.corr.lineplot <-  
-  combined.pos.neg |>
-  filter(gene %in% pos.corr.YAR018C) |>
-  ggplot(aes(x = time, y = expression, group = gene)) +
-    geom_line(alpha = 0.33, color = 'red') +
-    labs(x = "Time (mins)", y = "Expression", 
-      title = "Genes Positively correlated\nwith YAR018C")
-
-neg.corr.lineplot <- 
-  combined.pos.neg |>
-  filter(gene %in% neg.corr.YAR018C) |>
-  ggplot(aes(x = time, y = expression, group = gene)) +
-    geom_line(alpha = 0.33, color = 'blue') +
-    labs(x = "Time (mins)", y = "Expression", 
-      title = "Genes negatively correlated\nwith YAR018C")
-
-
-heat.map <- 
-  ggplot(combined.pos.neg, aes(x = time, y = gene)) + 
-    geom_tile(aes(fill = expression)) +
-    scale_fill_gradientn(colors=color.scheme) + 
-    labs(x = "Time (mins)", y = "Gene") +
-    theme(legend.position = "none", 
-          axis.text.y = element_text(size=6))
-
-```
-
-```{r}
-#| fig-width: 20
-#| fig-height: 20
-#| 
-library(patchwork)
-
-heat.map + (neg.corr.lineplot / pos.corr.lineplot)
-
-ggsave("yeast-heatmap-example.pdf")
-```
-
-
-
-```{r}
-cell.cycle <- read_csv("spellman-cell-cycle-list.txt")
-
-cdc28.cycling <-
-  cdc28 |>
-  filter(gene %in% cell.cycle$Gene)
-
-peak.expression <-
-  cdc28.cycling |>
-  group_by(gene) |>
-  summarize(peak = which.max(expression)) |>
-  arrange(peak)
-```
-
-```{r}
-#| fig-width: 6
-#| fig-height: 18
-#| 
-# draw from the bottom row up, whereas we want to depict the
-# earliest peaking genes at the top of the figure
-gene.ordering <- rev(peak.expression$gene)
-
-cdc28.cycling |>
-  ggplot(aes(x = time, y = gene)) +
-  geom_raster(aes(fill = expression)) +  # 
-  scale_fill_gradientn(limits=c(-2.5, 2.5),
-                       colors=color.scheme) +
-  scale_y_discrete(limits=gene.ordering) + 
-  labs(x = "Time (mins)", y = "Genes", 
-       title = "Cell cycle genes, CDC28 experiments",
-       subtitle = "Sorted by time of peak expression") +
-  # the following line suppresses tick and labels on y-axis
-  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
-```
-
-
-```{r}
-library(ggmagnify)
-```
-
-```{r}
-select(penguins, -year) |> ggpairs()
-```
-
-```{r, warning=FALSE}
-
-z <- ggplot(penguins, 
-       aes(x = flipper_length_mm, 
-           y = bill_length_mm,
-           color = species,
-           shape = sex)) + 
-  geom_point(size=2, alpha=0.6) +
-  theme_classic() +
-  geom_magnify(from = c(190,195,45,50), to = c(220, 235, 25,40)) +
-  #coord_equal(ratio = 1) +
-  coord_cartesian(xlim = c(170,240), ylim = c(20,60)) +
-  theme(legend.position = "top") 
-  
-  
-  
-z
-```
-
-
-```{r}
-zfunc <- function(x,y) {
-  sin(x) * cos(y)
-}
-
-x <- seq(-2*pi, 2*pi, length = 100)
-y <- seq(-2*pi, 2*pi, length = 100)
-
-xy <- expand_grid(x,y)  # all combinations of x and y
-xyz <- mutate(xy, z = zfunc(x,y))
-
-ggplot(xyz, aes(x = x, y = y, z = z)) +
-  geom_contour_filled() +
-  coord_equal()
-```
-
-
-```{r, warning=FALSE}
-
-z <-
-  penguins |>
-  drop_na(sex) |>
-  ggplot(aes(x = flipper_length_mm, 
-           y = bill_length_mm)) + 
-  geom_point(size=2, alpha=0.5) +
-  geom_point(data = filter(penguins, flipper_length_mm < 190, bill_length_mm > 55 ),
-             color = "red", size=3) +
-  theme_classic() +
-  annotate(
-    geom = "segment", x = 190, y = 60, xend = 182, yend = 58.25, 
-    arrow = arrow(length = unit(2, "mm"))
-  ) +
-  annotate(geom = "text", x = 191, y = 60.5, label = "Outlier?", hjust = "left") +
-  labs(x = "Flipper length (mm)",
-       y = "Bill length (mm)",
-       subtitle = "Data source: Palmer penguins")
-  
-  
-  
-z
-ggsave("penguin-outlier.png", z)
-```
-
-
-
-
-```{r}
-gasch <- 
-  read_csv("gasch1k.csv") |>
-  rename(experiment = ...1)
-  
-```
-
-```{r}
-missing.too.many <- function(x, n = 10) {
-  sum(is.na(x)) > n 
-}
-
-gasch_clean <-
-  gasch |>
-  select(-where(missing.too.many))  
-
-gasch_mins <-
-  gasch_clean |>
-  filter(str_detect(experiment, "min"))
-```
 
 
 ## Misc
