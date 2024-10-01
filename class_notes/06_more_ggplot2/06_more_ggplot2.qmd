@@ -236,6 +236,27 @@ penguins |>
   
 ```
 
+### Magnifying regions of a plot
+
+ggmagnify provides a geom for "zooming in" on a region of a plot.
+
+```{r, warning=FALSE}
+
+z <- ggplot(penguins, 
+       aes(x = flipper_length_mm, 
+           y = bill_length_mm,
+           color = species,
+           shape = sex)) + 
+  geom_point(size=2, alpha=0.6) +
+  theme_classic() +
+  geom_magnify(from = c(190,195,45,50), to = c(220, 235, 25,40)) +
+  coord_cartesian(xlim = c(170,240), ylim = c(20,60)) +
+  theme(legend.position = "top") 
+  
+z
+```
+
+
 
 ### Labeling points
 
