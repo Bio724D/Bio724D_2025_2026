@@ -1,0 +1,43 @@
+disease,case_fatality_rate,average_basic_reproductive_rate,pathogen_type,primary_mode_of_transmission
+Anthrax (untreated),20,6.5,bacterium,airborne
+Bird Flu (H5N1),60,1,virus,airborne droplet
+Bubonic Plague (untreated),60,1,bacterium,bites
+C.Difficile,24,1.25,bacterium,fecal-oral
+Campylobacter,1.2,0.19,bacterium,food
+Chicken Pox,0,8.5,virus,airborne droplet
+Cholera,1.63,2.13,bacterium,NA
+Dengue Fever,5,3,virus,bites
+Diphtheria,7.5,6.5,bacterium,body fluids
+E.coli,4,1.15,bacterium,fecal-oral
+Ebola,50,2.5,virus,body fluids
+"Hand, Foot and Mouth",0.06,3.5,virus,body fluids
+Hepatitis B,0.75,4.04,virus,body fluids
+HIV (treated),2.1,3.5,virus,sexual contact
+HIV (untreated),80,3.5,virus,sexual contact
+Influenza Pandemic 1918,2.5,3,virus,airborne droplet
+Lyme Disease,0.2,4.4,bacterium,bites
+Malaria (P. falciparum),0.5,80,parasite,bites
+Malaria (P. malariae),0.5,16,parasite,bites
+Measles,0.3,15,virus,airborne
+MERS,45,0.5,virus,airborne droplet
+MRSA,20,1.625,bacterium,surfaces
+Mumps,1,12.5,virus,airborne droplet
+Norovirus,0.01,2,virus,surfaces
+Pertussis (Whooping Cough),4,14.5,bacterium,airborne droplet
+Pneumonic Plague (untreated),100,3.2,bacterium,airborne droplet
+Polio,22,6,virus,fecal-oral
+Rabies (treated),1,1.6,virus,bites
+Rabies (untreated),100,1.6,virus,bites
+Rhinovirus,0,6,virus,airborne droplet
+Rotavirus,0,17.6,virus,fecal-oral
+Rubella,0,6,virus,airborne droplet
+Salmonella,1,0.8,bacterium,food
+SARS,9.6,2.4,virus,airborne droplet
+Scarlet Fever,0.5,2.8,bacterium,body fluids
+Seasonal Flu,0.1,2.5,virus,airborne droplet
+Smallpox,15,6,virus,airborne droplet
+Swine Flu (H1N1),0.2,1.5,virus,airborne droplet
+Syphilis (untreated),33,0.9,bacterium,sexual contact
+Tuberculosis (untreated),60,10,bacterium,airborne droplet
+Typhoid,20,2.8,bacterium,fecal-oral
+Zika,0,3,virus,bites
