@@ -38,7 +38,12 @@ library(palmerpenguins)
 
 Contour plots are most useful when you want to represent a variable (say "z") as a function of two other variables (x and y).  Contour plots use nested lines (think contour lines on a topographic map) and optionally color to depict such relationships.
 
-Below is code to generate the representation of a contour plot for the mathematical function: $z = \sin(x) + \cos(y)$
+Take for example the mathematical function: $z = \sin(x) + \cos(y)$.  A 3D plot of this function looks like this (generated using Wolfram Alpha):
+
+![3d plot](./plot_sinx_plus_cosy.png)
+
+
+Below is code to generate the representation of a contour plot for the same function:
 
 ```{r}
 zfunc <- function(x,y) {
