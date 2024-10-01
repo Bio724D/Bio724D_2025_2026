@@ -1,12 +1,9 @@
 ---
 title: "Bio 724: More ggplot2"
 author: "Paul Magwene"
-output: 
-  html_document:
-    toc: true
-    theme: cosmo
-    toc_float: true
-    embed-resources: true    
+format: 
+  html:
+    embed-resources: true
 ---
 
 
