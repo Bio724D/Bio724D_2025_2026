@@ -249,7 +249,7 @@ data <-
          average_basic_reproductive_rate = as.double(average_basic_reproductive_rate))
   
 
-glimpse(data)
+write_csv(data, "microbescope_clean.csv")
 ```
 
 
@@ -561,11 +561,15 @@ z <-
     geom = "segment", x = 190, y = 60, xend = 182, yend = 58.25, 
     arrow = arrow(length = unit(2, "mm"))
   ) +
-  annotate(geom = "text", x = 191, y = 60.5, label = "Outlier?", hjust = "left") 
+  annotate(geom = "text", x = 191, y = 60.5, label = "Outlier?", hjust = "left") +
+  labs(x = "Flipper length (mm)",
+       y = "Bill length (mm)",
+       subtitle = "Data source: Palmer penguins")
   
   
   
 z
+ggsave("penguin-outlier.png", z)
 ```
 
 

@@ -1,0 +1,48 @@
+---
+title: "Assignment 06: More ggplot2"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**.
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2024.qmd`
+
+Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) on your Github site.
+
+
+
+### Problems
+
+
+1. Using the `penguins` data from `palmerpenguins`, re-create the following plot with the included annotation elements:
+
+![Penguin outlier figure](./penguin-outlier.png)
+    
+2. Using the data below, create a heatmap depicting covid deaths on average per 100K people, over time for US states. Filter out non-states (e.g. territories, protectorates) except for the District of Columbia.Make sure to use an appropriate color scale for the type of data depicted.
+
+* [nytimes-covid-data-us-states_2022-02.csv](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/nytimes-covid-data-us-states_2022-02.csv) -- Data on COVID cases and deaths, by state, from 2020 to 2022, compiled by the NY Times.
+
+Your figure should look something like this:   
+
+![Covid heatmap figure](./covid-deaths.png)
+
+
+
+## Data lunch assignment
+
+Identify something that you learned from the presentation or discussion on Thursday that you found valuable. Provide a brief reflection here (1-5 sentences) and include code or pseudo-code if useful. Hint: if you have specific code examples, consider adding them to your notebook as well.
+
+
