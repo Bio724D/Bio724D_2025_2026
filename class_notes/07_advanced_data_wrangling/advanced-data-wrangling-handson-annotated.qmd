@@ -83,8 +83,7 @@ data <- read_tsv(
   locale = locale(encoding = "windows-1252"),
   col_names = data_names,
   col_select = -last_col(),
-) |>                   # note use of magrittr pipe to get more powerful placeholder
-  #select(.,-ncol(.)) |> # drop last column
+) |>                   
   slice_head(n = -2)    # last two lines are metadata we don't need
 
 ```
@@ -132,21 +131,21 @@ We have two options:
 
 * We could strip the "s" from each string and then use `as.numeric` to convert the strings to numbers  (`mutate(time = as.numeric(str_replace(time, "s", "")))`)
 
-* We could use the [lubridate](https://lubridate.tidyverse.org/) library that is designed to work with time, date, and duration information to do the conversion for us.  This second option is preferable, as lubridate has convenient features like the ability to convert between different time units automatically.
+* We could use the [lubridate](https://lubridate.tidyverse.org/) library that is designed to work with time, date, and duration information to do the conversion for us.  This second option is preferable, as lubridate has convenient features like the ability to convert between different time units automatically. Lubridate is loaded automatically when we load tidyverse.
 
-```{r, warning=FALSE}
-# lubridate is part of the tidyverse but not loaded by default
-# when we import the tidyverse meta library
-library(lubridate) 
-```
 
-Now we'll use the `as.duration()` function from lubridate to convert the strings to a Duration object which represents differences in time.
+We'll use the `as.duration()` function from lubridate to convert the strings to a Duration object which represents differences in time.
 
 ```{r}
 data <-
   data |>
   mutate(time = as.duration(time))
+```
   
+
+One of the advantages of representing the time as a duration object is that we can now use the `as.numeric` function to convert durations to different time units in a really simple manner as illustrated below:
+
+```{r}
 data |>
   ggplot(aes(x = as.numeric(time, "hours"), y = B_2)) +
     geom_line() + 
