@@ -36,7 +36,7 @@ The contents of these two spreadsheets are as follows:
 
 The goal of our analysis is to produce a figure like the following, which shows growth curves for each well in the 96-well plate.  Such figures are useful diagnostics for evaluating these experiments, getting an overview of patterns of growth variation, looking for spatial effects, identifying unexpected results, etc.
 
-![Growth curves, Final figure](./microbial-growth-curves-final.png)
+![Growth curves, Final figure](./final-microbial-growth-curves.png)
 
 
 ## Code
@@ -143,11 +143,16 @@ library(lubridate)
 Now we'll use the `as.duration()` function from lubridate to convert the strings to a Duration object which represents differences in time.
 
 ```{r}
+data <-
+  data |>
+  mutate(time = as.duration(time))
+  
 data |>
-  mutate(time = as.numeric(as.duration(time), "hours")) |>
-  ggplot(aes(x = time, y = B_2)) +
+  ggplot(aes(x = as.numeric(time, "hours"), y = B_2)) +
     geom_line() + 
     labs(x = "Time", y = "OD600")
+
+ggsave("single_well_plot.png")
 ```
 
 
@@ -171,13 +176,15 @@ Having reshaped our data frame, we can now exploit the `facet_wrap()` function o
 
 ```{r}
 long_data |>
-  mutate(time = as.numeric(as.duration(time), "hours")) |>
+  mutate(time = as.numeric(time, "hours")) |>
   ggplot(aes(x = time, y = absorbance)) +
     geom_line() + 
     labs(x = "Time (hours)", y = "OD600") + 
     facet_wrap(~address, nrow = 8, ncol = 12) 
+
+ggsave("facet_wrapped_wells.png", width = 12, height = 8)
 ```
-Note that the plots are shown in the order expected. For example the first row is "A_1", "A_10", "A_11", etc.  Why is this?  It turns out that R is sorting our address variable in "string order" rather than numeric order.  We can deal with this by transforming our address variable to a factor rather than string. For our purposes the function `forcats::as_factor()` is the best way to do this (forcats is another tidyverse package), as the built-in `as.factor()` function still creates factors using the string sorting order rather than the order in which the strings are given.
+Note that the plots are not shown in the order expected. For example the first row is "A_1", "A_10", "A_11", etc.  Why is this?  It turns out that R is sorting our address variable in "string order" rather than numeric order.  We can deal with this by transforming our address variable to a factor rather than string. For our purposes the function `forcats::as_factor()` is the best way to do this (forcats is another tidyverse package), as the built-in `as.factor()` function creates factors using the string sorting order rather than the order in which the strings are given.
 
 
 ```{r}
@@ -191,6 +198,8 @@ long_data |>
     # the facets are drawn. This makes our order of plots match
     # the same order as in the 96-well plates
     facet_wrap(~address, nrow = 8, ncol = 12, dir = "v") 
+
+ggsave("facet_wrapped_better.png", width = 12, height = 8)
 ```
 
 ## Plotting multiple wells in a grid, part II
@@ -225,6 +234,8 @@ addressed_data |>
     facet_grid(rows = vars(row_address), 
                cols = vars(col_address)) +
     theme_light()
+
+ggsave("facet_grid_version.png", width = 12, height = 8)
 ```
 
 Voila!
