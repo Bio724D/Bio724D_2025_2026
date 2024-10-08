@@ -1,0 +1,365 @@
+---
+title: "Data wrangling hands-on annotated"
+author: "Paul M. Magwene"
+date: "2024-10-08"
+date-format: iso
+format: 
+  html:
+    theme: cosmo
+    embed-resources: true
+---
+
+## Libraries
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+## Data
+
+```{r}
+absorbance_data_URL <-
+  "https://github.com/Bio724/Bio724-Example-Data/raw/main/crypto_tecan_run_example.txt"
+
+strain_key_URL <- 
+  "https://github.com/Bio724/Bio724-Example-Data/raw/main/crypto_tecan_run_strains.csv"
+
+```
+
+The contents of these two spreadsheets are as follows:
+
+* `crypto_tecan_run_example.txt` -- Absorbance readings (OD600) for a 96-well plate containing strains of the fungal pathogen *Cryptococcus neoformans*. Readings were taken every 15 minutes for 72 hours.
+
+* `crypto_tecan_run_strains.csv` -- A key mapping from plate address to yeast strain names (using the systematic naming scheme using for my lab's strain collection)
+
+## Goal
+
+The goal of our analysis is to produce a figure like the following, which shows growth curves for each well in the 96-well plate.  Such figures are useful diagnostics for evaluating these experiments, getting an overview of patterns of growth variation, looking for spatial effects, identifying unexpected results, etc.
+
+![Growth curves, Final figure](./microbial-growth-curves-final.png)
+
+
+## Code
+
+### Data complications
+
+A few complications exist with the data.  We explored these in class; they include:
+
+* It uses a non-UTF8 encoding called "windows-1252"
+* Lack of a header w/column names
+* There's any empty last column
+* There are two lines of metadata at the end of the file
+
+
+#### Creating header info
+
+The raw data file lacks a header (column names), so we'll need to create a vector with the appropriate column names.
+
+The first two columns hold Time (s) and Temperature (°C) info.  The subsequent columns are the absorbance readings for each of the 96 wells on the plate.  
+
+The absorbance value columns are given in the order "A1, B1, C1,...A2, B2, C2,...A12, B12, C12,..."
+
+```{r}
+# create c(1, 1, 1,...2, 2, 2,...12, 12, 12...) 8 reps of each number
+col_vals <- rep(1:12, each = 8)
+
+# create c("A", "B", "C", ...."A", "B", "C",...) 12 times
+row_vals <- rep(LETTERS[1:8], times = 12)
+
+#address will be c("A_1", "B_1", "C_1", ...., "A_12", "B_12", "C_12", ...)
+address <- str_c(row_vals, col_vals, sep = "_")
+
+data_names <- c("time", "temp", address)
+data_names
+```
+
+### Loading the data
+
+The following code loads the data using the appropriate encoding and column names (created above), while dropping the empty columns removing metadata rows. Note that this still generates a warning (because of metadata rows), but this can be safely ignored.
+
+```{r}
+data <- read_tsv(
+  absorbance_data_URL,
+  locale = locale(encoding = "windows-1252"),
+  col_names = data_names,
+  col_select = -last_col(),
+) |>                   # note use of magrittr pipe to get more powerful placeholder
+  #select(.,-ncol(.)) |> # drop last column
+  slice_head(n = -2)    # last two lines are metadata we don't need
+
+```
+
+
+
+
+
+### Some quick data checks
+
+The following code blocks involve some standard ways of "looking" at your data to try and insure it's well formed.
+
+```{r}
+dim(data)
+```
+
+```{r}
+names(data)
+```
+
+
+```{r}
+head(data[1:5])
+```
+
+
+## Plotting a single well
+
+Now that we've wrangled the data into some basic shape we can start to do something useful with it.  The simplest useful step towards our end goal, would be to plot a single growth curve from this experiment.  This is relatively straightforward because we have a data frame with `time` as a variable, and many columns (`A_1`, `A_2`, etc) that contains absorbance readings.
+
+Here's a first attempt at plotting the growth curves for a single strain (the well `B_2`):
+
+```{r}
+data |>
+  ggplot(aes(x = time, y = B_2)) +
+  geom_line() + 
+  labs(x = "Time", y = "OD600")
+```
+
+This plotted something, but it doesn't look at all like what we'd expect!  The call to `geom_line()` produced a warning message: "Each group consists of only one observation". What's going on?  
+
+If we look back at our data, we'll see that our time column is of the "character" data type. That's because values are of the form "900s" where the "s" indicates seconds.  If we want to plot a conventional growth curve we have to turn these into numbers.
+
+We have two options:
+
+* We could strip the "s" from each string and then use `as.numeric` to convert the strings to numbers  (`mutate(time = as.numeric(str_replace(time, "s", "")))`)
+
+* We could use the [lubridate](https://lubridate.tidyverse.org/) library that is designed to work with time, date, and duration information to do the conversion for us.  This second option is preferable, as lubridate has convenient features like the ability to convert between different time units automatically.
+
+```{r, warning=FALSE}
+# lubridate is part of the tidyverse but not loaded by default
+# when we import the tidyverse meta library
+library(lubridate) 
+```
+
+Now we'll use the `as.duration()` function from lubridate to convert the strings to a Duration object which represents differences in time.
+
+```{r}
+data |>
+  mutate(time = as.numeric(as.duration(time), "hours")) |>
+  ggplot(aes(x = time, y = B_2)) +
+    geom_line() + 
+    labs(x = "Time", y = "OD600")
+```
+
+
+
+## Plotting multiple wells in a grid
+
+To plot multiple wells simultaneously we need to have a column in our data frame that represents the address of each well.  Where will this information come from?  In the current case, the column names of the absorbance variables hold this information. Given this, the tidyr function `pivot_longer()` is the right choice to take our "wide" data frame and make it longer, while creating new columns holding the address and absorbance information:
+
+```{r}
+long_data <- 
+  data |>
+  pivot_longer(cols = A_1:H_12,
+               names_to = "address",
+               values_to = "absorbance") 
+
+long_data
+```
+
+
+Having reshaped our data frame, we can now exploit the `facet_wrap()` function of ggplot to create a distinct plot for each well:
+
+```{r}
+long_data |>
+  mutate(time = as.numeric(as.duration(time), "hours")) |>
+  ggplot(aes(x = time, y = absorbance)) +
+    geom_line() + 
+    labs(x = "Time (hours)", y = "OD600") + 
+    facet_wrap(~address, nrow = 8, ncol = 12) 
+```
+Note that the plots are shown in the order expected. For example the first row is "A_1", "A_10", "A_11", etc.  Why is this?  It turns out that R is sorting our address variable in "string order" rather than numeric order.  We can deal with this by transforming our address variable to a factor rather than string. For our purposes the function `forcats::as_factor()` is the best way to do this (forcats is another tidyverse package), as the built-in `as.factor()` function still creates factors using the string sorting order rather than the order in which the strings are given.
+
+
+```{r}
+long_data |>
+  mutate(time = as.numeric(as.duration(time), "hours"),
+         address = as_factor(address)) |>
+  ggplot(aes(x = time, y = absorbance)) +
+    geom_line() + 
+    labs(x = "Time (hours)", y = "OD600") + 
+    # note the use of dir = "v" to specify the direction by which
+    # the facets are drawn. This makes our order of plots match
+    # the same order as in the 96-well plates
+    facet_wrap(~address, nrow = 8, ncol = 12, dir = "v") 
+```
+
+## Plotting multiple wells in a grid, part II
+
+The `facet_wrap()` approach above works alright but I'm not crazy about the facet lables above each plot.  In addition the single `address` column confounds two pieces of information -- the row and column where each well is located.  If one were analyzing an experiment for unwanted spatial effects both of these pieces of information would be important.
+
+To solve this issues we're going to make our "long" data frame a little wider by splitting up the address variable into two separate columns, `row_address` and `column_address`. The tidyr function `separate_wider_delim()` is a convenient way to do this:
+
+
+```{r}
+addressed_data <-
+  long_data |>
+  separate_wider_delim(address,
+                       delim = "_",
+                       names = c("row_address", "col_address")) |>
+  # convert row and col address to factors for reasons
+  # discussed in prior section
+  mutate(time = as.duration(time),
+         row_address = as_factor(row_address),
+         col_address = as_factor(col_address)) 
+
+head(addressed_data)
+```
+
+Now that we have two address variables we can employ `facet_grid()` rather than `facet_wrap()` to generate our plot:
+
+```{r, fig.width = 10, fig.height = 5}
+addressed_data |>
+  ggplot(aes(x = as.numeric(time, "hours"), y = absorbance)) +
+    geom_line() + 
+    labs(x = "Time (hours)", y = "OD600") + 
+    facet_grid(rows = vars(row_address), 
+               cols = vars(col_address)) +
+    theme_light()
+```
+
+Voila!
+
+## Adding Strain Information
+
+We've wrangled our data set into a form that's easy to work with. However, we're not done yet as there's important metadata about the strains that we need to add to our plot to make sense of the information we're looking at. Let's see how to do that.
+
+First, let's load the strain data:
+
+```{r}
+strains <- read_csv(strain_key_URL)
+
+head(strains)
+```
+
+The most important variables for our purposes are the columns labeled row, column, and strain.  `row` and `column` correspond to the `row_address` and `column_address` variables in our `addressed_data` data frame.
+
+One minor complication is that the plate row numbers are lowercase, while the row names are uppercase in `addressed_data`. This is easily taken care of with a call to `str_to_upper`. We'll also drop the unneeded `plate` column while we're at it, and changes the `row` and `column` names to match `addressed_data`:
+
+```{r}
+strains <-
+  strains |>
+  select(-plate) |>  # drop plate
+  mutate(row = str_to_upper(row)) |>
+  rename(row_address = row, col_address = column)
+
+head(strains)
+```
+
+
+Now that we've fixed the case issue we should be able to join the data:
+
+```{r, error=TRUE}
+complete_data <-
+  left_join(addressed_data, strains,
+            by = c("row_address", "col_address"))
+```
+
+Whoops -- we got an error!  It turns out that that the  join functions require that the `by` variables be of the same type. Above we had converted col_address to a factor, so we need to make sure we treat it as a factor in the left join too:
+
+```{r}
+strains <-
+  strains |>
+  mutate(col_address = as.factor(col_address))
+
+# now this should work
+complete_data <-
+  left_join(addressed_data, strains,
+            by = c("row_address", "col_address"))
+
+```
+
+
+One other thing to note -- some of the rows have `NA` in the strain column. The outer wells are "blanks", and hence no strain is associated with them.
+
+
+
+
+## Generating the plot with strain info included
+
+Now that we've added the strain info, we can regenerate our plot and use `geom_text` to indicate which strain we're plotting.
+
+```{r, fig.width = 10, fig.height = 5}
+near_final_plot <-
+  complete_data |>
+  ggplot(aes(x = as.numeric(time, "hours"), y = absorbance)) +
+    geom_line() + 
+    labs(x = "Time (hours)", y = "OD600") + 
+    geom_text(mapping=aes(x = 0, y = 1, label=strain),
+              hjust=0, size=2, color="firebrick", alpha=0.5) +
+    facet_grid(rows = vars(row_address), 
+               cols = vars(col_address)) +
+    theme_light() +
+    theme(panel.grid.major = element_line(colour = "grey90"),
+          panel.grid.minor = element_blank())
+
+ggsave("near-final-microbial-growth-curves.png", 
+       plot = near_final_plot, 
+       width=10, height=5,
+       dpi = 600)
+
+near_final_plot
+
+```
+This looks pretty good, but if you zoom into the saved PNG you might start to notice some undesirable things. For example, we set the alpha transparency in the call to `geom_text` yet the text appears to be plotted as opaque.  Also, you might notice a weird blockiness / pixelated look of the text when zoomed in.
+
+It turns out the problem is discussed in the ggplot FAQ, under the question ["Why is annotation created with geom_text() pixellated? How can I make it more crisp?"](https://ggplot2.tidyverse.org/articles/faq-annotation.html). The problem in the code above is that the text is getting re-written for every row in the data frame corresponding to that strain.  The FAQ suggests using `annotate` instead, but that would be inappropriate for the problem at hand as the labels we want to plot are variables in a data frame, not fixed values.
+
+To solve this we add a `geom_text` with the strain data frame as the input. Generating the labels in this manner means the labels only get written once, as there is only a single row per strain.
+
+
+The code below also uses a dplyr function we haven't seen before called `case_match`, which is useful for binning operations or creating new values for sets of input values. Here we use `case_match` to create a categorical variable which will color the plotted curves differently depending on whether the well is a blank (NA) or contains a measured strain (non-NA string values).
+
+
+
+```{r, fig.width = 10, fig.height = 5}
+
+line_colors <- c("Blank" = "gray85", "Valid" = "steelblue")
+
+improved_plot <-
+  complete_data |>
+  # add a categorical variable to color the wells by whether
+  # they are a blank well or a valid strain well
+  mutate(well_type = case_match(strain,
+    NA ~ "Blank",
+    .default = "Valid"
+  )) |>
+  ggplot(aes(x = as.numeric(time, "hours"), y = absorbance)) +
+    geom_line(aes(color = well_type)) + 
+    labs(x = "Time (hours)", y = "OD600") + 
+    facet_grid(rows = vars(row_address), 
+               cols = vars(col_address)) +
+    scale_color_manual(values = line_colors) +
+    theme_light() +
+    theme(panel.grid.major = element_line(color = "grey95"),
+          panel.grid.minor = element_blank(),
+          legend.position = "none")
+
+final_plot <-
+  improved_plot + 
+  geom_text(data = strains, 
+            mapping = aes(x = -Inf, # sets x to the left most border 
+                          y = Inf, # sets y to the upper limit of the plot
+                          label = strain),
+            hjust = -0.1, 
+            vjust = 2,
+            color = "firebrick",
+            size = 2,
+            alpha = 0.5)
+
+
+ggsave("final-microbial-growth-curves.png", final_plot, 
+       width=10, height=5, dpi=600)
+
+final_plot
+```
+
