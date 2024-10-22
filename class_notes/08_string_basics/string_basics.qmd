@@ -269,3 +269,39 @@ Return a string with all the matches replaced
 str_replace_all(phrase, "ow", "OW")
 ```
 
+
+## Data frame oriented splitting/combining in tidyr 
+
+Tidyr provides a number of functions for string manipulation in a data frame context:
+
+
+Consider the `starwars` data set that is part of dplyr:
+```{r}
+head(starwars)
+```
+
+We can split the `name` column into first and last names using the `tidyr::separate_wider_delim` as follows:
+
+```{r}
+newstarwars <-
+  starwars |>
+  separate_wider_delim(name, 
+                       delim=" ", 
+                       names=c("first_name", "last_name"),
+                       too_few = "align_start",
+                       too_many = "merge")
+
+head(newstarwars)
+```
+In the example above, the arguments `too_few` and `too_many` were important in order to deal with cases where there was only a single name or more than 2 names.
+
+The `unite` function does the opposite:
+```{r}
+
+newstarwars |>
+  unite("UnitedName", first_name:last_name, 
+        sep = "_", na.rm = TRUE)
+
+```
+
+
