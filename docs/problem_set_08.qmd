@@ -1,0 +1,44 @@
+---
+title: "Assignment 08: Strings"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**.
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2024.qmd`
+
+Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) on your Github site.
+
+
+### Background 
+
+Combining `stringr` functions with regular expressions provides you with a versatile toolkit for manipulating strings in data frames. This can be helpful in many contexts, including data wrangling, updating information, fixing errors, and analyzing data. 
+
+For this current homework, we will be working with the Gasch et al. (2000) data set that you were asked to wrangle as part of Assignment 05. Note that the first column of this data set contains information about each sample, while the other 1000 columns contain the data. We will focus just on the sample column in this problem set.
+
+The information in the first column has two problems: it is not organized in a consistent way and it combines multiple kinds of information. In the following four problems, combine `stringr` functions and regular expression to clean up the sample descriptions. Before tackling today's problems, run the code you wrote for Assignment 05, problem 1 to provide a descriptive name for the first column. In the following, the first column will be called `sample`, but you are free to use any name you choose.
+
+### Problems
+
+1. Two experiments include annotations about heat shock treatments. Your task is to make the descriptions of samples from these heat shock experiments consistent by changing the ones beginning with "heat.shock..." and "Heat.Shock..." to "Heat.shock...".
+
+2. Many of the experiments involves samples from several time points. Although the units are often in minutes, some descriptions present this as "min" and others as "minutes". Make descriptions of time consistent by changing every instance of "minutes" to "min".
+
+3. The descriptions that start with "YPD" contain a mix of time points in units of "h" (hours) and "d" (days). Write code to convert the "d" time points into hours and update the units to reflect this change.
+
+4. To make it simpler to find all the samples related to the same experimental condition, create a new column called `condition` and move it next to the `description` column. For every sample that involves a temperature shift, assign the string "temp_shift" in the `condition` column. Note that temperature shifts are described in several different ways: "Heat.shock", "37C.to.25C", "21.to.37" (note: no "C"), "29C.to.33C", "29C..1M.sorbitol.to.33C" (note: two dots at one location).
+
+5. Two experiments involved exposure to dithiothreitol (DTT). Samples ending in ".1" and ".2" are from the two separate experiments. There are a number of inconsistencies in the descriptions: (1) the condition is described as either "dtt" or "DTT"; (2) this appears at different positions within the description; (3) the concentration of DTT is listed for experiment 1 but not experiment 2 even though both used the same concentration; and (4) the samples from experiment 1 all begin with "X2.". First, assign the string "DTT_exposure" to the `condition` column. Second, fix the inconsistencies in the descriptions in the `sample` column in a way that makes the most sense to you.    
