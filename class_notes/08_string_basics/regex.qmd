@@ -1,0 +1,360 @@
+---
+title: "Working with regular expressions in R"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Background
+
+Learning how to use regular expressions will make your data life much simpler. You can use regular expressions to wrangle, filter, reformat, and analyze data. You can also use regular expressions to manage multiple files at once. We will come back to regular expressions on multiple occasions as we move on to Unix, SQL, and Python. 
+
+```{r set-up, include = FALSE, silent = TRUE}
+library(tidyverse)
+library(phylotools)
+library(cli)
+ppmg <- read.fasta("EctMig_mt.fasta")
+```
+
+## Regular expressions
+
+A regular expression is a **search pattern**. In the simplest case, it is simply a sequence of normal characters (letters, numbers, spaces, symbols). This is called a *string literal* because the search pattern is literally the sequence of characters. But the power of regular expressions comes from a set of *meta-characters* that indicate specific patterns. These meta-characters define, for instance, alternative characters to match, how many times the pattern should repeat, where the pattern should occur, and other features. The meta-characters are: `\ ^ $ . | ? * + ( ) [ ] { }`. 
+
+To explore how meta-characters work, we will use the `str_view()` function, which returns every line containing a match to the search pattern and highlights the match itself. This function has a very useful optional argument `match`, which you can set to `FALSE` to find the opposite of the search pattern.
+
+To get a sense of how the basic regex meta-characters work, we will start by working with the built-in data set `sentences`. Let's first get to know these "data".
+
+```{r sentences}
+head(sentences)
+length(sentences)
+```
+
+**Including meta-characters as literals within a search pattern.** To search for `^` or any other regex meta-character as a literal character, it needs to be *escaped*. In R the escape sequence is two consecutive backslashes. For instance, to include `^` as a string literal, use `\\^` and to include `\` (backslash), use `\\\`. 
+
+```{r escaping}
+
+```
+
+**Define search patterns containing any character.** Four meta-characters are used to indicate any character: letters, numbers, symbols, and punctuation marks, as well as most non-printing characters (including space and tab); the only common character *not* included is end-of-line (carriage return). These meta-characters are sometimes called "wildcards", but the term "expansion" is more appropriate. They differ in the length of the "any" portion of the pattern. 
+
+The `.` meta-character (dot) defines a position of exactly 1 character that can contain any character except end-of-line.
+
+```{r dot-metachar}
+# experiment with the . meta-character 
+
+```
+
+The `?` meta-character matches 0 or 1 of the preceding character or sub-string. 
+
+```{r ?-metachar}
+# experiment with the ? meta-character 
+
+```
+
+The `*` meta-character matches 0, 1, or more of the preceding character or sub-string. 
+
+```{r *-metachar}
+
+```
+
+The `+` meta-character matches 1 or more of the preceding character or sub-string. 
+
+```{r +-metachar}
+ 
+```
+
+Combining meta-characters allows you to build more complex regexes.
+
+```{r any-combos}
+# match sentences that contain "of" followed by "and"
+
+```
+
+Experiment with meta-character combinations to get a feel for how they work.
+
+**Define search patterns with alternative matches.** Use *square brackets* `[ ]` to provide a set of allowable alternatives. Use the `^` meta-character to match anything *but* the defined set. For instance `[aeiou]` will match any vowel and `[^aeiou]` will match any consonant. 
+
+```{r alternates-1}
+# match "cap" and "cup"
+
+
+# match "c_p" where the intermediate character is not "a" or "u"
+
+```
+
+Use the `|` meta-character to find alternates that are more than 1 character long. If these alternates are part of a longer regex, wrap them in round brackets. Note that alternatives do *not* need to be the same length.
+
+```{r alternates-2}
+# match "moo" or "alm"
+
+
+# match "o" followed by "ss" or "ste"
+
+```
+
+**Using pre-defined sets of alternatives.** It's often useful to test for specific classes of alternative characters, such as any digit or any lower case letter. Two distinct approaches allow you to do this. The simpler but more limited method uses escaping: `\d` indicates any digit character, `\w` indicates any word character (upper and lower case letters), and `\s` indicates any whitespace character (space and tab). Use upper case letters to negate (match the opposite). For instance, `\D` indicates anything *except* a digit.
+
+The `sentences` data set does not provide much scope for practicing with pre-defined sets, so we will briefly switch to the `starwars` dataframe, which is built into `dplyr`. Specifically, we will work with the columns `name` and `hair_color`. 
+
+```{r defined-1}
+# match character names that contain at least 1 digit
+
+
+# match characters with multiple hair colors 
+
+```
+
+The more flexible method uses pre-defined sets that look like this: `[:name:]`, where `name` specifies the set to use. For instance, `[:lower:]` indicates any lower case letter, `[:upper:]` indicates any upper case letter, and `[:alpha:]` indicates any letter (upper or lower case). There are also pre-defined sets for symbols, punctuation, etc. See the `stringr` cheatsheet for details.
+
+```{r defined-2}
+# match character names that contain at least 1 digit
+ 
+
+# match single word character names 
+
+```
+
+**Define search patterns by position**. Meta-characters called *anchors* specify that the search pattern must occur at the beginning or end of a line, column, or word. Two useful anchors are `^` and `&`, which indicate the beginning or end of a line, respectively. 
+
+```{r anchors-1}
+# match a pattern at the beginning of a line  
+   
+
+# match a pattern at the end of a line
+
+```
+
+Note the use of escaping to define "." as a literal character.
+
+In R, the `^` and `&` meta-characters also apply to the beginning and end of a specified *column*. (This is not true of some other programming languages.) 
+
+```{r anchors-2}
+# match character names that end in a digit
+
+
+# match character names that begin with a letter followed by a digit
+
+```
+
+**Define search patterns that repeat.** Use curly braces `{ }` to indicate how many time the preceding character or sub-pattern should repeat. A single number inside the curly braces means repeat exactly that many times; a single number followed by a comma means at least that many times, and a two numbers separated by a comma means at least as many as the first and no more than the second.  
+
+```{r repeats-1}
+# match "mm"
+
+
+# match "is is "
+
+```
+
+The `sentences` data set is again not very useful, so we will switch to the mitochondrial genome of the Passenger Pigeon (*Ectopistes migratorius*), a former resident of North Carolina. This data frame allows us to find more complex kinds of repeats. To indicate repeating sub-patterns longer than one character, wrap in round brackets `( )`.
+
+```{r repeats-2}
+# match long repeats of "C"
+
+
+# match repeats of "CT" and count them
+
+
+# match 4 or 4 repeats of "GA"
+
+```
+
+**Define search patterns that return only part of the match.** Regular expressions provide *look-arounds*, which define matches adjacent to the core search pattern. Like most regex syntax, this is easiest to understand by example and experiment. 
+
+```{r, look-arounds}
+# find "z" only when followed by "o"
+        
+
+# find "z" only when followed by "e"
+        
+
+# find "z" when followed by any letter other than "e"
+       
+
+# find "y" when it is not the first letter in a word
+
+```
+
+
+## Practice with protein sequences
+
+We will work with the set of proteins produced by the West Indian Coelacanth (*Latimeria chalumnae*), one of just two suriving species in the family Latimeriidae. Coelacanths are sometimes called "living fossils" because the family was only known from fossils dating back to the time of dinosaurs prior to the mid-20th century.  
+
+![West Indian Coelacanth (credit: NOAA)](coelacanth.png)
+
+### Wrangling the protein sequences
+
+The coelacanth protein sequences were downloaded from NCBI in `fasta` format. This is a standard format for nucleotide and protein sequences, but it has a strange and rather awkward file organization: lines alternate between an *identifier* (the name and or information about the sequence) and the *sequence* (represented in single-letter code). We will need to covert this strange format into a data frame in order to work with it efficiently in R. Fortunately, the `phylotools` package has an file import function called `read.fasta()` that can do this for us. 
+
+After reading the `fasta` file into a data frame, we will do some processing to make it a bit easier to work with: (1) split the the identifier column, which contains two different kinds of information, into two columns with descriptive names; (2) rename the sequence columns to make its meaning clearer; and (3) remove some redundant text from the description column. This will also give us a chance to practice a few `stringr` functions.
+
+```{r wrangle-fasta}
+# read/convert fasta file 
+
+# split the description column
+
+# rename the sequence column
+
+# remove redundant text
+
+# what does our data frame look like?
+
+```
+
+### Using regex to check data quality
+
+We'll start by investigating the quality the *L. chalumnae* proteins data set. It's good to get into the habit of carrying out quality checks on an unfamiliar data set before doing any analysis!
+
+Another good practice is to test a regex before applying it to a data set. This way you can be sure it is working the way you intend. Use the `str_view()` function to do this. When constructing anything other than a simple regex, it's often easiest to start with part of the overall expression, test it, add another component, test again, and repeat until you have the entire pattern working as expected. 
+
+**Are there any incomplete sequences?** One way to assess the quality of the protein data set is to look for any incomplete sequences. The first amino acid in every protein is methionine, so we can search for sequences that start with any letter other than "M". This won't find every incomplete sequence, but it is a good overall measure of completeness.
+
+```{r QC-prots}
+# define and test the regex
+
+# how many sequences start with a letter other than "M"?
+
+# what are these proteins?
+
+```
+
+Notice that the descriptions all say "partial". We are not the first to notice that some of the sequences are not complete! 
+
+**Do any sequences contain ambiguous characters?** The standard one-letter code for proteins includes four letters that indicate more than one amino acid: **B**, **J**, **X**, and **Z**. (See the [IUPAC website](https://iupac.qmul.ac.uk/AminoAcid/AA1n2.html) for details.) If these letters are common in proteins sequences, it would suggest generally poor quality.  
+
+```{r}
+# define and test the regex
+
+# what fraction of the proteins contain these letters?
+
+```
+
+This is a small fraction, consistent with good data quality. Note that `str_detect()` uses a different optional argument to invert the search pattern from `the one uses`str_view()`.
+
+**Do any protein sequences lack a description?** We won't be able to make meaningful biological inferences about the protein sequences if we don't know anything about the function of the protein. We will use a very simple regex "trick" to find blank entries in the `description` column. 
+
+```{r}
+# define and test the regex: find empty column entries
+
+```
+
+The pattern is not detected, which means that every protein has a description. This is reassuring. Whether these descriptions are accurate is a separate question that takes more effort to answer!
+
+**Are protein identifiers properly formatted?** NCBI uses a variety of standard formats for protein identifiers. The *L. chalumnae* identifiers use the following format: (1) start with "NP_" or "XP_", (2) followed by 9 digits, (3) followed by "." and 1 more digit. We will build a regex that checks whether each identifier conforms to the standard.
+
+```{r}
+# define and test the regex: build and test in stages
+
+# how many conform to this pattern?
+
+```
+Every identifier is correctly formatted.
+
+
+### Finding protein trafficking signals
+
+Now that we feel more confident about the quality of our data set, let's do some analysis of the protein sequences themselves. We will start by searching for coelacanth proteins that contain *trafficking signals*, sequences of amino acids that direct a newly synthesized protein to the correct location in the cell. Most trafficking signals are located at one or the other of end of a protein, since these are locations that stick out and can be "read" by cellular machinery. 
+
+**How many proteins contain a peroxisome localization signal?** Eukaryotic cells use at least two different signals to direct proteins to the peroxisome. One of these is: **ser-lys-leu** at the C-terminus.
+
+```{r patterns-peroxisome}
+# define and test the regex
+
+# do these look like peroxisomal proteins?
+
+```
+
+Many descriptions contain the word "peroxisomal".
+
+**How many proteins contain an endoplasmic reticulum retention signal?** Some proteins need to remain in the endoplasmic reticulum after being translated. Eukaryotic cells use a signal to indicate that no trafficking is needed: **lys-asp-glu-leu** at the C-terminus.
+
+```{r patterns-ER}
+# define and test the regex
+
+#   is this pattern more common at the C-terminus than expected by chance?
+
+
+```
+
+This proportion seems quite high. But to know whether it is higher than we would expect by chance, we need to know the length of a typical protein.
+
+**What is the distribution of *L. chalumnae* protein length?** We can construct a simple null model as follows: if proteins are on average 100 amino acids long and the position of KDEL has no functional consequence, then we should find it as the final four amino acids ~1% of the time. We can use another `stringr` function to figure out how long real proteins are in this data set.
+
+```{r patterns-length}
+# how long is a typical protein in L. chalumnae?
+
+# what is the frequency distribution? 
+
+```
+
+Most proteins are *much* longer than 100 amino acids. Thus, finding KDEL as the last four amino acids more than 3% of the time seems inconsistent with the null hypothesis. Some simple queries can provide an immediate additional test.
+
+```{r}
+# how often does KDEL occur near but not at the end?
+
+```
+We can easily test other positions by altering the value in the curly braces. Most queries return a proportion of 0 and it's hard to find a position that approaches 0.01. This supports the notion that there is something special about finding KDEL precisely at the end of a protein. Next week we will learn how to set up a loop that would allow us to systematically test every position. 
+
+
+### Finding consensus sequences in proteins
+
+Many proteins and nucleic acids contain functional components that have a **regular-ish** pattern: some fixed features but also specific kinds of variation. It is possible to define a *consensus sequence* that describes this kind of functional site, including the invariant positions and specific ways in which the variable sites can differ.
+
+**Does *L. chalumnae* produce any serine proteases?** Serine proteases are enzymes that contain a serine in the active site that catalyzes cleavage of a peptide bond other proteins. These enzymes contain a characteristic sequence of amino acids: **ser/ala-cys-glu/lys-gly-asp-ser-gly-gly-phe-leu/phe** (where "/" indicates alternative amino acids).
+
+```{r consensus-serprot}
+
+# define a regex for the serine protease consensus sequence
+
+# examine the description
+
+```
+
+Many descriptions are consistent with serine proteases: trypsin, chymotrypsin, plasminogen, complement, etc.
+
+**Finding phosphorylation sites** Many proteins are phosphorylated and de-phosphorylated to regulate their function. The consensus sequence for phosphorylation is: **arg-arg/lys-polar-ser/thr** where polar is any amino acid with a polar side-chain. Compared with the consensus sequence of a serine protease, the phosphorylation site is shorter but more ambiguous: instead of at most 2 options per site, there are 12 options at one site. 
+
+```{r consensus-phos}
+# define the search string
+
+```
+
+Were you surprised by how long this search took? In general, searches take increasing amounts of time in this order: any character, either of 2 characters, any of a few characters, any of a large set of characters. The overall length of the search pattern has much less impact on search time. 
+
+**Finding zinc-finger transcription factors.** The genome of every organism contains genes that encode *transcription factors*, proteins that regulate gene expression. Several families of transcription factors have evolved independently, each with a distinct structure and DNA-binding domain. In vertebrates, one of the largest families of transcription factors are *zinc-finger proteins*, which contain the DNA-binding motif **tyr/phe-X-cys-X-cys-X-X-(X)-(X)-cys-X-X-X-phe-X-X-X-X-X-leu-X-X-his-X-X-X-(X)-his** where X is any amino acid and (X) may or may not be present. 
+
+In the code below, note the use of the `regex()` function to store a search pattern as a regex object. We can then pass that object to any `stringr` function. (If you store a simple string and then pass it to a `stringr` function, it won't work.)
+
+```{r zn-finger-1}
+# start by constructing a regex to find zinc-finger motifs
+
+# how many proteins contain at least 1 zinc finger?
+
+
+# are they annotated as zinc-finger proteins?
+
+```
+
+Most of these are zinc finger proteins, but it's not always obvious from the names. The following are some of the many names for sub-families of zinc finger proteins: Sp7, Kreuppel, Wilm's tumor protein, and PHD finger protein.
+
+Most zinc-finger proteins contain multiple DNA-binding motifs. We can do some exploratory data analysis to figure out how many zinc fingers are present. 
+
+```{r zn-finger-2}
+# plot the frequency distribution of zinc fingers  
+
+```
+
+Some proteins contain *a lot* of zinc-fingers! We can ask where there is a relationship between protein length and the number of zinc fingers it contains. 
+
+```{r zn-finger-3}
+# do longer proteins tend to have more zinc fingers?
+
+```
+
+This distribution suggests that there might be two distinct classes of zinc finger proteins: one where length is correlated with the number of zinc fingers and another where it is not.
+
+
+
