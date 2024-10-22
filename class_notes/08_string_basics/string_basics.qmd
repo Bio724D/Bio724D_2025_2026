@@ -1,0 +1,334 @@
+---
+title: "Strings in R"
+format: html
+---
+
+## Libraries
+
+```{r}
+library(tidyverse)
+```
+
+
+## Basics
+
+In most programming language, strings are typically the most generic data type, in that most  data types can be converted to a string representation but only a subset of strings can be converted to the more specialized data types.  
+
+In R, strings are represented by the `character` data type. In this document I will use the term `character` and strings interchangeably. 
+
+As we've done in past lectures, we'll be emphasizing string related functions from the tidyverse, provided by the package ["stringr"](https://stringr.tidyverse.org/). Be aware that there are many base R functions with similar string manipulation functionality; you'll likely encounter such base R functions if you search the web for help.
+
+## Creating strings 
+
+We can create strings on the fly in a variety of different ways:
+
+
+```{r}
+s1 <- 'This is a string'       # single quotes
+s2 <- "This is also a string"  # double quotes
+
+# Having both quoting styles allowing for nesting
+s3 <- "You can nest 'single quotes' in double quotes"
+s4 <- 'She said, "I prefer to nest double quotes in my single quotes"'
+
+s5 <- as.character(3.14)    # string from a double
+s6 <- as.character(1 + 1i)  # string from a complex number
+s7 <- as.character(c(TRUE, FALSE))  # strings from a vector of booleans
+
+```
+
+
+## Special characters
+
+R character objects support unicode values, so you can insert characters from different alphabets or even emojis in them:
+
+```{r}
+hello_japan <- "こんにちは"
+hello_emoji <- "👋"
+```
+
+
+Some characters, like tabs and newlines lines are "invisible" so we need a special way to represent them. R (and many other programming languages) use "character escaping" to write such characters, as illustrated below:
+
+```{r}
+with_tab <- "A line of text\tWith a tab" # the \t = TAB character
+with_newline <- "A line of text\nWith a newline" # the \n = newline (return)
+```
+
+## The `cat` and `print` functions
+
+The cat function, when applied to strings, will print to your screen a representation of the string data with special characters interpretted appropriately:
+
+```{r}
+cat(with_tab)
+```
+
+```{r}
+cat(with_newline)
+```
+
+The `print` function on the other hand returns a character vector representing the arguments passed to it:
+
+```{r}
+# contrast the outputs here
+cat(with_newline)
+
+print(with_newline)
+```
+
+Another important difference is that `cat` returns a NULL object wile `print` returns the character represent.
+
+## Some simple character manipulation
+
+
+```{r}
+phrase <- "How now, Brown Cow?"
+
+str_to_upper(phrase)
+
+str_to_lower(phrase)
+
+str_to_title(phrase)
+
+str_to_sentence(phrase)
+```
+
+## Substrings
+
+```{r}
+str_sub(phrase, 5, 7)
+str_sub(phrase, 5) # from 5 to end
+str_sub(phrase, 5, -2) # from 5 to two from the end
+```
+
+`str_sub` can be used with assignment to replace characters:
+
+```{r}
+str_sub(phrase, 5, 7) <- "NOW" 
+phrase
+```
+
+## String splitting
+
+```{r}
+# takes one string as input as splits on given pattern
+str_split_1(phrase, " ") 
+```
+
+```{r}
+phrases <- c("A wolf in sheeps clothing", 
+             "That which does not kill us makes us stronger")
+
+# takes a vector of strings as inputs and splits on given pattern
+str_split(phrases, " ")
+```
+
+```{r}
+split_phrases <- str_split(phrases, " ") 
+split_phrases[[1]]
+```
+
+
+
+
+## String matching
+
+```{r}
+str_count(phrase, "ow")
+```
+
+```{r}
+str_locate(phrase, "ow")
+```
+
+```{r}
+str_locate_all(phrase, "ow")
+```
+
+```{r}
+str_replace(phrase, "ow", "OW")
+```
+
+```{r}
+str_replace_all(phrase, "ow", "OW")
+```
+
+
+
+
+## Reading a file as a string
+
+The `readr::read_file` function will read all the text in a file as a single string object.
+
+```{r}
+jabberwocky <- read_file("../../data/jabberwocky.txt")
+jabberwocky
+```
+
+To see the Jabberwocky text in it's formatted glory, use the `cat` function:
+
+```{r}
+cat(jabberwocky)
+```
+
+The base R `scan()` function is useful if you want to read in a file as a vector of "words" (where "word" = contigous character delimited by white space):
+
+```{r}
+jabberwocky_words <- scan("../../data/jabberwocky.txt", what = character())
+jabberwocky_words
+```
+
+
+
+
+```{r}
+str_length(hello_emoji)
+```
+
+```{r}
+str_length(hello_japan)
+```
+
+```{r}
+str_length(jabberwocky)
+```
+
+
+
+```{r}
+str_length(jabbwocky_words)
+```
+
+
+```{r}
+# doesn't add up to str_length(jabberwocky); why?
+sum(str_length(jabberwocky_words))
+```
+
+
+
+
+
+
+## String splitting
+
+```{r}
+stanzas <- str_split_1(jabberwocky, "\n\n")
+stanzas[1]
+```
+
+
+
+```{r}
+stanza2 <- stanzas[2]
+lines2 <- str_split_1(stanza2, "\n")
+lines2
+```
+
+```{r}
+trimmed_lines2 <- str_trim(lines2)
+trimmed_lines2
+```
+
+```{r}
+stanza2_clean <- str_flatten(trimmed_lines2, collapse=" ")
+stanza2_clean
+```
+
+```{r}
+stanza2_clean |>
+  str_split_1(" ") 
+```
+
+```{r}
+wordct2 <-
+  stanza2_clean |>
+  str_split_1(" ") |>
+  length()
+```
+
+```{r}
+stanza2_clean |>
+  str_remove_all(" ") |>
+  str_length()
+```
+
+
+
+
+```{r}
+words_per_line <- str_split(trimmed_lines,
+                            pattern="[:blank:]")
+```
+
+
+
+
+
+
+## Working with substrings
+
+```{r}
+str_sub(stanza2, 10, 20)
+```
+
+
+## String matching and replacing
+
+```{r}
+str_count(jabberwocky, "Jabberwock")
+```
+
+
+
+```{r}
+# str_locate returns the first match
+str_locate(jabberwocky, "Jabberwock")
+```
+
+```{r}
+# str_locate_all returns all matches PER input string
+str_locate_all(jabberwocky, "Jabberwock")
+```
+
+```{r}
+# str_locate_all returns all matches PER input string
+str_locate_all(stanzas, "Jabberwock")
+```
+
+
+
+```{r}
+hit <- str_locate(stanza2, "Jabberwock")
+hit
+```
+
+```{r}
+str_sub(stanza2, hit[1], hit[2])
+```
+
+
+
+```{r}
+word <- "Jabberwock"
+new_stanza2 <- str_replace(stanza2, word, str_to_upper(word))
+cat(new_stanza2)
+```
+
+```{r}
+jabberwocky |> 
+  str_replace_all("Jabberwock", "JABBERWOCK") |>
+  cat()
+```
+
+
+
+
+## Substrings
+
+```{r}
+str_sub()
+```
+
+
+
