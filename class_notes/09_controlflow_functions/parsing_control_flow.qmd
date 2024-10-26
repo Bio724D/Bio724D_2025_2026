@@ -1,5 +1,5 @@
 ---
-title: "jabberwocky notes"
+title: "Parsing and flow control notes"
 format: 
   html:
     embed-resources: true
