@@ -11,6 +11,15 @@ library(tidyverse)
 ```
 
 
+## Class session goals
+
+1. Introduce the most common "control-flow" statements used in most programming languages
+  - for-loops
+  - if-else statements
+  
+
+
+
 
 ## Data 
 
@@ -24,6 +33,10 @@ Two text files that will serve as example:
 
 jabberwocky <- read_file("jabberwocky.txt")
 
+# important to look via print to understand invisible characters
+print(jabberwocky)
+
+# if you want to see the file as formatted
 cat(jabberwocky)
 ```
 
@@ -35,136 +48,315 @@ cat(jabberwocky)
 
 darwin <- read_file("darwin_origin_intro.txt")
 
+print(darwin)
 cat(darwin)
 ```
 
+## Discussion 
+
+Two types of text -- one a poem with multiple stanzas, the other prose with multiple paragraphs
+
+Some similarities (based on our definition of the problem space)
+* Stanzas and paragraphs both delineated by an empty line separating them
+
+Some differences
+* Individual lines are meaningful in stanzas
+* Individual lines are not usually meaningful in prose; where we choose to break lines is arbitrary. Sentences are the meaningful subunit of paragraphs and can span multiple lines.
 
 
-```{r}
-str_length(jabberwocky_words)
-```
+## Goals
+
+Write some code that will allow us to parse both poemes/songs and prose into meaningful subunits.
+
+1. Extract the stanzas / paragraphs and count them
+
+2. Extract the lines/sentences per stanza/paragraph, getting rid of any unneeded white space. Count lines/sentences per stanza.
+
+3. Extract the words per line/sentence and count them
 
 
-```{r}
-# doesn't add up to str_length(jabberwocky); why?
-sum(str_length(jabberwocky_words))
-```
+## Thinking about the problem
+
+Do in class thought exercise -- what will have to do to accomplish these tasks
+
+* Define the problem
+
+* Use an examplar data set to understand the task at hand
+
+* Brainstorm approaches, identify possible tricky parts
+
+* Sketch out some pseudocode
 
 
 
+## Stanzas and Paragraphs
 
 
+The first goal -- splitting a single string into stanzas or paragraphs is easy and is the same for both. We use `str_split_1` searching for two successive newlines.
 
-## String splitting
+
 
 ```{r}
 stanzas <- str_split_1(jabberwocky, "\n\n")
+typeof(stanzas)  # what did we get back
+length(stanzas)
 stanzas[1]
 ```
 
+* How could we make this more robust? What if there was a stray space on the empty line?
 
 
 ```{r}
-stanza2 <- stanzas[2]
-lines2 <- str_split_1(stanza2, "\n")
-lines2
+paragraphs <- str_split_1(darwin, "\n\n")
+length(paragraphs)
+paragraphs[1]
 ```
 
-```{r}
-trimmed_lines2 <- str_trim(lines2)
-trimmed_lines2
-```
+### Generalizing splitting text into blocks
+
+Let's generalize that a bit so it doesn't matter if it's stanzas or paragraphs:
+
 
 ```{r}
-stanza2_clean <- str_flatten(trimmed_lines2, collapse=" ")
-stanza2_clean
-```
-
-```{r}
-stanza2_clean |>
-  str_split_1(" ") 
-```
-
-```{r}
-wordct2 <-
-  stanza2_clean |>
-  str_split_1(" ") |>
-  length()
-```
-
-```{r}
-stanza2_clean |>
-  str_remove_all(" ") |>
-  str_length()
+inputstr <- "" # change this depending on what you're parsing
+blocks <- str_split_1(inputstr, "\n[ \t]*\n")
+block_ct <- length(blocks)
 ```
 
 
 
+## Lines in a stanza
 
+Now let's look at the problem of breaking each stanza into lines.
 
-
-
-
-
-
-
-## Working with substrings
+Again, this is easy for **one** stanza, as we can simply use `str_split_1` again with a different patterns.
 
 ```{r}
-str_sub(stanza2, 10, 20)
+lines1 <- str_split_1(stanzas[1],"\n")
+
+typeof(lines1)
+length(lines1)
+
+first_line <- lines1[1]
+first_line
+```
+
+### Introduce for loops
+
+However, we now how to do those operations for **every stanza**.  To accomplish this we need a for loop:
+
+
+```{r}
+lines_per_stanza = list()  # create an empty list for holding the lines per stanza
+linect_per_stanza = integer(length(stanzas))
+
+for (i in 1:length(stanzas)) {
+  current_lines <- str_split_1(stanzas[i],"\n") |> str_squish()
+  lines_per_stanza[[i]] <- current_lines
+  linect_per_stanza[i] <- length(current_lines)
+}
 ```
 
 
-## String matching and replacing
+Let's look at what we created:
 
 ```{r}
-str_count(jabberwocky, "Jabberwock")
+linect_per_stanza
 ```
 
+Lines per stanza is a list, indexed by integers (one per stanza).
 
+Each element of the list is a character vector holding the lines associated with that stanza.
 
 ```{r}
-# str_locate returns the first match
-str_locate(jabberwocky, "Jabberwock")
+lines_per_stanza
 ```
 
-```{r}
-# str_locate_all returns all matches PER input string
-str_locate_all(jabberwocky, "Jabberwock")
-```
+To get lines two and three  in the second stanza:
 
 ```{r}
-# str_locate_all returns all matches PER input string
-str_locate_all(stanzas, "Jabberwock")
-```
-
-
-
-```{r}
-hit <- str_locate(stanza2, "Jabberwock")
-hit
-```
-
-```{r}
-str_sub(stanza2, hit[1], hit[2])
-```
-
-
-
-```{r}
-word <- "Jabberwock"
-new_stanza2 <- str_replace(stanza2, word, str_to_upper(word))
-cat(new_stanza2)
-```
-
-```{r}
-jabberwocky |> 
-  str_replace_all("Jabberwock", "JABBERWOCK") |>
-  cat()
+lines_per_stanza[[2]][2:3]
 ```
 
 
 
+## Approx number of sentences in a paragraph
+
+Parsing english sentences is hard! We're not going to solve this exactly, but instead come up with an approximate solution. We'll break up a paragraph into sentences by splitting on a period followed by one or more white spaces.
+
+
+
+```{r}
+str_view(paragraphs[1], "\\.\\s+")
+```
+Here's a fancier regex. Uses look arounds, deals with Mr./Mrs./Dr. and capitalized abbreviations:
+
+```{r}
+str_view(paragraphs[1], "(?<=[^A-Z|Mrs?|Drs?]\\.)\\s+")
+
+```
+
+
+```{r}
+sentences_par1 <- str_split_1(paragraphs[1], "(?<=[^A-Z|Mrs?|Drs?]\\.)\\s+")
+sentences_par1
+
+first_sentence <- sentences_par1[1]
+first_sentence
+```
+
+
+
+Again, let's see how to do this parsing for every paragraph:
+
+```{r}
+sentences_per_paragraph = list()  
+sentencect_per_paragraph = integer(length(paragraphs))
+
+for (i in 1:length(paragraphs)) {
+  current_sentence <- 
+    str_split_1(paragraphs[i], "(?<=[^A-Z|Mrs?|Drs?]\\.)\\s+") |> 
+    str_squish()
+  
+  sentences_per_paragraph[[i]] <- current_sentence
+  sentencect_per_paragraph[i] <- length(current_sentence)
+}
+
+
+sentencect_per_paragraph
+```
+
+Get third sentence of second paragraph:
+
+```{r}
+sentences_per_paragraph[[2]][3]
+```
+
+
+## Generalizing lines / line sentences splitting
+
+We see lots of parallels between line and sentence splitting and again we might want to write code that generalizes the problem. However here we need different regexes for the line / sentences splitting problems.
+
+Introduce `if-else` as way to solve this
+
+
+```{r}
+# define input 
+inputstr <- jabberwocky # change this depending on what you're parsing
+
+blocks <- str_split_1(inputstr, "\n[ \t]*\n")
+block_ct <- length(blocks)
+
+# define whether your splitting prose or non-prose blocks
+is_prose <- FALSE
+
+if (is_prose) {
+  regex_pattern <- "(?<=[^A-Z|Mrs?|Drs?]\\.)\\s+"
+} else {
+  regex_pattern <- "\n"
+}
+
+parts <- list()
+parts_ct <- integer(length = block_ct)
+
+for (i in 1:block_ct) {
+  current_part <- 
+    str_split_1(blocks[i], pattern = regex_pattern) |> 
+    str_squish()
+  
+  parts[[i]] <- current_part
+  parts_ct[i] <- length(current_part)
+}
+
+parts
+```
+
+
+## Words per line/sentence
+
+
+```{r}
+str_split_1(first_line, "\\s")
+```
+
+```{r}
+str_split_1(first_sentence, "\\s")
+```
+
+```{r}
+str_extract_all(first_sentence, "[^[:punct:]|\\s]+") 
+```
+
+```{r}
+str_extract_all(sentences_par1, "[^[:punct:]|\\s]+") 
+```
+
+
+### Generalizing words per line / sentence
+
+
+```{r}
+# define input
+inputstr <- jabberwocky # change this depending on what you're parsing
+
+blocks <- str_split_1(inputstr, "\n[ \t]*\n")
+block_ct <- length(blocks)
+
+# define whether your splitting prose or non-prose blocks
+is_prose <- FALSE
+
+if (is_prose) {
+  regex_pattern <- "(?<=[^A-Z|Mrs?|Drs?]\\.)\\s+"
+} else {
+  regex_pattern <- "\n"
+}
+
+parts <- list()
+parts_ct <- integer(length = block_ct)
+
+for (i in 1:block_ct) {
+  current_part <- 
+    str_split_1(blocks[i], pattern = regex_pattern) |> 
+    str_squish()
+  
+  parts[[i]] <- current_part
+  parts_ct[i] <- length(current_part)
+}
+
+
+words_per_part <- list()
+
+for (j in 1:length(parts)) {
+  words_per_part[[j]] <- str_extract_all(parts[[j]], "[^[:punct:]|\\s]+") 
+}
+
+# count words per part per block
+words_ct <- list()
+
+for (i in 1:block_ct) {
+  words_ct[[i]] <- list()
+  for (j in 1:parts_ct[[i]]){
+    words_ct[[i]][[j]] <- length(words_per_part[[i]][[j]])
+  }
+}
+
+
+```
+
+# Let's looks the results
+
+```{r}
+cat("Block count:", block_ct, "\n\n")
+
+cat("Parts per block:", parts_ct, "\n\n")
+
+cat("Word count per part, first block:\n\n")
+print(words_ct[[1]])
+```
+
+```{r}
+words_per_part[[1]]
+```
 
 
 
