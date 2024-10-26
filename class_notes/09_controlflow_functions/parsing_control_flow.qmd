@@ -1,0 +1,171 @@
+---
+title: "jabberwocky notes"
+format: html
+---
+
+
+## Libraries
+
+```{r}
+library(tidyverse)
+```
+
+
+
+## Data 
+
+Two text files that will serve as example:
+
+### Jabberwocky
+
+```{r}
+# URL for download
+# https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/jabberwocky.txt
+
+jabberwocky <- read_file("jabberwocky.txt")
+
+cat(jabberwocky)
+```
+
+### Darwin's On the Origin of Species, Intro
+
+```{r}
+# URL for download
+# https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/darwin_origin_intro.txt
+
+darwin <- read_file("darwin_origin_intro.txt")
+
+cat(darwin)
+```
+
+
+
+```{r}
+str_length(jabberwocky_words)
+```
+
+
+```{r}
+# doesn't add up to str_length(jabberwocky); why?
+sum(str_length(jabberwocky_words))
+```
+
+
+
+
+
+
+## String splitting
+
+```{r}
+stanzas <- str_split_1(jabberwocky, "\n\n")
+stanzas[1]
+```
+
+
+
+```{r}
+stanza2 <- stanzas[2]
+lines2 <- str_split_1(stanza2, "\n")
+lines2
+```
+
+```{r}
+trimmed_lines2 <- str_trim(lines2)
+trimmed_lines2
+```
+
+```{r}
+stanza2_clean <- str_flatten(trimmed_lines2, collapse=" ")
+stanza2_clean
+```
+
+```{r}
+stanza2_clean |>
+  str_split_1(" ") 
+```
+
+```{r}
+wordct2 <-
+  stanza2_clean |>
+  str_split_1(" ") |>
+  length()
+```
+
+```{r}
+stanza2_clean |>
+  str_remove_all(" ") |>
+  str_length()
+```
+
+
+
+
+
+
+
+
+
+
+
+## Working with substrings
+
+```{r}
+str_sub(stanza2, 10, 20)
+```
+
+
+## String matching and replacing
+
+```{r}
+str_count(jabberwocky, "Jabberwock")
+```
+
+
+
+```{r}
+# str_locate returns the first match
+str_locate(jabberwocky, "Jabberwock")
+```
+
+```{r}
+# str_locate_all returns all matches PER input string
+str_locate_all(jabberwocky, "Jabberwock")
+```
+
+```{r}
+# str_locate_all returns all matches PER input string
+str_locate_all(stanzas, "Jabberwock")
+```
+
+
+
+```{r}
+hit <- str_locate(stanza2, "Jabberwock")
+hit
+```
+
+```{r}
+str_sub(stanza2, hit[1], hit[2])
+```
+
+
+
+```{r}
+word <- "Jabberwock"
+new_stanza2 <- str_replace(stanza2, word, str_to_upper(word))
+cat(new_stanza2)
+```
+
+```{r}
+jabberwocky |> 
+  str_replace_all("Jabberwock", "JABBERWOCK") |>
+  cat()
+```
+
+
+
+
+
+
+
