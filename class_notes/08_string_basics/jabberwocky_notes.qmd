@@ -32,12 +32,8 @@ To see the Jabberwocky text in its formatted glory, use the `cat` function:
 cat(jabberwocky)
 ```
 
-The base R `scan()` function is useful if you want to read in a file as a vector of "words" (where "word" = contiguous characters delimited by white space):
 
-```{r}
-jabberwocky_words <- scan("jabberwocky.txt", what = character())
-jabberwocky_words
-```
+
 
 
 ```{r}
