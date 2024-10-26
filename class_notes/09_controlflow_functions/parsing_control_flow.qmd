@@ -1,6 +1,8 @@
 ---
 title: "jabberwocky notes"
-format: html
+format: 
+  html:
+    embed-resources: true
 ---
 
 
