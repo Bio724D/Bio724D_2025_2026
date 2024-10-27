@@ -126,6 +126,17 @@ block_ct <- length(blocks)
 ```
 
 
+### Illustrating transition to function:
+
+```{r}
+to_blocks <- function(inputstr) {
+  blocks <- str_split_1(inputstr, "\n[ \t]*\n")
+  blocks
+}
+```
+
+
+
 
 ## Lines in a stanza
 
@@ -272,6 +283,38 @@ for (i in 1:block_ct) {
 
 parts
 ```
+
+Illustrating transition to function:
+
+
+```{r}
+split_blocks <- function(blocks, is_prose = FALSE) {
+  
+  if (is_prose) {
+    regex_pattern <- "(?<=[^A-Z|Mrs?|Drs?]\\.)\\s+"
+  } else {
+    regex_pattern <- "\n"
+  }
+  
+  parts <- list()
+  parts_ct <- integer(length = block_ct)
+  
+  for (i in 1:block_ct) {
+    current_part <- 
+      str_split_1(blocks[i], pattern = regex_pattern) |> 
+      str_squish()
+    
+    parts[[i]] <- current_part
+    parts_ct[i] <- length(current_part)
+  }
+  
+  list(parts = parts, cts = parts_ct)
+
+}
+
+```
+
+
 
 
 ## Words per line/sentence
