@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Greg Wray">
-<meta name="dcterms.date" content="2024-10-27">
+<meta name="dcterms.date" content="2024-10-28">
 
 <title>Introduction to control flow and functions</title>
 <style>
@@ -3094,7 +3094,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 27, 2024</p>
+      <p class="date">October 28, 2024</p>
     </div>
   </div>
   
@@ -3108,66 +3108,36 @@ vertical-align: -.125em;
 
 <section id="programming" class="level2">
 <h2 class="anchored" data-anchor-id="programming">Programming</h2>
-<p>So far, most of what have covered in class has focused on commands that are run one at a time or in short blocks to carry out a single step in an overall workflow. Often, we go back and run an earlier block to modify the contents of a data frame, or change and then re-run the same block to modify the analysis or generate a different plot.</p>
+<p>So far, most of what have covered in class has focused on commands that are run one at a time or in short blocks to carry out a single step in an overall workflow. Often, we go back and run an earlier block to modify the contents of a data frame, or change and then re-run the same block to carry out a different analysis or generate a different plot.</p>
 <p>For many data analysis tasks, this interactive, one-step-at-a-time, non-linear process works extremely well. But there may be occasions where you need to transition to programming: composing individual commands into an overall structure that runs without interruption from start to finish. Programming is particularly useful, for instance, when you need to carry out the same set of operations many times, when the same set of commands occurs at several different steps in the overall work flow, or when you need to evaluate intermediate results and modify subsequent steps accordingly. Programming is also useful for reproducibility, as a precise record of the way you generated models, statistical results, or figures and tables in a publication.</p>
 <p>Two kinds of structures are integral to programming, and are part of nearly every computer language.</p>
 <ul>
-<li><p><strong>Control flow</strong> provides the ability to move beyond a strictly linear, one-after-another sequence of commands. With <em>branch</em> structures, different commands are executed whenever a condition is true. With <em>loops</em>, the same set of commands is repeated a specified number or times or whenever a specified condition is true.</p></li>
+<li><p><strong>Control flow</strong> provides the ability to move beyond a strictly linear, one-after-another sequence of commands. With <em>branch</em> structures, different commands are executed depending on whether a condition is true or false. With <em>loops</em>, the same set of commands is repeated a specified number or times or whenever a specified condition is true.</p></li>
 <li><p><strong>Functions</strong> provide the ability to store the steps that accomplish a specific task and then re-use them later at any time, even in another program.</p></li>
 </ul>
 <p>Today, we’ll take a look at the basics of control flow and functions as they are implemented in R. Although details of syntax and implementation differ, much of what we cover will be directly applicable to other programmng languages.</p>
 </section>
 <section id="control-flow-in-r-the-basics" class="level2">
 <h2 class="anchored" data-anchor-id="control-flow-in-r-the-basics">Control flow in R: the basics</h2>
-<p>Most programming languages have at least two basic kinds of control flow structures: <em>for loops</em> as a way of looping and <em>if/then</em> as a way of branching. R and most other programming languages offer other control flow structures, but these are only provided for convenience and clarity, not additional capabilities. If you really want to geek out, read up on formal proofs by Alan Turing and Alonzo Church demonstrating that no additional structures are required to carry out any conceivable computation; programming languages that offer this infinite range of computing tasks are known as <em>Turning Complete</em>.</p>
-<p><strong>For loops.</strong> Loops provide a way to execute a set of statements multiple times, potentially involving minor modifications. R allows you to apply a function or arithemetic operation to all of the items in an atomic vector or list without needing to set up a loop, but what if you want to carry out the same set of operations on multiple vectors, data frames, or files? For loops provide this and other capabilities.</p>
+<p>Most programming languages have at least two basic kinds of control flow structures: <em>for loops</em> as a way of looping and <em>if/else</em> as a way of branching. R and most other programming languages offer other control flow structures, but these are only provided for convenience and clarity, not additional capabilities. If you really want to geek out, read up on formal proofs by Alan Turing and Alonzo Church demonstrating that no additional control structures are required to carry out any conceivable computation; programming languages that offer this infinite range of computing tasks are known as <em>Turning Complete</em>.</p>
+<p><strong>For loops.</strong> Loops provide a way to execute a set of statements multiple times, potentially involving minor modifications. R allows you to apply a function or arithmetic operation to all of the items in an atomic vector or list without needing to set up a loop, but what if you want to carry out the same set of operations on multiple vectors, data frames, or files? For loops provide this and other capabilities.</p>
 <p>The three elements of a for loop are: (1) an object or set of objects that you want to work with, (2) a loop counter, and (3) the body of the loop, namely the statements you want to execute multiple times.</p>
-<p>As an example, read the contents of 3 <code>.csv</code> files with identical structure but different values and assign each to a different data object. Each file contains weather data for one week in March, 2007.</p>
-<div class="cell" data-silent="true">
+<p>Note the curly braces around the body of the loop; these are optional if the body contains only one statement, but required if it contains more. The indenting is not required but is strongly recommended for readability.</p>
+<p>As an example, here is a loop that reads the contents of three <code>.csv</code> files with identical structure but different values, and assigns each to a position within a list.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>weeks <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">str_c</span>(<span class="st">&quot;wk&quot;</span>, <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  file_name <span class="ot">=</span> <span class="fu">str_c</span>(<span class="st">&quot;2024-MAR-week-&quot;</span>, i, <span class="st">&quot;.txt&quot;</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  weeks[[i]] <span class="ot">=</span> <span class="fu">read_csv</span>(file_name)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 7 Columns: 5
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-dbl  (4): hi_temp, lo_temp, precip, vis
-date (1): date
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
-e.g.:
-  dat &lt;- vroom(...)
-  problems(dat)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 7 Columns: 5
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-dbl  (4): hi_temp, lo_temp, precip, vis
-date (1): date
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 7 Columns: 5
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-dbl  (4): hi_temp, lo_temp, precip, vis
-date (1): date
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>weeks                                    <span class="co"># check that the loop worked correctly</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Check that the loop worked correctly and examine the data. Each file contains weather data for one week in March, 2007.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>weeks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 # A tibble: 7 × 5
-  date       hi_temp lo_temp precip   vis
+  date       lo_temp hi_temp precip   vis
   &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
 1 2007-03-01      23      33    0     2.1
 2 2007-03-02      21      30    0.1   1.4
@@ -3179,7 +3149,7 @@ date (1): date
 
 [[2]]
 # A tibble: 7 × 5
-  date       hi_temp lo_temp precip   vis
+  date       lo_temp hi_temp precip   vis
   &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
 1 2007-03-08      20      30    0     1.9
 2 2007-03-09      22      31    0     2.2
@@ -3191,7 +3161,7 @@ date (1): date
 
 [[3]]
 # A tibble: 7 × 5
-  date       hi_temp lo_temp precip   vis
+  date       lo_temp hi_temp precip   vis
   &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
 1 2007-03-15      20      31      0   2.1
 2 2007-03-16      22      32      0   1.4
@@ -3202,9 +3172,28 @@ date (1): date
 7 2007-03-21      20      30      0   1.9</code></pre>
 </div>
 </div>
-<p><strong>If / then structures.</strong> Branches provide a way to execute different blocks of code or skip specific blocks of code depending on a condition. The most basic form of branching is an if/then structure. You provide a condition: if the condition is true, one block of code is executed; if it is false, another block of code is executed or the program skips around the first block of code.</p>
-<p>The three elements of an if/then structure are: (1) an object or set of objects that you want to work with, (2) a condition, and (3) the body of the alternative branches, namely the statements you want to execute if the statement is true and the statements you want to execute if it is false. Either branch can be effectively nothing (in other words, jump ahead without executing any further commands).</p>
-<p><strong>Conditions.</strong> TBD.</p>
+<p>We could have easily just written three lines of code, each importing a different file. But imagine doing this for every week of the year. If any part of the line needs to be changed in the future, it would require modifying 52 lines of code. This would be tedious, and it creates many opportunities for errors.</p>
+<p><strong>If / else structures.</strong> Branches provide a way to execute different blocks of code or skip specific blocks of code depending on a condition. The most basic form of branching is an if/else structure. You provide a condition: if the condition is true, the <code>if</code> block of code is executed; if it is false, the <code>else</code> block of code is executed. It is also possible to just use an <code>if</code> statement by itself (without an <code>else</code>).</p>
+<p>The three elements of an if/else structure are: (1) an object or set of objects that you want to work with, (2) a condition, and (3) the body of the alternative branches, namely the statements you want to execute if the statement is true and the statements you want to execute if it is false.</p>
+<p>To illustrate how if/else works, here is for loop that measures rainfall for each week and issues a verbal report whose structure differs depending on the results. As with loopss, curly braces are only required for more than one line of code, and indenting is not required but strongly recommended. As structures become more complicated, indenting makes code <em>much</em> easier to read.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(weeks[[i]]<span class="sc">$</span>precip) <span class="sc">==</span> <span class="dv">0</span>) </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">str_c</span>(<span class="st">&quot;There was no rain in week &quot;</span>, i, <span class="st">&quot;.&quot;</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    total_rain <span class="ot">=</span> <span class="fu">sum</span>(weeks[[i]]<span class="sc">$</span>precip)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">str_c</span>(<span class="st">&quot;Rainfall in week &quot;</span>, i, <span class="st">&quot; totalled &quot;</span>, total_rain, <span class="st">&quot; cm.&quot;</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  }  </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &quot;Rainfall in week 1 totalled 0.6 cm.&quot;
+[1] &quot;Rainfall in week 2 totalled 0.2 cm.&quot;
+[1] &quot;There was no rain in week 3.&quot;</code></pre>
+</div>
+</div>
+<p>We will cover more complex branching structures next week.</p>
+<p><strong>Conditions.</strong> The important thing to remember about conditions is that they must evaluate to TRUE or FALSE. Test for equivalence using <code>==</code> and non-equivalance using <code>!=</code>, and for membership using <code>IN</code> and non-membership with <code>NOT IN</code>. For quantitative comparisons, use the standard set of operators: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, and <code>&lt;=</code>. It’s also possible to test for data type using <code>is.integer</code> and similar functions.</p>
+<p>We will return to conditions next week, to consider: additional operators, compound conditions, helper functions, rounding errors, and some important quirks related to NAs.</p>
 </section>
 <section id="functions-in-r-the-basics" class="level2">
 <h2 class="anchored" data-anchor-id="functions-in-r-the-basics">Functions in R: the basics</h2>
@@ -3212,47 +3201,54 @@ date (1): date
 <p><strong>Function names.</strong> It is good practice to give your functions names that describe what they do. In general, use verbs for function names and nouns for data object names. Strive to keep function names short, but favor clarity over brevity (remember that auto-complete can do most of the typing for you).</p>
 <p>Beware: if you give a new function a name that is the same as an existing function, R will substitute your function for the original. R will not raise an error or even issue a warning! This can lead to unexpected results and may remove a capability that you need. If you accidentally do this, simply clear the environment and try again with a unique function name. A handy function called <code>exists</code> can check whether a function (or any other object) already exists.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check to see if any object has been defined; note the quotes</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exists</span>(<span class="st">&quot;count&quot;</span>)                             <span class="co"># we need to think of a more specific name</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check to see if any object has been defined; note the quotes</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exists</span>(<span class="st">&quot;count&quot;</span>)                             <span class="co"># we need to think of a more specific name</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exists</span>(<span class="st">&quot;count_lines&quot;</span>)                       <span class="co"># this one is not in use</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exists</span>(<span class="st">&quot;count_lines&quot;</span>)                       <span class="co"># this one is not in use</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
-<p><strong>Function syntax.</strong> Defining a function involves three components: a name, the arguments, and the body. We put these together in a statement that: (1) calls the base R function <code>function</code> and assigns it to the function name, (2) lists the arguments, and (3) encloses the body of the function in curly braces. The body is the code that will run when the function is called by the main program and the arguments are the data passed from the main program to the body. In this case, the body consists of a single statement that calls the <code>stringr</code> function that counts pattern matches using a simple regex that finds end-of-line characters.</p>
+<p><strong>Function syntax.</strong> Defining a function involves three components: a name, the arguments, and the body. We put these together by: (1) calling the base R function <code>function</code> and assiging it to the function name, (2) specifying the argument(s), and (3) enclosing the body of the function in curly braces. The body is the code that will run when the function is called. In this case, the body consists of a single statement that calls the <code>stringr</code> function that counts pattern matches using a simple regex that finds end-of-line characters.</p>
+<p>As with branches and loops: curly braces are optional if the body is one line long and required if it is longer, while indenting is optional but strongly recommended for clarity.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function to count the number of lines in a text object</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>count_lines <span class="ot">&lt;-</span> <span class="cf">function</span>(text) {</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  line_tally <span class="ot">&lt;-</span> <span class="fu">str_count</span>(text, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">n&quot;</span>)     </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function to count the number of lines in a text object</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>count_lines <span class="ot">&lt;-</span> <span class="cf">function</span>(text) {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  line_tally <span class="ot">&lt;-</span> <span class="fu">str_count</span>(text, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">n&quot;</span>)     </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the function <code>count_lines</code> now exists in the environment. Like all objects created during an R session, it will disappear when you close the file or quit. We will look at how to save functions next week, but for now you can easily re-create a function by running the code block that defines it.</p>
-<p><strong>Viewing function code.</strong> If you want to see the code for any function, you can do so by typing its name without the <code>()</code> used to store input values. (The <code>View</code> function also works.) This can be very handy for writing your own functions. Try looking a the code of some functions.</p>
+<p>To invoke the function, substitute <code>text</code> for the object you want the function to work with; internally, that object is known by the variable name in the function definition.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>count_lines</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count_lines</span>(jabber)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>No error but also no output. To capture the result of a function, assign it to a value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">count_lines</span>(jabber)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>function (text) 
-{
-    line_tally &lt;- str_count(text, &quot;\\n&quot;)
-}</code></pre>
+<pre><code>[1] 33</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>str_trim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Our function generates a number, which is what we wanted. Or is it?</p>
+<p><strong>Validating functions.</strong> The first thing you should do after defining a function is test whether it works as expected. Check and you will see that “Jabberwocky” does not contain 33 lines! We need to modify our regex to get an accurate line count. In this case, we are falsely counting extra “lines” of the poem at the end of each stanza. This requires a simple fix to our regex.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># modify the function to count lines accurately </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>count_lines <span class="ot">&lt;-</span> <span class="cf">function</span>(text) {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  line_tally <span class="ot">&lt;-</span> <span class="fu">str_count</span>(text, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">n+&quot;</span>)     <span class="co"># regex for 1 or more consecutive return characters</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>}  </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">count_lines</span>(jabber)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>function (string, side = c(&quot;both&quot;, &quot;left&quot;, &quot;right&quot;)) 
-{
-    side &lt;- arg_match(side)
-    switch(side, left = stri_trim_left(string), right = stri_trim_right(string), 
-        both = stri_trim_both(string))
-}
-&lt;bytecode: 0x1058f71d0&gt;
-&lt;environment: namespace:stringr&gt;</code></pre>
+<pre><code>[1] 27</code></pre>
 </div>
 </div>
-<p>Many <code>tidyverse</code> functions call other functions and simply present them in a more consistent manner. Some base R functions return the somewhat cryptic message <code>Primitive(&quot;c&quot;)</code>. This just means that the function is actually a program written in the language <code>C</code>, usually for faster execution.</p>
-<p><strong>Capturing output from a function.</strong> Any variable assigned within a function remains <em>private</em> to that function: the main program and other functions cannot access it. There is a very good reason for this, which will become clear later. For now, the important point is that you need to store the values returned by a function in order to use them in the main program.</p>
+<p>Now it returns the correct value.</p>
+<p>In general, you should test several values to ensure that a function does what you want it to. It is especially important to test “corner cases”, such as <code>0</code> and <code>-1</code> for numerics, and <code>&quot;&quot;</code> and <code>&quot;\n&quot;</code> for strings.</p>
+<p><strong>Internal values are private.</strong> Any variable assigned within a function remains <em>private</em> to that function: the main program and other functions cannot access it. There is a very good reason for this, which will become clear later. For now, the important point is that you need to remember to store the values returned by a function in order to use them in the main program.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count_lines</span>(jabber)                         <span class="co"># test the function with a value</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#line_tally                                 # throws an error</span></span>
@@ -3260,44 +3256,51 @@ date (1): date
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">count_lines</span>(jabber)               <span class="co"># assign the output to a variable</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>result                                      <span class="co"># now it works</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 33</code></pre>
-</div>
-</div>
-<p><strong>Validating functions.</strong> The first thing you should do after defining a function is test whether it works as expected. Check and you will see that “Jabberwocky” does not contain 33 lines! We need to modify our regex to get an accurate line count.</p>
-<p>In general, you should test several values to ensure that a function does what you want it to. It is especially important to test “corner cases”, such as <code>0</code> and <code>-1</code> for numerics, and <code>&quot;&quot;</code> and <code>&quot;\n&quot;</code> for strings.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># modify the function to count lines accurately </span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>count_lines <span class="ot">&lt;-</span> <span class="cf">function</span>(text) {</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  line_tally <span class="ot">&lt;-</span> <span class="fu">str_count</span>(text, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">n+&quot;</span>)     <span class="co"># regex for 1 or more consecutive return characters</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>}  </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">count_lines</span>(jabber)                </span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
 <pre><code>[1] 27</code></pre>
 </div>
 </div>
-<p>Now it returns the correct value.</p>
 <p><strong>Defining multiple arguments.</strong> You will often want to write functions with multiple arguments. To do this, separate arguments with commas.</p>
 <p>If you are passing data to a function, best practice is to make the data the first argument(s). This is not required, but it is convention and thus makes it easier to read and understand your code.</p>
 <p>To illustrate, we will write a function that counts the number of letters in the first word of a given line in “Jabberwocky”. This function involves multiple statements. When composing a function that involves multiple steps, it’s helpful to test intermediate values for accuracy by including statements to output their value. Once the function is working correctly, you can remove them.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function to count the number of letters in the first word on a given line</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>first_word_length <span class="ot">&lt;-</span> <span class="cf">function</span>(text, line_number) {</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  spec_line <span class="ot">&lt;-</span> <span class="fu">str_split_i</span>(text, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">n+&quot;</span>, line_number)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  spec_line <span class="ot">&lt;-</span> <span class="fu">str_trim</span>(spec_line, <span class="at">side =</span> <span class="st">&quot;left&quot;</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  positions <span class="ot">&lt;-</span> <span class="fu">str_locate</span>(spec_line, <span class="st">&quot; &quot;</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  num_letters <span class="ot">&lt;-</span> positions[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(num_letters)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># test by providing several different values for line_number</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">first_word_length</span>(jabber, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function to count the number of letters in the first word on a given line</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>measure_first_word <span class="ot">&lt;-</span> <span class="cf">function</span>(text, line_number) {</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  spec_line <span class="ot">&lt;-</span> <span class="fu">str_split_i</span>(text, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">n+&quot;</span>, line_number)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  spec_line <span class="ot">&lt;-</span> <span class="fu">str_trim</span>(spec_line, <span class="at">side =</span> <span class="st">&quot;left&quot;</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  positions <span class="ot">&lt;-</span> <span class="fu">str_locate</span>(spec_line, <span class="st">&quot; &quot;</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  num_letters <span class="ot">&lt;-</span> positions[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(num_letters)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># test by providing several different values for line_number</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">measure_first_word</span>(jabber, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7</code></pre>
 </div>
 </div>
-<p>Note that blank lines return NA.</p>
+<p><strong>Viewing function code.</strong> If you want to see the code for any function, you can do so by typing its name without the <code>()</code> used to store input values. (The <code>View</code> function also works.) This can be very handy for writing your own functions. Try looking a the code of some functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>count_lines</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (text) 
+{
+    line_tally &lt;- str_count(text, &quot;\\n+&quot;)
+}
+&lt;bytecode: 0x13e4fc1c0&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>str_trim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (string, side = c(&quot;both&quot;, &quot;left&quot;, &quot;right&quot;)) 
+{
+    side &lt;- arg_match(side)
+    switch(side, left = stri_trim_left(string), right = stri_trim_right(string), 
+        both = stri_trim_both(string))
+}
+&lt;bytecode: 0x10c0fd350&gt;
+&lt;environment: namespace:stringr&gt;</code></pre>
+</div>
+</div>
+<p>Many <code>tidyverse</code> functions call other functions and simply present them in a more consistent manner. Some base R functions return the somewhat cryptic message <code>Primitive(&quot;c&quot;)</code>. This just means that the function is actually a program written in the language <code>C</code>, usually for faster execution.</p>
 </section>
 
 </main>

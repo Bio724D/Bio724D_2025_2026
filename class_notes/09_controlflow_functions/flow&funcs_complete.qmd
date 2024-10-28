@@ -9,20 +9,20 @@ editor: source
 ---
 
 
-```{r set-up, include = FALSE, silent = TRUE}
+```{r include = FALSE, silent = TRUE}
 library(tidyverse)
 jabber <- read_file("Jabberwocky.txt")
 ```
 
 ## Programming
 
-So far, most of what have covered in class has focused on commands that are run one at a time or in short blocks to carry out a single step in an overall workflow. Often, we go back and run an earlier block to modify the contents of a data frame, or change and then re-run the same block to modify the analysis or generate a different plot. 
+So far, most of what have covered in class has focused on commands that are run one at a time or in short blocks to carry out a single step in an overall workflow. Often, we go back and run an earlier block to modify the contents of a data frame, or change and then re-run the same block to carry out a different analysis or generate a different plot. 
 
 For many data analysis tasks, this interactive, one-step-at-a-time, non-linear process works extremely well. But there may be occasions where you need to transition to programming: composing individual commands into an overall structure that runs without interruption from start to finish. Programming is particularly useful, for instance, when you need to carry out the same set of operations many times, when the same set of commands occurs at several different steps in the overall work flow, or when you need to evaluate intermediate results and modify subsequent steps accordingly. Programming is also useful for reproducibility, as a precise record of the way you generated models, statistical results, or figures and tables in a publication. 
 
 Two kinds of structures are integral to programming, and are part of nearly every computer language.
 
-  * **Control flow** provides the ability to move beyond a strictly linear, one-after-another sequence of commands. With *branch* structures, different commands are executed whenever a condition is true. With *loops*, the same set of commands is repeated a specified number or times or whenever a specified condition is true. 
+  * **Control flow** provides the ability to move beyond a strictly linear, one-after-another sequence of commands. With *branch* structures, different commands are executed depending on whether a condition is true or false. With *loops*, the same set of commands is repeated a specified number or times or whenever a specified condition is true. 
 
   * **Functions** provide the ability to store the steps that accomplish a specific task and then re-use them later at any time, even in another program.  
 
@@ -30,31 +30,54 @@ Today, we'll take a look at the basics of control flow and functions as they are
 
 ## Control flow in R: the basics
 
-Most programming languages have at least two basic kinds of control flow structures: *for loops* as a way of looping and *if/then* as a way of branching. R and most other programming languages offer other control flow structures, but these are only provided for convenience and clarity, not additional capabilities. If you really want to geek out, read up on formal proofs by Alan Turing and Alonzo Church demonstrating that no additional structures are required to carry out any conceivable computation; programming languages that offer this infinite range of computing tasks are known as *Turning Complete*. 
+Most programming languages have at least two basic kinds of control flow structures: *for loops* as a way of looping and *if/else* as a way of branching. R and most other programming languages offer other control flow structures, but these are only provided for convenience and clarity, not additional capabilities. If you really want to geek out, read up on formal proofs by Alan Turing and Alonzo Church demonstrating that no additional control structures are required to carry out any conceivable computation; programming languages that offer this infinite range of computing tasks are known as *Turning Complete*. 
 
-**For loops.** Loops provide a way to execute a set of statements multiple times, potentially involving minor modifications. R allows you to apply a function or arithemetic operation to all of the items in an atomic vector or list without needing to set up a loop, but what if you want to carry out the same set of operations on multiple vectors, data frames, or files? For loops provide this and other capabilities. 
+**For loops.** Loops provide a way to execute a set of statements multiple times, potentially involving minor modifications. R allows you to apply a function or arithmetic operation to all of the items in an atomic vector or list without needing to set up a loop, but what if you want to carry out the same set of operations on multiple vectors, data frames, or files? For loops provide this and other capabilities. 
 
-The three elements of a for loop are: (1) an object or set of objects that you want to work with, (2) a loop counter, and (3) the body of the loop, namely the statements you want to execute multiple times.
+The three elements of a for loop are: (1) an object or set of objects that you want to work with, (2) a loop counter, and (3) the body of the loop, namely the statements you want to execute multiple times. 
 
-As an example, read the contents of 3 `.csv` files with identical structure but different values and assign each to a different data object. Each file contains weather data for one week in March, 2007.
+Note the curly braces around the body of the loop; these are optional if the body contains only one statement, but required if it contains more. The indenting is not required but is strongly recommended for readability.
 
-```{r, silent = TRUE}
+As an example, here is a loop that reads the contents of three `.csv` files with identical structure but different values, and assigns each to a position within a list. 
+
+```{r, message=FALSE, warning=FALSE}
 weeks <- list(str_c("wk", rep(1:3)))
 for (i in 1:3) {
   file_name = str_c("2024-MAR-week-", i, ".txt")
   weeks[[i]] = read_csv(file_name)
 }
-weeks                                    # check that the loop worked correctly
 ```
 
+Check that the loop worked correctly and examine the data. Each file contains weather data for one week in March, 2007.
 
-**If / then structures.** Branches provide a way to execute different blocks of code or skip specific blocks of code depending on a condition. The most basic form of branching is an if/then structure. You provide a condition: if the condition is true, one block of code is executed; if it is false, another block of code is executed or the program skips around the first block of code.   
+```{r}
+weeks
+```
 
-The three elements of an if/then structure are: (1) an object or set of objects that you want to work with, (2) a condition, and (3) the body of the alternative branches, namely the statements you want to execute if the statement is true and the statements you want to execute if it is false. Either branch can be effectively nothing (in other words, jump ahead without executing any further commands). 
+We could have easily just written three lines of code, each importing a different file. But imagine doing this for every week of the year. If any part of the line needs to be changed in the future, it would require modifying 52 lines of code. This would be tedious, and it creates many opportunities for errors. 
 
-**Conditions.** TBD. 
+**If / else structures.** Branches provide a way to execute different blocks of code or skip specific blocks of code depending on a condition. The most basic form of branching is an if/else structure. You provide a condition: if the condition is true, the `if` block of code is executed; if it is false, the `else` block of code is executed. It is also possible to just use an `if` statement by itself (without an `else`).   
 
+The three elements of an if/else structure are: (1) an object or set of objects that you want to work with, (2) a condition, and (3) the body of the alternative branches, namely the statements you want to execute if the statement is true and the statements you want to execute if it is false. 
 
+To illustrate how if/else works, here is for loop that measures rainfall for each week and issues a verbal report whose structure differs depending on the results. As with loopss, curly braces are only required for more than one line of code, and indenting is not required but strongly recommended. As structures become more complicated, indenting makes code *much* easier to read.
+
+```{r}
+for (i in 1:3) {
+  if (sum(weeks[[i]]$precip) == 0) 
+    print(str_c("There was no rain in week ", i, "."))
+  else {
+    total_rain = sum(weeks[[i]]$precip)
+    print(str_c("Rainfall in week ", i, " totalled ", total_rain, " cm."))
+  }  
+}
+```
+
+We will cover more complex branching structures next week.
+
+**Conditions.** The important thing to remember about conditions is that they must evaluate to TRUE or FALSE. Test for equivalence using `==` and non-equivalance using `!=`, and for membership using `IN` and non-membership with `NOT IN`. For quantitative comparisons, use the standard set of operators: `>`, `<`, `>=`, and `<=`. It's also possible to test for data type using `is.integer` and similar functions.
+
+We will return to conditions next week, to consider: additional operators, compound conditions, helper functions, rounding errors, and some important quirks related to NAs. 
 
 
 ## Functions in R: the basics
@@ -65,13 +88,15 @@ Functions are useful for several reasons. One of the most important is that func
 
 Beware: if you give a new function a name that is the same as an existing function, R will substitute your function for the original. R will not raise an error or even issue a warning! This can lead to unexpected results and may remove a capability that you need. If you accidentally do this, simply clear the environment and try again with a unique function name. A handy function called `exists` can check whether a function (or any other object) already exists.
 
-```{r func-syntax}
+```{r}
 # check to see if any object has been defined; note the quotes
 exists("count")                             # we need to think of a more specific name
 exists("count_lines")                       # this one is not in use
 ```
 
-**Function syntax.** Defining a function involves three components: a name, the arguments, and the body. We put these together in a statement that: (1) calls the base R function `function` and assigns it to the function name, (2) lists the arguments, and (3) encloses the body of the function in curly braces. The body is the code that will run when the function is called by the main program and the arguments are the data passed from the main program to the body. In this case, the body consists of a single statement that calls the `stringr` function that counts pattern matches using a simple regex that finds end-of-line characters.
+**Function syntax.** Defining a function involves three components: a name, the arguments, and the body. We put these together by: (1) calling the base R function `function` and assiging it to the function name, (2) specifying the argument(s), and (3) enclosing the body of the function in curly braces. The body is the code that will run when the function is called. In this case, the body consists of a single statement that calls the `stringr` function that counts pattern matches using a simple regex that finds end-of-line characters.  
+
+As with branches and loops: curly braces are optional if the body is one line long and required if it is longer, while indenting is optional but strongly recommended for clarity. 
 
 ```{r}
 # define a function to count the number of lines in a text object
@@ -82,16 +107,38 @@ count_lines <- function(text) {
 
 Note that the function `count_lines` now exists in the environment. Like all objects created during an R session, it will disappear when you close the file or quit. We will look at how to save functions next week, but for now you can easily re-create a function by running the code block that defines it.
 
-**Viewing function code.** If you want to see the code for any function, you can do so by typing its name without the `()` used to store input values. (The `View` function also works.) This can be very handy for writing your own functions. Try looking a the code of some functions. 
+To invoke the function, substitute `text` for the object you want the function to work with; internally, that object is known by the variable name in the function definition.
 
 ```{r}
-count_lines
-str_trim
+count_lines(jabber)
 ```
 
-Many `tidyverse` functions call other functions and simply present them in a more consistent manner. Some base R functions return the somewhat cryptic message `Primitive("c")`. This just means that the function is actually a program written in the language `C`, usually for faster execution. 
+No error but also no output. To capture the result of a function, assign it to a value.
 
-**Capturing output from a function.** Any variable assigned within a function remains *private* to that function: the main program and other functions cannot access it. There is a very good reason for this, which will become clear later. For now, the important point is that you need to store the values returned by a function in order to use them in the main program. 
+```{r}
+result <- count_lines(jabber)
+result
+```
+
+Our function generates a number, which is what we wanted. Or is it?
+
+**Validating functions.** The first thing you should do after defining a function is test whether it works as expected. Check and you will see that "Jabberwocky" does not contain 33 lines! We need to modify our regex to get an accurate line count. In this case, we are falsely counting extra "lines" of the poem at the end of each stanza. This requires a simple fix to our regex. 
+
+```{r}
+# modify the function to count lines accurately 
+count_lines <- function(text) {
+  line_tally <- str_count(text, "\\n+")     # regex for 1 or more consecutive return characters
+}  
+
+result <- count_lines(jabber)
+result
+```
+
+Now it returns the correct value.
+
+In general, you should test several values to ensure that a function does what you want it to. It is especially important to test "corner cases", such as `0` and `-1` for numerics, and `""` and `"\n"` for strings.  
+
+**Internal values are private.** Any variable assigned within a function remains *private* to that function: the main program and other functions cannot access it. There is a very good reason for this, which will become clear later. For now, the important point is that you need to remember to store the values returned by a function in order to use them in the main program. 
 
 ```{r}
 count_lines(jabber)                         # test the function with a value
@@ -101,21 +148,6 @@ result <- count_lines(jabber)               # assign the output to a variable
 result                                      # now it works
 ```
 
-**Validating functions.** The first thing you should do after defining a function is test whether it works as expected. Check and you will see that "Jabberwocky" does not contain 33 lines! We need to modify our regex to get an accurate line count.
-
-In general, you should test several values to ensure that a function does what you want it to. It is especially important to test "corner cases", such as `0` and `-1` for numerics, and `""` and `"\n"` for strings.  
-
-```{r}
-# modify the function to count lines accurately 
-count_lines <- function(text) {
-  line_tally <- str_count(text, "\\n+")     # regex for 1 or more consecutive return characters
-}  
-
-result <- count_lines(jabber)                
-result
-```
-Now it returns the correct value.
-
 **Defining multiple arguments.** You will often want to write functions with multiple arguments. To do this, separate arguments with commas.  
 
 If you are passing data to a function, best practice is to make the data the first argument(s). This is not required, but it is convention and thus makes it easier to read and understand your code. 
@@ -124,7 +156,7 @@ To illustrate, we will write a function that counts the number of letters in the
 
 ```{r}
 # define a function to count the number of letters in the first word on a given line
-first_word_length <- function(text, line_number) {
+measure_first_word <- function(text, line_number) {
   spec_line <- str_split_i(text, "\\n+", line_number)
   spec_line <- str_trim(spec_line, side = "left")
   positions <- str_locate(spec_line, " ")
@@ -133,8 +165,16 @@ first_word_length <- function(text, line_number) {
 }
 
 # test by providing several different values for line_number
-first_word_length(jabber, 5)
+measure_first_word(jabber, 5)
 ```
 
-Note that blank lines return NA. 
+**Viewing function code.** If you want to see the code for any function, you can do so by typing its name without the `()` used to store input values. (The `View` function also works.) This can be very handy for writing your own functions. Try looking a the code of some functions. 
+
+```{r}
+count_lines
+str_trim
+```
+
+Many `tidyverse` functions call other functions and simply present them in a more consistent manner. Some base R functions return the somewhat cryptic message `Primitive("c")`. This just means that the function is actually a program written in the language `C`, usually for faster execution. 
+
 
