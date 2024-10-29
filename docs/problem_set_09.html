@@ -3085,7 +3085,7 @@ vertical-align: -.125em;
 <h3 class="anchored" data-anchor-id="poems-and-song-lyrics-corpus">Poems and song lyrics corpus</h3>
 <p>We’ve put a zip file with a small corpus of poems and song lyrics available on the course website at the following link:</p>
 <ul>
-<li><a href="https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/poem-corpus.zip">poem-corpus.zip</a></li>
+<li><a href="https://github.com/Bio724D/Bio724D_2024_2025/raw/refs/heads/main/data/poem_corpus.zip">poem-corpus.zip</a></li>
 </ul>
 <p>Download and unzip this file, putting the directory (<code>poems_corpus</code>) in your working directory. Each file is named with the following convention:</p>
 <p><code>firstname_lastname_Poem-or-Song-Title.txt</code></p>
@@ -3096,7 +3096,9 @@ vertical-align: -.125em;
 <ol type="1">
 <li><p>Write a for-loop to read each of the files in the <code>poems_corpus</code> directory, returning a list with four character vectors containing: (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song.</p>
 <p>HINT: use the <code>list.files</code> function to get a list of all the files in a directory:</p>
-<pre><code>poem_files &lt;- list.file(path=&#39;/path/to/poems_corpus&#39;, pattern=&quot;*.txt&quot;)</code></pre></li>
+<pre><code>poem_files &lt;- list.file(path=&#39;/path/to/poems_corpus&#39;, 
+                        pattern=&quot;*.txt&quot;,
+                        full.name = TRUE)</code></pre></li>
 <li><p>Create an empty data frame with the following column names and types and assign it the variable name <code>poems_df</code>:</p></li>
 </ol>
 <ul>

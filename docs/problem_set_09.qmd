@@ -31,7 +31,7 @@ In this problem set you will build on the poem parsing functions we developed in
 
 We've put a zip file with a small corpus of poems and song lyrics available on the course website at the following link:
 
-* [poem-corpus.zip](https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/poem-corpus.zip)
+* [poem-corpus.zip](https://github.com/Bio724D/Bio724D_2024_2025/raw/refs/heads/main/data/poem_corpus.zip)
 
 Download and unzip this file, putting the directory (`poems_corpus`) in your working directory. Each file is named with the following convention: 
 
