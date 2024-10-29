@@ -1,0 +1,74 @@
+---
+title: "Assignment 09: Functions and control flow, Part I"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**.
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2024.qmd`
+
+Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) on your Github site.
+
+
+## Background 
+
+In this problem set you will build on the poem parsing functions we developed in class to carry out additional analyses on a small corpus of poems and song lyrics.
+
+### Poems and song lyrics corpus
+
+We've put a zip file with a small corpus of poems and song lyrics available on the course website at the following link:
+
+* [poem-corpus.zip](https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/poem-corpus.zip)
+
+Download and unzip this file, putting the directory (`poems_corpus`) in your working directory. Each file is named with the following convention: 
+
+`firstname_lastname_Poem-or-Song-Title.txt`
+
+Note that underscores separate fields and dashes separate words within a single field.
+
+### Problems
+
+
+1. Write a for-loop to read each of the files in the `poems_corpus` directory, returning four character vectors containing:  (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song
+
+
+2. Create an empty data frame with the following column names and types and assign it the variable name `poems_df`:  
+
+  * `first_name` (character)
+  * `last_name` (character)
+  * `title` (character)
+  * `stanza` (integer)
+  * `num_lines` (integer)
+  * `num_words` (integer)
+  * `num_alpha` (integer)
+  * `num_punct` (integer)
+  
+3. Write a for-loop to iterate over the vectors you created in Problem 1 in parallel. Apply the `analyze_poem` function to the text of each poem, and use mutate to add author and title information to the output of `analyze_poem`. Merge each resulting data frame into `poems_df` using the `dplyr::bind_rows`.
+
+4. Using the output of Problem 3, add the following metrics (per stanza) to the data frame:
+
+  * `word_complexity` -- the average number of alphanumeric characters per word
+  * `punct_density` -- the average number of punctuation characters per line
+  
+5. On a per poem basis (hint: `group_by`), generate a derived data frame with the following:
+
+  * `stanza_complexity` -- the average word_complexity for the poem as a whole 
+  * `poem_complexity` -- the number of stanzas times the stanza complexity
+  * `punct_metric` -- the median punct_density for the poem as a whole
+  
+6. What are the top three poems in terms of `poem_complexity`? What are the top three poems in terms of `stanza_complexity`?
+
+7. Which author's poems have the smallest `punct_metric`?

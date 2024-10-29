@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bio 724D: Applying control flow and functions to a parsing problem</title>
+<title>Assignment 09: Functions and control flow, Part I</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,40 +18,6 @@ ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
-}
-
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-{ counter-reset: source-line 0; }
-pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-}
-pre.numberSource { margin-left: 3em; padding-left: 4px; }
-div.sourceCode
-{ }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -3076,42 +3042,15 @@ vertical-align: -.125em;
 
 </head>
 
-<body>
+<body class="fullcontent">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#problem-space-analyzing-the-structure-of-poems" id="toc-problem-space-analyzing-the-structure-of-poems" class="nav-link" data-scroll-target="#problem-space-analyzing-the-structure-of-poems">Problem space: Analyzing the structure of poems</a></li>
-  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries">Libraries</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
-  <ul class="collapse">
-  <li><a href="#jabberwocky" id="toc-jabberwocky" class="nav-link" data-scroll-target="#jabberwocky">Jabberwocky</a></li>
-  </ul></li>
-  <li><a href="#sketching-out-a-solution" id="toc-sketching-out-a-solution" class="nav-link" data-scroll-target="#sketching-out-a-solution">Sketching out a solution</a>
-  <ul class="collapse">
-  <li><a href="#nd-pseudo-code-draft-starting-to-think-in-terms-data-structures" id="toc-nd-pseudo-code-draft-starting-to-think-in-terms-data-structures" class="nav-link" data-scroll-target="#nd-pseudo-code-draft-starting-to-think-in-terms-data-structures">2nd pseudo-code draft, starting to think in terms data structures</a></li>
-  </ul></li>
-  <li><a href="#get-the-stanzas" id="toc-get-the-stanzas" class="nav-link" data-scroll-target="#get-the-stanzas">Get the stanzas</a></li>
-  <li><a href="#counting-lines-in-a-stanza" id="toc-counting-lines-in-a-stanza" class="nav-link" data-scroll-target="#counting-lines-in-a-stanza">Counting lines in a stanza</a></li>
-  <li><a href="#counting-words-per-stanza" id="toc-counting-words-per-stanza" class="nav-link" data-scroll-target="#counting-words-per-stanza">Counting words per stanza</a></li>
-  <li><a href="#counting-alphabetical-characters-per-stanza" id="toc-counting-alphabetical-characters-per-stanza" class="nav-link" data-scroll-target="#counting-alphabetical-characters-per-stanza">Counting alphabetical characters per stanza</a></li>
-  <li><a href="#counting-punctuation-per-stanza" id="toc-counting-punctuation-per-stanza" class="nav-link" data-scroll-target="#counting-punctuation-per-stanza">Counting punctuation per stanza</a></li>
-  <li><a href="#test-your-function-with-some-other-inputs" id="toc-test-your-function-with-some-other-inputs" class="nav-link" data-scroll-target="#test-your-function-with-some-other-inputs">Test your function with some other inputs!</a>
-  <ul class="collapse">
-  <li><a href="#the-finished-code" id="toc-the-finished-code" class="nav-link" data-scroll-target="#the-finished-code">The finished code</a></li>
-  </ul></li>
-  </ul>
-</nav>
-</div>
+
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Bio 724D: Applying control flow and functions to a parsing problem</h1>
+<h1 class="title">Assignment 09: Functions and control flow, Part I</h1>
 </div>
 
 
@@ -3128,624 +3067,67 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>During the first half of our class session we introduced to the concepts and syntax for writing control flow statements and functions in R. We now turn to a motivating example to practice these skills.</p>
+<section id="instructions" class="level1">
+<h1>Instructions</h1>
+<p>Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however <strong>each of your solutions should show how to generate the answer using R code</strong>.</p>
+<p>Write “robust” solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately “robust” is to ask yourself “If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?”</p>
+<p>Make sure your markdown is nicely formatted – use headers, bullets, numbering, etc so that the structure of the document is clear.</p>
+<p>Make sure to “Render” your document before submission to confirm that all code blocks and formatting is as you expect.</p>
+<p>When completed, title your markdown file as follows (replace <code>XX</code> with the assignemnt number, e.g. <code>01</code>, <code>02</code>, etc):</p>
+<ul>
+<li><code>netid-assignment_XX-Fall2024.qmd</code></li>
+</ul>
+<p>Submit both your markdown file (<code>.qmd</code>) and the generated HTML document (<code>.html</code>) on your Github site.</p>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>In this problem set you will build on the poem parsing functions we developed in class to carry out additional analyses on a small corpus of poems and song lyrics.</p>
+<section id="poems-and-song-lyrics-corpus" class="level3">
+<h3 class="anchored" data-anchor-id="poems-and-song-lyrics-corpus">Poems and song lyrics corpus</h3>
+<p>We’ve put a zip file with a small corpus of poems and song lyrics available on the course website at the following link:</p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/poem-corpus.zip">poem-corpus.zip</a></li>
+</ul>
+<p>Download and unzip this file, putting the directory (<code>poems_corpus</code>) in your working directory. Each file is named with the following convention:</p>
+<p><code>firstname_lastname_Poem-or-Song-Title.txt</code></p>
+<p>Note that underscores separate fields and dashes separate words within a single field.</p>
 </section>
-<section id="problem-space-analyzing-the-structure-of-poems" class="level2">
-<h2 class="anchored" data-anchor-id="problem-space-analyzing-the-structure-of-poems">Problem space: Analyzing the structure of poems</h2>
-<p>The problem we’re going to use for illustration centers around text parsing. We’ll also build on some of the regular expression concepts we introduced in our prior class session. Parsing information out of textual files or data fields is a very common problem in many areas of scientific computing. In bioinformatics, parsing string-based representations of nucleotide or amino acid sequences is perhaps the most common example, but parsing challenges are frequently encountered when dealing with tasks such as working with ontologies, mining observer data (e.g. behavioral or field experiments), dealing with specialized data formats, etc. For today’s session we’ve chosen a non-biological parsing example, but you will hopefully see the parallel and potential of how these concepts can be applied in biological contexts.</p>
-<p>The specific problem we’ll tackle is characterizing the structure of poems! We will attempt to write a set of functions that accomplish the following tasks:</p>
+<section id="problems" class="level3">
+<h3 class="anchored" data-anchor-id="problems">Problems</h3>
 <ol type="1">
-<li><p>Break up a poem into stanzas</p></li>
-<li><p>For each stanza:</p></li>
+<li><p>Write a for-loop to read each of the files in the <code>poems_corpus</code> directory, returning four character vectors containing: (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song</p></li>
+<li><p>Create an empty data frame with the following column names and types and assign it the variable name <code>poems_df</code>:</p></li>
 </ol>
 <ul>
-<li>Count the number of lines in the stanza</li>
-<li>Count the the number of words in the stanza</li>
-<li>Count the number of alphanumeric characters in the stanza</li>
-<li>Count the number of punctuation mark characters in stanza</li>
+<li><code>first_name</code> (character)</li>
+<li><code>last_name</code> (character)</li>
+<li><code>title</code> (character)</li>
+<li><code>stanza</code> (integer)</li>
+<li><code>num_lines</code> (integer)</li>
+<li><code>num_words</code> (integer)</li>
+<li><code>num_alpha</code> (integer)</li>
+<li><code>num_punct</code> (integer)</li>
 </ul>
-</section>
-<section id="libraries" class="level2">
-<h2 class="anchored" data-anchor-id="libraries">Libraries</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-</div>
-</section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
-<section id="jabberwocky" class="level3">
-<h3 class="anchored" data-anchor-id="jabberwocky">Jabberwocky</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># URL for download</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/Lewis_Carroll-Jabberwocky.txt</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>jabberwocky <span class="ot">&lt;-</span> <span class="fu">read_file</span>(<span class="st">&quot;Lewis_Carroll-Jabberwocky.txt&quot;</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># important to look via print to understand invisible characters</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;’Twas brillig, and the slithy toves\n      Did gyre and gimble in the wabe:\nAll mimsy were the borogoves,\n      And the mome raths outgrabe.\n\n“Beware the Jabberwock, my son!\n      The jaws that bite, the claws that catch!\nBeware the Jubjub bird, and shun\n      The frumious Bandersnatch!”\n\nHe took his vorpal sword in hand;\n      Long time the manxome foe he sought—\nSo rested he by the Tumtum tree\n      And stood awhile in thought.\n\nAnd, as in uffish thought he stood,\n      The Jabberwock, with eyes of flame,\nCame whiffling through the tulgey wood,\n      And burbled as it came!\n\nOne, two! One, two! And through and through\n      The vorpal blade went snicker-snack!\nHe left it dead, and with its head\n      He went galumphing back.\n\n“And hast thou slain the Jabberwock?\n      Come to my arms, my beamish boy!\nO frabjous day! Callooh! Callay!”\n      He chortled in his joy.\n\n’Twas brillig, and the slithy toves\n      Did gyre and gimble in the wabe:\nAll mimsy were the borogoves,\n      And the mome raths outgrabe.&quot;</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if you want to see the file as formatted</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>’Twas brillig, and the slithy toves
-      Did gyre and gimble in the wabe:
-All mimsy were the borogoves,
-      And the mome raths outgrabe.
-
-“Beware the Jabberwock, my son!
-      The jaws that bite, the claws that catch!
-Beware the Jubjub bird, and shun
-      The frumious Bandersnatch!”
-
-He took his vorpal sword in hand;
-      Long time the manxome foe he sought—
-So rested he by the Tumtum tree
-      And stood awhile in thought.
-
-And, as in uffish thought he stood,
-      The Jabberwock, with eyes of flame,
-Came whiffling through the tulgey wood,
-      And burbled as it came!
-
-One, two! One, two! And through and through
-      The vorpal blade went snicker-snack!
-He left it dead, and with its head
-      He went galumphing back.
-
-“And hast thou slain the Jabberwock?
-      Come to my arms, my beamish boy!
-O frabjous day! Callooh! Callay!”
-      He chortled in his joy.
-
-’Twas brillig, and the slithy toves
-      Did gyre and gimble in the wabe:
-All mimsy were the borogoves,
-      And the mome raths outgrabe.</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="sketching-out-a-solution" class="level2">
-<h2 class="anchored" data-anchor-id="sketching-out-a-solution">Sketching out a solution</h2>
-<p>One of the key reasons to write functions is that it allows us to decompose complex problems into smaller pieces. We encourage you to use small functions to solve key small tasks, and then to combine those function together as needed to solve bigger problems.</p>
-<p>Let’s look at how we might represent that idea for the poem analysis problem. We’ll refer to the functions block as mock or pseudo-functions because they don’t do anything (yet). Instead they help us think about the logic of our analysis.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>analyze_poem <span class="ot">&lt;-</span> <span class="cf">function</span>(poem) { </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_stanzas</span>()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count_lines</span>()</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count_words</span>()</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count_alphabetical</span>()</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count_punctuation</span>()</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>get_stanzas <span class="ot">&lt;-</span> <span class="cf">function</span>() { <span class="fu">print</span>(<span class="st">&quot;parsing stanzas&quot;</span>)}</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>count_lines <span class="ot">&lt;-</span> <span class="cf">function</span>() { <span class="fu">print</span>(<span class="st">&quot;counting lines&quot;</span>)}</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>count_words <span class="ot">&lt;-</span> <span class="cf">function</span>() { <span class="fu">print</span>(<span class="st">&quot;counting words&quot;</span>)}</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>count_alphabetical <span class="ot">&lt;-</span> <span class="cf">function</span>() { <span class="fu">print</span>(<span class="st">&quot;counting alphabetical&quot;</span>)}</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>count_punctuation <span class="ot">&lt;-</span> <span class="cf">function</span>() { <span class="fu">print</span>(<span class="st">&quot;counting punctuation&quot;</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We can now “test” our muck functions as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_poem</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;parsing stanzas&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical&quot;
-[1] &quot;counting punctuation&quot;</code></pre>
-</div>
-</div>
-<p>We got a result (and some printed output). The result isn’t meaningful yet, but we’ll build up the sub–functionality below.</p>
-<section id="nd-pseudo-code-draft-starting-to-think-in-terms-data-structures" class="level3">
-<h3 class="anchored" data-anchor-id="nd-pseudo-code-draft-starting-to-think-in-terms-data-structures">2nd pseudo-code draft, starting to think in terms data structures</h3>
-<p>Now that we have some basic structure in place, let’s start to think about the input and output of each function.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>get_stanzas <span class="ot">&lt;-</span> <span class="cf">function</span>(poem) {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing one or more stanzas, </span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        stanzas separated by newlines</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: a vector of strings, each string representing a stanzas</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  stanzas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;stanza1&quot;</span>, <span class="st">&quot;stanza2&quot;</span>) <span class="co"># place holder output</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;parsing  stanzas&quot;</span>)  <span class="co"># to be implemented</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (stanzas) </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>count_lines <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing a single stanza</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#         each line separated by a newline</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: an integer giving the number of lines in the stanza</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  num_lines <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;counting lines&quot;</span>)</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to be implemented</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (num_lines)</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>count_words <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing a single stanza</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: an integer giving the number of words in the stanza</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  num_words <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;counting words&quot;</span>)</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to be implemented</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (num_words)</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>count_alphabetical<span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing a single stanza</span></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: an integer giving the number of alphabetical characters in the stanza</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  num_alpha <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;counting alphabetical characters&quot;</span>)</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to be implemented</span></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (num_alpha)</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>count_punctuation <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing a single stanza</span></span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: an integer giving the number of punctuation characters in the stanza</span></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>  num_punct <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;counting punctuation characters&quot;</span>)</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (num_punct)</span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>analyze_poem <span class="ot">&lt;-</span> <span class="cf">function</span>(poem) {</span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing one or more stanzas, </span></span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        stanzas separated by newlines</span></span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: a data frame, each row representing a stanza and the corresponding</span></span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        metrics calculated above</span></span>
-<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">stanza =</span> <span class="fu">integer</span>(),</span>
-<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_lines =</span> <span class="fu">integer</span>(),</span>
-<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_words =</span> <span class="fu">integer</span>(),</span>
-<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_alpha =</span> <span class="fu">integer</span>(),</span>
-<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_punct =</span> <span class="fu">integer</span>()</span>
-<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract the stanzas</span></span>
-<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>  stanzas <span class="ot">&lt;-</span> <span class="fu">get_stanzas</span>(poem)</span>
-<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iterate over the stanzas with a for-loop</span></span>
-<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>  <span class="co"># growing the data frame by one row at a time</span></span>
-<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(stanzas)) {</span>
-<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span></span>
-<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>      df <span class="sc">|&gt;</span></span>
-<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>      <span class="fu">add_row</span>(</span>
-<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>        <span class="at">stanza =</span> i,</span>
-<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_lines =</span> <span class="fu">count_lines</span>(stanzas[i]),</span>
-<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_words =</span>  <span class="fu">count_words</span>(stanzas[i]),</span>
-<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_alpha =</span> <span class="fu">count_alphabetical</span>(stanzas[i]),</span>
-<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_punct =</span> <span class="fu">count_punctuation</span>(stanzas[i])</span>
-<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
-<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>With these new mock functions, let’s retest:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_poem</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;parsing  stanzas&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-  stanza num_lines num_words num_alpha num_punct
-   &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1      1         0         0         0         0
-2      2         0         0         0         0</code></pre>
-</div>
-</div>
-<p>Nothing has changed in terms of actual functionality but now we can start to flesh things out.</p>
-</section>
-</section>
-<section id="get-the-stanzas" class="level2">
-<h2 class="anchored" data-anchor-id="get-the-stanzas">Get the stanzas</h2>
-<p>The first goal is to split the poem into stanza.s We use <code>str_split_1</code>, searching for two successive newlines.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>get_stanzas <span class="ot">&lt;-</span> <span class="cf">function</span>(poem) {</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  stanzas <span class="ot">&lt;-</span> <span class="fu">str_split_1</span>(poem, <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (stanzas) <span class="co"># return the vector of stanzas</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Always test your functions, hopefully with several inputs</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>stanzas <span class="ot">&lt;-</span> <span class="fu">get_stanzas</span>(jabberwocky)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>stanzas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;’Twas brillig, and the slithy toves\n      Did gyre and gimble in the wabe:\nAll mimsy were the borogoves,\n      And the mome raths outgrabe.&quot;             
-[2] &quot;“Beware the Jabberwock, my son!\n      The jaws that bite, the claws that catch!\nBeware the Jubjub bird, and shun\n      The frumious Bandersnatch!”&quot;      
-[3] &quot;He took his vorpal sword in hand;\n      Long time the manxome foe he sought—\nSo rested he by the Tumtum tree\n      And stood awhile in thought.&quot;         
-[4] &quot;And, as in uffish thought he stood,\n      The Jabberwock, with eyes of flame,\nCame whiffling through the tulgey wood,\n      And burbled as it came!&quot;     
-[5] &quot;One, two! One, two! And through and through\n      The vorpal blade went snicker-snack!\nHe left it dead, and with its head\n      He went galumphing back.&quot;
-[6] &quot;“And hast thou slain the Jabberwock?\n      Come to my arms, my beamish boy!\nO frabjous day! Callooh! Callay!”\n      He chortled in his joy.&quot;             
-[7] &quot;’Twas brillig, and the slithy toves\n      Did gyre and gimble in the wabe:\nAll mimsy were the borogoves,\n      And the mome raths outgrabe.&quot;             </code></pre>
-</div>
-</div>
+<ol start="3" type="1">
+<li><p>Write a for-loop to iterate over the vectors you created in Problem 1 in parallel. Apply the <code>analyze_poem</code> function to the text of each poem, and use mutate to add author and title information to the output of <code>analyze_poem</code>. Merge each resulting data frame into <code>poems_df</code> using the <code>dplyr::bind_rows</code>.</p></li>
+<li><p>Using the output of Problem 3, add the following metrics (per stanza) to the data frame:</p></li>
+</ol>
 <ul>
-<li>How could we make this more robust? What if there was a stray space on the empty line?</li>
+<li><code>word_complexity</code> – the average number of alphanumeric characters per word</li>
+<li><code>punct_density</code> – the average number of punctuation characters per line</li>
 </ul>
-<p>Once we’ve convinced ourselves that <code>get_stanzas</code> is working properly we can re-test <code>analyze_poem</code>. Note we don’t have to change <code>analyze_poem</code> at all!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now test analyze_poem with this new implementation</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_poem</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting lines&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 5
-  stanza num_lines num_words num_alpha num_punct
-   &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1      1         0         0         0         0
-2      2         0         0         0         0
-3      3         0         0         0         0
-4      4         0         0         0         0
-5      5         0         0         0         0
-6      6         0         0         0         0
-7      7         0         0         0         0</code></pre>
-</div>
-</div>
-<p>Ah, now some actual functionality is emerging. Not that we have 7 stanzas and a row in our output data frame for each!</p>
+<ol start="5" type="1">
+<li>On a per poem basis (hint: <code>group_by</code>), generate a derived data frame with the following:</li>
+</ol>
+<ul>
+<li><code>stanza_complexity</code> – the average word_complexity for the poem as a whole</li>
+<li><code>poem_complexity</code> – the number of stanzas times the stanza complexity</li>
+<li><code>punct_metric</code> – the median punct_density for the poem as a whole</li>
+</ul>
+<ol start="6" type="1">
+<li><p>What are the top three poems in terms of <code>poem_complexity</code>? What are the top three poems in terms of <code>stanza_complexity</code>?</p></li>
+<li><p>Which author’s poems have the smallest <code>punct_metric</code>?</p></li>
+</ol>
 </section>
-<section id="counting-lines-in-a-stanza" class="level2">
-<h2 class="anchored" data-anchor-id="counting-lines-in-a-stanza">Counting lines in a stanza</h2>
-<p>Now let’s look at the problem of breaking each stanza into lines.</p>
-<p>Again, this is easy for <strong>one</strong> stanza, as we can simply use <code>str_split_1</code> again with a different regex pattern.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>count_lines <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  lines <span class="ot">&lt;-</span> <span class="fu">str_split_1</span>(stanza, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(lines)</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">length</span>(lines))</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ALWAY test!</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">count_lines</span>(stanzas[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now test analyze_poem with this new implementation</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_poem</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting words&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 5
-  stanza num_lines num_words num_alpha num_punct
-   &lt;int&gt;     &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1      1         4         0         0         0
-2      2         4         0         0         0
-3      3         4         0         0         0
-4      4         4         0         0         0
-5      5         4         0         0         0
-6      6         4         0         0         0
-7      7         4         0         0         0</code></pre>
-</div>
-</div>
-</section>
-<section id="counting-words-per-stanza" class="level2">
-<h2 class="anchored" data-anchor-id="counting-words-per-stanza">Counting words per stanza</h2>
-<p>Now we split each stanza into its consituent words:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>count_words <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  words <span class="ot">&lt;-</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    stanza <span class="sc">|&gt;</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_squish</span>() <span class="sc">|&gt;</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_split_1</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s&quot;</span>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print(words)</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">length</span>(words))</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># test your implementation!</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="fu">count_words</span>(stanzas[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 23</code></pre>
-</div>
-</div>
-<p>Again, once we’ve satisfied that <code>count_words</code> is working correctly we can test <code>analyze_poem</code> again:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now test analyze_poem with this new implementation</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_poem</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting alphabetical characters&quot;
-[1] &quot;counting punctuation characters&quot;</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 5
-  stanza num_lines num_words num_alpha num_punct
-   &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1      1         4        23         0         0
-2      2         4        22         0         0
-3      3         4        26         0         0
-4      4         4        24         0         0
-5      5         4        25         0         0
-6      6         4        23         0         0
-7      7         4        23         0         0</code></pre>
-</div>
-</div>
-</section>
-<section id="counting-alphabetical-characters-per-stanza" class="level2">
-<h2 class="anchored" data-anchor-id="counting-alphabetical-characters-per-stanza">Counting alphabetical characters per stanza</h2>
-<p>Let’s count both alphabetical and numeric characters:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>count_alphabetical <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">str_count</span>(stanza, <span class="st">&quot;[:alnum:]&quot;</span>))</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># test your implementation!</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">count_alphabetical</span>(stanzas[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 100</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now test analyze_poem with this new implementation</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_poem</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting punctuation characters&quot;
-[1] &quot;counting punctuation characters&quot;</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 5
-  stanza num_lines num_words num_alpha num_punct
-   &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;dbl&gt;
-1      1         4        23       100         0
-2      2         4        22       105         0
-3      3         4        26       103         0
-4      4         4        24       106         0
-5      5         4        25       108         0
-6      6         4        23        96         0
-7      7         4        23       100         0</code></pre>
-</div>
-</div>
-</section>
-<section id="counting-punctuation-per-stanza" class="level2">
-<h2 class="anchored" data-anchor-id="counting-punctuation-per-stanza">Counting punctuation per stanza</h2>
-<p>Finally, count punctuation:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>count_punctuation <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">str_count</span>(stanza, <span class="st">&quot;[:punct:]&quot;</span>))</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># test your implementation!</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">count_punctuation</span>(stanzas[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now test analyze_poem with this new implementation</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_poem</span>(jabberwocky)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 5
-  stanza num_lines num_words num_alpha num_punct
-   &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;
-1      1         4        23       100         5
-2      2         4        22       105         8
-3      3         4        26       103         3
-4      4         4        24       106         6
-5      5         4        25       108         8
-6      6         4        23        96         9
-7      7         4        23       100         5</code></pre>
-</div>
-</div>
-</section>
-<section id="test-your-function-with-some-other-inputs" class="level1">
-<h1>Test your function with some other inputs!</h1>
-<p>It looks like our functions are working pretty well. Let’s do some additional tests by feeding other inputs to <code>analyze_poem</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># URL for download</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/Gabriela-Mistral_The-Stranger.txt</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>mistral <span class="ot">&lt;-</span> <span class="fu">read_file</span>(<span class="st">&quot;Gabriela-Mistral_The-Stranger.txt&quot;</span>)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if you want to see the file as formatted</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(mistral)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>She speaks in her way of her savage seas
-with unknown algae and unknown sands;
-She prays to a formless, weightless God,
-aged, as if dying.
-
-In our garden now so strange,
-she has planted cactus and alien grass.
-The desert zephyr fills her with its breath
-and she has loved with a fierce, white passion
-she never speaks of, for if she were to tell
-it would be like the face of unknown stars.
-
-Among us she may live for eighty years,
-yet always as if newly come,
-speaking a tongue that plants and whines
-only by tiny creatures understood.
-
-And she will die here in our midst
-one night of utmost suffering,
-with only her fate as a pillow,
-and death, silent and strange.</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyze_poem</span>(mistral)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 5
-  stanza num_lines num_words num_alpha num_punct
-   &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;
-1      1         4        26       108         5
-2      2         6        49       196         5
-3      3         4        26       116         3
-4      4         4        25       100         4</code></pre>
-</div>
-</div>
-<section id="the-finished-code" class="level2">
-<h2 class="anchored" data-anchor-id="the-finished-code">The finished code</h2>
-<p>For completeness, here are all our functions in one code block:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>get_stanzas <span class="ot">&lt;-</span> <span class="cf">function</span>(poem) {</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing one or more stanzas, </span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        stanzas separated by newlines</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: a vector of strings, each string representing a stanzas</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  stanzas <span class="ot">&lt;-</span> <span class="fu">str_split_1</span>(poem, <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (stanzas) <span class="co"># return the vector of stanzas</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>count_lines <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing a single stanza</span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#         each line separated by a newline</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: an integer giving the number of lines in the stanza</span></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  lines <span class="ot">&lt;-</span> <span class="fu">str_split_1</span>(stanza, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">length</span>(lines))</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>count_words <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing a single stanza</span></span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: an integer giving the number of words in the stanza</span></span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>  words <span class="ot">&lt;-</span> </span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>    stanza <span class="sc">|&gt;</span> </span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_squish</span>() <span class="sc">|&gt;</span></span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_split_1</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s&quot;</span>)</span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">length</span>(words))</span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>count_alphabetical<span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing a single stanza</span></span>
-<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: an integer giving the number of alphabetical characters in the stanza</span></span>
-<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">str_count</span>(stanza, <span class="st">&quot;[:alnum:]&quot;</span>))</span>
-<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>count_punctuation <span class="ot">&lt;-</span> <span class="cf">function</span>(stanza) {</span>
-<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing a single stanza</span></span>
-<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: an integer giving the number of punctuation characters in the stanza</span></span>
-<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">str_count</span>(stanza, <span class="st">&quot;[:punct:]&quot;</span>))</span>
-<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>analyze_poem <span class="ot">&lt;-</span> <span class="cf">function</span>(poem) {</span>
-<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># input: a single string representing one or more stanzas, </span></span>
-<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        stanzas separated by newlines</span></span>
-<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output: a data frame, each row representing a stanza and the corresponding</span></span>
-<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>  <span class="co">#        metrics calculated above</span></span>
-<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">stanza =</span> <span class="fu">integer</span>(),</span>
-<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_lines =</span> <span class="fu">integer</span>(),</span>
-<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_words =</span> <span class="fu">integer</span>(),</span>
-<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_alpha =</span> <span class="fu">integer</span>(),</span>
-<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">num_punct =</span> <span class="fu">integer</span>()</span>
-<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract the stanzas</span></span>
-<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a>  stanzas <span class="ot">&lt;-</span> <span class="fu">get_stanzas</span>(poem)</span>
-<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iterate over the stanzas with a for-loop</span></span>
-<span id="cb42-59"><a href="#cb42-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># growing the data frame by one row at a time</span></span>
-<span id="cb42-60"><a href="#cb42-60" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(stanzas)) {</span>
-<span id="cb42-61"><a href="#cb42-61" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span></span>
-<span id="cb42-62"><a href="#cb42-62" aria-hidden="true" tabindex="-1"></a>      df <span class="sc">|&gt;</span></span>
-<span id="cb42-63"><a href="#cb42-63" aria-hidden="true" tabindex="-1"></a>      <span class="fu">add_row</span>(</span>
-<span id="cb42-64"><a href="#cb42-64" aria-hidden="true" tabindex="-1"></a>        <span class="at">stanza =</span> i,</span>
-<span id="cb42-65"><a href="#cb42-65" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_lines =</span> <span class="fu">count_lines</span>(stanzas[i]),</span>
-<span id="cb42-66"><a href="#cb42-66" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_words =</span>  <span class="fu">count_words</span>(stanzas[i]),</span>
-<span id="cb42-67"><a href="#cb42-67" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_alpha =</span> <span class="fu">count_alphabetical</span>(stanzas[i]),</span>
-<span id="cb42-68"><a href="#cb42-68" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_punct =</span> <span class="fu">count_punctuation</span>(stanzas[i])</span>
-<span id="cb42-69"><a href="#cb42-69" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb42-70"><a href="#cb42-70" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb42-71"><a href="#cb42-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
-<span id="cb42-72"><a href="#cb42-72" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 </section>
 

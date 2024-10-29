@@ -61,22 +61,18 @@ Let's look at how we might represent that idea for the poem analysis problem. We
 
 
 ```{r}
+# Write mock functions here
 analyze_poem <- function(poem) { 
-  get_stanzas()
-  count_lines()
-  count_words()
-  count_alphabetical()
-  count_punctuation()
 }
 
-get_stanzas <- function() { print("parsing stanzas")}
-count_lines <- function() { print("counting lines")}
-count_words <- function() { print("counting words")}
-count_alphabetical <- function() { print("counting alphabetical")}
-count_punctuation <- function() { print("counting punctuation")}
+get_stanzas <- function() { }
+count_lines <- function() { }
+count_words <- function() { }
+count_alphabetical <- function() { }
+count_punctuation <- function() { }
 ```
 
-We can now "test" our muck functions as follows:
+We can now "test" our mock functions as follows:
 
 ```{r}
 analyze_poem(jabberwocky)
@@ -95,50 +91,27 @@ get_stanzas <- function(poem) {
   # input: a single string representing one or more stanzas, 
   #        stanzas separated by newlines
   # output: a vector of strings, each string representing a stanzas
-  
-  stanzas <- c("stanza1", "stanza2") # place holder output
-  print("parsing  stanzas")  # to be implemented
-  return (stanzas) 
 }
 
 count_lines <- function(stanza) {
   # input: a single string representing a single stanza
   #         each line separated by a newline
   # output: an integer giving the number of lines in the stanza
-  
-  num_lines <- 0
-  print("counting lines")
-  # to be implemented
-  return (num_lines)
 }
 
 count_words <- function(stanza) {
   # input: a single string representing a single stanza
   # output: an integer giving the number of words in the stanza
-  
-  num_words <- 0
-  print("counting words")
-  # to be implemented
-  return (num_words)
 }
 
 count_alphabetical<- function(stanza) {
   # input: a single string representing a single stanza
   # output: an integer giving the number of alphabetical characters in the stanza
-  
-  num_alpha <- 0
-  print("counting alphabetical characters")
-  # to be implemented
-  return (num_alpha)
 }
 
 count_punctuation <- function(stanza) {
   # input: a single string representing a single stanza
   # output: an integer giving the number of punctuation characters in the stanza
-  
-  num_punct <- 0
-  print("counting punctuation characters")
-  return (num_punct)
 }
 
 
@@ -147,32 +120,6 @@ analyze_poem <- function(poem) {
   #        stanzas separated by newlines
   # output: a data frame, each row representing a stanza and the corresponding
   #        metrics calculated above
-  
-  df <- tibble(
-    stanza = integer(),
-    num_lines = integer(),
-    num_words = integer(),
-    num_alpha = integer(),
-    num_punct = integer()
-  )
-  
-  # extract the stanzas
-  stanzas <- get_stanzas(poem)
-  
-  # iterate over the stanzas with a for-loop
-  # growing the data frame by one row at a time
-  for (i in 1:length(stanzas)) {
-    df <-
-      df |>
-      add_row(
-        stanza = i,
-        num_lines = count_lines(stanzas[i]),
-        num_words =  count_words(stanzas[i]),
-        num_alpha = count_alphabetical(stanzas[i]),
-        num_punct = count_punctuation(stanzas[i])
-      )
-  }
-  return(df)
 }
 
 ```
@@ -197,8 +144,7 @@ The first goal is to split the poem into stanza.s We use `str_split_1`, searchin
 ```{r}
 
 get_stanzas <- function(poem) {
-  stanzas <- str_split_1(poem, "\n\n")
-  return (stanzas) # return the vector of stanzas
+  # implement this!
 }
 
 # Always test your functions, hopefully with several inputs
@@ -214,7 +160,6 @@ Once we've convinced ourselves that `get_stanzas` is working properly we can re-
 ```{r}
 # now test analyze_poem with this new implementation
 analyze_poem(jabberwocky)
-
 ```
 
 Ah, now some actual functionality is emerging. Not that we have 7 stanzas and a row in our output data frame for each!
@@ -228,9 +173,7 @@ Again, this is easy for **one** stanza, as we can simply use `str_split_1` again
 
 ```{r}
 count_lines <- function(stanza) {
-  lines <- str_split_1(stanza, "\n")
-  # print(lines)
-  return (length(lines))
+# implement this!
 }
 
 # ALWAY test!
@@ -250,14 +193,7 @@ Now we split each stanza into its consituent words:
 
 ```{r}
 count_words <- function(stanza) {
-  
-  words <- 
-    stanza |> 
-    str_squish() |>
-    str_split_1("\\s")
-  
-  #print(words)
-  return (length(words))
+# implement this!
 }
 
 # test your implementation!
@@ -279,12 +215,11 @@ Let's count both alphabetical and numeric characters:
 
 ```{r}
 count_alphabetical <- function(stanza) {
-  return (str_count(stanza, "[:alnum:]"))
+  # implement this!
 }
 
 # test your implementation!
 count_alphabetical(stanzas[1])
-
 ```
 
 ```{r}
@@ -300,7 +235,7 @@ Finally, count punctuation:
 
 ```{r}
 count_punctuation <- function(stanza) {
-  return (str_count(stanza, "[:punct:]"))
+  # implement this!
 }
 
 # test your implementation!
@@ -335,87 +270,5 @@ cat(mistral)
 
 ```{r}
 analyze_poem(mistral)
-```
-
-## The finished code
-
-For completeness, here are all our functions in one code block:
-
-
-```{r}
-
-get_stanzas <- function(poem) {
-  # input: a single string representing one or more stanzas, 
-  #        stanzas separated by newlines
-  # output: a vector of strings, each string representing a stanzas
-  stanzas <- str_split_1(poem, "\n\n")
-  return (stanzas) # return the vector of stanzas
-}
-
-count_lines <- function(stanza) {
-  # input: a single string representing a single stanza
-  #         each line separated by a newline
-  # output: an integer giving the number of lines in the stanza
-  lines <- str_split_1(stanza, "\n")
-  return (length(lines))
-}
-
-count_words <- function(stanza) {
-  # input: a single string representing a single stanza
-  # output: an integer giving the number of words in the stanza
-  words <- 
-    stanza |> 
-    str_squish() |>
-    str_split_1("\\s")
-  
-  return (length(words))
-}
-
-count_alphabetical<- function(stanza) {
-  # input: a single string representing a single stanza
-  # output: an integer giving the number of alphabetical characters in the stanza
-  return (str_count(stanza, "[:alnum:]"))
-}
-
-count_punctuation <- function(stanza) {
-  # input: a single string representing a single stanza
-  # output: an integer giving the number of punctuation characters in the stanza
-  return (str_count(stanza, "[:punct:]"))
-}
-
-
-analyze_poem <- function(poem) {
-  # input: a single string representing one or more stanzas, 
-  #        stanzas separated by newlines
-  # output: a data frame, each row representing a stanza and the corresponding
-  #        metrics calculated above
-  
-  df <- tibble(
-    stanza = integer(),
-    num_lines = integer(),
-    num_words = integer(),
-    num_alpha = integer(),
-    num_punct = integer()
-  )
-  
-  # extract the stanzas
-  stanzas <- get_stanzas(poem)
-  
-  # iterate over the stanzas with a for-loop
-  # growing the data frame by one row at a time
-  for (i in 1:length(stanzas)) {
-    df <-
-      df |>
-      add_row(
-        stanza = i,
-        num_lines = count_lines(stanzas[i]),
-        num_words =  count_words(stanzas[i]),
-        num_alpha = count_alphabetical(stanzas[i]),
-        num_punct = count_punctuation(stanzas[i])
-      )
-  }
-  return(df)
-}
-
 ```
 
