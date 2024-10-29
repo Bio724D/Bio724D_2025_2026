@@ -1,7 +1,8 @@
 ---
-title: "Applying control flow and function writing"
+title: "Bio 724D: Applying control flow and functions to a parsing problem"
 format: 
   html:
+    toc: true
     embed-resources: true
 ---
 
@@ -9,12 +10,12 @@ format:
 
 ## Introduction
 
-During the first half of our class session we  introduced to the concepts and syntax of writing control flow statements and functions in R.  We now turn to a motivating example to practice these skills.
+During the first half of our class session we introduced to the concepts and syntax for writing control flow statements and functions in R.  We now turn to a motivating example to practice these skills.
 
 
 ## Problem space: Analyzing the structure of poems
 
-The problem we're going to use for illustration centers around text parsing, and build on some of the regular expression concepts we introduced in our prior class session. Parsing information out of textual files or data fields is a very common problem in many areas of scientific computing.  In bioinformatics, parsing string-based representations of nucleotide or amino acid sequences is perhaps the most common example, but parsing challenges are frequently found when dealing with tasks such as working with ontologies, mining observer data (e.g. behavioral or field experiments), dealing with specialized data formats, etc. For today's session we've chosen a non-biological parsing example. But you will hopefully see the parallel and potential of how these concepts can be applied in biological contexts.
+The problem we're going to use for illustration centers around text parsing. We'll also build on some of the regular expression concepts we introduced in our prior class session. Parsing information out of textual files or data fields is a very common problem in many areas of scientific computing.  In bioinformatics, parsing string-based representations of nucleotide or amino acid sequences is perhaps the most common example, but parsing challenges are frequently encountered when dealing with tasks such as working with ontologies, mining observer data (e.g. behavioral or field experiments), dealing with specialized data formats, etc. For today's session we've chosen a non-biological parsing example, but you will hopefully see the parallel and potential of how these concepts can be applied in biological contexts.
 
 The specific problem we'll tackle is characterizing the structure of poems!  We will attempt to write a set of functions that accomplish the following tasks:
 
@@ -24,7 +25,7 @@ The specific problem we'll tackle is characterizing the structure of poems!  We 
 
   - Count the number of lines in the stanza
   - Count the the number of words in the stanza
-  - Count the number of alphabetical characters in the stanza
+  - Count the number of alphanumeric characters in the stanza
   - Count the number of punctuation mark characters in stanza
 
 ## Libraries
@@ -54,9 +55,9 @@ cat(jabberwocky)
 
 ## Sketching out a solution
 
-One of the key reasons we use functions is that it encourages us to decompose complex problems into smaller pieces. We encourage you to use small functions to solve key pieces of a problem, and then to combine those function together as needed to solve bigger problems.
+One of the key reasons to write functions is that it allows us to decompose complex problems into smaller pieces. We encourage you to use small functions to solve key small tasks, and then to combine those function together as needed to solve bigger problems.
 
-Let's look at how we might represent that idea for the poem analysis problem.
+Let's look at how we might represent that idea for the poem analysis problem. We'll refer to the functions block as mock or pseudo-functions because they don't do anything (yet). Instead they help us think about the logic of our analysis.
 
 
 ```{r}
@@ -75,28 +76,36 @@ count_alphabetical <- function() { print("counting alphabetical")}
 count_punctuation <- function() { print("counting punctuation")}
 ```
 
-We can now "test" or pseudo-function:
+We can now "test" our muck functions as follows:
 
 ```{r}
 analyze_poem(jabberwocky)
 ```
 
+We got a result (and some printed output). The result isn't meaningful yet, but we'll build up the sub--functionality below.
 
 
-### 2nd pseudo-code draft, starting to think of data structures
+### 2nd pseudo-code draft, starting to think in terms data structures
+
+Now that we have some basic structure in place, let's start to think about the input and output of each function.
 
 ```{r}
 
 get_stanzas <- function(poem) {
-  # should return a vector of strings
-  stanzas <- c("stanza1", "stanza2") # represent each stanza as its own string
-  print("parsing  stanzas")
-  # to be implemented
-  return (stanzas) # return the vector of stanzas
+  # input: a single string representing one or more stanzas, 
+  #        stanzas separated by newlines
+  # output: a vector of strings, each string representing a stanzas
+  
+  stanzas <- c("stanza1", "stanza2") # place holder output
+  print("parsing  stanzas")  # to be implemented
+  return (stanzas) 
 }
 
 count_lines <- function(stanza) {
-  # should return an integer
+  # input: a single string representing a single stanza
+  #         each line separated by a newline
+  # output: an integer giving the number of lines in the stanza
+  
   num_lines <- 0
   print("counting lines")
   # to be implemented
@@ -104,7 +113,9 @@ count_lines <- function(stanza) {
 }
 
 count_words <- function(stanza) {
-  # should return an integer
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of words in the stanza
+  
   num_words <- 0
   print("counting words")
   # to be implemented
@@ -112,7 +123,9 @@ count_words <- function(stanza) {
 }
 
 count_alphabetical<- function(stanza) {
-  # should return an integer
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of alphabetical characters in the stanza
+  
   num_alpha <- 0
   print("counting alphabetical characters")
   # to be implemented
@@ -120,7 +133,9 @@ count_alphabetical<- function(stanza) {
 }
 
 count_punctuation <- function(stanza) {
-  # should return an integer
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of punctuation characters in the stanza
+  
   num_punct <- 0
   print("counting punctuation characters")
   return (num_punct)
@@ -128,7 +143,10 @@ count_punctuation <- function(stanza) {
 
 
 analyze_poem <- function(poem) {
-  # return a data frame, one row per stanza
+  # input: a single string representing one or more stanzas, 
+  #        stanzas separated by newlines
+  # output: a data frame, each row representing a stanza and the corresponding
+  #        metrics calculated above
   
   df <- tibble(
     stanza = integer(),
@@ -138,8 +156,11 @@ analyze_poem <- function(poem) {
     num_punct = integer()
   )
   
+  # extract the stanzas
   stanzas <- get_stanzas(poem)
   
+  # iterate over the stanzas with a for-loop
+  # growing the data frame by one row at a time
   for (i in 1:length(stanzas)) {
     df <-
       df |>
@@ -151,29 +172,25 @@ analyze_poem <- function(poem) {
         num_punct = count_punctuation(stanzas[i])
       )
   }
-  
   return(df)
 }
 
 ```
 
 
-With these new placed holders, let's retest
+With these new mock functions, let's retest:
 
 ```{r}
 analyze_poem(jabberwocky)
 ```
 
 
+Nothing has changed in terms of actual functionality but now we can start to flesh things out.
 
 
+## Get the stanzas 
 
-
-
-## Stanzas 
-
-
-The first goal is to split the poem into stanza. We use `str_split_1` searching for two successive newlines.
+The first goal is to split the poem into stanza.s We use `str_split_1`, searching for two successive newlines.
 
 
 
@@ -184,7 +201,7 @@ get_stanzas <- function(poem) {
   return (stanzas) # return the vector of stanzas
 }
 
-# test
+# Always test your functions, hopefully with several inputs
 stanzas <- get_stanzas(jabberwocky)
 stanzas
 ```
@@ -200,14 +217,14 @@ analyze_poem(jabberwocky)
 
 ```
 
-
+Ah, now some actual functionality is emerging. Not that we have 7 stanzas and a row in our output data frame for each!
 
 
 ## Counting lines in a stanza
 
 Now let's look at the problem of breaking each stanza into lines.
 
-Again, this is easy for **one** stanza, as we can simply use `str_split_1` again with a different patterns.
+Again, this is easy for **one** stanza, as we can simply use `str_split_1` again with a different regex pattern.
 
 ```{r}
 count_lines <- function(stanza) {
@@ -229,6 +246,8 @@ analyze_poem(jabberwocky)
 
 ## Counting words per stanza
 
+Now we split each stanza into its consituent words:
+
 ```{r}
 count_words <- function(stanza) {
   
@@ -246,13 +265,17 @@ count_words(stanzas[1])
 
 ```
 
+Again, once we've satisfied that `count_words` is working correctly we can test `analyze_poem` again:
+
 ```{r}
 # now test analyze_poem with this new implementation
 analyze_poem(jabberwocky)
 ```
 
 
-## Counting alphabetical per stanza
+## Counting alphabetical characters per stanza
+
+Let's count both alphabetical and numeric characters:
 
 ```{r}
 count_alphabetical <- function(stanza) {
@@ -273,6 +296,8 @@ analyze_poem(jabberwocky)
 
 ## Counting punctuation per stanza
 
+Finally, count punctuation:
+
 ```{r}
 count_punctuation <- function(stanza) {
   return (str_count(stanza, "[:punct:]"))
@@ -289,7 +314,13 @@ analyze_poem(jabberwocky)
 ```
 
 
+
+
+
 # Test your function with some other inputs!
+
+It looks like our functions are working pretty well. Let's do some additional tests by feeding other inputs to `analyze_poem`:
+
 
 ```{r}
 # URL for download
@@ -321,3 +352,86 @@ cat(mistral)
 ```{r}
 analyze_poem(mistral)
 ```
+
+## The finished code
+
+For completness, here are all our functions in one code block:
+
+
+```{r}
+
+get_stanzas <- function(poem) {
+  # input: a single string representing one or more stanzas, 
+  #        stanzas separated by newlines
+  # output: a vector of strings, each string representing a stanzas
+  stanzas <- str_split_1(poem, "\n\n")
+  return (stanzas) # return the vector of stanzas
+}
+
+count_lines <- function(stanza) {
+  # input: a single string representing a single stanza
+  #         each line separated by a newline
+  # output: an integer giving the number of lines in the stanza
+  lines <- str_split_1(stanza, "\n")
+  return (length(lines))
+}
+
+count_words <- function(stanza) {
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of words in the stanza
+  words <- 
+    stanza |> 
+    str_squish() |>
+    str_split_1("\\s")
+  
+  return (length(words))
+}
+
+count_alphabetical<- function(stanza) {
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of alphabetical characters in the stanza
+  return (str_count(stanza, "[:alnum:]"))
+}
+
+count_punctuation <- function(stanza) {
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of punctuation characters in the stanza
+  return (str_count(stanza, "[:punct:]"))
+}
+
+
+analyze_poem <- function(poem) {
+  # input: a single string representing one or more stanzas, 
+  #        stanzas separated by newlines
+  # output: a data frame, each row representing a stanza and the corresponding
+  #        metrics calculated above
+  
+  df <- tibble(
+    stanza = integer(),
+    num_lines = integer(),
+    num_words = integer(),
+    num_alpha = integer(),
+    num_punct = integer()
+  )
+  
+  # extract the stanzas
+  stanzas <- get_stanzas(poem)
+  
+  # iterate over the stanzas with a for-loop
+  # growing the data frame by one row at a time
+  for (i in 1:length(stanzas)) {
+    df <-
+      df |>
+      add_row(
+        stanza = i,
+        num_lines = count_lines(stanzas[i]),
+        num_words =  count_words(stanzas[i]),
+        num_alpha = count_alphabetical(stanzas[i]),
+        num_punct = count_punctuation(stanzas[i])
+      )
+  }
+  return(df)
+}
+
+```
+
