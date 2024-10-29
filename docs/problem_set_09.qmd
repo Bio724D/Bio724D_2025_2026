@@ -42,7 +42,15 @@ Note that underscores separate fields and dashes separate words within a single 
 ### Problems
 
 
-1. Write a for-loop to read each of the files in the `poems_corpus` directory, returning four character vectors containing:  (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song
+1. Write a for-loop to read each of the files in the `poems_corpus` directory, returning a list with four character vectors containing:  (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song.  
+
+   HINT: use the `list.files` function to get a list of all the files in a directory: 
+   
+   ```
+   poem_files <- list.file(path='/path/to/poems_corpus', 
+                           pattern="*.txt",
+                           full.name = TRUE)
+   ```
 
 
 2. Create an empty data frame with the following column names and types and assign it the variable name `poems_df`:  

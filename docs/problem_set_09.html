@@ -3094,7 +3094,9 @@ vertical-align: -.125em;
 <section id="problems" class="level3">
 <h3 class="anchored" data-anchor-id="problems">Problems</h3>
 <ol type="1">
-<li><p>Write a for-loop to read each of the files in the <code>poems_corpus</code> directory, returning four character vectors containing: (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song</p></li>
+<li><p>Write a for-loop to read each of the files in the <code>poems_corpus</code> directory, returning a list with four character vectors containing: (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song.</p>
+<p>HINT: use the <code>list.files</code> function to get a list of all the files in a directory:</p>
+<pre><code>poem_files &lt;- list.file(path=&#39;/path/to/poems_corpus&#39;, pattern=&quot;*.txt&quot;)</code></pre></li>
 <li><p>Create an empty data frame with the following column names and types and assign it the variable name <code>poems_df</code>:</p></li>
 </ol>
 <ul>
