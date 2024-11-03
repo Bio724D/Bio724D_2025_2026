@@ -3230,7 +3230,7 @@ vertical-align: -.125em;
 <pre><code>[1] FALSE</code></pre>
 </div>
 </div>
-<p>A fourth useful helper function is <code>near.</code> Be sure to use this function when comparing numeric variables after carrying out calculations, since rounding errors can produce small differences from expected values.</p>
+<p>A fourth useful helper function is <code>near.</code> Use this function when comparing numeric variables after carrying out calculations, since rounding errors can produce small differences from expected values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># do some math</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span></span>
@@ -3246,7 +3246,7 @@ vertical-align: -.125em;
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>The first condition returns <code>FALSE</code> because rounding errors made <code>A</code> not quite equal to 2. Warning: if you ask R to display the value of <code>A</code>, it will show 2, which is not strictly true! The second condition returns TRUE because <code>near</code> tolerates small differences. The tolerance level can be tuned as needed (refer to documentation for details). Remember to use <code>near</code> to avoid unexpected results.</p>
+<p>The first condition returns <code>FALSE</code> because rounding errors made <code>A</code> not quite equal to 2. Warning: if you ask R to display the value of <code>A</code>, it will show 2, which is not strictly true! The second condition returns <code>TRUE</code> because <code>near</code> tolerates small differences. The tolerance level can be tuned as needed (refer to documentation for details). Use <code>near</code> to avoid unexpected results.</p>
 <p><strong>NA and conditions.</strong> If you pass <code>NA</code> to <em>any</em> part of a condition, it will evaluate to <code>NA</code>. Similarly, if you pass a vector, list, or data frame column that contains one or more <code>NA</code>s and then use <code>any</code> or <code>all</code>, the condition will again evaluate to <code>NA</code>. Including these in an <code>if</code> or <code>when</code> structure will throw an error, because conditions must evaluate to either <code>TRUE</code> or <code>FALSE</code>.</p>
 <p>To test whether a value is <code>NA</code>, use the function <code>is.na</code>. Do not use the standard comparison operators!</p>
 <div class="cell">
@@ -3365,7 +3365,7 @@ vertical-align: -.125em;
 </div>
 </div>
 <p>Although this works, it quickly becomes hard to read prone to error.</p>
-<p>Note that the <code>stop</code> statement is not required, but is strongly recommended as a way to flag any values passed to the function that cannot be matched. If this happens, <code>stop</code> will throw an error, halting execution of the program; optionally it can print a custom message that you provide.</p>
+<p>Note that the <code>stop</code> statement is not required, but is recommended as a way to flag any values passed to the function that cannot be matched. If this happens, <code>stop</code> will throw an error, halting execution of the program; optionally it can print a custom message that you provide.</p>
 <p><strong>Switch structure.</strong> A simpler solution is to use the base R <code>switch</code> structure, which allows you to choose one option from a list of alternative conditions.</p>
 <p>The code below carries out the same set of comparisons, but is simpler and easier to read.</p>
 <div class="cell">
@@ -3387,7 +3387,7 @@ vertical-align: -.125em;
 <pre><code>[1] 0</code></pre>
 </div>
 </div>
-<p>Again, the <code>stop</code> statement is not required, but it is strongly recommended.</p>
+<p>Again, the <code>stop</code> statement is not required, but it is recommended.</p>
 <p>Note that <code>dplyr</code> provides a control flow structure called <code>case_when</code> that is similar to <code>switch</code>. We will not cover it here, but you may encounter it in code written by others.</p>
 <p><strong>Vectorized if/else.</strong> R encourages vectorized operations, where a single statement applies to every item in a vector. You can apply a more limited version of an <code>if/else</code> structure to a vector using the <code>ifelse</code> function. This function takes a vector as input and returns a vector of the same length.</p>
 <p>The syntax is a bit awkward. The first argument is the condition, which you specify without round brackets. You can insert simple conditions directly when calling <code>iflelse</code> (as in the example below). For more complex conditions, evaluate the condition in a prior statement, assign the result to a single logical value, then pass that variable as the first argument when calling <code>ifelse</code>.</p>
@@ -3482,7 +3482,6 @@ vertical-align: -.125em;
 <pre><code>[1] &quot;2c9b&quot;</code></pre>
 </div>
 </div>
-<p><strong>Combining multiple argument types.</strong> Defining arguments can get tricky when combining multiple ordinary arguments with optional arguments and variadic arguments. We won’t go through all the details here, but you can avoid most issues by following two simple rules. First, having lots of arguments might be a sign that you need to break up the task into multiple functions or use nested functions. Second, if you must include multiple kinds of arguments, declare them in the following order: (1) required, (2) optional, and (3) variadic.</p>
 <p><strong>Halting execution.</strong> It can be useful to stop execution of a loop, branch, or function under certain conditions. For example, you might want avoid a lengthy computation if it is not needed. Or you might not want to proceed if there are NAs in a vector and instead report a warning message.</p>
 <p>To end execution of a function, use a <code>stop</code> statement. The code below modifies the <code>count_lines</code> function we wrote earlier to avoid making an unnecessary calculation if the wrong data type is passed.</p>
 <div class="cell">
