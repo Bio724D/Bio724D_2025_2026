@@ -25,39 +25,47 @@ Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`
 
 ## Background 
 
-This problem draws on an example in the Quarto notebook on regular expressions from class session 08. You can access the html version of the notebook and the data set that goes with it using the links below.  
+This problem set draws on an example in the Quarto notebook on regular expressions from class session 08. You can access the html version of the notebook and the data set that goes with it using the links below.  
 
 * [Regex basics](https://bio724d.github.io/Bio724D_2024_2025/regex_complete.html)
 * [Coelacanth proteins](https://github.com/Bio724D/Bio724D_2024_2025/raw/refs/heads/main/data/LatCha_protein.fasta)
 
-Open the notebook and scroll down to the section **Finding protein trafficking signals** and below that to the subsection **How many proteins contain an endoplasmic reticulum retention signal?** Read through that subsection to familiarize yourself with the example. 
+Open the regex basics notebook and scroll down to the section **Finding protein trafficking signals** and below that to the subsection **How many proteins contain an endoplasmic reticulum retention signal?** Read through that subsection to familiarize yourself with the example. 
 
-The goal of the problems below is to learn whether the motif **KDEL** is more commonly found at the end of protein sequences than would be expected by chance. To address this question, you will develop a program that can find all the proteins that contain KDEL in the Coelacanth data set, retrieve the location of every occurrence of KDEL within the overall protein sequence, and generate a density plot of the results.
+The goal of the problems below is to learn whether the motif **KDEL** is more commonly found at the end of protein sequences than would be expected by chance. To address this question, you will develop code that can find all the proteins that contain KDEL in the Coelacanth data set, retrieve the location of every occurrence of KDEL within the overall protein sequence, and generate a density plot of the results.
 
-There two challenges with this analysis. First, we are concerned with where KDEL motifs are located relative to the *end* of the protein, not the beginning. For this reason, we want the program to index backwards from the end of each protein. For example, if KDEL is located at the absolute end of the protein, its position is 1; if there is one amino acid after KDEL, its position is 2; and so forth. Second, proteins are not all the same length. There are some complicated ways we could account for this. However, we will take a simple approach and analyze the position of KDELs within just the last 100 amino acids in each protein. If you look at the notebook from class session 08, you will see code and a plot showing that the majority of Coelacanth proteins are over 100 amino acids long, so this should provide a reasonably good approximation. 
+There two challenges with this analysis. First, we are concerned with where KDEL motifs are located relative to the *end* of the protein, not the beginning. For this reason, we want the program to index backwards from the end of each protein. For example, if KDEL is located at the absolute end of the protein, its position is 1; if there is one amino acid after KDEL, its position is 2; and so forth. Second, proteins are not all the same length. There are a variety ofways to account for this, some involving elaborate models. However, we will take a simple approach and analyze the position of KDELs within just the last 100 amino acids in each protein. The notebook from class session 08 contains a plot showing that the majority of Coelacanth proteins are over 100 amino acids long, so this should provide a reasonably good approximation. 
 
-Before you start on the problems, import the Coelacanth protein sequences into a data frame and wrangle them as we did in class session 08: split the description column, rename the sequence column, and remove "Latimeria chalumnae" from the descriptions. You don't need to write the code to do this! Just copy the code in the block under **Wrangling the protein sequences** in the notebook.  
+Before you start on the problems, import the Coelacanth protein sequences from fasta format into a data frame and wrangle them as we did in class session 08: split the description column, rename the sequence column, and remove "Latimeria chalumnae" from the descriptions. You don't need to write the code to do this! Just copy the code in the block under **Wrangling the protein sequences** in the notebook.  
 
 
 ### Problems
 
+*If you get stuck, describe how you are trying to solve the problem in words, or pseudocode, or both!!*
+
 1. Write a function to find all KDEL locations in a protein.
 
-Your function should take the identifier of a single protein as input and use `str_locate_all` to return the positions of *all* matches to **KDEL** in the sequence of that protein. Read the documentation for `str_locate_all` so that you understand what values it returns and how they are organized. The values returned by `str_locate_all` are indexed from the beginning of the protein. Your function will therefore also need to change the indexing so that it is based on position relative to the end of the protein (see **Background**).  
+Your function should take the identifier of a single protein as input and use `str_locate_all` to return the positions of all matches to **KDEL** in the sequence of that protein. Read the documentation for `str_locate_all` so that you understand what values it returns and how they are organized. 
 
-Hint: There are multiple ways to index from the end. One is to retrieve the length of the protein, then subtract the values provided by `str_locate_all` from the length. Another is to flip the protein sequence before searching for matches (in which case, remember to flip the search pattern!). 
+The values returned by `str_locate_all` are indexed from the beginning of the string, which is the beginning of the protein. Your function will therefore also need to change the indexing so that it is based on position relative to the *end* of the protein (see **Background**).  
 
-2. Write a program to apply your function to all proteins.
+Hint: There are multiple ways to index from the end. One is to retrieve the length of the protein, then subtract the values provided by `str_locate_all` from the length. Another is to flip the protein sequence before searching for matches (in which case, remember to flip the search pattern as well!). 
 
-Your program should include a loop that evaluates every Coelacanth protein sequence using the function you wrote for Problem 1. Combine the values that your function returns with the identifier to generate a data frame containing the positions of every KDEL for each protein. 
+2. Write code to apply your function to all proteins.
+
+Construct a loop that evaluates every Coelacanth protein sequence using the function you wrote for Problem 1. Combine the values that your function returns with each identifier to generate a data frame containing the positions of every KDEL. 
 
 The data frame eventually needs to be in long form, with three columns (identifier, start, stop) and a separate row for every KDEL found. Some proteins will not be included in this data frame (because they contain no KDEL), some just once (contain 1 KDEL), and some will be represented by multiple rows (one for each KDEL contained). You can either build the data frame directly in long form as the loop runs or capture the objects that the function returns while the loop runs and then pivot to long form afterwards. Take whatever approach makes the most sense to you.
 
 3. Plot your results.
 
-Finally, extend your program to generate a plot that shows the density distribution of KDEL for the last 100 amino acids of all proteins. Try to orient your plot in a "natural" way, with the end of the protein on the right (the challenge is that indexing is backwards from the end).
+Finally, extend your code to generate a plot that shows the density distribution of KDEL for the last 100 amino acids of all proteins. 
 
-4. OPTIONAL! Does examining just 100 amino acids introduce a substantial bias? 
+Hint: you only need the one of the two values in each row, then apply `geom_density`.
+
+Try to orient your plot in a "natural" way, with the end of the protein on the right (the challenge is that indexing is backwards from the end).
+
+4. **OPTIONAL! If you have time.** Does examining just 100 amino acids introduce a substantial bias? 
 
 Expand your function to include an optional argument called `clip` with default value `NONE`. When set to `NONE`, your function should work as originally designed. When set to an integer, your function should trim the protein sequence from the N-terminal (left) side to a length corresponding to the value of argument before searching for KDEL matches. For example, if you pass 100 to the function, it should only search for KDEL in the final 100 amino acids. 
 
