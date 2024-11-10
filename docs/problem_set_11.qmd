@@ -1,0 +1,44 @@
+---
+title: "Assignment 11: SQL, Part I"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**.
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2024.qmd`
+
+Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) on your Github site.
+
+
+## Set-up 
+
+Before starting the problems, recreate the birding database from class. Refer to `SQL_01_complete.html` (available on the class wiki) for the code to load packages, import files, and build the database. This notebook also contains the queries we went over in class, as well as notes about syntax and usage. 
+
+## Problems
+
+*If you get stuck, describe how you are trying to solve the problem in words, or pseudocode, or both!!*
+
+1. The Bat Falcon is a predator of small vertebrates and large insects whose range extends from southern Mexico to northern Argentina. What country was Greg in the third time he saw a Bat Falcon? You could construct a single, rather complicated query to get the answer, but for one-off questions like this, it's usually quicker to break the problem down into several simple and separate queries. In this case, you can get the answer using queries to the species, observations, and locations tables, in that order. Show the three simple queries that uncover the answer.
+
+![Bat Falcon. Photo credit: Joao Quintal.](Bat_Falcon.jpg)
+
+2. The Ramphastidae is a colorful family of birds restricted to the Neotropics that includes the toucans and their relatives. Construct a single query that returns all of the genera in the Ramphastidae, as well as the number of species in each genus. Hint: the last query under Aliases and the first query under Joins in the notebook from class contain code that may be helpful.
+
+![Yellow-throated Toucan. Photo credit: John Crawley.](Yellow-throated_Toucan.jpg)
+
+3. What was the day that Greg recorded the greatest diversity of bird species? Where in the world was he on this epic day? (A) First, write a single query that returns the date on which the largest total number of species was observed. (B) Next, write a separate query that returns all of the locations on that day where an observation was recorded. Use aliases to make the meaning of the columns clear. (C) **Optional** bonus question: What was the day that Greg observed the largest number of species for the first time?
+
+
