@@ -3150,8 +3150,11 @@ vertical-align: -.125em;
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># tell knitr about the connection</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">connection =</span> <span class="st">&quot;con&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="creating-sql-code-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="creating-sql-code-blocks">Creating SQL code blocks</h3>
 <p>Now we can SQL code directly in Quarto code blocks. Every time we do this, we’ll need to tell Quarto that we want to use a different language (SQL) and the name of the connection to the in-memory database. Make sure that the header of every code where you want to use SQL is what is shown below. Refer to the Quarto notebook to see this in a real code block, as the html version doesn’t show it.</p>
 <pre><code>{sql, connection=con}</code></pre>
+</section>
 <section id="build-and-populate-the-observations-table" class="level3">
 <h3 class="anchored" data-anchor-id="build-and-populate-the-observations-table">Build and populate the <code>observations</code> table</h3>
 <div class="cell">
