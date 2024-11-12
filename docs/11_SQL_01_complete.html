@@ -4639,7 +4639,7 @@ vertical-align: -.125em;
 </table>
 </div>
 </div>
-<p><strong>Specifying columns</strong> If you just want to see a subset of columns, replace <code>*</code> with the column name(s) separated by commas. SQL will return them in the order you specify.</p>
+<p><strong>Specifying columns.</strong> If you just want to see a subset of columns, replace <code>*</code> with the column name(s) separated by commas. SQL will return them in the order you specify.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- return just two columns in a different order</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> seq, order_ioc <span class="kw">FROM</span> orders; </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4815,12 +4815,12 @@ vertical-align: -.125em;
 </table>
 </div>
 </div>
-<p><strong>SQL syntax basics.</strong>. Before moving on, a couple of notes about SQL syntax:</p>
+<p><strong>SQL syntax basics.</strong> Before moving on, a couple of notes about SQL syntax:</p>
 <ul>
 <li><p>SQL commands are <em>case-insensitive</em>. However, the convention is to use upper-case for keywords, operators, and functions, and use to lower case for identifiers (table and column names). Writing your SQL code this way will make it more readable.</p></li>
 <li><p>In contrast, search strings in SQL are generally <em>case-sensitive</em>, because case may matter in your data. The main exception is the <code>LIKE</code> operator (see below).</p></li>
 <li><p>To insert a comment, start a line with <code>--</code> (double dash). You can also make the rest of a line a comment by inserting <code>--</code> after a command.</p></li>
-<li><p>End each command with the <code>;</code> character.</p></li>
+<li><p>End each command with the <code>;</code> (semicolon) character.</p></li>
 </ul>
 </section>
 <section id="conditions-in-queries" class="level2">
@@ -4894,7 +4894,7 @@ vertical-align: -.125em;
 </table>
 </div>
 </div>
-<p>When constructing a condition, logical, arithmetic, and set operators work as expected; Brackets can be used to indicate compound conditions. Conditions can be applied to a single column or to multiple columns using logical operators.</p>
+<p>When constructing a condition, logical, arithmetic, and set operators work as expected. Brackets can be used to indicate compound conditions. Conditions can be applied to a single column or to multiple columns using logical operators.</p>
 <p>The examples below illustrate some of the ways to specify conditions for filtering.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- return the rows where a genus contains greater than 40 species</span></span>
@@ -5162,7 +5162,7 @@ vertical-align: -.125em;
 </div>
 </div>
 <p>Note the absence of any genera starting with “L”. Extend the range to “M” to return genera starting with “L”.</p>
-<p>For numeric values, BETWEEN works exactly as you would expect it to.</p>
+<p>For numeric values, <code>BETWEEN</code> works exactly as you would expect it to.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- return genera that contain between 28 and 29 species </span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> genus_ioc, num_sp <span class="kw">FROM</span> genera <span class="kw">WHERE</span> num_sp <span class="kw">BETWEEN</span> <span class="dv">28</span> <span class="kw">AND</span> <span class="dv">30</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -5220,7 +5220,7 @@ vertical-align: -.125em;
 </table>
 </div>
 </div>
-<p>To filter based on partial matches to strings, use the <code>LIKE</code> operator and the expansion character <code>%</code> to indicate “anything”. The expansion character can precede or follow the search sub-string (or both). Note that <code>LIKE</code> is unusual in that it is <em>not</em> case-sensitive; this is by design so that the search sub-string can occur at the beginning or middle of words.</p>
+<p>To filter based on partial matches to strings, use the <code>LIKE</code> operator and the expansion character <code>%</code> (percent) to indicate “anything”. The expansion character can precede or follow the search sub-string (or both). Note that <code>LIKE</code> is unusual in that it is <em>not</em> case-sensitive; this is by design so that the search sub-string can occur at the beginning or middle of words.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- return rows where family name starts with &#39;Str&#39;</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> genus_ioc, familiar_genus <span class="kw">FROM</span> genera <span class="kw">WHERE</span> genus_ioc <span class="kw">LIKE</span> <span class="st">&#39;Str%&#39;</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -5520,7 +5520,7 @@ vertical-align: -.125em;
 <p>Looking at the results of the queries in the previous section, it’s clear that the column labels that SQL assigns automatically are not ideal. Using more intuitive labels makes output easier to interpret. To do this, we can assign an <em>alias</em> using the keyword <code>AS</code> followed by a name. Aliases without any spaces do not need quotes.</p>
 <p>A second important use for aliases is to simplify table names. We will see examples later, when we get to queries that involve multiple tables.</p>
 <p>Note that aliases are not saved in memory; they apply only to the current query.</p>
-<p>The following query returns the number of species that have been observed within each genus, and sorts them in reverse order. SQL will use the two alias in the SELECT clause as column headers in the output. Note that any alias introduced in the <code>SELECT</code> clause must also appear in the <code>ORDER BY</code> clause. Also note the location of the DESC keyword (try placing it after genus and see what happens).</p>
+<p>The following query returns the number of species that have been observed within each genus, and sorts them in reverse order. SQL will use the two alias in the <code>SELECT</code> clause as column headers in the output. Note that any alias introduced in the <code>SELECT</code> clause must also appear in the <code>ORDER BY</code> clause. Also note the location of the <code>DESC</code> keyword (try placing it after genus and see what happens).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- return the number of species observed within each genus ranked by number observed</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
@@ -5969,7 +5969,7 @@ vertical-align: -.125em;
 </table>
 </div>
 </div>
-<p>The next query reports how many species have been observed from each genus relative to the total. It joins the genus and species tables and returns three numbers, each derived in a different way: (1) a tally of the number of species observed, using GROUP BY and the COUNT function; (2) the total number of species in that genus, read directly from the genus.num_spp column; and (3) a computed value (yes, you can do math with SQL!).</p>
+<p>The next query reports how many species have been observed from each genus relative to the total. It joins the genus and species tables and returns three numbers, each derived in a different way: (1) a tally of the number of species observed, using <code>GROUP BY</code> and the <code>COUNT</code> function; (2) the total number of species in that genus, read directly from the genus.num_spp column; and (3) a computed value (yes, you can do math with SQL!).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- returns the proportion of species observed within each genus</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
