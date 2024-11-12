@@ -1,0 +1,45 @@
+order_ioc,seq,familiar_ioc,taxonomy
+Struthioniformes,101,Ostriches,EC; in Paleognathae; ditypic
+Rheiformes,103,Rheas,EC; in Paleognathae; ditypic
+Apterygiformes,105,Kiwis,EC; in Paleognathae; sister to Casuariformes
+Casuariiformes,107,Cassowaries and Emu,EC; in Paleognathae; sister to Apterygiformes
+Tinamiformes,109,Tinamous,EC; in Paleognathae
+Anseriformes,111,Waterfowl,EC; in Galloanseres; sister to Galliformes
+Galliformes,113,Landfowl,EC; in Galloanseres; sister to Anseriformes
+Caprimulgiformes,115,Nightjars,EC; in Neoaves/Caprimulgiformae
+Steatornithiformes,117,Oilbird,EC; in Neoaves/Caprimulgiformae; monotypic
+Nyctibiiformes,119,Potoos,EC; in Neoaves/Caprimulgiformae
+Podargiformes,121,Frogmouths,EC; in Neoaves/Caprimulgiformae
+Apodiformes,123,Swifts and hummingbirds,EC; in Neoaves/Caprimulgiformae
+Aegotheliformes,125,Owlet-nightjars,EC; in Neoaves/Caprimulgiformae
+Musophagiformes,127,Turacos,EC; in Neoaves/Cuculiformae; basal; sister to (Otidiformes + Cuculiformes)
+Otidiformes,129,Bustards,NC; in Neoaves/Cuculiformae; basal; separated from Gruiformes; sister to Cuculiformes
+Cuculiformes,131,Cuckoos,EC; in Neoaves/Cuculiformae; basal; sister to Otidiformes
+Mesitornithiformes,133,Mesites,NC; in Neoaves/Columbimorphae; basal; separated from Gruiformes; sister to Pterocliformes
+Pterocliformes,135,Sandgrouse,EC; in Neoaves/Columbimorphae; basal; sister to Mesitornithiformes
+Columbiformes,137,Pigeons,EC; in Neoaves/Columbimorphae; basal; sister to (Mesitornithiformes + Pterocliformes)
+Gruiformes,139,Cranes and relatives,RC; in Neoaves; basal; several groups removed; isolated and diverse clade
+Podicipediformes,141,Grebes,EC; in Neoaves/Podicepediformae; basal; sister to Phoenicopteriformes; isolated and distinct clade 
+Phoenicopteriformes,143,Flamingos,EC; in Neoaves/Podicepediformae; basal; sister to Podicipediformes; isolated and distinct clade 
+Charadriiformes,145,Shorebirds and relatives,RC; in Neoaves; basal; Buttonquail added; isolated and diverse clade
+Eurypygiformes,147,Kagu and Sunbittern,NC; in Neoaves; basal; separated from Gruiformes; sister to Phaethontiformes; ditypic
+Phaethontiformes,149,Tropicbirds,EC; in Neoaves; basal; sister to Eurypygiformes; tritypic
+Gaviiformes,151,Loons,EC; in Neognathae/Aequornithes; sister to Procellarimorphae (Sphenisciformes + Procellariformes)
+Sphenisciformes,153,Penguins,EC; in Neoaves/Aequornithae/Procellarimorphae; sister to Procellariiformes
+Procellariiformes,155,Tube-nosed Seabirds,EC; in Neoaves/Aequornithae/Procellarimorphae; sister to Sphenisciformes
+Ciconiiformes,157,Storks,RC; in Neoaves/Aequornithae; ibises+Spoonbills removed
+Suliformes,159,Boobies and relatives,RC; in Neoaves/Aequornithidae; sister to Pelecaniformes
+Pelecaniformes,161,Herons and relatives,RC; in Neoaves/Aequornithidae; Ibises+Spoonbills added; sister to Suliformes; relationships among families poorly resolved
+Opisthocomiformes,163,Hoatzin,EC; in Neoaves; isolated lineage; possibly sister to Telluraves; monotypic
+Acciptriformes,165,Raptors,RC; in Telluraves/Afroaves; basal; Falconidae removed; New World vultures are deep outgroup to remainder
+Strigiformes,167,Owls,EC; in Telluraves/Afroaves; basal
+Coliiformes,169,Mousebirds,EC; in Telluraves/Afroaves; basal
+Leptosomiformes,171,Cuckoo Roller,NC; in Telluraves/Afroaves; isolated lineage; formerly in Coraciiformes; sister to (Trogoniformes + Bucerotiformes + Coraciiformes + Piciformes); monotypic
+Trogoniformes,173,Trogons,EC; in Telluraves/Afroaves; sister to (Bucerotiformes + Coraciiformes + Piciformes)
+Bucerotiformes,175,Hornbills and relatives,NC; in Telluraves/Afroaves; separated from Coraciiformes; sister to (Coraciiformes + Piciformes)
+Coraciiformes,177,Kingfishers and relatives,RC; in Telluraves/Afroaves; Bucerotiformes removed; sister to Piciformes
+Piciformes,179,Woodpeckers and relatives,EC; in Telluraves/Afroaves; sister to Coraciiformes
+Cariamiformes,181,Seriemas,NC; in Telluraves/Australaves; separated from Gruiformes; sister to all other Australaves; ditypic
+Falconiformes,183,Falcons and relatives,NC; in Telluraves/Australaves; removed from Accipitriformes
+Psittaciformes,185,Parrots and relatives,EC; in Telluraves/Australaves; sister to Passeriformes 
+Passeriformes,187,Perching birds,EC; in Telluraves/Australaves; largest order containing the majority of living species

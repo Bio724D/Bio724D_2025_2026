@@ -1,0 +1,1016 @@
+genus_ioc,seq,family_ioc,familiar_genus,taxonomy,num_sp
+Anthracothorax,5175,Trochilidae,e(Mangos),~g(Trochilus) n(species boundaries unsettled),7
+Lophornis,5181,Trochilidae,e(Coquettes),~g(Trochilus Ornismya Polemistria Paphosia) n(species boundaries unsettled),11
+Thalurania,5245,Trochilidae,e(Woodnymphs),~g(Ornismya Trochilus) n(species boundaries unsettled),4
+Limosa,5432,Scolopacidae,e(Godwits),~g(Scolopax),4
+Plectrophenax,6776,Calcariidae,e(Snow Buntings),,2
+Clangula,5054,Anatidae,m(Long-tailed Duck),~g(Anas Harelda),1
+Rissa,5451,Laridae,e(Kittiwakes),,2
+Pagophila,5452,Laridae,m(Ivory Gull),~g(Larus),1
+Alca,5484,Alcidae,m(Razorbill),,1
+Microspizias,5664,Accipitridae,e(Tiny Hawk and Semicollared Hawk),<(Accipiter),2
+Cacicus,6817,Icteridae,p(Cacicus Caciques and Oropendolas),+(Ocyalus Clypicterus) x(Cassiculus) ~g(Cassicus Procacicus Archiplanus Xanthornus Aegelaeus Parus Psarocolius Oriolus),12
+Guttera,5081,Numididae,e(Plumed and Crested Guineafowl),,4
+Lophura,5101,Phasianidae,e(Lophura Pheasants) p(Pheasants),~g(Phasianus Heirophasis Delacourigallus Gennaeus Euplocamus Acomus Chalcomus Huoppifer Lobiophasus),11
+Ducula,5361,Columbidae,e(Imperial Pigeons),~g(Columba Carpophaga),42
+Ciconia,5523,Ciconiidae,e(Cicconia Storks),~g(Ardea Sphenorhynchus Dissoura Melanopelargus Euxenura),8
+Myiophobus,6043,Tyrannidae,e(Myiophobus Flycatchers),-(Nephelomyias) ~g(Muscicapa Myiobius Mitrephorus) n(likely polyphyletic; revisions proposed),8
+Gracula,6563,Sturnidae,e(hill Mynas) p(Mynas),~g(Eulabes),6
+Turdus,6601,Turdidae,e(Turdus Thrushes),>(Platychichla Cichlherminia Nesocichla Mimocichla) ~g(Merula Psophocichla Merula Planesticus Lanius Haplocichla),88
+Nectarinia,6675,Nectariniidae,e(Nectarinia Sunbirds),x(Anabathmis Dreptes Anthobaphes Cyanomitra Chalcomitra Leptocoma Drepanorhynchus Cinnyris) ~g(Certhia),6
+Scythrops,5314,Cuculidae,m(Channel-billed Cuckoo),~g(Cuculus),1
+Ptilonorhynchus,6146,Ptilonorhynchidae,m(Satin Bowerbird) p(Bowerbirds),,1
+Aegithalos,6429,Aegithalidae,e(Long-tailed Tit and Old World Bushtits),~g(Parus Orites Psaltria Acredula Aegithaliscus Mecistura),10
+Psaltriparus,6427,Aegithalidae,m(American Bushtit),~g(Parus),1
+Halcyon,5755,Alcedinidae,e(Halcyon Kingfishers),~g(Alcedo Entomothera),12
+Merops,5783,Meropidae,e(Merops Bee-eaters) p(Bee-eaters),>(Mellitophagus Bombylonax Aerops Dicrocercus Meropiscus) ~g(Meropogon) ,28
+Chrysocolaptes,5859,Picidae,e(Chrysocolaptes Flamebacks) p(Flamebacks),>(Reinwardtipicus) ~g(Picus),9
+Lichmera,6159,Meliphagidae,e(Lichmera Honeyeaters),~g(Melliphaga Certhia Ptilotis Stigmatops Melithreptus),9
+Phaeoptila,5232,Trochilidae,m(Dusky Hummingbird),<(Cynanthus),1
+Aeronautes,5148,Apodidae,e(Aeronautes swifts),,3
+Aimophila,6800,Passerellidae,e(Aimophila sparrows),x(Peucaea),3
+Basilinna,5236,Trochilidae,e(White-eared and Xantus’s Hummingbirds),,2
+Cassiculus,6814,Icteridae,m(Mexican Cacique) p(Caciques),~g(Cacicus),1
+Ploceus,6705,Ploceidae,e(Classic Weavers),~g(Loxia Othyphantes Hyphantornis Sitagra Fringilla Malimbus Oriolus Symplectes Melanopteryx Heterhyphantes Sycobius Parvus Foudia Pachyphantes Sycobrotus Sharpia Notospiza Thomasophantes Rhinoploceus) n(may be paraphyletic as currently constituted),67
+Myiopagis,6023,Tyrannidae,e(Myiopagis Elaenias) p(Elaenias),~g(Elaenia),9
+Struthio,5001,Struthionidae,e(Ostriches),,2
+Tinamus,5003,Tinamidae,e(Tinamus Tinamous) p(Tinamous),~g(Cryptura Tetrao),5
+Crypturellus,5005,Tinamidae,e(Crypturellus Tinamous) p(Tinamous),~g(Crypturus Tetrao Tinamus Nothura),21
+Anhima,5007,Anhimidae,e(Screamers),~g(Palamedea),1
+Anseranas,5009,Anseranatidae,m(Magpie Goose),~g(Anas),1
+Dendrocygna,5011,Anatidae,e(Whistling Ducks),~g(Leptotarsis Anas),8
+Branta,5013,Anatidae,e(Branta Geese) p(True Geese),~g(Anas Chen Nesochen Rufibrenta),6
+Anser,5015,Anatidae,e(Anser Geese) p(True Geese),>(Chen) ~g(Anser Cygnopsis Eulabeia Chen ),11
+Cygnus,5017,Anatidae,e(Swans),~g(Anas Chenopis Olor),6
+Merganetta,5019,Anatidae,m(Torrent Duck),,1
+Plectropterus,5021,Anatidae,m(Spur-winged Goose),~g(Anser),1
+Sarkidiornis,5023,Anatidae,e(Comb- and Knob-billed Ducks),~g(Anser),2
+Alopochen,5025,Anatidae,m(Egyptian Goose),~g(Anas Chenalopex Mascarenochen),1
+Tadorna,5027,Anatidae,e(Tadorna Shelducks) p(Shelducks),~g(Anas Casarca),5
+Cairina,5029,Anatidae,m(Muscovy Duck),~g(Anas),1
+Aix,5031,Anatidae,e(Wood Ducks),~g(Anas Dendronessa) n(incertae sedis) ,2
+Chenonetta,5033,Anatidae,m(Maned Duck),~g(Anas),1
+Nettapus,5035,Anatidae,e(Pygmy Geese),~g(Anas),3
+Spatula,5037,Anatidae,e(Spatula Teal and Shovelers) e(Shovelers) p(Teal),,10
+Mareca,5039,Anatidae,e(Widgeons),<(Anas) ~g(Anas),5
+Anas,5041,Anatidae,p(core Ducks Pintails and Teal),x(Sibrionetta Spatula Mareca) ~g(Nettion Chaulelasmus Quercedula Poecilonetta Dafila) n(recent revision to resolve rapid radiation) ,31
+Marmaronetta,5043,Anatidae,m(Marbled Duck),~g(Anas),1
+Netta,5045,Anatidae,e(Netta Pochards) p(Pochards),~g(Anas Metopiana Phaeoaythia),3
+Aythya,5047,Anatidae,e(Scaup and relatives) p(Pochards),~g(Anas Fuligula Nyroca),12
+Somateria,5049,Anatidae,e(Somateria Eiders) p(Eiders),~g(Anas Fuligula),3
+Histrionicus,5051,Anatidae,m(Harlequin Duck),~g(Anas),1
+Melanitta,5053,Anatidae,e(Scoters),~g(Anas),6
+Bucephala,5055,Anatidae,e(Bufflehead and Goldeneyes),~g(Anas Clangula Glaucionetta),3
+Mergellus,5057,Anatidae,m(Smew),~g(Mergus Bucephala),1
+Lophodytes,5059,Anatidae,m(Hooded Merganser) p(Mergansers),~g(Mergus),1
+Mergus,5061,Anatidae,e(Mergus Mergansers) p(Mergansers),,4
+Nomonyx,5063,Anatidae,m(Masked Duck) p(Short-tailed Ducks),~g(Anas Oxyura),1
+Oxyura,5065,Anatidae,e(Oxyura ducks) p(short-tailed ducks),~g(Anas Erismatura) n(incertae sedis),6
+Biziura,5067,Anatidae,m(Musk Duck),~g(Anas),1
+Alectura,5069,Megapodiidae,e(Alectura Bushturkeys) p(Bushturkeys),,1
+Ortalis,5071,Cracidae,e(Chachalacas),~g(Penelope Ortalida Phasianus),16
+Penelope,5073,Cracidae,e(Penelope Guans) p(Guans),~g(Pipile Ortalida Phasianus),15
+Chamaepetes,5075,Cracidae,e(Piping-guans),,2
+Crax,5077,Cracidae,e(Crax Curassows) p(Curassows),,7
+Numida,5079,Numididae,m(Helmeted Guineafowl),~g(Phasianus),1
+Callipepla,5083,Odontophoridae,e(Callipepla North American Quail) p(North American Quail),>(Lophortyx) ~g(Ortyx Tetrao),4
+Colinus,5085,Odontophoridae,e(Bobwhites),~g(Tetrao Ortyx),4
+Odontophorus,5087,Odontophoridae,e(Wood Quail),,15
+Caloperdix,5089,Phasianidae,m(Ferruginous Partridge) p(Partridges),~g(Perdix),1
+Arborophila,5091,Phasianidae,e(Arborophila Partridges) p(Partriges),~g(Arboroicola Arboricola Tetrao Bambusicola),19
+Meleagris,5093,Phasianidae,e(Turkeys),~g(Agriocharis) n(incertae sedis),2
+Lagopus,5095,Phasianidae,e(Ptarmigans),~g(Tetrao),3
+Perdix,5097,Phasianidae,e(Perdix Partridges) p(Partridges),~g(Tetrao Sacfa) n(incertae sedis),3
+Phasianus,5099,Phasianidae,e(Phasianus Pheasants) p(Pheasants),,2
+Pavo,5103,Phasianidae,e(Pavo Peafowl) p(Peafowl),,2
+Galloperdix,5105,Phasianidae,e(Galloperdix Spurfowl) p(Spurfowl),~g(Tetrao Perdix) n(incertae sedis),3
+Polyplectron,5107,Phasianidae,e(Peacock-Pheasants) p(Pheasants),~g(Pavo Chalcurus),8
+Gallus,5109,Phasianidae,e(Junglefowl),~g(Phasianus),4
+Ortygornis,5111,Phasianidae,e(Ortygornis Francolins),+(Dendroperdix sephaena Crested Francolin) +(Francolinus pondicerianus Grey Francolin) +(Francolinus gularis Swamp Francolin),3
+Campocolinus,5113,Phasianidae,e(Campocolinus Francolins),+(Peliperdix coqui Coqui Francolin) +(Peliperdix albogularis White-throated Francolin) +(Peliperdix schlegelii Schlegel's Francolin),3
+Coturnix,5117,Phasianidae,e(Coturnix Quail) p(Quail),~g(Tetrao Synoicus Excalfactoria),6
+Alectoris,5119,Phasianidae,e(Alectoris Partridges) p(Partridges),~g(Tetrao Perdix Caccabis),7
+Perdicula,5121,Phasianidae,e(Bush Quail),~g(Coturnix Cryptoplectron),4
+Chordeiles,5125,Caprimulgidae,e(Chordeiles Nighthawks),>(Podager) ~g(Caprimulgus),6
+Nyctidromus,5127,Caprimulgidae,e(Nyctidromus Nightjars),~g(Caprimulgus Setopagis),2
+Antrostomus,5129,Caprimulgidae,e(Antrostomus Nightjars),<(Caprimulgus) ~g(Setochalcis),12
+Nyctibius,5133,Nyctibiidae,e(Potoos),~g(Caprimulgus),7
+Hemiprocne,5135,Hemiprocnidae,e(Treeswifts),~g(Cypselus),4
+Cypseloides,5137,Apodidae,e(Cypseloides Swifts),-(Streptoprocne) ~g(Hemiprocne Hirundo Cypselus),8
+Streptoprocne,5139,Apodidae,e(Streptoprocne Swifts),+(Cypseloides) ~g(Hirundo Chaetura Acanthylis Aerornis),5
+Collocalia,5141,Apodidae,e(Collocalia Swiftelts) p(Swiftlets),~g(Hirundo) n(Glossy Swiftlet complex is taxonomically challenging),11
+Aerodramus,5143,Apodidae,e(Aerodramus Swiftlets) p(Swiftlets),~g(Collocallia Hirundo Macropteryx Cypselus),28
+Zoonavena,5145,Apodidae,e(Zoonavena Spinetails) p(Spinetails),~g(Chaetura Acanthylis Rhaphidura),3
+Chaetura,5147,Apodidae,e(Chaetura Swifts),x(Hirundapus) ~g(Hirundo Cypselus Acanthylis),11
+Tachornis,5149,Apodidae,e(New World Palm Swifts),~g(Cypselus Micropanyptila),3
+Panyptila,5151,Apodidae,e(Swallow-tailed Swifts),~g(Hirundo),2
+Cypsiurus,5153,Apodidae,e(Old World Palm Swifts),~g(Cypselus),3
+Tachymarptis,5155,Apodidae,e(Alpine and Mottled Swifts),<(Apus) ~g(Hirundo),2
+Apus,5157,Apodidae,e(Apus Swifts),x(Tachymarptis) ~g(Hirundo Cypselus Micropus),20
+Florisuga,5159,Trochilidae,e(Jacobins),~g(Trochilus Melanotrochilus),2
+Glaucis,5161,Trochilidae,e(Glaucis Hermits) p(Hermits),~g(Trochilus Rhamphodon),3
+Threnetes,5163,Trochilidae,e(Barbthroats),~g(Trochilus),3
+Phaethornis,5165,Trochilidae,e(Phaethornis Hermits) p(Hermits),~g(Trochilus Ornismya Ametrornis Pygmornis),27
+Doryfera,5167,Trochilidae,e(Lancebills),~g(Trochilus Hemistephania),2
+Schistes,5169,Trochilidae,e(Daggerbills),~g(Augastes),2
+Colibri,5171,Trochilidae,e(Violetears),~g(Ornismya Trochilus),5
+Heliothryx,5173,Trochilidae,e(Fairys),~g(Trochilus),2
+Scleroptila,5115,Phasianidae,e(Scleroptila Francolins) p(Francolins),<(Francolinus) ~g(Perdix),9
+Pternistis,5123,Phasianidae,Spurfowl,<(Francolinus) ~g(Chaetopus Notocolinus Squamatocolinus Tetrao Oreocolinus Chapinortyx Perdix),23
+Eulampis,5177,Trochilidae,e(Caribs),~g(Trochilus Sericotes),2
+Heliangelus,5179,Trochilidae,e(Sunangels),,9
+Adelomyia,5183,Trochilidae,m(Speckled Hummingbird),~g(Trochilus),1
+Aglaiocercus,5185,Trochilidae,e(Sylphs),,3
+Oreotrochilus,5187,Trochilidae,e(Oreotrochilus Hillstars),,7
+Lesbia,5189,Trochilidae,e(Trainbearers),,2
+Chalcostigma,5191,Trochilidae,e(Thornbills),,5
+Oreonympha,5193,Trochilidae,m(Bearded Mountaineer),,1
+Metallura,5195,Trochilidae,e(Metaltails),,9
+Aglaeactis,5197,Trochilidae,e(Sunbeams),,4
+Pterophanes,5201,Trochilidae,m(Great Sapphirewing),,1
+Boissonneaua,5203,Trochilidae,e(Coronets),,3
+Ocreatus,5205,Trochilidae,e(Racket-tails),~g(Ornismyia),3
+Urochroa,5207,Trochilidae,e(Urochroa Hillstars),,2
+Urosticte,5209,Trochilidae,e(Whitetips),,2
+Patagona,5213,Trochilidae,m(Giant Hummingbird),~g(Trochilus) n(incertae sedis),1
+Eugenes,5215,Trochilidae,e(Eugenes Hummingbirds),~g(Trochilus),2
+Heliomaster,5217,Trochilidae,e(Starthroats),~g(Ornismya Anthoscenus Lepidolarynx),4
+Lampornis,5219,Trochilidae,e(Mountaingems),~g(Ornismya Lampornis Trochilus Oreopyra),8
+Philodice,5221,Trochilidae,e(Philodice Woodstars) p(Woodstars),+(Calliphlox),2
+Chaetocercus,5223,Trochilidae,e(Chaetocercus Woodstars) p(Woodstars),~g(Acestrura Ornismya),6
+Archilochus,5225,Trochilidae,e(Archilochus Hummingbirds),~g(Trochilus Mellisuga Selasphorus),2
+Mellisuga,5227,Trochilidae,e(Bee and Vervain Hummingbirds),~g(Trochilus Orthorhychus Calypte),2
+Calypte,5229,Trochilidae,e(Calypte Hummingbirds),~g(Ornismya Archilochus Selasphorus Mellisuga),2
+Selasphorus,5231,Trochilidae,e(Selasphorus Hummingbirds),>(Stellula calliope Calliope Hummingbird) >(Atthis heloisa Bumblebee Hummingbird) >(Atthis ellioti Wine-throated Hummingbird) ~g(Trochilus Archilochus Ornismya),9
+Cynanthus,5233,Trochilidae,e(Cyanthus Hummingbirds),x(Phaeoptila sordida Dusky Hummingbird) >(Chlorostilbon auriceps Golden-crowned Emerald) >(Chlorostilbon forficatus Cozumel Emerald) >(Chlorostilbon canivetii Canivet's Emerald) >(Chlorostilbon ) ~g(Cyanomyia),5
+Klais,5237,Trochilidae,m(Violet-headed Hummingbird),~g(Trochilus Abeillia),1
+Orthorhyncus,5239,Trochilidae,m(Antillean Crested Hummingbird),~g(Trochilus),1
+Campylopterus,5241,Trochilidae,e(Campylopterus Saberewings) p(Sabrewings),x(Phaeochroa Pampa) ~g(Trochilus Platystylopterus Saepiopterus Loxopterus),9
+Chalybura,5243,Trochilidae,e(Plumeleteers),~g(Trochilus Hypuroptila),2
+Microchera,5247,Trochilidae,e(Microchera Hummingbirds,~g(Elvira),3
+Eupherusa,5249,Trochilidae,e(Eupherusa Hummingbirds),~g(Ornismya Callipharus Thalurania),4
+Phaeochroa,5251,Trochilidae,e(Scaly-breasted Hummingbird), <(Campylopterus) ~g(Trochilus),1
+Trochilus,5253,Trochilidae,e(Streamertails),,2
+Amazilia,5259,Trochilidae,e(core Amazilia Hummingbirds) p(classic Amazilia genus),~g(Trochilus Chionogaster Ornysima Agyrtria Cyanomyia Hylocharis) x(Leucolia Saucerottia Amazilis Uranomitra Chionomesa Elliotomyia Polyerata Chlorestes) x(Chrysuronia versicolor Versicolored Emerald) x(Chrysuronia brevirostris White-chested Emerald) x(Chrysuronia leucogaster Plain-bellied Emerald) n(extensive recent revision),5
+Amazilis,5261,Trochilidae,m(Amazilia Hummingbird),<(Amazilia),1
+Uranomitra,5263,Trochilidae,m(Andean Emerald),<(Amazilia),1
+Chrysuronia,5265,Trochilidae,m(Golden-tailed Sapphire) p(Sapphires),~g(Ornismyia) >(Lepidopyga) +(Amazilia versicolor Versicolored Emerald) +(Hylocharis humboldtii Humboldt's Sapphire) +(Hylocharis grayi Blue-headed Sapphire) +Amazilia brevirostris White-chested Emerald) +(Amazilia leucogaster Plain-bellied Emerald),9
+Chionomesa,5267,Trochilidae,e(Chinomesa Hummingbirds) p(Emeralds),<(Amazilia),2
+Elliotomyia,5269,Trochilidae,e(Elliotomyia Hummingbirds),<(Amazilia),2
+Polyerata,5271,Trochilidae,e(Polyerata Hummingbirds),<(Amazilia),3
+Chlorestes,5273,Trochilidae,e(Chlorestes Hummingbirds),+(Amazilia candida White-bellied Emerald) +(Hylocharis eliciae Blue-throated Sapphire) +(Hylocharis cyanus White-chinned Sapphire) +(Juliamyia julie Violet-bellied Hummingbird),5
+Corythaeola,5275,Musophagidae,m(Great Blue Turaco) p(Turacos),~g(Musophaga),1
+Crinifer,5277,Musophagidae,e(Go-away-birds and Plantain-eaters),>(Corythaixoides) ~g(Chizoerhis Corythaix Criniferoides),5
+Gallirex,5279,Musophagidae,e(Purple-crested and Rwenzori Turacos),n(sister clade to the “green” turacos),2
+Otis,5281,Otididae,m(Great Bustard),,1
+Ardeotis,5283,Otididae,e(Ardeotis Bustards),~g(Otis Choriotis),4
+Eupodotis,5285,Otididae,e(Eupodotis Bustards),~g(Otis Trachelotis Heterotetrax Spheotides),5
+Lophotis,5287,Otididae,e(Lophotis Bustards),~g(Eupodotis),3
+Lissotis,5289,Otididae,e(Lissotis Bustards),~g(Otis Eupodotis),2
+Crotophaga,5291,Cuculidae,e(Anis),,3
+Geococcyx,5293,Cuculidae,e(Roadrunners),~g(Saurothera Cuculus),2
+Centropus,5295,Cuculidae,e(Coucals),~g(Pyrrhocentor Cululus Nesocentor Polophilus),28
+Rhinortha,5297,Cuculidae,m(Raffles’s Malkoha),~g(Cuculus Phaenicophaeus),1
+Ceuthmochares,5299,Cuculidae,e(Ceuthmocares Malkohas) p(Malkohas),,2
+Taccocua,5301,Cuculidae,m(Sirkeer Malkoha) p(Malkohas),~g(Phaenicophaeus),1
+Phaenicophaeus,5303,Cuculidae,e(Phaenicophaeus Malkohas) p(Malkohas),~g(Cuculus Rhodopdytes Zanclostomus Melias),6
+Clamator,5305,Cuculidae,e(Clamator Cuckoos) p(Cuckoos),~g(Cuculus Coccyzus Oxylophus),4
+Botaurus,5573,Ardeidae,e(Botaurus Bitterns) p(Bitterns),~g(Ardea),4
+Chlorostilbon,5235,Trochilidae,e(Chlorostilbon Emeralds) p(Emeralds),x(Cynanthus canivetii Canivet's Emerald) ~g(Trochilus Ornismya Riccordia Panychlora) n(long a challenging genu;species boundaries unsettled),10
+Heliodoxa,5211,Trochilidae,e(Brilliants),~g(Trochilus Lampornis Polyplancta),10
+Ramosomyia,5255,Trochilidae,e(Ramosomyia Hummingbirds,<(Amazilia) ~g(Leucolia),3
+Coeligena,5199,Trochilidae,e(Incas and Starfrontlets),~g(Helianthea Ornismya Ornismia Trochilus Leucuria),15
+Saucerottia,5257,Trochilidae,e(Saucerotia Hummingbirds,<(Amazilia),11
+Coccycua,5307,Cuculidae,e(Coccyua Cuckoos) p(Cuckoos),~g(Coccyzus Piaya Coccicua Coccigua Coccyzaea Coccyzusa Micrococcyx),3
+Piaya,5309,Cuculidae,e(Piaya Cuckoos) p(Cuckoos),~g(Cuculus),2
+Coccyzus,5311,Cuculidae,e(Coccyzus and Lizard Cuckoos) p(Cuckoos),>(Saurothera Hyetornis) ~g(Cuculus Piaya),13
+Eudynamys,5313,Cuculidae,e(Eudynamus Koels) p(Koels),~g(Cuculus),3
+Chrysococcyx,5315,Cuculidae,e(shining Cuckoos) p(Cuckoos),<(Chalcites) ~g(Trogon Cuculus Mesocalius Lamprococcyx),13
+Cacomantis,5317,Cuculidae,e(Cacomantis Cuckoos) p(Cuckoos),~g(Cuculus Penthoceryx) ,10
+Cuculus,5319,Cuculidae,e(Cuculus Cuckoos) p(Cuckoos),~g(Heirococcyx),11
+Pterocles,5321,Pteroclidae,e(Pterocles Sandgrouse) p(Sandgrouse),~g(Tetrao Eremialector Calopterocles) n(paraphyletic as currently constituted; taxonomic revision of Pteroclidae needed),14
+Columba,5323,Columbidae,e(Columba Pigeons),>(Aplopelia) x(Patagioenas) ~g(Ptilinopus Palumbus Carpophaga Ianthaenas,33
+Patagioenas,5325,Columbidae,e(Patagioenas Pigeons),<(Columba) ~g(Chloroenas),17
+Streptopelia,5327,Columbidae,e(Turtle and Collared Doves),x(Spilopelia) -(Nesoenas) ~g(Columba Turtur Columbam Stigmatopelia),13
+Spilopelia,5329,Columbidae,e(Spotted and Laughing Doves),<(Streptopelia) ~g(Columba Stigmatopelia),2
+Macropygia,5331,Columbidae,e(Macropygia Cuckoo-Doves) p(Cuckoo-Doves),~g(Columba),15
+Turtur,5333,Columbidae,e(Wood Doves),~g(Columba Chalcopelia Tympanistria),5
+Oena,5335,Columbidae,m(Namaqua Dove),~g(Columba),1
+Chalcophaps,5337,Columbidae,e(Emerald Doves),~g(Columba),3
+Phaps,5339,Columbidae,e(Bronzewings),~g(Columba Pteristera Histriophaps),3
+Ocyphaps,5341,Columbidae,e(Crested Pigeon),~g(Columba Geophaps),1
+Geopelia,5343,Columbidae,e(Geopelia Doves),~g(Columba),5
+Columbina,5345,Columbidae,e(Columbina Ground Doves) p(Ground Doves),~g(Chamaepelia Columba Columbina Scardafella Columbigallina Peristera Oxypelia),9
+Metriopelia,5347,Columbidae,e(Metriopelia Ground Doves) p(Ground Doves),,4
+Geotrygon,5349,Columbidae,e(Geotrygon Quail-Doves) p(Quail-Doves), x(Leptotrygon Zentrygon) ~g(Oreopeleia Osculatia Columba Columbigallina) n(traditional Geotrygon is polyphyletic),9
+Leptotrygon,5351,Columbidae,m(Olive-backed Quail-Dove) p(Quail-Doves),<(Geotrygon) n(new genus required for revision of traditional quail-doves),1
+Leptotila,5353,Columbidae,e(Leptotila Doves),~g(Columba Engyptila),11
+Zentrygon,5355,Columbidae,e(Zentrygon Quail-Doves) p(Quail-Doves),<(Geotrygon) n(new genus required for revision of traditional quail-doves),8
+Zenaida,5357,Columbidae,e(Zenaida Doves),~g(Columba Zenaidura Peristera),7
+Treron,5359,Columbidae,e(Green Pigeons),~g(Columba Vinago Butreron Sphenurus Sphenocercus Venago),29
+Heliornis,5363,Heliornithidae,m(Sungrebe),~g(Colymbus),1
+Aramides,5365,Rallidae,e(Wood Rails),~g(Fulica Eulabeornis Gallinula Rallus),8
+Rallus,5367,Rallidae,p(Long-billed Rails),,14
+Porzana,5369,Rallidae,e(Porzana Crakes) p(Crakes),~g(Rallus Laterallus Amaurornis Rallina Nesophylax Poliolimnas Porphyrio Zaporina) x(Zapornia 8 species) x(Mustelirallus albicollis Ash-throated Crake) x(Laterallus flaviventer Yellow-breasted Crake) x(Poliolimnas cinereus White-browed Crake),3
+Tribonyx,5371,Rallidae,e(Australian Nativehens),<(Gallinula) ~g(Gallinula),2
+Paragallinula,5373,Rallidae,m(Lesser Moorhen) p(Moorhens),<(Gallinula) ~g(Gallinula),1
+Gallinula,5375,Rallidae,e(Gallinula moorhens) p(Moorhens),x(Porphyriops melanops Spot-flanked Gallinule) x(Tribonyx) x(Paragallinula angulata Lesser Moorhen) g(Fulica Edithornis Porphyriornis Pareudiastes) ,5
+Fulica,5377,Rallidae,e(Coots),,10
+Porphyrio,5379,Rallidae,e(Gallinules and Swamphens),>(Porphyrula Notornis) ~g(Fulica Gallinula),10
+Zapornia,5381,Rallidae,e(Zapornia Crakes),~g(Porzana Amaurornis),10
+Amaurornis,5383,Rallidae,e(Bush-hens and close relatives) p(Crakes),>(Poliolimnas Aenigmatolimnas) ~g(Rallus Gallinula Porzana Limnocorax Zapornia),5
+Balearica,5385,Gruidae,e(Crowned Cranes),~g(Anthropoides Ardea),2
+Antigone,5387,Gruidae,e(Antigone Cranes),<(Grus) ~g(Grus),4
+Grus,5389,Gruidae,e(Grus cranes),x(Leucogeranus Antigone) ~g(Bugeranus Sarcogeranus Ardea),8
+Aramus,5391,Aramidae,m(Limpkin),~g(Scolopax),1
+Tachybaptus,5393,Podicipedidae,e(Tachybaptus Greebes) p(Greebes),~g(Colymbus) n(sometimes merged into Podiceps),5
+Podilymbus,5395,Podicipedidae,e(Podilymbus Greebes) p(Greebes),~g(Colymbus),1
+Podiceps,5397,Podicipedidae,e(Podiceps Greebes) p(Greebes),~g(Colymbus Aechmophorus),8
+Aechmophorus,5399,Podicipedidae,e(Aechmophorus Greebes) p(Greebes),~g(Podiceps),2
+Phoenicopterus,5401,Phoenicopteridae,e(Phoenicopterus Flamingos) p(Flamingos),,3
+Phoeniconaias,5403,Phoenicopteridae,e(Phoeniconais Flamingos) p(Flamingos),~g(Phoenicopterus),1
+Turnix,5405,Turnicidae,e(Buttonquails),~g(Tetrao Hemipodius Oriolus),16
+Burhinus,5407,Burhinidae,e(Thick-knees),~g(Charadrius Oedicnemus),8
+Haematopus,5409,Haematopodidae,e(Oystercatchers),,11
+Himantopus,5411,Recurvirostridae,e(Stilts),~g(Charadrius) n(species taxonomy unsettled; lumps possible),5
+Recurvirostra,5413,Recurvirostridae,e(Avocets),,4
+Vanellus,5415,Charadriidae,e(Lapwings),~g(Tringa Chettusia Hemiparra Charadrius Anitibyx Hoplopterus Lobipluvia Lobivanellus Sarciophorus Stephanibyx Parra Afribyx Anomalophrys Pluvianus Microsarcops Zonifer Lobibyx Chettusia Vanellochettusia Hoploxypterus Belonopterus Ptiloscelys),22
+Pluvialis,5417,Charadriidae,e(Golden Plovers) p(Plovers),~g(Charadrius Tringa Squatarola),4
+Rostratula,5421,Rostratulidae,e(Rostratula Painted-snipes) p(Painted-snipes),~g(Rallus),2
+Actophilornis,5423,Jacanidae,e(Actophilornis Jacanas) p(African Jacanas),~g(Parra Metopidius Jacana),2
+Hydrophasianus,5425,Jacanidae,m(Pheasant-tailed Jacana) p(Asian Jacanas),~g(Tringa Jacana),1
+Metopidius,5427,Jacanidae,m(Bronze-winged Jacana) p(Asian Jacanas),~g(Parra Jacana),1
+Jacana,5429,Jacanidae,e(New World Jacanas),~g(Fulica Parra),2
+Numenius,5431,Scolopacidae,e(Whimbel and Curlews),~g(Scolopax),9
+Arenaria,5433,Scolopacidae,e(Turnstones),~f(Charadriidae) ~g(Tringa Strepsilas),2
+Calidris,5435,Scolopacidae,e(Calidris Peeps) p(Peeps),>(Aphriza Philomachus Limicola Eurynorhynchus Tryngites) ~g(Totanus Tringa Crocethia Ereunetes Erolia Actodromus Pisolia) ,24
+Gallinago,5437,Scolopacidae,e(Gallinago snipe) p(Snipe),~g(Scolopax Capella Chubbia Xylocota),17
+Phalaropus,5439,Scolopacidae,e(Phalaropes),~g(Tringa Lobipes Steganopus),3
+Actitis,5441,Scolopacidae,e(Actitis peeps) p(Peeps),~g(Tringa),2
+Tringa,5443,Scolopacidae,e(Tringa peeps) p(Peeps),>(Heteroscelus Cataptrophorus) ~g(Scolopax Totanus),13
+Cursorius,5445,Glareolidae,e(Cursorius Cursors) p(Cursors),~g(Charadrius),5
+Rhinoptilus,5447,Glareolidae,e(Rhinoptilus Coursers) p(Coursers),~g(Smutsornis Hemerodromus Cursorius Macrotarsius),4
+Glareola,5449,Glareolidae,e(Glareola Pratincoles) p(Pratincoles),~g(Hirundo Pratincola Galachrysia),7
+Chroicocephalus,5453,Laridae,e(Chroicocephalus Gulls) p(Gulls),<(Larus) ~g(Sterna Saundersia Saundersilarus),11
+Rhodostethia,5455,Laridae,m(Ross’s Gull) p(Gulls),~g(Larus Hydrocoloeus),1
+Leucophaeus,5457,Laridae,e(Leucophaeus Gulls) p(Gulls),<(Larus),5
+Ichthyaetus,5459,Laridae,e(Ichtyaetus Gulls) p(Gulls),<(Larus) ~g(Adelarus),6
+Larus,5461,Laridae,e(Larus Gulls) p(Gulls),x(Chroicocephalus Leucophaeus) ~g(Gabianus) n(confused taxonomy),23
+Gelochelidon,5463,Laridae,m(Gull-billed Tern),~g(Sterna),2
+Hydroprogne,5465,Laridae,m(Caspian Tern) p(Terns),~g(Sterna),1
+Thalasseus,5467,Laridae,e(Thalasseus Terns) p(Terns),<(Sterna),8
+Sternula,5469,Laridae,e(Sternula Terns) p(Terns),~g(Sterna),7
+Sterna,5471,Laridae,e(Sterna Terns) p(Terns),,13
+Chlidonias,5473,Laridae,e(Chlidonias Terns) p(Terns),~g(Sterna),4
+Phaetusa,5475,Laridae,m(Large-billed Tern) p(Terns),,1
+Larosterna,5477,Laridae,m(Inca Tern) p(Terns),,1
+Stercorarius,5479,Stercorariidae,e(Skuas),~g(Catharacta),7
+Alle,5481,Alcidae,m(Little Auk) p(Auks),~g(Alca Plautus),1
+Uria,5483,Alcidae,e(Murres),~g(Alca Colymbus),2
+Cepphus,5485,Alcidae,e(Guillemots),~g(Alca),3
+Brachyramphus,5487,Alcidae,e(Brachyramphus Murrelets) p(Murrelets),~g(Colymbus Uria),3
+Cerorhinca,5489,Alcidae,m(Rhinoceros Auklet),~g(Alca),1
+Fratercula,5491,Alcidae,e(Puffins),~g(Alca Mormon Lunda),3
+Phaethon,5493,Phaethontidae,e(Tropicbirds),,3
+Gavia,5495,Gaviidae,e(Loons),~g(Colymbus),5
+Eudyptula,5497,Spheniscidae,e(Eudyptula Penguins) p(Penguins),~g(Aptentodytes),1
+Spheniscus,5499,Spheniscidae,e(Banded Penguins) e(Spheniscus Penguins),,4
+Megadyptes,5501,Spheniscidae,e(Megadyptes Penguins) p(Penguins),~g(Catarrhactes),1
+Oceanites,5503,Oceanitidae,e(Oceanites Storm Petrels) p(Storm Petrels),-(Fregata) ~g(Procellaria Thallasidroma),3
+Diomedea,5505,Diomedeidae,e(Diomedea Albatrosses) p(Albatrosses),x(Phoebastria Thallasarche),6
+Hydrobates,5507,Hydrobatidae,e(European Storm Petrel) p(Storm Petrels),>(Oceanodroma) ~g(Procellaria),1
+Fulmarus,5509,Procellariidae,e(Fulmars),~g(Procellaria),2
+Procellaria,5511,Procellariidae,e(Procellaria Petrels),,5
+Calonectris,5513,Procellariidae,e(Calonectris Shearwaters) p(Shearwaters),~g(Procellaria),4
+Ardenna,5515,Procellariidae,e(Ardenna Shearwaters) p(Shearwaters),<(Puffinus) ~g(Procellaria) ,7
+Puffinus,5517,Procellariidae,e(Puffinus Shearwaters) p(Shearwaters),x(Ardenna) ~g(Procellaria) ,21
+Mycteria,5519,Ciconiidae,e(Mycteria Storks),~g(Tantalus Ibis),4
+Anastomus,5521,Ciconiidae,e(Openbill Storks),~g(Ardea),2
+Ephippiorhynchus,5525,Ciconiidae,e(Ephippiorhychus Storks),~g(Mycteria Xenorhynchus),2
+Jabiru,5527,Ciconiidae,m(Jabiru),~g(Ciconia Ephippiorhynchus),1
+Leptoptilos,5529,Ciconiidae,e(Adjutant and Marabou Storks),~g(Ciconia Ardea),3
+Fregata,5531,Fregatidae,e(Frigatebirds),~g(Pelecanus Atagen),5
+Morus,5533,Sulidae,e(Gannets),<(Sula) ~g(Pelecanus Dysporus),3
+Sula,5535,Sulidae,e(Boobies),x(Morus Papasula) ~g(Dysporus Pelecanus),6
+Anhinga,5537,Anhingidae,e(Darters),~g(Plotus),4
+Microcarbo,5539,Phalacrocoracidae,e(Microcarbo Cormorants) p(Cormorants),<(Phalacrocorax) x(Urile) ~g(Pelecanus Halietor Graculus Hydrocorax),5
+Urile,5541,Phalacrocoracidae,e(North Pacific Cormorants) e(Urile Cormorants),+(Phalacrocorax penicillatus Brandt’s Cormorant) +(Phalacrocorax urile Red-faced Cormorant) +(Phalacrocorax pelagicus Pelagic Cormorant),3
+Phalacrocorax,5543,Phalacrocoracidae,e(Phalacrocorax Cormorants) p(Cormorants),x(Microcarbo Gulosus Nannopterum) ~g(Carbo Leucocarbo Hypoleucos Pelecanus Graculus Compsohalieus Stictocarbo Hydrocorax),12
+Gulosus,5545,Phalacrocoracidae,m(European Shag),+(Phalacrocorax aristotelis European Shag),1
+Nannopterum,5547,Phalacrocoracidae,e(Nannopterum Cormorants),+(Phalacrocorax harrisi Flightless Cormorant) +(Phalacrocorax brasilianum Neotropic Cormorant) +(Phalacrocorax auritum Double-crested Cormorant),3
+Leucocarbo,5549,Phalacrocoracidae,e(Leucocarbo Cormorants) p(Cormorants),~g(Phalacrocorax Euleucocarbo Carbo Notocarbo Halieus),16
+Threskiornis,5551,Threskiornithidae,e(Old World White Ibises),~g(Tantalus Ibis Carphibis),5
+Pseudibis,5553,Threskiornithidae,e(Old World Dark Ibises),~g(Ibis Geronticus Thaumatibis),3
+Bostrychia,5555,Threskiornithidae,e(African Forest Ibises),>(Lampribis Hagedashia) ~g(Ibis Tantalus) ,5
+Theristicus,5557,Threskiornithidae,e(Theristicus ibises) p(highland Ibises of South America),,4
+Mesembrinibis,5559,Threskiornithidae,m(Green Ibis),~g(Tantalus),1
+Eudocimus,5561,Threskiornithidae,e(Eudocimus Ibises),~g(Scolopax),2
+Plegadis,5563,Threskiornithidae,e(Plegadis Ibises),~g(Tantalus Numenius Falcinellus),3
+Platalea,5565,Threskiornithidae,e(Spoonbills),~g(Ajaia),6
+Tigrisoma,5567,Ardeidae,e(Tigrosoma Tiger Herons) p(Tiger Herons),~g(Ardea),3
+Agamia,5569,Ardeidae,m(Agami Heron),~g(Ardea),1
+Cochlearius,5571,Ardeidae,m(Boat-billed Heron),~g(Cancroma),1
+Rynchops,5450,Laridae,e(Skimmers),~f(Rhyncopidae),3
+Ixobrychus,5575,Ardeidae,e(Ixobrychus Bitterns) p(Bitterns),~g(Ardea) >(Dupetor),9
+Nycticorax,5577,Ardeidae,e(Nycticorax Night Herons) p(Night Herons),~g(Ardea),2
+Nyctanassa,5579,Ardeidae,m(Yellow-crowned Night Heron) p(Night Herons),~g(Ardea),1
+Butorides,5581,Ardeidae,e(Small Brown Herons) p(Herons and Egrets),~g(Ardea Ardeola),3
+Ardeola,5583,Ardeidae,e(Pond Herons) p(Herons and Egrets),~g(Ardea Buphus Butorides),6
+Bubulcus,5585,Ardeidae,e(Cattle Egrets) p(Herons and Egrets),~g(Ardea Ardeola Egretta),2
+Ardea,5587,Ardeidae,e(Ardea Herons) p(Herons and Egrets),+(Egretta) ~g(Egretta) ,12
+Pilherodius,5589,Ardeidae,m(Capped Heron) p(Herons and Egrets),~g(Ardea),1
+Egretta,5591,Ardeidae,e(Egretta Egrets) p(Herons and Egrets),-(Ardea) ~g(Herodias Casmerodius Melanophoyx Dichromanassa Mesophoyx Notophoyx Florida Demigretta Egretta),13
+Scopus,5593,Scopidae,m(Hamerkop),,1
+Pelecanus,5595,Pelecanidae,e(Pelicans),,8
+Opisthocomus,5597,Opisthocomidae,m(Hoatzin),~g(Phasianus),1
+Sarcoramphus,5599,Cathartidae,m(King Vulture) p(New World Vultures),~g(Vultur),1
+Vultur,5601,Cathartidae,m(Andean Condor) p(New World Vultures),,1
+Coragyps,5603,Cathartidae,m(Black Vulture) p(New World Vultures),~g(Vultur),1
+Cathartes,5605,Cathartidae,e(Turkey and Yellow-headed Vultures) p(New World Vultures),~g(Vultur),3
+Sagittarius,5607,Sagittariidae,m(Secretarybird),~g(Falco),1
+Pandion,5609,Pandionidae,e(Ospreys),~g(Falco),2
+Elanus,5611,Accipitridae,e(Elanus Kites) ,~g(Falco Milvus),4
+Gampsonyx,5613,Accipitridae,m(Pearl Kite) ,,1
+Polyboroides,5615,Accipitridae,e(Harrier-Hawks),,2
+Neophron,5617,Accipitridae,m(Egyptian Vulture),~g(Vultur),1
+Leptodon,5619,Accipitridae,e(Leptodon kites),~g(Falco Odontriorchis),2
+Chondrohierax,5621,Accipitridae,e(Hook-billed Kites),~g(Falco),2
+Momotus,5773,Momotidae,e(Momotus Motmots) p(Motmots),~g(Ramphastos),7
+Pernis,5623,Accipitridae,e(Pernis Honey Buzzards) p(Honey Buzzards),~g(Falco),4
+Elanoides,5625,Accipitridae,m(Sallow-tailed Kite),~g(Falco Elanus),1
+Aviceda,5627,Accipitridae,e(Bazas),~g(Pernis Lepidogenys Falco),5
+Necrosyrtes,5629,Accipitridae,m(Hooded Vulture) p(Old World Vultures),~g(Cathartes Neophron),1
+Gyps,5631,Accipitridae,e(Griffon Vultures) p(Old World Vultures),~g(Pseudogyps Vultur),8
+Trigonoceps,5633,Accipitridae,m(White-headed Vulture) p(Old World Vultures),<(Aegypius) ~g(Vultur),1
+Torgos,5635,Accipitridae,m(Lappet-faced Vulture) p(Old World Vultures),<(Aegypius) ~g(Vultur),1
+Spilornis,5637,Accipitridae,e(Serpent Eagles),~g(Falco Buteo Haematornis),6
+Circaetus,5639,Accipitridae,e(Snake Eagles),~g(Falco),7
+Terathopius,5641,Accipitridae,m(Bateleur),~g(Falco),1
+Nisaetus,5643,Accipitridae,e(Old World Hawk-Eagles) p(Hawk-Eagles),<(Spizaetus) ~g(Limnaetus Hieraaetus Cassinaetus Falco),10
+Spizaetus,5645,Accipitridae,e(New World Hawk-Eagles) p(Hawk-Eagles),~g(Falco),4
+Stephanoaetus,5647,Accipitridae,m(Crowned Eagle),~g(Falco),1
+Polemaetus,5649,Accipitridae,m(Martial Eagle),,1
+Lophaetus,5651,Accipitridae,m(Long-crested Eagle) p(Eagles),~g(Falco),1
+Ictinaetus,5653,Accipitridae,m(Black Eagle),,1
+Hieraaetus,5655,Accipitridae,e(Hieraaetus Eagles) p(Eagles),-(Aquila) ~g(Spizaetus Falco Astur),5
+Aquila,5657,Accipitridae,e(Aquila eagles) p(Eagles),x(Hieraaetus) +(Spizaetus Hieraaetus) -(Clanga) ~g(Falco Vultur),11
+Harpagus,5659,Accipitridae,e(Harpagus Kites),~g(Falco),2
+Micronisus,5661,Accipitridae,m(Gabar Goshawk) ,~g(Falco Melierax),1
+Melierax,5663,Accipitridae,e(Chanting Goshawks),~g(Falco),3
+Circus,5667,Accipitridae,e(Harriers),~g(Falco) n(species compositions of Circus versus Accipiter need revision),16
+Milvus,5669,Accipitridae,e(Milvus Kites),~g(Falco),3
+Haliastur,5671,Accipitridae,e(Whistling and Brahminy Kites),~g(Falco Milvus),2
+Haliaeetus,5673,Accipitridae,e(Fish Eagles), >(Ichthyophaga) ~g(Falco Aqulia),10
+Rostrhamus,5675,Accipitridae,m(Snail Kite),~g(Herpetotheres),1
+Geranospiza,5677,Accipitridae,m(Crane Hawk),~g(Sparvius),1
+Buteogallus,5679,Accipitridae,e(Buteogallus Hawks),>(Harpyhaliaetus Heterospizias Urubitinga) ~g(Falco Asturina),9
+Morphnarchus,5681,Accipitridae,m(Barred Hawk),~g(Leucopternis),1
+Rupornis,5683,Accipitridae,m(Roadside Hawk),~g(Falco Asturina Buteo),1
+Geranoaetus,5685,Accipitridae,e(Geranoaetus Hawks),+(Buteo) ~g(Falco Spizaetus),3
+Pseudastur,5687,Accipitridae,e(Mantled and White Hawks),<(Leucopternis) ~g(Falco),3
+Leucopternis,5689,Accipitridae,e(Leucopternis Hawks),~g(Falco) ,3
+Buteo,5691,Accipitridae,e(Core Buteonines),-(Geranoaetus) ~g(Falco Asturina Rupornis Sparvius Polyborus ArchibuteoGeranoaetus),29
+Taenioptynx,5693,Strigidae,e(Collared and Sunda Owlets),+(Glaucidium brodiei Collared Owlet) +(Glaucidium sylvaticus Sunda Owlet),2
+Micrathene,5695,Strigidae,m(Elf Owl),<(Athene),1
+Athene,5697,Strigidae,e(Athene Owls),x(Heteroglaux) ~g(Strix),5
+Glaucidium,5699,Strigidae,e(Pygmy Owls),x(Taenioptynx brodiei Collared Owlet) x(GTaenioptynx sylvaticus Sunda Owlet)~g(Strix Noctua Palaenopsis Athene) n(proposal to split into two genera representing Old and New World clades) n(2 proposed species splits),29
+Ptilopsis,5703,Strigidae,e(White-faced Owls),<(Otus) ~g(Strix Pisorhina),2
+Asio,5705,Strigidae,e(Asio Owls),+(Pseudoscops grammicus Jamaican Owl) +(Pseudoscops clamator Striped Owl),8
+Strix,5713,Strigidae,e(Strix Owls),x(Ciccaba) ~g(Syrnium Asio Noctua),22
+Otus,5701,Strigidae,e(Scops Owls),>(Mimizuku) x(Psiloscops Megascops Ptilopsis) ~g(Ephialtes Strix Scops Pisorhina Noctua) ,57
+Ketupa,5709,Strigidae,e(Ketupa Owls),~g(Strix Bubo Cultrunguis) n(nested within Bubo; revision needed; several species formerly in Bubo transferred in),12
+Bubo,5707,Strigidae,e(Bubo Owls),x(Ketupa) >(Nyctea) ~g(Strix Bubo Otus Pseudoptynx) n(Ketupa is nested within Bubo; several species transferred to Ketupa; revision needed),10
+Colius,5715,Coliidae,e(Colius Mousebirds) p(Mousebirds),,4
+Urocolius,5717,Coliidae,e(Urocolius Mousebirds) p(Mousebirds),~g(Lanius Colius),2
+Pharomachrus,5719,Trogonidae,e(Pharomachrus Quetzals) p(Quetzals),>(Chrysotrogon) ~g(Trogon),5
+Trogon,5721,Trogonidae,e(Mainland New World Trogons) p(Trogons),,20
+Apaloderma,5723,Trogonidae,e(African Trogons),,3
+Harpactes,5725,Trogonidae,e(Harpactes Trogons) p(Asian Trogons) p(Trogons),>(Duvaucelius) ~g(Trogon),10
+Upupa,5727,Upupidae,e(Hoopoes),,3
+Phoeniculus,5729,Phoeniculidae,e(Wood Hoopoes),~g(Irrisor Rhinopomastus Promerops),6
+Bucorvus,5731,Bucorvidae,e(Ground Hornbills),~f(Bucerotidae) ~g(Buceros),2
+Tockus,5733,Bucerotidae,e(Tockus Hornbills),x(Lophoceros) ~g(Buceros) ,10
+Bycanistes,5737,Bucerotidae,e(Bycanistes Hornbills),<(Ceratogymna) ~g(Buceros),6
+Buceros,5739,Bucerotidae,e(Buceros Hornbills),,3
+Anthracoceros,5741,Bucerotidae,e(Anthracoceros Hornbills),~g(Buceros),5
+Ocyceros,5743,Bucerotidae,e(Ocyceros Hornbills),<(Tockus) ~g(Buceros),3
+Anorrhinus,5745,Bucerotidae,e(Anorrhinus Hornbills),~g(Buceros Ptilolaemus),3
+Coracias,5747,Coraciidae,e(Coracias Rollers) p(Rollers),~g(Corvus Garrulus),9
+Eurystomus,5749,Coraciidae,e(Broad-billed Rollers) p(Rollers),~g(Coracias),4
+Pelargopsis,5753,Alcedinidae,e(Pelargopsis Kingfishers),~g(Alcedo Alcyon Ramphalcyon),3
+Todiramphus,5757,Alcedinidae,e(Todiramphus Kingfishers),~g(Halcyon Alcedo Cyanalcyon),29
+Corythornis,5759,Alcedinidae,e(Corythornis Kingfishers),~g(Alcedo Ispidina),4
+Ceyx,5763,Alcedinidae,e(dwarf Kingfishers),~g(Alcedo Dacelo Alcyone),22
+Chloroceryle,5765,Alcedinidae,e(Green New World Kingfishers),~g(Alcedo),4
+Megaceryle,5767,Alcedinidae,e(Large Kingfishers),~g(Alcedo Ceryle),4
+Ceryle,5769,Alcedinidae,e(Pied Kingfisher),~g(Alcedo),1
+Todus,5771,Todidae,e(Todys),~g(Alcedo),5
+Lophoceros,5735,Bucerotidae,e(Lophoceros Hornbills),<(Tockus) ~g(Rhynchaceros Buceros),8
+Baryphthengus,5775,Momotidae,e(Baryphthengus Motmots) p(Motmots),~g(Prionites Baryphonus),2
+Electron,5777,Momotidae,e(Electron Motmots) p(Motmots),~g(Prionites Momotus),2
+Eumomota,5779,Momotidae,e(Turquoise-browed Motmot) p(Motmots),~g(Pyronites),1
+Nyctyornis,5781,Meropidae,e(Bearded Bee-eaters) p(Bee-eaters),~g(Merops),2
+Galbula,5785,Galbulidae,e(Galbula Jacamars),>(Urogalba) ~g(Alcedo),10
+Notharchus,5787,Bucconidae,e(Notharchus Puffbirds) p(Puffbirds),~g(Bucco) ,6
+Malacoptila,5789,Bucconidae,e(Malacoptila Puffbirds) p(Puffbirds),~g(Bucco) ,7
+Monasa,5791,Bucconidae,e(Monasa Nunbirds) p(Nunbirds),~g(Bucco Cuculus) ,4
+Chelidoptera,5793,Bucconidae,e(Swallow-winged Puffbird),~g(Cuculus),1
+Eubucco,5795,Capitonidae,e(Eubucco New World Barbets) p(New World Barbets),,4
+Semnornis,5797,Semnornithidae,e(Toucan Barbets),~g(Tetragonops),2
+Aulacorhynchus,5799,Ramphastidae,e(Toucanets),~g(Pteroglossus),11
+Pteroglossus,5801,Ramphastidae,e(Aracaris), >(Baillonius Beauharnaisius) ~g(Ramphastos),14
+Andigena,5803,Ramphastidae,e(Mountain Toucans),,4
+Ramphastos,5805,Ramphastidae,e(Toucans),,8
+Psilopogon,5807,Megalaimidae,e(Psilopogon Asian Barbets),>(Megalaima Xantholaema Mesobucco) ~g(Bucco Capito Trogon Cyanops),32
+Gymnobucco,5809,Lybiidae,e(Gymnobucco African barbets),,4
+Buccanodon,5813,Lybiidae,m(Yellow-spotted Barbet),~g(Barbatula),1
+Tricholaema,5815,Lybiidae,e(Tricholaema African Barbets),~g(Pogonias Pogonorhynchus Bucco),6
+Lybius,5817,Lybiidae,e(Lybius African Barbets),~g(Pogonias Laimodon Pogonorhynchus Bucco),12
+Trachyphonus,5819,Lybiidae,e(Trachyphonus African Barbets),~g(Trachylaemus Bucco Micropogon),5
+Prodotiscus,5821,Indicatoridae,e(Honeybirds),,3
+Melanerpes,5827,Picidae,e(Melanerpes Woodpeckers),>(Tripsurus Leuconerpes Asyndesmus Linneopicus Trichopicus) ~g(Picus Zebrapicus Centurus) n(Melanerpes is paraphyletic),24
+Sphyrapicus,5829,Picidae,e(Sapsuckers),~g(Picus) n(nested in Melanerpes),4
+Campethera,5831,Picidae,e(Campethra Woodpeckers),~g(Picus Chrysoptilus Dendromus Chrysopicos Chloropicus),11
+Dendropicos,5833,Picidae,e(Dendropicos Woodpeckers),<(Chloropicus) ~g(Picus Dendrobates Thripias Polipicus Mesopicos Picoides),12
+Veniliornis,5837,Picidae,e(Venilornis Woodpeckers),+(Picoides) ~g(Picus Chloronerpes),14
+Leuconotopicus,5839,Picidae,e(Leucontopicus Woodpeckers),<(Dryobates) +(Picoides) >(Venilornis) ~g(Leuconerpes),6
+Dendrocopos,5841,Picidae,e(Dendrocopos Woodpeckers),-(Yungipicus Dendrocoptes) >(Hypopicus Sapheopipo) ~g(Picus Picoides Desertipicus),12
+Piculus,5843,Picidae,e(Piculus Woodpeckers),-(Colaptes) ~g(Chloronerpes Picus),7
+Colaptes,5845,Picidae,e(Flickers and other Colaptes Woodpeckers),+(Piculus) >(Chrysoptilus Nesocelus) ~g(Picus Chloronerpes Chrysopicos Cuculus Geopicus),13
+Dryocopus,5849,Picidae,e(Dryocopus Woodpeckers),~g(Picus Phloeotomus Hylatomus Mulleripicus),6
+Campephilus,5851,Picidae,e(Campephilus Woodpeckers),>(Phloeoceastes) ~g(Picus),11
+Chrysophlegma,5853,Picidae,e(Chrysophlegma Woodpeckers),<(Picus) ~g(Picus),3
+Picus,5855,Picidae,e(Picus Woodpeckers),x(Chrysophlegma) ~g(Brachylophus Gecinus),13
+Dinopium,5857,Picidae,e(Dinopium Flamebacks) p(Flamebacks),~g(Picus),5
+Alcedo,5761,Alcedinidae,e(Alcedo Kingfishers),~g(Gracula),8
+Dacelo,5751,Alcedinidae,e(Kookaburras),>(Capricia Sauromarptis Clytocex) ~g(Alcedo Melidora),5
+Indicator,5823,Indicatoridae,e(Indicator Honeyguides),,10
+Micropternus,5861,Picidae,m(Rufous Woodpecker),~g(Picus Celeus),1
+Meiglyptes,5863,Picidae,e(Meiglyptes Woodpeckers),~g(Phaiopicus),3
+Daptrius,5865,Falconidae,m(Black Caracara),x(Ibycter) n(proposed expansion to include Milvago Phalcoboenus),1
+Ibycter,5867,Falconidae,m(Red-throated Caracara),<(Daptrius) ~g(Falco),1
+Phalcoboenus,5869,Falconidae,e(Phalacoboenus Caracaras),~g(Aquila Polyborus),4
+Caracara,5871,Falconidae,e(Crested Caracaras),~g(Falco Polyborus),2
+Milvago,5873,Falconidae,e(Milvago Caracaras),~g(Polyborus),2
+Herpetotheres,5875,Falconidae,m(Laughing Falcon),~g(Falco),1
+Micrastur,5877,Falconidae,e(Forest Falcons),~g(Sparvius Astur),7
+Microhierax,5881,Falconidae,e(Asian Falconets),~g(Falco Ierax Hierax),5
+Falco,5883,Falconidae,e(Core Falcons),~g(Tinnunculus Cerchneis Aesalon Nesierax Hieracidea Ieracidea Gennaia Hierofalco Rhynchodon),38
+Zanda,5885,Cacatuidae,e(Zanda Black Cockatoos) p(Black Cockatoos),<(Calyptorhynchus),3
+Callocephalon,5887,Cacatuidae,m(Gang-gang Cockatoo),~g(Psittacus Callocorydon),1
+Eolophus,5889,Cacatuidae,m(Galah), <(Cacatua) ~g(Kakatoe),1
+Cacatua,5891,Cacatuidae,e(White Cockatoos),~g(Psittacus Kakatoe Licmetis Lophochroa),11
+Poicephalus,5893,Psittacidae,e(Poicephalus African Parrots),~g(Psittacus Pionus Pionias),10
+Myiopsitta,5895,Psittacidae,e(Monk Parrots),~g(Psittacus),2
+Brotogeris,5897,Psittacidae,e(Brotogeris Parrots),~g(Psittacus Sittace),8
+Pyrilia,5899,Psittacidae,e(Pyrilia Parrots),~g(Pionus Pionopsitta Gypopsitta),7
+Pionus,5901,Psittacidae,e(Pionus Parrots),~g(Psittacus),8
+Amazona,5903,Psittacidae,e(Amazons),>(Chrysotis) ~g(Psittacus),33
+Pyrrhura,5905,Psittacidae,e(Pyrrhura Parakeets),,24
+Eupsittula,5907,Psittacidae,e(Eupsittula Parakeets),<(Aratinga) ~g(Psittacara),5
+Aratinga,5909,Psittacidae,e(Aratinga Parakeets),x(Eupsittula Conuropsis Gauraba Thectocercus Psittacara) >(Nandayus) ~g(Psittacus Conurus),6
+Primolius,5911,Psittacidae,e(Primolius Macaws) p(Macaws),<(Ara) >(Propyrrhura) ~g(Macrocercus),3
+Ara,5913,Psittacidae,e(Ara Macaws) p(Macaws),x(Cyanopsitta Orthopsitta Primolius Propyrrhura Diopsittaca) ~g(Psittacus),8
+Psittacara,5915,Psittacidae,e(Psittacara Parakeets),<(Aratinga) ~g(Conurus Psittacara Sittace),12
+Picumnus,5825,Picidae,e(Picumnus Piculets) p(Piculets),>(Vivia) ~g(Picus Asthenurus),25
+Dryobates,5835,Picidae,e(Dryobates Woodpeckers), <(Dendrocopos Picoides) ~g(Picus),6
+Celeus,5847,Picidae,e(Celus Woodpeckers),x(Micropternus) ~g(Meiglyptes Picus Celeopicus),12
+Alisterus,5917,Psittaculidae,e(King Parrots),~g(Psittacus Aprosmictus),3
+Psittacula,5919,Psittaculidae,e(Psittacula Parakeets),~g(Psittacus Palaeornis) n(may be polyphyletic as currently constituted),13
+Psephotus,5921,Psittaculidae,m(Red-rumped Parrot),x(Psephotelus) ~g(Platycercus),1
+Platycercus,5923,Psittaculidae,e(Rosellas),x(Purpureicephalus) ~g(Psittacus),6
+Lathamus,5925,Psittaculidae,m(Swift Parrot),~g(Psittacus),1
+Parvipsitta,5927,Psittaculidae,e(Parvipsitta Lorikeets) p(Lorikeets),<(Glossopsitta),2
+Glossopsitta,5929,Psittaculidae,m(Musk Lorikeet) p(Lorikeets),x(Parvipsitta) ~g(Psittacus Trichoglossus),1
+Trichoglossus,5931,Psittaculidae,e(Trichoglossus Lorikeets) p(Lorikeets),~g(Psittacus Psitteuteles Chalcopsitta),13
+Agapornis,5935,Psittaculidae,e(Lovebirds),,9
+Cymbirhynchus,5937,Eurylaimidae,m(Black-and-red Broadbill),~g(Todus),1
+Eurylaimus,5939,Eurylaimidae,e(Eurylaimus Broadbills),<(Sarcophanops),2
+Smithornis,5941,Calyptomenidae,e(African Broadbills),~g(Platyrhynchus),3
+Pitta,5943,Pittidae,e(Pitta Pittas) p(Pittas),x(Erythropitta Hydrornis) ~g(Turdus Brachyurus Corvus),14
+Sittasomus,5945,Furnariidae,m(Olivaceous Woodcreeper), ~f(Dendrocolaptidae) ~g(Dendrocopus),1
+Deconychura,5947,Furnariidae,e(Deconychura Woodcreepers) p(Woodcreepers),~f(Dendrocolaptidae) x(Certhiasoma) ~g(Dendrocincla Sittasomus),1
+Dendrocincla,5949,Furnariidae,e(Dendrocincla Woodcreepers) p(Woodcreepers),~f(Dendrocolaptidae) ~g(Dendrocops Dendrocopus Dendrocolaptes Dendromanes),6
+Glyphorynchus,5951,Furnariidae,m(Wedge-billed Woodcreeper),~f(Dendrocolaptidae) ~g(Neops),1
+Dendrocolaptes,5953,Furnariidae,e(Dendrocolaptes Woodcreepers) p(Woodcreepers),~f(Dendrocolaptidae) ~g(Dendrocops Picus),5
+Xiphocolaptes,5955,Furnariidae,e(Xyphocolaptes Woodcreepers) p(Woodcreepers),~f(Dendrocolaptidae) ~g(Dendrocolaptes Dendrocopus),4
+Xiphorhynchus,5957,Furnariidae,e(Xyphorhynchus Woodcreepers) p(Woodcreepers),~f(Dendrocolaptidae) <(Dendroplex Drymotexeres) ~g(Dendrocolaptes Dendrocopus Lepidocolaptes Dendrornis Picolaptes),14
+Lepidocolaptes,5959,Furnariidae,e(Lepidocolaptes Woodcreepers) p(Woodcreepers),~f(Dendrocolaptidae) ~g(Xiphorhynchus Dendrocolaptes Dendrocopus Thripobrotus),12
+Xenops,5961,Furnariidae,e(Xenops Xenopses) p(Xenopses) ,x(Microxenops) ~g(Turdus),3
+Pseudocolaptes,5963,Furnariidae,e(Tuftedcheeks),,3
+Premnornis,5965,Furnariidae,m(Rusty-winged Barbtail),,1
+Furnarius,5967,Furnariidae,e(Horneros),~g(Merops Turdus Opetiorhynchus),8
+Cinclodes,5969,Furnariidae,e(Cinclodes),,15
+Anabacerthia,5971,Furnariidae,e(Anabacerthia Foliage-gleaners) p(Foliage-gleaners),<(Phylidor) ~g(Anabazenops Anabates),5
+Syndactyla,5973,Furnariidae,e(Syndactyla Foliage-gleaners) p(Foliage-gleaners),+(Phylidor Automolus) ~g(Xenops Anabazenops Anabetes),8
+Dendroma,5975,Furnariidae,e(Dendroma Foliage-gleaners),<(Philydor),2
+Thripadectes,5977,Furnariidae,p(Treehunters),,7
+Automolus,5979,Furnariidae,e(Automolus Foliage-gleaners) p(Foliage-gleaners),-(Syndactyla) >(Hyloctistes) ~g(Anabates Clibanornis),10
+Premnoplex,5981,Furnariidae,e(Barbtails),,2
+Margarornis,5983,Furnariidae,e(Treerunners),~g(Anabates),4
+Asthenes,5985,Furnariidae,e(Canasteros + Thistletail),,30
+Cranioleuca,5987,Furnariidae,e(Cranioleuca Spinetails) p(Spinetails),~g(Synallaxis Dendrocopos Leptoxyura Siptornis Anabates),19
+Synallaxis,5989,Furnariidae,e(Synallaxis Spinetails) p(Spinetails),>(Poecilurus Siptornopsis Gyalophylax) x(Marzia) ~g(Motacilla Chinchipe),35
+Thamnistes,5991,Thamnophilidae,m(Russet Antshrike) p(Antshrikes),,2
+Microrhopias,5993,Thamnophilidae,m(Dot-winged Antwren) p(Antwrens),~g(Thamnophilus),1
+Loriculus,5933,Psittaculidae,e(Hanging-Parrots),,15
+Polihierax,5879,Falconidae,m(Pygmy Falcon),x(Neohierax) ~g(Falco Neoheirax),1
+Dysithamnus,5995,Thamnophilidae,e(Antvireos),~g(Myothera),8
+Thamnophilus,5997,Thamnophilidae,e(Thamnophilus Antshrikes) p(Antshrikes),+(Sakesphorus) ~g(Lanius Myrmelates Dysithamnus),30
+Cymbilaimus,5999,Thamnophilidae,e(Cymbilaimus Antshrikes) p(Antshrikes),~g(Lanius),2
+Phaenostictus,6001,Thamnophilidae,m(Ocellated Antbird) p(Antbirds),~g(Phlogopsis),1
+Gymnopithys,6003,Thamnophilidae,e(Gymnopithys Antbirds) p(Antbirds),x(Oneillornis) ~g(Myrmeciza Turdus Pithys),3
+Drymophila,6005,Thamnophilidae,e(Drymophila Antbirds),,11
+Hypocnemis,6007,Thamnophilidae,e(Hypocnemis Antbirds) p(Antbirds),~g(Formicarius),8
+Cercomacroides,6009,Thamnophilidae,e(Cercomacroides Antbirds) p(Antbirds),x(Cercomacra ) ~g(Formicivora Pyriglena Percnostola),6
+Hylophylax,6011,Thamnophilidae,e(Hylophylax Antbirds) p(Antbirds),x(Willisornis) ~g(Conopophaga Pipra Rhopotera),3
+Poliocrania,6013,Thamnophilidae,m(Chestnut-backed Antbird) p(Antbirds),<(Myrmeciza),1
+Gymnocichla,6015,Thamnophilidae,m(Bare-crowned Antbird) p(Antbirds),~g(Myiothera),1
+Grallaria,6017,Grallariidae,p(Antpittas),,32
+Grallaricula,6019,Grallariidae,p(Antpittas),,10
+Scytalopus,6021,Rhinocryptidae,e(Scytalopus Tapaculos) p(Tapaculos),n(9 recently described species),44
+Elaenia,6025,Tyrannidae,e(Elaenia Elainias) p(Elaenias),~g(Pipra Muscicapa Muscipeta),22
+Ornithion,6027,Tyrannidae,e(Ornithion Tyrannulets) p(Tyrannulets),~g(Tyrannulus Microtriccus),3
+Camptostoma,6029,Tyrannidae,e(beardless Tyrannulets) p(Tyrannulets),~g(Muscicapa),2
+Mecocerculus,6031,Tyrannidae,e(Mecocerculus Tyrannulets) p(Tyrannulets),~g(Muscicapa Serpophaga) n(likely polyphyletic),6
+Serpophaga,6033,Tyrannidae,e(Serpophaga Tyrannulets) p(Tyrannulets),~g(Leptopogon Sylvia),6
+Zimmerius,6035,Tyrannidae,e(Zimmerius Tyrannulets) p(Tyrannulets),<(Tyranniscus) ~g(Elaenia Muscicapara Phyllomias Tyrannulus),15
+Phylloscartes,6037,Tyrannidae,e(Phylloscartes Tyrannulets) p(Tyrannulets),~g(Leptotriccus Muscicapa),16
+Leptopogon,6041,Tyrannidae,e(Leptopogon Flycatchers),~g(Tyrannula),4
+Myiotriccus,6045,Tyrannidae,m(Ornate Flycatcher),,1
+Myiornis,6047,Tyrannidae,e(Myiornis Pygmy Tyrants) p(Pygmy Tyrants) ,~g(Platyrhynchos Orchilus Perissotriccus Todirostrum),4
+Oncostoma,6049,Tyrannidae,e(Bentbills),~g(Todirostrum Hemitriccus Lophotriccus),2
+Psophodes,6191,Psophodidae,e(Wedgebills and Australian Whipbirds) p(Whipbirds),~f(Cisclostomatidae),5
+Lophotriccus,6051,Tyrannidae,e(Lophotriccus Pygmy Tyrants) p(Pygmy Tyrants) ,x(Atalotriccus) ~g(Euscarthmus Cametornis Motacilla Colopteryx),4
+Poecilotriccus,6053,Tyrannidae,e(Poecilotriccus Tody-Flycatchers) p(Tody-Flycatchers),<(Todirostrum) ~g(Todiramphus Euscarthmus Todus),12
+Todirostrum,6055,Tyrannidae,e(Todirostrum Tody-Flycatchers) p(Tody-Flycatchers),~g(Todus),7
+Rhynchocyclus,6057,Tyrannidae,e(Rhynchocyclus Flatbills) p(Flatbills),~g(Platyrhynchos Cyclorhynchus),4
+Tolmomyias,6059,Tyrannidae,e(Tolmomyias Flatbills) p(Flatbills),~g(Platyrhynchus Rhynchocyclus Muscipeta),7
+Platyrinchus,6061,Tyrannidae,e(Spadebills),~g(Todus),7
+Pyrrhomyias,6063,Tyrannidae,m(Cinnamon Flycatcher),~g(Muscipeta),1
+Sayornis,6065,Tyrannidae,e(Phoebes),~g(Muscicapa Phoebe Tyrannula),3
+Mitrephanes,6067,Tyrannidae,e(Tufted Flycatchers),~g(Mitrephorus),2
+Empidonax,6071,Tyrannidae,e(Empidonax Flycatchers),~g(Tyrannula Platyrhynchos Muscicapa),15
+Pyrocephalus,6073,Tyrannidae,e(Vermillion Flycatchers and close relatives),~g(Muscicapa),3
+Lessonia,6075,Tyrannidae,e(Negritos),~g(Centrites Alauda),2
+Ochthornis,6077,Tyrannidae,m(Drab Water Tyrant),~g(Elaenia Ochthoeca),1
+Muscisaxicola,6079,Tyrannidae,e(Ground Tyrants),,13
+Myiotheretes,6081,Tyrannidae,e(Myiotheretes Bush Tyrants) p(Bush Tyrants),,4
+Agriornis,6083,Tyrannidae,e(Shrike-Tyrants),,5
+Silvicultrix,6085,Tyrannidae,p(Chat-Tyrants),,5
+Colonia,6089,Tyrannidae,m(Long-tailed Tyrant),~g(Muscicapa),1
+Legatus,6091,Tyrannidae,m(Piratic Flycatcher),~g(Platyrhynchos),1
+Myiozetetes,6093,Tyrannidae,e(Myiozetetes Flycatchers),~g(Muscicapa Elaenia),4
+Pitangus,6095,Tyrannidae,m(Great Kiskadee),~g(Lanius),1
+Philohydor,6097,Tyrannidae,m(Lesser Kiskadee),~g(Lanius Pitangus),1
+Conopias,6099,Tyrannidae,e(Conopias Flycatchers),~g(Pitangus Muscicapa Tyrannus),4
+Myiodynastes,6101,Tyrannidae,e(Myiodynastes Flycatchers),~g(Hypermitres Scaphorhynchus Saurophagus Muscicapa),5
+Megarynchus,6103,Tyrannidae,m(Boat-billed Flycatcher),~g(Lanius Pitangua),1
+Tyrannus,6105,Tyrannidae,e(Tyrannus Flycatchers),~g(Muscicapa Lanius) n(may be polyphyletic as currently constituted),13
+Rhytipterna,6107,Tyrannidae,e(Mourners),~f(Cotingidae) ~g(Muscicapa Lipaugus),3
+Myiarchus,6109,Tyrannidae,e(Myiarchus Flycatchers),~g(Tyrannula Tyrannus Muscicapa Turdus Eribates Hylonax Myiobius),22
+Attila,6111,Tyrannidae,e(Atillas),~g(Pseudattila Muscicapa Tyrannus),7
+Ampelioides,6113,Cotingidae,m(Scaled Fruiteater) p(Fruiteaters),,1
+Pipreola,6115,Cotingidae,e(typical Fruiteaters) p(Fruiteaters),,11
+Snowornis,6117,Cotingidae,e(Snowornis Pihas) p(Pihas),,2
+Rupicola,6119,Cotingidae,e(Cocks-of-the-rock),~f(Rupicolae) ~g(Pipra),2
+Querula,6121,Cotingidae,m(Purple-throated Fruitcrow),~g(Muscicapa),1
+Procnias,6123,Cotingidae,e(Bellbirds),~g(Ampelis Casmarhynchus),4
+Cotinga,6125,Cotingidae,e(Bright Blue Cotingas),~g(Ampelis Maynana),7
+Carpodectes,6127,Cotingidae,e(White Cotingas),,3
+Chiroxiphia,6129,Pipridae,e(Chiroxiphia Manakins),~g(Pipra Parus),5
+Lepidothrix,6131,Pipridae,e(Lepidothrix Manakins),~g(Pipra),8
+Manacus,6133,Pipridae,e(Manacus Manakins),x(Ceratopipra) ~g(Pipra Chiromachaeris),4
+Mionectes,6039,Tyrannidae,e(Mionectes Flycatchers),>(Pipromorpha) ~g(Muscicapa),7
+Contopus,6069,Tyrannidae,e(Pewees),~g(Muscicapa Nuttallornis Myiochanes Tyrannus Platyrhynchus Myiochanes Muscipeta Tyrannula Myiobius),16
+Ochthoeca,6087,Tyrannidae,p(Chat-Tyrants),x(Silvicultrix),9
+Ceratopipra,6135,Pipridae,e(Ceratopipra Manakins),<(Pipra) ~g(Dixiphia),5
+Myiobius,6137,Tityridae,e(Myiobiuses),~f(Tyrannidae) ~g(Muscicapa),4
+Terenotriccus,6139,Tityridae,m(Ruddy-tailed Flycatcher),~f(Tyrannidae) ~g(Myiobius),1
+Tityra,6141,Tityridae,e(Tityras),~f(Tyrannidae Cotingidae) <(Pachyramphus) ~g(Lanius Erator Pachyrhynchus),3
+Pachyramphus,6143,Tityridae,e(Becards),x(Tityra Xenopsaris) ~g(Vireo Muscicapa Todus Bathmidurus Platypsaris Querula Lanius Pachyrhynchus),17
+Menura,6145,Menuridae,e(Lyrebirds),,2
+Cormobates,6147,Climacteridae,e(Cormobates Treecreepers),<(Climacteris) ~g(Certhia),2
+Malurus,6149,Maluridae,e(Malurus Fairywrens) p(Fairywrens),~g(Todus Todopsis Motacilla Saxicola Rosina Muscicapa),12
+Acanthorhynchus,6151,Meliphagidae,e(Spinebills),~g(Certhia),2
+Myzomela,6153,Meliphagidae,e(Myzomelas),~g(Certhia Cinnyris Nectarinia),34
+Philemon,6155,Meliphagidae,e(Friarbirds),x(Melitograis ~g(Philedon Merops Tropidorhynchus),18
+Phylidonyris,6157,Meliphagidae,e(Phylidonyris Honeyeaters),~g(Certhia),3
+Nesoptilotis,6161,Meliphagidae,e(Nesoptilotis Honeyeaters),<(Lichenostomus) ~g(Turdus Melithreptus),2
+Melithreptus,6163,Meliphagidae,e(Melithreptus Honeyeaters),~g(Haematops Melliphaga Eidopsarus),7
+Meliphaga,6165,Meliphagidae,e(Meliphaga Honeyeaters),+(Lichenostomus) ~g(Ptilotis Meliphaga),3
+Lichenostomus,6167,Meliphagidae,e(Lichenostomus Honeyeaters),~g(Turdus) x(Nesoptilotis Bolemoreus Caligavis Stomiopera Gavicalis Ptilotula) n(formerly contained 20 spp),2
+Gavicalis,6169,Meliphagidae,e(Gavicalis Honeyeaters),<(Lichenostomus) ~g(Ptilotis Melithreptus),3
+Ptilotula,6171,Meliphagidae,e(Ptilotula Honeyeaters),<(Lichenostomus) ~g(Ptilotis Meliphaga),6
+Caligavis,6173,Meliphagidae,e(Caligavis Honeyeaters),<(Lichenostomus) ~g(Sylvia Ptilotis Meliphaga Melithreptus),3
+Anthochaera,6175,Meliphagidae,e(Wattlebirds),x(Acanthagenys) >(Zanthomiza) ~g(Merops Corvus),5
+Manorina,6177,Meliphagidae,e(Miners),~g(Turdus Gracula Myzantha),4
+Pardalotus,6179,Pardalotidae,e(Pardalotes),~g(Pipra),4
+Smicrornis,6181,Acanthizidae,m(Weebill),~g(Psilopus Sericornis),1
+Origma,6183,Acanthizidae,e(Origma and Mouse-Wrens),+(Crateroscelis),3
+Sericornis,6185,Acanthizidae,e(Scrubwrens),-(Aethomyias) ~f(Pardalotidae) ~g(Entomophila Acanthiza Crateroscelis Gerygone),8
+Gerygone,6187,Acanthizidae,e(Gerygones),~g(Curruca Psilopus Acanthiza),18
+Acanthiza,6189,Acanthizidae,e(Thornbills),~g(Motacilla Gerygone Saxicola),14
+Chalcothraupis,6947,Thraupidae,m(Golden-naped Tanager),+(Tangara),1
+Platysteira,6195,Platysteiridae,e(Wattle-eyes),>(Dyaphorphyia) ~g(Muscicapa),11
+Malaconotus,6197,Malaconotidae,e(Malaconotus Bushshrikes),~g(Laniarius),6
+Chlorophoneus,6199,Malaconotidae,e(Chlorophoneus Bushshrikes),~g(Telophorus Malaconotus),6
+Telophorus,6201,Malaconotidae,e(Telophorus Bushshrikes),~g(Chlorophoneus),4
+Tchagra,6203,Malaconotidae,e(Tchagras), x(Bocagia) ~g(Malaconotus Telephonus Thamnophilus),4
+Dryoscopus,6205,Malaconotidae,e(Puffbacks),~g(Thamnophilus Sigelus Lanius),6
+Laniarius,6207,Malaconotidae,e(Boubous),~g(Telephonus Dryoscopus Turdus),22
+Nilaus,6209,Malaconotidae,m(Brubru),~g(Lanius),1
+Prionops,6211,Vangidae,e(Helmetshrikes),~f(Malaconotidae Prionopidae),8
+Hemipus,6213,Vangidae,e(Flycatcher-shrikes),~f(Campephagidae) ~g(Muscicapa),2
+Tephrodornis,6215,Vangidae,e(Woodshrikes),~f(Campephagidae Prionopidae) ~g(Lanius Muscicapa),4
+Artamus,6217,Artamidae,e(Woodswallows),~g(Lanius Ocypterus Loxia),11
+Gymnorhina,6219,Artamidae,m(Australian Magpie),<(Cracticus) ~g(Coracias),1
+Cracticus,6221,Artamidae,e(Butcherbirds),x(Melloria Gymnorhina) ~g(Barita Lanius Bulestes Vanga Ramphastos),6
+Strepera,6223,Artamidae,e(Currawongs),~g(Corvus Coronica),3
+Aegithina,6225,Aegithinidae,e(Ioras),~g(Motacilla),4
+Pericrocotus,6227,Campephagidae,e(Minivets),~g(Muscicapa Lanius Motacilla Muscipeta),15
+Ceblepyris,6229,Campephagidae,e(Ceblepyris Cuckooshrikes),,5
+Coracina,6231,Campephagidae,e(Cicadabirds and Coracina Cuckooshrikes) p(Cuckooshrikes),>(Edoliisoma) ~g(Ceblepyris Pteropodocys Graucalus Turdus Artamides Corvus Campephaga Celebesia Muscicapa Oxynotus Coquus Volvocivora Lanius Malindangia) ,22
+Campephaga,6233,Campephagidae,e(Campephaga Cuckooshrikes) p(Cuckooshrikes),~g(Ampelis),4
+Lalage,6235,Campephagidae,e(Trillers and Lalage Cuckooshrikes),~g(Coracina),19
+Pachycephala,6237,Pachycephalidae,e(Whistlers),-(Colluricincla) ~g(Muscicapa Hyloterpe Sylvia Eopsaltria),48
+Colluricincla,6239,Pachycephalidae,e(Whrikethrushes),+(Pachycephala) x(Melanorectes) ~g(Melanorhectes Muscicapa Myiolestes Turdus),11
+Urolestes,6241,Laniidae,m(Magpie Shrike),<(Corvinella) ~g(Lanius),1
+Eurocephalus,6243,Laniidae,e(White-crowned Shrikes),~f(Prionopidae Malaconotidae) ,2
+Lanius,6245,Laniidae,e(Core Shrikes),~g(Collurio Otomela),29
+Erpornis,6249,Vireonidae,m(White-bellied Erpornis),~f(Timaliidae Zosteropidae) ~g(Yuhina Stachyris),1
+Cyclarhis,6251,Vireonidae,e(Peppershrikes),~f(Cyclarhidae) ~g(Tangara),2
+Vireolanius,6253,Vireonidae,e(shrike-Vireos),~f(Vireolanidae) ~g(Smaragdolanius Malaconotus),4
+Tunchiornis,6255,Vireonidae,m(Tawny-crowned Greenlet) p(Greenlets),<(Hylophilus),1
+Pachysylvia,6257,Vireonidae,m(Pachysylvia Greenlets) p(Greenlets),<(Hylophilus),1
+Vireo,6259,Vireonidae,e(Vireos),+(Hylophilius) >(Melodivireo Lawrencia Neochloe) ~g(Tangara Laniovireo Empidonax Laletes Muscicapa Vireosylvia),34
+Sphecotheres,6261,Oriolidae,e(Figbirds),,3
+Oriolus,6263,Oriolidae,e(Old World Orioles),>(Mimeta Xanthonotus) ~g(Philedon Coracias Mimetes Turdus Leptopteryx Pastor),29
+Dicrurus,6265,Dicruridae,e(Drongos),~g(Edolius Corvus Buchanga Lanius Bhuchanga Chaptia Bhringa Dicruropsis Dissemuroides Cuculus ),30
+Batis,6193,Platysteiridae,e(Batises),~g(Pachyprora Muscicapa Platystira),21
+Brachypteryx,6631,Muscicapidae,p(Shortwings),+(Turdidae) x(Heteroxenicus) ,10
+Pteruthius,6247,Vireonidae,e(Shrike-babblers),+(Timalidae),7
+Rhipidura,6267,Rhipiduridae,e(Fantails),>(Lamprolia) ~g(Hypothymis Muscipeta Platyrhynchos Muscylva Chelidorhynx Muscicapa Turdus Sauloprocta),50
+Trochocercus,6269,Monarchidae,e(Trochocercus Flycatchers),~g(Muscicapa Terpsiphone),2
+Terpsiphone,6271,Monarchidae,e(Paradise Flycatchers),~g(Trochocercus Muscipeta Muscicapa Corvus Zeocephus Tchitrea),16
+Grallina,6273,Monarchidae,e(Magpie-lark and Torrent-lark),~f(Struthideidae Dicruridae Monarchidae Cracticidae Artamidae Corvidae) ~g(Corvus),2
+Myiagra,6275,Monarchidae,e(Austro-Pacific Flycatchers),~g(Platyrhynchos Monarcha Piezorhynchus Drymophila Todus Turdus),19
+Cyanolyca,6277,Corvidae,e(Cyanolyca Jays) p(Jays),~g(Cyanocorax Garrulus Cyanocitta),9
+Cyanocorax,6279,Corvidae,e(Cyanocorax Jays) p(Jays),>(Uroleuca Psilorhinus Calocitta Xanthoura Cissilopha) ~g(Garrulus Pica Cyanocitta Corvus),17
+Psilorhinus,6281,Corvidae,m(Brown Jay) p(Jays),~g(Pica Cyanocorax),1
+Calocitta,6283,Corvidae,e(Magpie-Jays) p(Jays),~g(Pica Cyanocorax),2
+Cyanocitta,6285,Corvidae,e(Blue Jay and Steller’s Jay) p(Jays),~g(Corvus),2
+Aphelocoma,6287,Corvidae,e(Scrub Jays) p(Jays),~g(Corvus Cyanocorax Garrulus),7
+Garrulus,6289,Corvidae,e(Eurasian Jay and close relatives),~g(Corvus Lalocitta),3
+Cyanopica,6291,Corvidae,e(Auzure-winged and Iberian Magpies),,2
+Urocissa,6293,Corvidae,e(Blue Magpies and White-winged Magpie) p(Magpies),~g(Pica Cissa Psilorhinus Corvus Cissopica),5
+Cissa,6295,Corvidae,e(Green Magpies),~g(Coracias),4
+Dendrocitta,6297,Corvidae,e(Dendrocitta Treepies) p(Treepies),~g(Coracias Glaucopis),7
+Pica,6299,Corvidae,e(Pica Magpies) p(Magpies),~g(Corvus),7
+Nucifraga,6301,Corvidae,e(Nutcrackers),~g(Corvus),3
+Pyrrhocorax,6303,Corvidae,e(Choughs),~g(Upupa Corvus),2
+Coloeus,6305,Corvidae,e(Jackdaws),~g(Corvus) <(Corvus),2
+Corvus,6307,Corvidae,e(Crows and Ravens),x(Coelus) ~g(Gazzola Fregilus Nesocorax Macrocorax Rhinocorax Covultur),45
+Corcorax,6309,Corcoracidae,m(White-winged Chough),~f(Corvidae Grallinidae) ~g(Coracia ) ,1
+Eopsaltria,6311,Petroicidae,e(Eopsaltria Australasian Robins),-(Microeca) ~g(Motacilla Muscicapa),2
+Melanodryas,6313,Petroicidae,e(Melanodryas Australasian Robins),<(Petroica) ~g(Muscicapa),2
+Eupetes,6315,Eupetidae,e(Rail-babbler),~f(Timaliidae Cinclostomatidae),1
+Bombycilla,6317,Bombycillidae,e(Waxwings),~g(Lanius Bombycivora),3
+Ptiliogonys,6319,Ptiliogonatidae,e(Core Silky-flycatchers),~g(Ptilogonys Ptilogonatus),2
+Phainopepla,6321,Ptiliogonatidae,m(Phainopepla),~g(Ptiliogonys Myadestes),1
+Chelidorhynx,6323,Stenostiridae,m(Yellow-bellied Fantail),~f(Rhipiduridae) ,1
+Gracupica,6569,Sturnidae,e(Gracupia Starlings) p(Starlings),<(Sturnus) ~g(Gracula),2
+Culicicapa,6325,Stenostiridae,e(Canary-flycatchers),~f(Muscicapidae) ~f(Petroicidae) +(Muscicapa) ~g(Platyrhynchus),2
+Elminia,6327,Stenostiridae,e(Fairy Flycatchers),~f(Monarchidae) +(Trochocercus) ~g(Myiarga Errannanornis Terpisiphone),5
+Melanochlora,6329,Paridae,m(Sultan Tit),~f(Timaliidae) ~g(Parus),1
+Periparus,6331,Paridae,e(Pariparus Tits) ,<(Parus) x(Pardaliparus),3
+Lophophanes,6333,Paridae,e(Crested Tits),<(Parus) ,2
+Baeolophus,6335,Paridae,e(Titmice),<(Parus) ~g(Lophophanes),5
+Poecile,6337,Paridae,e(Poecile Tits) ,<(Parus) x(Sittiparus),15
+Cyanistes,6339,Paridae,e(Blue Tits),<(Parus) ,3
+Parus,6341,Paridae,e(Parus Tits),x(Periparus Lophophanes Baeolophus Poecile Cyanistes Maclolophus Melaniparus ) ,4
+Machlolophus,6343,Paridae,e(Machlolophus Tits),<(Parus),5
+Melaniparus,6345,Paridae,e(Melaniparus Tits),<(Parus) ~g(Melanoparus),15
+Anthoscopus,6347,Remizidae,e(Anthoscopus Penduline Tits),~g(Aegithalus Sylvia),6
+Auriparus,6349,Remizidae,m(Verdin),~f(Paridae Coerebidae) ~g(Aegithalus),1
+Nicator,6351,Nicatoridae,e(Nicators),,3
+Eremopterix,6353,Alaudidae,e(Sparrow-Larks),+(Mirafra) ~g(Coraphites),8
+Calendulauda,6355,Alaudidae,e(Calendulauda Larks),>(Mirafra Certhilauda),8
+Mirafra,6357,Alaudidae,e(Mirafra Larks),-(Eremopterix) x(Calendulauda) ~g(Alauda Spilocorydon Megalophonus Certhilauda),24
+Alauda,6359,Alaudidae,e(Skylarks and close relatives),+(Melanocorypha) ~g(Melanocorypha Spizocorys Calandrella Razocorys),4
+Galerida,6361,Alaudidae,e(Galerida Larks),~g(Alauda Calendula Galerita),7
+Calandrella,6363,Alaudidae,e(Calandrella Larks),-(Alaudala) ~g(Alauda),6
+Alaudala,6365,Alaudidae,e(Alaudula Larks),<(Calandrella) ~g(Alaudula Spizocorys),5
+Andropadus,6367,Pycnonotidae,e(Sombre Greenbul) p(Greenbuls),<(Pycnonotus) x(Arizelocichla Stelgidillas Eurillas) ~g(Turdus),1
+Chlorocichla,6369,Pycnonotidae,e(Chlorocichla Greenbuls) p(Greenbuls),x(Atimastillas) ~g(Andropadus Trichophorus Cringer),5
+Arizelocichla,6371,Pycnonotidae,e(Arizelocichla Bulbuls) p(Bulbuls),,12
+Eurillas,6373,Pycnonotidae,e(Eurillas Greenbuls) p(Greenbuls),<(Andropadus Pycnonotus) ~g(Pcynonotus),5
+Phyllastrephus,6375,Pycnonotidae,e(Phyllastrephus Greenbuls) p(Greenbuls),,20
+Alophoixus,6377,Pycnonotidae,e(Alophoixus Bulbuls) p(Bulbuls),~g(Criniger Trichophorus Lanius Ixos Trichixos),8
+Hemixos,6379,Pycnonotidae,e(Hemixos Bulbuls) p(Bulbuls),~g(Hypsipetes Microscelis Iole),4
+Acritillas,6381,Pycnonotidae,m(Yellow-browed Bulbul),,1
+Hypsipetes,6383,Pycnonotidae,e(Hypsipetes Bulbuls) p(Bulbuls),x(Tricholestes Iole Hemixos Cerasophila) >(Thapsinillas Cerasophila) +(Ixos Microcelis) ~g(Turdus Criniger),19
+Rubigula,6385,Pycnonotidae,e(Rubigula Bulbuls),<(Pycnonotus),5
+Pycnonotus,6387,Pycnonotidae,e(Classic Bulbuls) p(Bulbuls),x(Andropadus Eurillas Euptilotus Microtarsus Poliolophus Brachypodius Ixodia Rubigula) ~g(Sturnus Trachycomus Trichophorus Alcurus Ixos Microtarsus Brachypus Brachypodius Turdus Muscicapa Vanga Rubigula Ixidia Lanius Otocompsa Ixus Poliolophus Kelaartia Xanthixus Xanthiscus Haematornis) n(extensive recent revision to correct polyphyly),32
+Psalidoprocne,6389,Hirundinidae,e(Saw-wings),~g(Atticora Hirundo Chelidon),5
+Riparia,6391,Hirundinidae,e(Riparia Martins),~g(Hirundo Cotile Neophedina),6
+Tachycineta,6393,Hirundinidae,e(Tachycineta Swallows),~g(Hirundo Iridoprocne Petrochelidon Lamprochelidon Kalochelidon Callichelidon),9
+Atticora,6395,Hirundinidae,e(White-banded Swallow and Black-collared Swallow),~g(Pygochelidon Hirundo),2
+Enicurus,6637,Muscicapidae,e(Forktails),~g(Motacilla Turdus),8
+Pygochelidon,6397,Hirundinidae,e(Blue-and-white and Black-collared Swallows),+(Notiochelidon) ~g(Hirundo) ,2
+Orochelidon,6399,Hirundinidae,,+(Notiochelidon Haplochelidon) ~g(Hirundo),3
+Stelgidopteryx,6401,Hirundinidae,e(Rough-winged Swallows),~g(Hirundo),2
+Progne,6403,Hirundinidae,e(Progne Martins),~g(Hirundo),9
+Pseudhirundo,6405,Hirundinidae,m(Grey-rumped Swallow),~g(Hirundo),1
+Ptyonoprogne,6407,Hirundinidae,e(Crag Martins),~g(Hirundo),4
+Hirundo,6409,Hirundinidae,e(Hirundo Swallows),~g(Natalornis),15
+Delichon,6411,Hirundinidae,e(House Martins),~g(Hirundo Chelidon),3
+Cecropis,6413,Hirundinidae,e(Cecropis Swallows),~g(Hirundo),9
+Petrochelidon,6415,Hirundinidae,e(Cliff Swallows and relatives),~g(Hirundo Lecythoplastes Collocalia),11
+Pnoepyga,6417,Pnoepygidae,e(Cupwings or True Wren-babblers),<(Timalidae),5
+Sphenoeacus,6419,Macrosphenidae,m(Cape Grassbird),~f(Sylviidae),1
+Sylvietta,6421,Macrosphenidae,e(Crombecs),~f(Sylviidae) ~g(Sylviella Dicaeum),9
+Abroscopus,6423,Cettiidae,e(African Yellow Warblers),~f(Sylviidae) ~g(Abrornis Culicipeta),3
+Phylloscopus,6431,Phylloscopidae,e(Leaf warblers and Woodland warblers and Chiffchaffs),~f(Sylviidae) UM ~g(Pogonocicla Seicercus Cryptoloca Sylvia Ficedula Motacilla Phyllopneuste Phillopnesute Horornis Abrornis Herbivocula Reguloides Regulus Acanthiza Acanthopneuste Cryptolopha Mochthopoeus) n(several species may belong in Seicercus),80
+Acrocephalus,6433,Acrocephalidae,e(Reed Warblers and relatives),~f(Sylviidae) -(Acrocephalus) ~g(Calamoherpe Calamodyta Bradypterus Ellisia Bebrornis Drymoeca Turdus Salicaria Curruca Tatare Thryothorus Sylvia Sitta Conopoderas Motacilla),37
+Iduna,6435,Acrocephalidae,e(Yellow Warblers and Olivaceous Warblers),~f(Sylviidae) +(Acrocephalus) -(Calamonastides) ~g(Muscicapa Phragmaticola Chloropeta Sylvia Hippolais Carruca),6
+Hippolais,6437,Acrocephalidae,e(Hippolais Warblers),~f(Sylviidae) ~g(Curruca Salicaria Sylvia),4
+Bradypterus,6439,Locustellidae,e(Bradypterus Warblers),,12
+Donacobius,6441,Donacobiidae,m(Black-capped Donacobius),~g(Turdus),1
+Cisticola,6443,Cisticolidae,e(Cisticolas),~f(Sylviidae) ~g(Drymoceca Drymoica Drymoeca Malurus Sylvia Dryodromas Apalis Malurus),51
+Schistolais,6447,Cisticolidae,e(Schisolais Prinias) p(Prinias),~f(Sylviidae) ~g(Drymoeca Prinia),2
+Oreolais,6449,Cisticolidae,e(Oreolais Apalises) p(Apalises),~f(Sylviidae) <(Apalis),2
+Agropsar,6571,Sturnidae,e(Agrospar Starlings) p(Starlings),<(Sturnus) ~g(Gracula Sturnia Motacilla),2
+Apalis,6451,Cisticolidae,e(Core Apalises) p(Apalises),~f(Sylviidae) x(Oreolais) ~g(Motacilla Drymoeca Dryodromas Eremomela Burnesia Drymoica Eupirnoides Euprinodes Cisticola),24
+Eminia,6453,Cisticolidae,m(Grey-capped Warbler),~f(Sylviidae) ~g(Hypergerus),1
+Camaroptera,6455,Cisticolidae,e(Camaropteras),~f(Sylviidae) ~g(Sylvia),5
+Bathmocercus,6457,Cisticolidae,e(Rufous Apalises),~f(Sylviidae) x(Scepomycter) ~g(Apalis),2
+Orthotomus,6459,Cisticolidae,e(True Tailorbirds),~f(Sylviidae) ~g(Motacilla Edela),13
+Eremomela,6461,Cisticolidae,e(Eremomelas),~f(Sylviidae) ~g(Sylvietta Malcorus Sylvia),11
+Sylvia,6463,Sylviidae,e(Whitethroats and other Sylvia Warblers),>(Horizorhinus Parophasma Pseudoalcippe Lioptilus) x(Curruca) ~g(Motacilla) n(extensive recent revisions),7
+Curruca,6465,Sylviidae,e(Curruca Babblers),<(Sylvia),27
+Chrysomma,6467,Paradoxornithidae,e(Yellow-eyed Babbler and Jerdon’s Babbler),~f(Timaliidae Sylviidae) +(Moupinia) ~g(Parus),2
+Chamaea,6469,Paradoxornithidae,m(Wrentit),~f(Timaliidae Sylviidae Chamaeidae Paridae Aegithalidae) ~g(Chryosomma Moupinia),1
+Sinosuthora,6471,Paradoxornithidae,e(Parrotbills),~f(Sylviidae) +(Suthora) ~g(Paradoxornis),6
+Staphida,6473,Zosteropidae,e(Staphida Yuhinas) p(Yuhinas),<(Yuhina),3
+Dumetia,6477,Timaliidae,m(Tawny-bellied Babbler),>(Rhopocichla) ~g(Timalia),2
+Mixornis,6479,Timaliidae,e(Mixornis Tit-Babblers) p(Tit-Babblers),<(Macronus),4
+Erythrogenys,6483,Timaliidae,e(Pomatorhinus Scimitar Babblers) p(Scimitar Babblers),<(Pomatorhinus),6
+Stachyris,6485,Timaliidae,p(Babblers),>(Sphenocichla) ~g(Timalia Macronus),13
+Schoeniparus,6487,Pellorneidae,e(Pellorneid Fulvettas),<(Alcippe),7
+Pellorneum,6489,Pellorneidae,p(Babblers),<(Timaliidae) >(Trichastoma) ~g(Malacocincla Neornis Myiothera Drymocataphus Brachypteryx),13
+Kenopia,6491,Pellorneidae,m(Striped Wren-babbler),<(Timalidae) ~g(Timalia),1
+Alcippe,6493,Alcippeidae,e(Alcippe Fulvettas),~f(Timaliidae Pellorneidae) ~g(Thimalia Hyloterpe Mesia Siva Napothera Minla Pseudominla Schoeniparus),10
+Trochalopteron,6495,Leiothrichidae,e(Trochalopteron Laughingthrushes) p(Laughingthrushes),<(Timaliidae) <(Garrulax) x(Montecincla) >(Strophocincla) ~g(Cratopterus Cinclosoma Ianthocincla),19
+Montecincla,6497,Leiothrichidae,e(Western Ghat Endemic Laughingthruses) p(Laughingthrushes),<(Trochalopteron),4
+Heterophasia,6499,Leiothrichidae,e(Sibias),<(Timaliidae) >(Malacias) ~g(Leioptila Minla Cinclosoma Malacias Hypsipetes Sibia Kittacincla),7
+Actinodura,6501,Leiothrichidae,e(Barwings),~f(Timaliidae) ~g(Cinclosoma Actinura),9
+Leiothrix,6503,Leiothrichidae,e(Mesia and Leiothrix),<(Timaliidae),2
+Argya,6505,Leiothrichidae,e(Argya Babblers),<(Turdoides),16
+Turdoides,6507,Leiothrichidae,e(Turdoides Babblers),<(Timaliidae) ~g(Acanthoptila Crateroperus Cossyphus Malacocercus Chatarrhoea Pyctorhis Timalia Malurus Turdus Argya Crateropus Timalia Malacocercus Malacocircus Ixos Turdoides Cratopus),19
+Luscinia,6633,Muscicapidae,e(Nightingales and close relatives), x(Larvivora Calliope) >(Hodgsonius) ~g(Motacilla Erithacus Bradypterus Motacilla),4
+Myiomela,6635,Muscicapidae,e(Myiomela Robins),~g(Muscisylvia Cinclidium) n(HBW recognizes 3 spp),2
+Prinia,6445,Cisticolidae,e(Core Prinias) p(Prinias),~f(Sylviidae) ~g(Pomatorhinus Malurus Suya Sylvia Orthotomus Motacilla Burnesia Drymoeca Drymoica Herpystera),30
+Zosterops,6475,Zosteropidae,e(Core White-eyes),>(Speirops Woodfordia) ~g(Parinia Sylvia Dicaeum Muscicapa Drepanis Tephras Motacilla Certhia),101
+Pomatorhinus,6481,Timaliidae,e(Pomatorhinus Scimitar Babblers) p(Scimitar Babblers),>(Xiphirhynchus) -(Erythrogenys),11
+Garrulax,6509,Leiothrichidae,e(Garrulax Laughingthrushes) p(Laughingthrushes),<(Timaliidae) x(Trochalopteron) >(Leucodiopteron Stactocicla Ianthocincla Dryonastes Rhinocichla Melanocichla Babax) ~g(Turdus Pterorhinus Garrulax Corvus Janthocincla Pterorhinus Cinclosoma Lanius Cratopterus Grammoptila Garrulus) n(recent revisions; may require further revision),14
+Pterorhinus,6511,Leiothrichidae,e(Pterorhinus Babblers),<(Garrulax),23
+Promerops,6513,Promeropidae,e(Sugarbirds),~g(Merops),2
+Corthylio,6515,Regulidae,m(Ruby-crowned Kinglet) p(Kinglets),<(Regulus),1
+Regulus,6517,Regulidae,e(Firecrests and Goldcrests) p(Kinglets),x(Corthylio) ~g(Sylvia Motacilla),5
+Campylorhynchus,6519,Troglodytidae,e(Campylorhynchus Wrens),~g(Heleodytes Picolaptes Furnarius Opetiorhynchus),15
+Salpinctes,6521,Troglodytidae,m(Rock Wren),~g(Troglodytes),1
+Catherpes,6523,Troglodytidae,m(Canyon Wren),~g(Thryothorus Salpinctes),1
+Thryomanes,6525,Troglodytidae,m(Bewick’s Wren),~g(Thryothorus),1
+Pheugopedius,6527,Troglodytidae,e(Pheugopedius Wrens),<(Thryothorus) ~g(Turdus),12
+Thryophilus,6529,Troglodytidae,e(Thryophilus Wrens),<(Thryothorus) ~g(Pheugopedius),5
+Cantorchilus,6531,Troglodytidae,e(Cantilorchus Wrens),<(Thryothorus) ,12
+Thryothorus,6533,Troglodytidae,m(Carolina Wren),x(Pheugopedius Thryophilus Cantorchilus) ~g(Sylvia),1
+Troglodytes,6535,Troglodytidae,e(Troglodytes Wrens),~g(Motacilla Nannus Thryomanes Thryothorus),12
+Henicorhina,6537,Troglodytidae,e(Wood Wrens),~g(Cyphorhinus Troglodytes),5
+Microcerculus,6539,Troglodytidae,e(Nightingale Wrens),~g(Cyphorhinus Heterocnemis Formicarius),4
+Cyphorhinus,6541,Troglodytidae,e(Cyphorhinus Wrens),~g(Myrmornis) n(several proposed splits),3
+Ramphocaenus,6543,Polioptilidae,m(Long-billed Gnatwren),,2
+Polioptila,6545,Polioptilidae,e(Gnatcatchers),~g(Motacilla Culicivora Todus Sylvia),16
+Sitta,6547,Sittidae,e(Nuthatches),~g(Calositta Dendrophila Oenositta Poecilositta Callisitta),28
+Certhia,6549,Certhiidae,e(Treecreepers),,9
+Dumetella,6551,Mimidae,m(Grey Catbird),~g(Dumetella Melanoptila Galeoscoptes),1
+Melanoptila,6553,Mimidae,m(Black Catbird),~g(Dumetella),1
+Mimus,6555,Mimidae,e(Mimus Mockigbirds) p(Mockigbirds),>(Parvulus Mimodes Nesomimus) ~g(Turdus Orpheus Harporhynchus),14
+Toxostoma,6557,Mimidae,e(Toxostoma Thrashers) p(Thrashers),~g(Turdus Orpheus Harporhynchus Harpes),10
+Margarops,6559,Mimidae,m(Pearly-eyed Thrasher) p(Thrashers),x(Allenia) ~g(Turdus) ,1
+Aplonis,6561,Sturnidae,e(Aplonis Starlings) p(Starlings),~g(Lamprotornis Aplornis Calornis Rhinospar Lamprocorax Coracias Muscicapa Lamprothornis Lanius),22
+Spodiopsar,6567,Sturnidae,e(Aplonis Starlings) p(Starlings),<(Sturnus) ~g(Poliopsar),2
+Sturnia,6573,Sturnidae,e(Sturnia Starlings) p(Starlings),<(Sturnus) ~g(Oriolus Turdus Temenuchus),5
+Sturnus,6575,Sturnidae,e(Common Starling and Spotless Starling) p(Starlings),x(Acridotheres Spodiospar Gracupia Agropsar Sturnia Sturnornis Pastor),2
+Creatophora,6577,Sturnidae,m(Wattled Starling) p(Starlings),~g(Rallus),1
+Notopholia,6579,Sturnidae,m(Black-bellied Starling) p(Starlings),<(Sturnus) ~g(Lamprotornis),1
+Lamprotornis,6581,Sturnidae,e(Glossy Starlings) p(Starlings),x(Notopholia Hylopsar) >(Spreo) ~g(Turdus Sturnus Coccycolius Cosmopsarus Juida Megalopterus Lamprocolius Notauges),23
+Cinnyricinclus,6583,Sturnidae,m(Violet-backed Starling) p(Starlings),~g(Turdus),1
+Onychognathus,6585,Sturnidae,e(Chestnut-winged Starlings) p(Starlings),~g(Turdus Lamprotornis Amydrus Galeopsar Ptilonorhynchus),11
+Buphagus,6587,Buphagidae,e(Oxpeckers),~f(Sturnidae) ~g(Buphaga Tangara),2
+Sialia,6589,Turdidae,e(Bluebirds),~g(Motacilla),3
+Myadestes,6591,Turdidae,e(Myadestes Solitaires and Hawaiian Thrushes) p(Solitaires),>(Phaeornis) ~g(Muscicapa Ptiliogonys Myidestes Myiadestes Muscipeta),11
+Ixoreus,6593,Turdidae,m(Varied Thrush),~g(Turdus Zoothera),1
+Hylocichla,6595,Turdidae,m(Wood Thrush),<(Catharus) ~g(Turdus),1
+Catharus,6597,Turdidae,e(Nightingale-Thrushes),~g(Turdus Myioturdus Malacocychla Malacocichla Hylocichla Muscicapa),13
+Geokichla,6599,Turdidae,e(Geokichla Thrushes),<(Zoothera) ~g(Geocichla Turdus Chamaetylus Oreocincla),21
+Cercotrichas,6603,Muscicapidae,e(Scrub Robins),>(Erythropygia) ~g(Sylvia Cossypha Thamnobia Turdus),10
+Copsychus,6605,Muscicapidae,e(Shamas and Magpie-Robins),>(Saxicoloides Trichixos Kittacincla) ~g(Motacilla Gracula Turdus Muscicapa Cittocincla Saxicoloides Thamnobia Sylvia),12
+Melaenornis,6607,Muscicapidae,e(Melaenornis Flycatchers),>(Sigelus Empidornis Namibornis) x(Bradornis) ~g(Muscicapa Maloenornis Melasoma Sylvia Musicapa Saxicola Lanius),12
+Empidornis,6609,Muscicapidae,m(Silverbird),~g(Muscicapa Melaenornis),1
+Muscicapa,6611,Muscicapidae,e(Muscicapa Flycatchers),-(Culicicapa Ficedula) ~g(Motacilla Alseonax Hemichelidon Butalis Parisoma Pedilorhynchus Artomyias Myiopornis),26
+Anthipes,6613,Muscicapidae,e(Anthipes Flycatchers),<(Ficedula) ~g(Muscicapa Digenea),2
+Niltava,6617,Muscicapidae,e(Niltavas),~g(Chaitaris),6
+Erithacus,6621,Muscicapidae,m(European Robin),~g(Motacilla),1
+Chamaetylas,6623,Muscicapidae,e(Alethes),,4
+Pogonocichla,6627,Muscicapidae,m(White-starred Robin),,1
+Cichladusa,6629,Muscicapidae,e(Palm Thrushes),~g(Bradyornis Crateropus),3
+Acridotheres,6565,Sturnidae,e(Classic Mynas) p(Mynas),+(Sturnus) ~g(Gracula Pastor Turdus Paradisea Sturnia),11
+Cyornis,6615,Muscicapidae,e(Cyornis Flycatchers),+(Rhinomyias) ~g(Siphia Muscicapa Schwaneria Phoenicura Niltava Microeca Trichostoma Setaria) n(some species transferred to Eumyias),32
+Eumyias,6619,Muscicapidae,e(Eurymias Flycatchers),+(Rhinomyias) ~g(Glaucomyias Muscicapa Microeca) n(some species transferred from Cyornis),11
+Cossypha,6625,Muscicapidae,e(Robin-Chats),~g(Dryocichloides Sheppardia Oreocossypha Callene Alethe Motacilla Dessonornis Bessonornis Caffrornis Dryocichloides Petrocincla Muscicapa Turdus) >(Xenocopsychus) ,13
+Myophonus,6639,Muscicapidae,e(Whistling Thrushes),~f(Turdidae) ~g(Arrenga Pitta Myiophoneus Myophonus Gracula),9
+Ficedula,6641,Muscicapidae,e(Ficedula Flycatchers),-(Anthipes) +(Muscicapa) ~g(Motacilla Siphia Saxicola Dendrobiastes Cyornis Erythromyias Dammeria Digenea),34
+Phoenicurus,6643,Muscicapidae,e(Redstarts),>(Rhyacornis Chaimarrornis) ~g(Rutirilla Sylvia Motacilla Ruticilla Erythacus Phoenicura Phoenicuropsis Adelura),14
+Saxicola,6647,Muscicapidae,e(Bush Chats and Stonechats),~g(Motacilla Pratincola Muscicapa Oreicola Oenanthe),15
+Emarginata,6649,Muscicapidae,e(Emarginata Chats),~g(Emarginata),3
+Thamnolaea,6651,Muscicapidae,e(Cliff Chats),-(Monticola) ~g(Turdus Myrmecocichla Dromolaea),2
+Myrmecocichla,6653,Muscicapidae,e(Myrmecocichla Chats),+(Oenanthe Pentholaea) ~g(Saxicola Motacilla Thamnolaea),8
+Cinclus,6657,Cinclidae,e(Dippers),~g(Sturnus),5
+Chloropsis,6659,Chloropseidae,e(Leafbirds),~g(Phyllornis Turdus),11
+Dicaeum,6661,Dicaeidae,e(Dicaeum Flowerpeckers),~g(Acmonorhynchus Fringilla Prionochilus Pachyglossa Pipra Certhia Nectarina Motacilla Myzanthe),43
+Anthreptes,6663,Nectariniidae,e(Anthreptes Sunbirds),~g(Nectarinia Certhia Anthothreptus Cinnyris),14
+Hedydipna,6665,Nectariniidae,e(Hedydipna Sunbirds),<(Anthreptes) ~g(Cinnyris Anthodiaeta),4
+Anthobaphes,6667,Nectariniidae,m(Orange-breasted Sunbird),~g(Certhia Nectarinia),1
+Cyanomitra,6669,Nectariniidae,e(Cyanomitra Sunbirds),<(Nectarinia) ~g(Certhia) ,7
+Chalcomitra,6671,Nectariniidae,e(Chalcomitra Sunbirds),<(Nectarinia) ~g(Cinnyris Certhia) ,7
+Leptocoma,6673,Nectariniidae,e(Leptocoma Sunbirds),<(Nectarinia) ~g(Certhia Cinnyris Chalcostetha) ,6
+Drepanorhynchus,6677,Nectariniidae,m(Golden-winged Sunbird),<(Nectarinia) ~g(Cyanomitra) ,1
+Cinnyris,6679,Nectariniidae,e(Cinnyris Sunbirds),<(Nectarinia) >(Melanocinnyris Chrysocinnyris Haplocinnyris Paradelornis) ~g(Certhia Cyanomitra) ,56
+Aethopyga,6681,Nectariniidae,e(Aethopyga Sunbirds),~g(Cinnyris Phillipina Nectarinia Certhia Duyvena),22
+Arachnothera,6683,Nectariniidae,e(true Spiderhunters),~g(Certhia),13
+Petronia,6685,Passeridae,m(Rock Sparrow),~g(Fringilla),1
+Gymnoris,6687,Passeridae,e(Petronias),<(Petronia) ~g(Gymnorhis Xanthodira Fringilla),4
+Passer,6689,Passeridae,e(Classic Sparrows),~g(Fringilla Pyrgita Loxia Pseudostruthus Auripasser Sorella),28
+Bubalornis,6691,Ploceidae,e(Bubalornis Buffalo Weavers) p(Buffalo Weavers),~g(Coccothraustes),2
+Dinemellia,6693,Ploceidae,m(White-headed Buffalo Weaver) p(Buffalo Weavers),~g(Textor),1
+Plocepasser,6695,Ploceidae,m(White-browed Sparrow-Weaver),~f(Passeridae) ~g(Ploceus Fullerellus),4
+Histurgops,6697,Ploceidae,m(Rufous-tailed Weaver),~f(Passeridae),1
+Pseudonigrita,6699,Ploceidae,m(Grey-capped Social Weaver),~f(Passeridae) ~g(Nigrita Somalita),2
+Sporopipes,6701,Ploceidae,e(Scaly-feathered Weaver and Speckle-fronted Weaver),~g(Estrelda Loxia),2
+Amblyospiza,6703,Ploceidae,m(Thick-billed Weaver),~(Phyrrula),1
+Quelea,6709,Ploceidae,e(Queleas),~f(Emberizidae) ~g(Emberiza),3
+Euplectes,6711,Ploceidae,e(Bishops and Widowbirds),~g(Loxia Taha Groteiplectes Emberiza Vidua Penthetria Fringilla Drepanoplectes),17
+Stagonopleura,6713,Estrildidae,e(Stagnopleura Firetails) p(Firetails),~g(Loxia Zonaeginthus Fringilla Zonaeginthus Emblema),3
+Neochmia,6715,Estrildidae,e(Neochima Finches),x(Bathilda Aidemosyne) ~g(Fringilla Aegintha Amadina),4
+Lonchura,6719,Estrildidae,e(Lonchura mannikins and munias),x(Spermestes) >(Odontospiza Lepidopygia Euodice Heteromunia) ~g(Amadina Plocus Loxia Munia Mayrimunia Donacicola Donacola Padda) ,31
+Coccopygia,6721,Estrildidae,c(Scarlet-rumped Waxbills),<(Estrilda),3
+Amadina,6725,Estrildidae,e(Red-headed Finch and Cut-throat Finch),~g(Loxia),2
+Granatina,6727,Estrildidae,e(Grenadiers),<(Uraeginthus) ~g(Fringilla),2
+Uraeginthus,6729,Estrildidae,e(Cordon-bleus),x(Granatina) ~g(Fringilla Estrilda),5
+Spermophaga,6731,Estrildidae,e(Bluebills),~g(Spermospiza Loxia),3
+Pytilia,6733,Estrildidae,e(Pytilias),~g(Pytelia Fringilla),5
+Hypargos,6735,Estrildidae,e(Hypargos Twinspots) p(Twinspots),,2
+Vidua,6739,Viduidae,e(Indigobirds and Whydahs),~g(Fringilla Hypochera Linura Tetraenura Emberiza Steganura),19
+Prunella,6741,Prunellidae,e(Accentors),~g(Sturnus Liascopus Motacilla),13
+Motacilla,6743,Motacillidae,e(Classic Wagtails) p(Wagtails),,13
+Macronyx,6745,Motacillidae,e(Longclaws),~g(Hemimacronyx Tmetothylacus Anthus Alauda),8
+Anthus,6747,Motacillidae,e(Classic Pipits),~g(Alauda Agrodroma Motacilla Heterura Hemimacronyx),46
+Fringilla,6749,Fringillidae,e(Chaffinches),,4
+Hesperiphona,6751,Fringillidae,e(Evening Grosbeak and Hooded Grosbeak),~g(Fringilla Guiraca Coccuthraustes),2
+Pyrrhula,6753,Fringillidae,e(Bullfinches),~g(Loxia),7
+Carpodacus,6755,Fringillidae,e(core Rosefinched) p(Rosefinches),x(Agraphospiza Procarduelis) >(Haematospiza Chaunoproctus Koslowia Leucosticte Uragus Pinicola),26
+Haemorhous,6757,Fringillidae,e(Haemorhous Finches),+(Carpodacus) ~g(Fringilla),3
+Chloris,6759,Fringillidae,e(Greenfinches),<(Carduelis) ~g(Loxia Fringilla Hypacanthis Chrysomitris),5
+Monticola,6645,Muscicapidae,e(Rock Thrushes),>(Pseudocossyphus) +(Thamnolaea) ~g(Saxicola Myrmecocichla Turdus Petrocincla Oreocetes Cossypha) ,14
+Oenanthe,6655,Muscicapidae,e(Wheatears),-(Myrmecocichla) +(Pentholaea Cercomela) ~g(Motacilla Campicola Saxicola Vitiflora Dromolaea),33
+Spermestes,6717,Estrildidae,e(Spermestes Mannikins),<(Lonchura) >(Odontospiza),4
+Anaplectes,6707,Ploceidae,e(Red-headed Weaver and Red Weaver),<(Malimbus) ~g(Hyphanthornis),2
+Estrilda,6723,Estrildidae,e(Waxbills),x(Coccopygia Brunhilda Glaucestrilda) ~g(Fringilla Estrelda Amandava Habropyga Loxia Astrilda Krimhilda),11
+Lagonosticta,6737,Estrildidae,e(Firefinches),~g(Habropyga Estrilda Fringilla Estrelda Amadina),10
+Crithagra,6761,Fringillidae,e(Crithagra Fringillids),>(Pseudochloroptila Neospiza) -(Serinus) ~g(Linurgus Amblyospyza Neospiza Dendrospiza Linaria Ochrospiza Carduelis Poliospiza Loxia Spinus Crithagra Strobilophaga Pyrrhula),37
+Linaria,6763,Fringillidae,e(Linnets),<(Carduelis) ~g(Fringilla Acanthis Pseudacanthis Warsanglia),4
+Acanthis,6765,Fringillidae,e(Redpolls),~g(Fringilla Carduelis Linota) n(species taxonomy of redpolls is unsettled),3
+Carduelis,6767,Fringillidae,e(European Goldfinch and close relatives),x(Linaria Spinus Acanthis Chloris) ~g(Fringilla Serinus),3
+Serinus,6769,Fringillidae,e(Serins),x(Chrysocorythus) +(Crithagra) ~g(Passer Fringilla Emberiza),8
+Spinus,6771,Fringillidae,e(New World Goldfinches and Siskins),<(Carduelis) ~g(Chrysomitris Fringilla Chrysomitris Sporagra),20
+Chlorophonia,6773,Fringillidae,e(Chlorophonias and Blue-hooded Euphonias),+(E. elegantissima E. musica E. cyanocephala) <(Euphonia) ~f(Thraupidae) ~g(Pipra Triglyphidia),8
+Euphonia,6775,Fringillidae,e(Euphonias),-(E. elegantissima E. musica E. cyanocephala) ~f(Thraupidae) ~g(Fringilla Tangara Phonasca Pipra Euphone),25
+Emberiza,6777,Emberizidae,e(Buntings),>(Melophus Latoucheornis) ~g(Junco Miliaria Euspiza Fringillaria Ocyris Cristemberiza Polymitra Granativora Cynchramus Schoeniclus Schoenicola),44
+Chlorospingus,6779,Passerellidae,e(Bush Tanagers),~f(Thraupidae Emberizidae) ~g(Arremon Hylospingus Pipliopsis Tachyphonus),8
+Ammodramus,6781,Passerellidae,e(Ammodrammus New World Sparrows),~f(Emberizidae) >(Myospiza) -(Ammospiza Centronyx) ~g(Fringilla Tangara Oriolus Emberiza) n(polyphyletic as traditionally defined),3
+Arremonops,6783,Passerellidae,e(Arremonops New World Sparrows),~f(Emberizidae) ~g(Embernagra Arremon),4
+Spizella,6785,Passerellidae,e(Spizella New World Sparrows),~f(Emberizidae) x(Spizelloides) ~g(Fringilla Passerella Spinites),6
+Arremon,6787,Passerellidae,e(Arremon New World Sparrows),~f(Emberizidae) >(Buarremon) ~g(Tanagra Embernagra Atlapetes Lysurus),19
+Passerella,6789,Passerellidae,e(Fox Sparrows),~f(Emberizidae) ~g(Fringilla Zonotrichia Emberiza),4
+Junco,6791,Passerellidae,e(Juncos),~f(Emberizidae) ~g(Zonotrichia Fringilla),5
+Zonotrichia,6793,Passerellidae,e(Zonotrichia New World Sparrows),~f(Emberizidae) ~g(Fringilla Emberiza),5
+Passerculus,6795,Passerellidae,m(Savannah Sparrow),~f(Emberizidae) ~g(Emberiza Ammodramus),1
+Melospiza,6797,Passerellidae,e(Melospiza New World Sparrows),~f(Emberizidae) ~g(Fringilla),3
+Melozone,6799,Passerellidae,e(Melozone Towhees and Ground Sparrows),~f(Emberizidae) +(Piplio) -(Kieneria) >(Pyrgisoma) ~g(Fringilla Pyrgita) n(possibly paraphyletic as currently constituted),8
+Pipilo,6801,Passerellidae,e(Classic Towhees) p(Towhees),~f(Emberizidae) -(Melzone) ~g(Fringilla Buarremon),4
+Atlapetes,6803,Passerellidae,e(Brushfinches),~f(Emberizidae) >(Pselliophorus) ~g(Tanagra Arremon Embernagra Buarremon Carenochrous Emberiza) n(possibly paraphyletic as currently constituted),33
+Nesospingus,6805,Neospingidae,m(Puerto Rican Tanager),~f(Thraupidae) ~g(Chlorospingus),1
+Spindalis,6807,Spindalidae,e(Spindalises),~f(Thraupidae) ~g(Fringilla Tanagra),4
+Sturnella,6809,Icteridae,e(North American Meadowlarks),<(Leistes ) ~g(Alauda Emberiza Trupialis Pezites Sturnus),2
+Leistes,6811,Icteridae,e(Tropical Meadowlarks),<(Sturnella),5
+Amblycercus,6813,Icteridae,m(Yellow-billed Cacique),~g(Sturnus),1
+Psarocolius,6815,Icteridae,e(Psarocolius Oropendolas),>(Zarhynchus) ~g(Cacicus Cassicus Xanthornus Oriolus Gymnostinops Ostinops),9
+Ixothraupis,6945,Thraupidae,e(Ixothraupis Tanagers),+(Tangara),5
+Icterus,6819,Icteridae,e(Orioles),~g(Xanthornus Psarocolius Coracias Oriolus Agelaius Yphantes),33
+Nesopsar,6821,Icteridae,m(Jamaican Oriole),~g(Icterus),1
+Agelaius,6823,Icteridae,e(Blackbirds),~g(Icterus Leistes Oriolus Xanthospar),5
+Molothrus,6825,Icteridae,e(Cowbirds),~g(Oriolus Psomocolax Scaphidura Tanagra Psarocolius Tangavius Agaelaoides),6
+Dives,6827,Icteridae,e(Scrub Blackbird and Melodious Blackbird),x(Ptiloxena) ~g(Lamprospar Icterus),2
+Euphagus,6829,Icteridae,e(Rusty Blackbird and Brewer’s Blackbird),~g(Turdus),2
+Quiscalus,6831,Icteridae,e(Classic Grackles) p(Grackles),~g(Gracula Holoquiscalus Oriolus Corvus),6
+Agelasticus,6833,Icteridae,e(Aegelasticus Blackbirds),~g(Agelaius Chrysomus Turdus),3
+Seiurus,6835,Parulidae,m(Ovenbird),~g(Motacilla),1
+Helmitheros,6837,Parulidae,m(Worm-eating Warbler),~g(Motacilla Limnothlypis),1
+Parkesia,6839,Parulidae,e(Waterthrushes),<(Seiurus) ~g(Turdus Motacilla),2
+Vermivora,6841,Parulidae,e(Vermivora New World Warblers),-(Leiothlypis) ~g(Motacilla Certhia),3
+Mniotilta,6843,Parulidae,m(Black-and-white Warbler),~g(Motacilla Dendroica),1
+Protonotaria,6845,Parulidae,m(Protonothary Warbler),~g(Motacilla),1
+Oreothlypis,6847,Parulidae,e(Crescent-chested Warbler and Flame-throated Warbler),-(Leiothlypis) +(Parula) ~g(Conirostrum Compsothlypis),2
+Leiothlypis,6849,Parulidae,e(Leiothlypis New World Warblers),<(Vermivora) +(Oreothlypis) ~g(Sylvia Helminthophila Helminthophaga),6
+Geothlypis,6851,Parulidae,e(Yellowthroats),>(Chamaethlypis) +(Oporornis) ~g(Motacilla Sylvia Turdus),15
+Setophaga,6853,Parulidae,e(Setophaga New World Warblers),+(Parula Wilsonia) >(Dendroica) ~g(Dendroeca  Sylvicola Muscicapa Moticilla Sylvia Parus Certhia Catharopeza),37
+Myiothlypis,6855,Parulidae,e(Myiothlypis New World Warblers),+(Basileuterus Phaeothlypis Euthlypis) ~g(Trichas Hemispingus Sylvia Muscicapa Setophaga Myiodioctes),18
+Basileuterus,6857,Parulidae,e(Basuileuterus New World Warblers),-(Myiothlypis) ~g(Euthlypis Setophaga Muscicapa Sylvia Myiodioctes),11
+Cardellina,6859,Parulidae,e(Cardelina New World Warblers),+(Ergaticus Wilsonia) ~g(Muscicapa Setophaga),5
+Myioborus,6861,Parulidae,e(Whitestarts),~g(Setophaga Erythrosoma),12
+Mitrospingus,6863,Mitrospingidae,e(Dusky-faced Tanager and Olive-backed Tanager),~f(Thraupidae) ~g(Tachyphonus Eucometis),2
+Piranga,6865,Cardinalidae,e(Piranga Tanagers),~f(Thraupidae) ~g(Pyranga Pithylus Saltator Fringilla Spermagra),11
+Habia,6867,Cardinalidae,e(Ant Tanagers),~f(Thraupidae) ~g(Staltator Phoenicopthraupis Chlorothraupis),5
+Chlorothraupis,6869,Cardinalidae,e(Chlorothraupis Tanagers),~f(Thraupidae) ~g(Phoenicopthraupis Orthogonys),4
+Pheucticus,6871,Cardinalidae,e(Cardialid Grosbeaks),~g(Cocothruastes Pitylus Loxia Guiraca),6
+Cardinalis,6873,Cardinalidae,e(Cardinalis Cardinals),~g(Loxia Richmondena Pyrrhuloxia),3
+Caryothraustes,6875,Cardinalidae,e(Black-faced Grosbeak and Yellow-green Grosbeak),>(Rhodothraupis Periporphyrus) ~g(Pitylus Loxia),2
+Cyanoloxia,6877,Cardinalidae,e(Cyanoloxia Grosbeaks) p(Grosbeaks),+(Cyanocompsa) ~g(Passerina),4
+Passerina,6879,Cardinalidae,e(Passerina Buntings),~f(Emberizidae Passarellidae) ~g(Loxia Guiraca Tanagra Cyanospiza Emberiza Spiza),7
+Chlorophanes,6881,Thraupidae,m(Green Honeycreeper) p(Thraupid Honeycreepers),~g(Motacilla Iridophanes),1
+Heterospingus,6883,Thraupidae,e(Sulphur-rumped Tanager and Scarlet-browed Tanager),~g(Tachyphonus),2
+Tersina,6885,Thraupidae,m(Swallow Tanager),~f(Tersinidae) ~g(Hirundo),1
+Cyanerpes,6887,Thraupidae,e(Cyanerpes Honeycreepers) p(Thraupid Honeycreepers),~f(Coerebidae) ~g(Coereba Certhia),4
+Dacnis,6889,Thraupidae,e(Dacnises),~f(Coerebidae) ~g(Pipraeidea Motacilla),10
+Saltator,6891,Thraupidae,e(Saltators),~f(Cardinalidae Emberizidae) x(Saltatricula Pseudosaltator) ~g(Loxia Tanagra Pitylus),15
+Coereba,6893,Thraupidae,m(Bananaquit),~f(Parulidae Emberizidae Coerebidae) ~g(Certhia) n(genus may belong in Thraupidae),1
+Tiaris,6895,Thraupidae,p(Grassquits),~f(Emberizidae) ~g(Loxia Emberiza Fringilla) x(Melanospiza) <(Phonipara Asemospiza),5
+Euneornis,6897,Thraupidae,m(Orangequit),~g(Motacilla),1
+Melopyrrha,6899,Thraupidae,e(Antillean Bullfinches),+(Loxigilla) ~g(Pyrrhulagra),3
+Loxipasser,6901,Thraupidae,m(Yellow-shouldered Grassquit) p(Grassquits),~g(Spermophila),1
+Loxigilla,6903,Thraupidae,e(New World Bullfinches),~f(Emberizidae) x(Phyrrhulagra) ~g(Loxia Fringilla),4
+Melanospiza,6905,Thraupidae,e(St. Lucia Blackfinch and Black-faced Grassquit),+(Tiaris),2
+Volatinia,6907,Thraupidae,m(Blue-black Grassquit),~f(Emberizidae) ~g(Tanagra Geospiza),1
+Eucometis,6909,Thraupidae,m(Grey-headed Tanager),~g(Tanagra),1
+Loriotus,6911,Thraupidae,e(Loriotus Tanagers),+(Tachyphonus) ~g(Islerothraupis),3
+Tachyphonus,6913,Thraupidae,e(Tachyphonus Tanagers),x(Loriotus Maschalethraupis Chrysocorypha) ~g(Tanagra Turdus Agelaius Islerothraupis),8
+Lanio,6915,Thraupidae,e(Shrike-Tanagers),~g(Tanagra Tachyphonus),4
+Ramphocelus,6917,Thraupidae,e(Ramphocelus Tanagers),>(Phlogothraupis) ~g(Tanaga Tachyphonus Rhamphopis Lanius),9
+Poospizopsis,6921,Thraupidae,e(Rufous-sided Warbling Finch and Chestnut-breasted Mountain Finch),<(Poospiza),2
+Sicalis,6923,Thraupidae,e(Yellow Finches),~g(Fringilla),13
+Phrygilus,6925,Thraupidae,e(Sierra Finches),~f(Emberizidae) x(Geospizopsis Rhopospina) -(Idiopsar Porphyrospiza) ~g(Emberiza Chlorospiza Corydospiza Geospizopsis Ephippiospingus),11
+Diglossa,6929,Thraupidae,e(Flowerpiercer),~f(Coerebidae Parulidae Emberizidae) ~g(Serrirostrum Uncirostrum Agrilorhinus Diglossopis),18
+Pipraeidea,6931,Thraupidae,m(Fawn-breasted Tanager),+(Thraupis) x(Rauenia) ~g(Tanagra),1
+Rauenia,6933,Thraupidae,m(Blue-and-yellow Tanager),<(Pipraeidea) ~g(Thraupis),1
+Buthraupis,6935,Thraupidae,m(Hooded Mountain Tanager) p(Mountain Tanagers),x(Sporathraupis Tephrophilus Cnemathraupis) ~g(Tangara Tanagra),4
+Chlorornis,6937,Thraupidae,m(Grass-green Tanager),~g(Tanagra Buthraupis),1
+Anisognathus,6939,Thraupidae,e(Anisognathus Mountain Tanagers) p(Mountain Tanagers),,5
+Cissopis,6941,Thraupidae,m(Magpie Tanager),~g(Lanius),1
+Paroaria,6943,Thraupidae,e(Thraupid Cardinals),~f(Emberizidae) ~g(Tachyphonus Loxia Nemosia Tanagra),6
+Thraupis,6949,Thraupidae,e(Thraupis Tanagers),x(Sporathraupis) -(Pipraeidea) ~g(Tanagra Saltator Aglaia Loxia Tangara),9
+Stilpnia,6951,Thraupidae,e(Stilpnia Tanagers),<(Tangara),14
+Conirostrum,6922,Thraupidae,e(Conebills),>(Oreomanes),11
+Geospizopsis,6926,Thraupidae,p(Sierra Finches),<(Phrygillis),2
+Catamenia,6928,Thraupidae,e(Catamenia Seedeaters),~f(Emberizidae) ~g(Linaria),3
+Sporophila,6918,Thraupidae,e(Sporophilia Seedeaters),~f(Emberizidae) >(Dolospingus Oryzoborus) ~g(Callirhynchus Pyrrhula Spermophila Fringilla Loxia Coccothraustes Callyrhynchus),34
+Xenodacnis,6927,Thraupidae,m(Tit-like Dacnis),,1
+Sporathraupis,6936,Thraupidae,m(Blue-capped Tanager),<(Thraupis),1
+Sphenopsis,6919,Thraupidae,e(Sphenopsis Hemispinguses) p(Hemispinguses),<(Hemispingus),4
+Asemospiza,6906,Thraupidae,e(Sooty Grassquit + Dull-colored Grassquit),<(Tiaris) ~g(Tiaris) n(closely related to Geospiza),2
+Thlypopsis,6920,Thraupidae,e(Thlyposis tanagers),>(Pyrrhocoma) >(Hemispingus superciliaris Superciliaried Hemispingus),8
+Tangara,6953,Thraupidae,e(Tangara Tanagers),x(Ixothraupis Chalcothraupis Poecilostreptus Stilpnia) ~g(Calliste Calospiza Aglaia Callospiza Callispiza Tanagrella Fringilla Procnias Motacilla Hypothlypis) n(highly polyphyletic as originally conceived; these taxonomic notes not complete),28
+Cistothorus,6524,Troglodytidae,e(Cistothorus Wrens),~g(Troglodytes),5
+Pionites,5905,Psittacidae,e(Black-headed and White-bellied Parrots) t(Caiques),~g(Psittacus) n(in aviculture 4 species are recognized),2
+Forpus,5904,Psittacidae,e(Forpus Parrotlets),~g(Psittacus) n(only genus in Forpini tribe of the subfamily Arinae),9
+Topaza,5158,Trochilidae,e(Topaz Hummingbirds),~g(Trochilus),2
+Thamnomanes,5994,Thamnophilidae,e(Thamnomanes Antshrikes),~g(Lanius),4
+Cryptopipo,6130,Pipridae,m(Green Manakin),~g(Xenopipo),2
+Lipaugus,6122,Cotingidae,e(Lipaugus Pihas) p(Pihas),>(Tijuca) ~g(Muscicapa),9
+Capito,5794,Capitonidae,e(Capito Barbets) p(New World Barbets),,11
+Ictinia,5674,Accipitridae,e(Ictinia Kites) p(Kites),~g(Falco),2
+Tyrannulus,6022,Tyrannidae,m(Yellow-crowned Tyrannulet),,1
+Metopothrix,5986,Furnariidae,m(Orange-fronted Plushcrown),n(distinctive member of family; membership questioned but likely secure),1
+Hypothymis,6268,Monarchidae,e(Azure Monarchs),~g(Muscicapa Camiguinia Cyanomyas Cyanomyias),4
+Phyllergates,6424,Cettiidae,e(Mountain Tailorbird & Rufous-headed Tailorbird),~f(Sylviidae) ~g(Orthotomus),2
+Sylviparus,6328,Paridae,m(Yellow-browed Tit),,1
+Cyanoderma,6480,Timaliidae,e(Cyanoderma Babblers),~g(Stachyris Stachyridopsis) n(genus resurrected 2012 when Stachyris found to be paraphyletic),8
+Horornis,6425,Cettiidae,e(Horornis Bush Warblers),~f(Sylviidae) ~g(Cettia),12
+Timalia,6476,Timaliidae,m(Chestnut-capped Babbler),,1
+Urosphena,6426,Cettiidae,e(Stubtails and relatives),~f(Sylviidae) ~g(Tribura Cettia Orthnocicla Tesia Phylloscopus Urosphena Sylvietta Hemitesia),5
+Accipiter,5665,Accipitridae,e(Sparrowhawks),~g(Heiraspiza Falco Nisus Astur Urospizius Erythrospizius Sparvius) <(Microspizias) n(genus needs a thorough revision) n(species compositions of Circus versus Accipiter need revision) n(split of 2 spp to genus Hieraspiza proposed),50
+Megascops,5711,Strigidae,e(Screech Owls), <(Otus) x(Psiloscops) ~g(Strix Scops Ephialtes Syrnium),22
+Caprimulgus,5131,Caprimulgidae,e(Caprimulgus Nightjars),x(Veles Phalaenoptilus Gactornis Nyctipolus Systellura Antrostomus) -(Hydropsalis) <(Macrodipteryx) ~g(Semeiophorus),38
+Charadrius,5419,Charadriidae,e(Charadrius Plovers) p(Plovers),x(Thinornis Elseyornis) ~g(Pluvialis Pluviorhynchus Aegialitis Eudromias Zonibyx Eupoda Afroxyechus),33
+Pogoniulus,5811,Lybiidae,e(Tinkerbirds),>(Viridibucco) ~g(Xylobucco Barbatula Megalaima Bucco),9

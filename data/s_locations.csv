@@ -1,0 +1,723 @@
+location_name,province,country_name,bioregion_name,climate,protection,earliest,latest
+ARK apt,Aru,Tanzania,African,BWh,N,2017-10-01,2017-10-01
+ARN apt,Sto,Sweden,Eurasian,Dfb,N,1998-10-01,2017-06-11
+Aberdeen,AbC,Scotland,Eurasian,Cfb,N,1990-06-11,1990-06-26
+Acjanaco Pass,Cuz,Peru,Amazonian,Cwb,P,2016-06-15,2016-01-18
+Acjanaco to Atalaya,Cuz,Peru,Amazonian,Cwb,P,2016-06-15,2016-01-18
+Adlaj,GJ,India,Oriental,BSh,N,2012-07-05,2012-07-05
+Agra,UP,India,Oriental,BSh,N,1974-01-10,2013-06-22
+Aguas Calientes,Cuz,Peru,Amazonian,Cfa,N,2016-06-21,2016-06-22
+Ahmedabad,GJ,India,Oriental,BSh,N,2012-07-04,2012-07-05
+Aleppuzha,KL,India,Oriental,Af,N,2020-01-04,2020-01-08
+Aleppy backwaters,KL,India,Oriental,Af,N,2020-01-06,2020-01-06
+Alta,UT,United States of America,North American,Dfc,N,2007-05-07,2007-05-09
+Alto Madre de Dios,MdD,Peru,Amazonian,Af,P,2016-06-16,2016-01-17
+Amber Fort,RJ,India,Oriental,BSh,S,2012-07-02,2012-07-02
+Amherst,MA,United States of America,North American,Dfb,N,2005-12-01,2015-04-18
+Amsterdam,NH,Netherlands,Eurasian,Cfb,N,1973-06-01,1998-06-01
+Anacortes,WA,United States of America,North American,Csb,N,1990-08-15,2005-09-20
+Andromeda Bot,SJo,Barbados,Panamanian,Af,S,2007-04-13,2007-04-13
+Ang Trepeang Thmo,BMC,Cambodia,Oriental,Aw,P,2014-07-24,2014-07-24
+Angers,PdL,France,Eurasian,Cfb,N,2019-07-08,2019-07-08
+Ann Arbor,MI,United States of America,North American,Dfa,N,1972-07-01,2002-03-20
+Appalachicola NF,FL,United States of America,North American,Cfa,P,2007-03-21,2007-03-23
+Appomattox,VA,United States of America,North American,Cfa,N,2018-12-17,2018-12-17
+Archbold,FL,United States of America,North American,Am,P,1983-08-03,1983-08-05
+Arenal Observatory,Ala,Costa Rica,Panamanian,Af,P,2009-06-27,2009-06-29
+Arima,Ks,Japan,Japanese,Cfa,S,2008-09-30,2008-10-01
+Arth-Goldau,Ze,Switzerland,Eurasian,Cfb,N,2014-05-18,2014-05-21
+Arundel,Qld,Australia,Australian,Cfa,N,2016-07-05,2016-07-05
+Arusha,Aru,Tanzania,African,BWh,N,2017-10-01,2017-10-02
+Asheville,NC,United States of America,North American,Cfa,N,2001-08-01,2019-06-03
+Asni,Mar,Morocco,Saharo-Arabian,Csb,N,2015-07-22,2015-07-24
+Assisi,Umb,Italy,Eurasian,Cfb,S,2015-12-29,2015-12-29
+Atalaya,MdD,Peru,Amazonian,Af,S,2016-06-16,2016-01-17
+Athens GA,GA,United States of America,North American,Cfa,N,2000-05-01,2018-05-25
+Atlanta,GA,United States of America,North American,Cfa,N,1986-11-01,2016-05-14
+Atlas Mountains,Mar,Morocco,Saharo-Arabian,Csb,N,2015-07-22,2015-07-22
+Austin,TX,United States of America,North American,Cfa,N,2001-01-03,2017-06-06
+Austrian Danube,Nie,Austria,Eurasian,Cfb,N,2008-07-13,2008-07-13
+BCI,Pa,Panama,Panamanian,Am,P,2010-03-04,2014-03-12
+BE Cambaleche,AR,Puerto Rico,Panamanian,Am,P,2014-06-12,2014-06-12
+BKK apt,C,Thailand,Oriental,Am,N,2018-05-17,2018-05-17
+BLR apt,KR,India,Oriental,Am,N,2019-12-24,2020-01-09
+BNE apt,Qld,Australia,Australian,Cfa,N,2016-07-03,2016-07-08
+Baltimore,MD,United States of America,North American,Cfa,N,1987-01-01,2014-07-14
+Bambu Lodge,Cuz,Peru,Amazonian,Af,P,2016-06-15,2016-01-18
+Banteay Srei,SiR,Cambodia,Oriental,Aw,S,2014-07-26,2014-07-26
+Barcelona,Cat,Spain,Eurasian,Csa,N,2009-04-19,2009-04-23
+Bathsheeba,SJo,Barbados,Panamanian,Af,N,2007-04-13,2007-04-13
+Ait Benhaddou,Our,Morocco,Saharo-Arabian,BSk,S,2015-07-25,2015-07-25
+Bagni,Umb,Italy,Eurasian,Cfa,N,2015-12-28,2015-12-28
+Baton Rouge,LA,United States of America,North American,Cfa,N,2013-03-03,2013-03-05
+Bellavista,Pc,Ecuador,Amazonian,Cfa,P,2020-12-06,2020-12-09
+Beng Mealea,SiR,Cambodia,Oriental,Aw,S,2014-07-27,2014-07-27
+Bennington,VT,United States of America,North American,Dfb,N,2008-07-28,2008-07-30
+Bergen,Hor,Norway,Eurasian,Dfc,N,2017-03-17,2017-03-19
+Berkeley,CA,United States of America,North American,Csb,N,1996-02-15,2015-08-09
+Bernal,Qrt,Mexico,Mexican,Bsk,N,2013-08-06,2013-08-06
+Bethesda,MD,United States of America,North American,Cfa,N,2008-06-25,2018-06-22
+Bhaktapur,Ce,Nepal,Oriental,Cwa,N,2013-06-15,2013-06-18
+Bhataghat,UT,India,Oriental,Cwb,N,1973-10-01,2013-06-29
+Bill Baggs SP,FL,United States of America,North American,Am,P,2010-03-07,2018-04-05
+Bloomington,IN,United States of America,North American,Cfa,N,1987-11-01,2019-03-24
+Bodega Bay,CA,United States of America,North American,Csb,N,1995-05-21,1995-05-24
+Boquete,Chi,Panama,Panamanian,Af,N,2016-01-24,2016-01-24
+Boquete coffee,Chi,Panama,Panamanian,Af,N,2016-01-24,2016-01-24
+Boston,MA,United States of America,North American,Cfb,N,1989-06-01,2015-06-06
+Boulder,CO,United States of America,North American,Bsk,N,1998-07-01,2005-04-19
+Bridgetown,SMi,Barbados,Panamanian,Af,N,2007-04-08,2007-04-14
+Brisbane,Qld,Australia,Australian,Cfa,N,2016-07-03,2016-07-08
+Brookhaven SP,NY,United States of America,North American,Dfa,P,1996-05-22,1996-05-22
+Bruce Peninsula,Ont,Canada,North American,Dfb,P,1986-10-06,1986-10-08
+Brunnen,Ze,Switzerland,Eurasian,Dfc,N,2014-05-18,2014-05-21
+Brunswick,GA,United States of America,North American,Cfa,N,2006-11-25,2016-01-02
+Budapest,Pes,Hungary,Eurasian,Cfb,N,2015-07-14,2015-07-14
+Buff Bay,Po,Jamaica,Panamanian,Af,N,2018-06-12,2018-06-14
+Bukit Fraser,Sln,Malaysia,Indo-Malayan,Af,S,2018-08-16,2018-08-17
+Bukit Timah NR,Sin,Singapore,Indo-Malayan,Af,P,2014-07-30,2014-07-30
+Bukit Tinggi,Phg,Malaysia,Indo-Malayan,Af,P,2018-08-16,2018-08-16
+Burleigh Head NP,Qld,Australia,Australian,Cfa,P,2016-07-04,2016-07-07
+Burlington,VT,United States of America,North American,Dfb,N,2012-03-26,2012-03-27
+Burunge WMA,Aru,Tanzania,African,Bsh,P,2017-10-02,2017-10-04
+CNX apt,N,Thailand,Oriental,Dfb,N,2018-05-13,2018-05-17
+COK apt,KL,India,Oriental,Am,N,2019-12-24,2020-01-08
+CUN apt,QRo,Mexico,Mexican,As,N,2014-12-19,2014-12-25
+Caen,BNo,France,Eurasian,Cfb,N,2006-07-01,2006-07-01
+Cahuita,Lim,Costa Rica,Panamanian,Af,N,2008-04-09,2008-04-12
+Cahuita NP,Lim,Costa Rica,Panamanian,Af,P,2008-04-10,2008-04-10
+Calcutta,BE,India,Oriental,Aw,N,1976-02-10,1978-01-05
+Cambridge,Cam,England,Eurasian,Cfb,N,2007-08-01,2007-08-01
+Cancun,QRo,Mexico,Mexican,Aw,N,2014-12-19,2014-12-25
+Cap de Hague,BNo,France,Eurasian,Cfb,S,2006-06-28,2006-06-28
+Carate,Pun,Costa Rica,Panamanian,Am,N,2009-06-22,2009-06-27
+Carmel Valley,CA,United States of America,North American,Csb,N,2014-12-03,2014-12-04
+Carpinteria,CA,United States of America,North American,Csb,N,1990-07-01,1991-11-23
+Castiglione,Umb,Italy,Eurasian,Cfb,N,2015-12-28,2015-12-28
+Castel Gandolfo,Laz,Italy,Eurasian,Csa,S,2004-06-25,2004-06-28
+Berlin,Ber,Germany,Eurasian,Cfb,N,2017-09-18,2023-02-08
+Ccorao,Cuz,Peru,South American,Cwb,N,2016-06-19,2016-06-19
+Granada,And,Spain,Eurasian,Csa,N,2017-06-19,2017-06-19
+Cedar Island,NC,United States of America,North American,Dfa,S,2008-06-28,2012-10-08
+Celestun Estuary,Yuc,Mexico,Mexican,Aw,P,2014-12-21,2014-12-21
+Celestun town,Yuc,Mexico,Mexican,Aw,N,2014-12-21,2014-12-21
+Cerro de la Muerte,Car,Costa Rica,Panamanian,Af,S,2007-03-26,2007-03-26
+Chapel Hill,NC,United States of America,North American,Cfa,N,1982-06-10,2017-06-01
+Charlotte,NC,United States of America,North American,Cfa,N,2009-02-27,2016-12-02
+Chengu Narayan,Ce,Nepal,Oriental,Cwa,S,2013-06-17,2013-06-17
+Cherbourg,BNo,France,Eurasian,Cfb,N,2006-06-24,2006-06-26
+Chiang Mai,N,Thailand,Oriental,Dfb,N,2018-05-13,2018-05-17
+Chicago,IL,United States of America,North American,Dfa,N,1988-10-01,2015-04-25
+Chinchero,Cuz,Peru,South American,Cwb,N,2016-06-23,2016-06-23
+Chinon,PdL,France,Eurasian,Cfb,N,2019-07-06,2019-07-09
+Chong Kneas,SiR,Cambodia,Oriental,Aw,S,2014-07-28,2014-07-28
+Civita,Umb,Italy,Eurasian,Csa,S,2015-12-31,2015-12-31
+Cobscook Bay SP,ME,United States of America,North American,Dfb,P,1985-07-15,1985-07-17
+Cold Spring Harbor,NY,United States of America,North American,Dfa,S,2001-10-15,2007-11-07
+College Station,TX,United States of America,North American,Cfa,N,2006-03-08,2006-03-10
+Columbus,OH,United States of America,North American,Cfa,N,2012-04-22,2012-04-24
+Coombabah CA,Qld,Australia,Australian,Cfa,P,2016-07-05,2016-07-05
+Corbett: Jhirna,UT,India,Oriental,Cwa,P,2013-06-13,2013-06-13
+Corbett: Lohachaur,UT,India,Oriental,Cwa,P,2013-06-12,2013-06-14
+Crandon / Calusa,FL,United States of America,North American,Am,S,2018-03-29,2018-04-05
+Crescent Island ,RV,Kenya,African,Cfb,P,2019-07-25,2019-07-25
+Cuenca,Az,Ecuador,Amazonian,Cfb,N,2020-12-10,2020-12-13
+Cuzco,Cuz,Peru,South American,Cwb,N,2016-06-14,2016-06-25
+DAV apt,Chi,Panama,Panamanian,Am,N,2016-01-25,2016-01-25
+Dapeng,Gnd,China,Chinese,Cfb,N,2018-10-24,2018-10-27
+Darling NWR,FL,United States of America,North American,Aw,P,2004-01-02,2004-01-02
+David,Chi,Panama,Panamanian,Am,N,2016-01-25,2016-01-25
+Davidia Lane,NY,United States of America,North American,Dfa,N,1994-06-01,1999-08-15
+Dehesa d Mercadillo,And,Spain,Eurasian,Csa,S,2017-06-18,2017-06-18
+Dehra Dun,UT,India,Oriental,Cwa,N,1967-08-01,2013-06-29
+Delhi,DL,India,Oriental,BSh,N,1967-08-01,2013-06-29
+Denver,CO,United States of America,North American,Bsk,N,1997-07-01,2010-10-31
+Des del Guadalhorce,And,Spain,Eurasian,Csa,P,2017-06-19,2017-06-19
+Dhela,UT,India,Oriental,Cwa,N,2013-06-11,2013-06-15
+Discovery Park,WA,United States of America,North American,Csb,S,1991-01-20,1991-01-20
+Doi Inthanon NP,N,Thailand,Oriental,Dfb,P,2018-05-16,2018-05-16
+Doi Seuthep,N,Thailand,Oriental,Dfb,S,2018-05-13,2018-05-13
+DuPont SRF,NC,United States of America,North American,Cfa,P,2013-12-13,2020-08-08
+Dublin,Dub,Ireland,Eurasian,Cfb,N,2012-06-23,2015-04-11
+Duke University,NC,United States of America,North American,Cfa,S,1982-03-01,2017-06-01
+DOH apt,AD,Qatar,Saharo-Arabian,BWh,N,2018-05-12,2021-08-15
+Chichen Itza ZA,Yuc,Mexico,Mexican,Aw,S,2014-12-20,2014-12-20
+Dunedin,Ota,New Zealand,Novozelandic,Cfb,N,2000-01-31,2000-02-05
+Durham,NC,United States of America,North American,Cfa,N,1982-03-01,2017-06-01
+Easley,SC,United States of America,North American,Cfa,N,2006-12-28,2015-11-26
+East Hampton,NY,United States of America,North American,Dfa,N,1996-05-10,1996-05-10
+Eastwood Estate,UT,India,Oriental,Cwb,N,1967-08-01,2013-06-29
+Egerton Univ,RV,Kenya,African,Cfb,S,2007-06-15,2007-06-17
+El Cajas: Llaviucu,Az,Ecuador,Amazonian,Cfc,P,2020-12-12,2020-12-12
+El Cajas: Toreadora,Az,Ecuador,Amazonian,ET,P,2020-12-12,2020-12-12
+El Mansour,Our,Morocco,Saharo-Arabian,BSk,S,2015-07-26,2015-07-26
+El Rocio,And,Spain,Eurasian,Csa,N,2017-06-17,2017-06-17
+El Sapo Dorado,Ala,Costa Rica,Panamanian,Af,S,2009-06-29,2009-07-02
+El Yunque NF,RG,Puerto Rico,Panamanian,Am,P,2014-06-13,2014-06-13
+Eldoret,RV,Kenya,African,Cfb,N,2007-06-19,2007-06-19
+Elgin,Mor,Scotland,Eurasian,Cfb,N,1990-06-14,1990-06-14
+Eno River SP,NC,United States of America,North American,Cfa,P,1984-05-15,2016-11-10
+Eravikulam NP,KL,India,Oriental,Am,P,2019-12-29,2019-12-29
+Essaouira,Ess,Morocco,Saharo-Arabian,BSk,N,2015-07-20,2015-07-20
+Eugene,OR,United States of America,North American,Csb,N,1997-05-01,2009-07-19
+Everard Reserve,Vic,Australia,Australian,Cfb,P,2009-01-03,2009-01-03
+Everglades NP,FL,United States of America,North American,Aw,P,2011-03-05,2011-03-05
+FRA apt,BdW,Germany,Eurasian,Cfb,N,2009-10-13,2016-09-15
+Fairview Hotel,Nb,Kenya,African,Cfb,N,2007-06-13,2007-06-15
+Fajardo and Soroco,RG,Puerto Rico,Panamanian,Am,N,2014-06-13,2014-06-13
+Falls Church,VA,United States of America,North American,Cfa,N,1968-07-01,1969-06-15
+Fatepur Sikri,GJ,India,Oriental,BSh,N,1987-08-05,2013-06-22
+Flag Hill,UT,India,Oriental,Cwb,P,1967-10-01,2013-06-26
+Flea & Tallebudgera,Qld,Australia,Australian,Cfa,P,2016-07-06,2016-07-06
+Florida Keys,FL,United States of America,North American,Aw,S,2010-05-30,2012-06-13
+Forest Park,NY,United States of America,North American,Dfa,P,1994-04-05,1994-04-05
+Fort Kochi,KL,India,Oriental,Af,N,2019-12-24,2019-12-26
+Fort Meyers ,FL,United States of America,North American,Aw,N,2003-12-30,2004-01-02
+Fortuna FR,Chi,Panama,Panamanian,Af,P,2016-01-22,2016-01-25
+Frankfurt,BdW,Germany,Eurasian,Cfb,N,2009-10-13,2016-09-15
+Friday Harbor Labs,WA,United States of America,North American,Csb,P,1990-08-15,2003-06-19
+GOT apt,VaG,Sweden,Eurasian,Cfb,N,2008-07-14,2013-06-01
+Gainesville,FL,United States of America,North American,Cfa,N,2006-11-21,2006-11-24
+Gamboa,Pa,Panama,Panamanian,Am,N,2010-03-04,2016-01-22
+Gamboa Resort,Pan,Panama,Panamanian,Am,S,2014-03-10,2016-01-22
+Garland Ranch RP ,CA,United States of America,North American,Csb,P,2014-12-04,2014-12-04
+Gatamaiyo,Ce,Kenya,African,Cfb,P,2019-07-26,2019-07-26
+Gharmukteshwar,UP,India,Oriental,Cwa,N,2013-06-11,2013-06-15
+Giraffe Centre,Nb,Kenya,African,Cfb,P,2007-06-14,2007-06-14
+Gokarna,Ce,Nepal,Oriental,Cwa,S,2013-06-18,2013-06-21
+Katikati Camp,Shy,Tanzania,African,Aw,P,2017-10-06,2017-10-09
+Gold Coast,Qld,Australia,Australian,Cfa,N,2016-07-03,2016-07-08
+Golfito,Pun,Costa Rica,Panamanian,Af,N,2007-03-29,2007-03-29
+Gothenburg,VaG,Sweden,Eurasian,Cfb,N,2008-07-14,2013-06-01
+Finca Cantaros,Pun,Costa Rica,Panamanian,Af,S,2010-02-28,2010-02-28
+Green Castle Estate,SM,Jamaica,Panamanian,Af,P,2018-06-12,2018-06-15
+Green Cay,FL,United States of America,North American,Am,P,2018-03-31,2018-03-31
+Green Lake,WA,United States of America,North American,Csb,S,1990-08-01,1992-06-07
+Greifenstein,Nie,Austria,Eurasian,Cfb,N,2008-07-09,2008-07-14
+Greifenstein woods,Nie,Austria,Eurasian,Cfb,S,2008-07-09,2008-07-14
+Gullmar Fjord,VaG,Sweden,Eurasian,Fte,S,2008-07-16,2008-07-16
+HBA apt,Tas,Australia,Australian,Cfb,N,2009-01-04,2009-01-10
+Hacienda Yaxcopoil,Yuc,Mexico,Mexican,Aw,S,2014-12-22,2014-12-22
+Healesville,Vic,Australia,Australian,Cfb,N,2009-01-03,2009-01-03
+Heidelberg,BW,Germany,Eurasian,Cfb,N,2009-10-18,2016-09-12
+Hell’s Gate NP,RV,Kenya,African,Cfb,P,2007-06-15,2007-06-15
+Hillsboro,NC,United States of America,North American,Aw,N,2000-06-01,2019-02-14
+Hinxton,Cam,England,Eurasian,Cfb,N,2007-07-29,2007-08-03
+Hobart,Tas,Australia,Australian,Cfb,N,2009-01-04,2009-01-10
+Hoh River Valley,WA,United States of America,North American,Cfb,P,1990-10-17,1990-10-16
+Holywell NP,Po,Jamaica,Panamanian,Af,P,2018-06-12,2018-06-12
+Homosassa Springs,FL,United States of America,North American,Cfa,S,2003-12-30,2003-12-30
+Honolulu,HI,United States of America,Polynesian,Ar,N,1987-12-31,2002-03-10
+Hounslow,Lon,England,Eurasian,Cfb,N,1978-06-01,2015-12-23
+Huancarani,Cuz,Peru,South American,Cwb,S,2016-06-15,2016-01-18
+Huntly,Abs,Scotland,Eurasian,Cfc,N,1990-06-11,1990-06-18
+IND apt,IN,United States of America,North American,Cfa,N,1987-07-01,2019-03-24
+Imlil and Tamatert,Mar,Morocco,Saharo-Arabian,Csb,N,2015-07-22,2015-07-24
+Iowa City,IA,United States of America,North American,Dfa,N,2006-04-13,2009-06-05
+Irishtown Park,Dub,Ireland,Eurasian,Cfb,S,2015-04-09,2015-04-11
+Ithaca,NY,United States of America,North American,Dfb,N,2004-05-01,2012-02-06
+Izamal,Yuc,Mexico,Mexican,Aw,N,2014-12-20,2014-12-20
+Jabalpur,MP,India,Oriental,Csa,N,1967-02-03,1977-02-20
+Jaipur,RJ,India,Oriental,BSh,N,2012-07-01,2012-07-04
+Jamaica Bay,NY,United States of America,North American,Dfa,P,1994-04-05,1994-04-05
+Jim’s Jungle Ret,UT,India,Oriental,Cwa,P,2013-06-11,2013-06-15
+Johnston Mill NR,NC,United States of America,North American,Cfa,P,2008-07-01,2011-03-05
+Jordan Lake,NC,United States of America,North American,Cfa,S,1985-08-01,2009-08-19
+Jozani Forest,ZnS,Tanzania,African,Af,P,2017-09-30,2017-09-30
+KTM apt,Ce,Nepal,Oriental,Cwa,N,2013-06-15,2013-06-21
+Kakamega FNR,We,Kenya,African,Am,P,2007-06-19,2007-06-22
+Kampi Ya Samaki,RV,Kenya,African,Aw,N,2007-06-17,2007-06-19
+Kanagra-Boyd NP,NSW,Australia,Australian,Cfb,P,1988-01-20,1988-01-20
+Kanha Kisli NP,MP,India,Oriental,Cwa,P,1967-02-03,1967-02-06
+Karatu,Aru,Tanzania,African,Aw,N,2017-10-04,2017-10-06
+Kathmandu,Ce,Nepal,Oriental,Cwa,N,2013-06-15,2013-06-21
+HKG apt,HoK,Hong Kong,Chinese,Cwa,N,2017-09-05,2019-08-20
+Keekorok,RV,Kenya,African,Cfb,P,2007-06-22,2007-06-25
+Keoladeo NP,RJ,India,Oriental,BSh,P,1975-11-01,1976-11-01
+Kew Gardens,Lon,England,Eurasian,Cfb,S,1990-06-27,1998-06-07
+Khati,UT,India,Oriental,Cwb,N,1976-12-09,1976-12-11
+Khem Villas,RJ,India,Oriental,BSh,P,2012-06-28,2012-07-01
+Khosi River,UT,India,Oriental,Cwa,P,2013-06-13,2013-06-13
+Kingston,SW,Jamaica,Panamanian,Am,N,2018-06-10,2018-06-10
+Kirkland,WA,United States of America,North American,Csb,N,1991-02-01,2014-10-29
+Kikuyu Escarpment,Cen,Kenya,African,Cfb,N,2007-06-15,2019-07-25
+Kobe,Ks,Japan,Japanese,Cfa,N,2008-09-29,2008-10-01
+Koh Ker,PrV,Cambodia,Oriental,Aw,S,2014-07-27,2014-07-27
+Korstian Division,NC,United States of America,North American,Cfa,P,1983-04-01,2011-03-01
+Kuala Lumpur,KuL,Malaysia,Indo-Malayan,Af,N,2018-08-15,2018-08-17
+Kumarakom,KL,India,Oriental,Af,N,2020-01-02,2020-01-04
+LIB apt,Gua,Costa Rica,Panamanian,Aw,N,2011-03-13,2011-03-13
+LIM apt,Lim,Peru,South American,Bwh,N,2016-06-14,2016-06-26
+La Iruela,And,Spain,Eurasian,Csa,N,2017-06-19,2017-06-19
+La Selva,Her,Costa Rica,Panamanian,Af,P,2005-11-04,2016-03-10
+Lago Huacarpay,Cuz,Peru,South American,Cwb,P,2016-01-18,2016-01-18
+Lago Muchawasay,MdD,Peru,Amazonian,Af,P,2016-06-16,2016-06-16
+Laguna,NSW,Australia,Australian,Cfb,N,2019-05-21,2019-05-22
+Laguna Tortuguero,VB,Puerto Rico,Panamanian,Am,P,2014-06-12,2014-06-12
+Lake Baringo,RV,Kenya,African,Aw,P,2007-06-18,2007-06-18
+Lake Baringo Club,RV,Kenya,African,Aw,P,2007-06-17,2007-06-19
+Lake Bogoria NR,RV,Kenya,African,Aw,P,2007-06-17,2007-06-17
+Lake Gaston,NC,United States of America,North American,Cfa,S,1986-07-01,2016-05-30
+Lake Lemon,IN,United States of America,North American,Cfa,S,1989-05-15,1990-03-10
+Lake Manyara NP,Aru,Tanzania,African,Bsh,P,2017-10-04,2017-10-04
+Lake Naivasha,RV,Kenya,African,Cfb,N,2007-06-15,2019-07-25
+Lake Nakuru NP,RV,Kenya,African,Cfb,P,2007-06-16,2007-06-16
+Lake Okechobee,FL,United States of America,North American,Am,N,2004-01-03,2004-01-02
+Lake Tahoe ,CA,United States of America,North American,Csb,N,2011-02-26,2011-03-01
+Landour,UT,India,Oriental,Cwb,N,1967-08-01,2013-06-29
+Lansing,MI,United States of America,North American,Dfb,N,1999-03-01,2019-05-11
+Las Cruces,Pun,Costa Rica,Panamanian,Af,P,2007-03-26,2010-03-01
+Lausanne,Ge,Switzerland,Eurasian,Cfb,N,2006-10-04,2011-02-21
+Leonard campus,MP,India,Oriental,Csa,N,1967-02-03,1977-02-20
+Lewis-Harris,WIs,Scotland,Eurasian,Cfb,N,1990-06-09,1990-06-24
+Liberia,Gua,Costa Rica,Panamanian,Aw,N,2011-03-13,2011-03-13
+Liddar Valley,JK,India,Eurasian,Cfb,S,1987-08-15,1987-08-17
+Lima,Lim,Peru,South American,Bwh,N,2016-06-14,2016-06-26
+Limón,Lim,Costa Rica,Panamanian,Af,N,2008-04-09,2008-04-12
+Lincoln,NE,United States of America,North American,Dfa,N,2008-02-20,2008-02-22
+Littleton,NC,United States of America,North American,Cfa,N,2010-07-02,2016-05-30
+Locarno,Te,Switzerland,Eurasian,Cfb,N,2014-05-18,2014-05-21
+Loire Valley,Cen,France,Eurasian,Cfb,N,2019-07-02,2019-07-06
+London,Lon,England,Eurasian,Cfb,N,1978-06-01,2015-07-30
+Londonderry,VT,United States of America,North American,Dfb,N,2008-07-28,2014-07-14
+Long Forest NCR,Vic,Australia,Australian,Cfb,P,2009-01-04,2009-01-04
+Los Angeles,CA,United States of America,North American,Csb,N,1998-04-15,2016-07-08
+Los Quetzales,Ch,Panama,Panamanian,Af,S,2010-03-01,2010-03-03
+Lossiemouth,Mor,Scotland,Eurasian,Cfb,N,1990-06-14,1990-06-14
+Loxahatchee NWR,FL,United States of America,North American,Am,P,2018-03-31,2018-03-31
+Lucknow,UP,India,Oriental,Cwa,N,1978-01-01,1978-01-04
+Luna Lodge,Pun,Costa Rica,Panamanian,Am,P,2009-06-22,2009-06-27
+MEL apt,Vic,Australia,Australian,Cfb,N,2009-01-03,2009-01-10
+MUZ apt,Shy,Tanzania,African,Aw,N,2017-10-09,2017-10-09
+Maasai Mara NP,RV,Kenya,African,Cfb,P,2007-06-22,2007-06-25
+MacRitchie Reservoir,Sin,Singapore,Indo-Malayan,Af,P,2018-08-12,2018-08-13
+Machu Pichu,Cuz,Peru,Amazonian,Cfa,P,2016-06-22,2016-06-22
+Madrid,And,Spain,Eurasian,Csa,N,2017-06-19,2017-06-19
+Manguo Swamp,Ce,Kenya,African,Cfb,N,2019-07-26,2019-07-26
+Mannheim,He,Germany,Eurasian,Cfb,N,2009-10-14,2016-09-13
+Manu BR,MdD,Peru,Amazonian,Af,P,2016-06-16,2016-01-17
+Manzanillo town,Lim,Costa Rica,Panamanian,Af,N,2008-04-09,2008-04-12
+Manzanillo-G NP,Lim,Costa Rica,Panamanian,Af,P,2008-04-10,2008-04-12
+Marrakech,Mar,Morocco,Saharo-Arabian,BSh,N,2015-07-17,2015-07-28
+Mathura,UT,India,Oriental,BSh,N,1975-11-01,1976-11-01
+McClay cabin,VA,United States of America,North American,Cfa,N,1985-01-01,2019-09-29
+Melbourne,Vic,Australia,Australian,Cfb,N,2009-01-03,2009-01-04
+Milan,Lom,Italy,Eurasian,Cfa,N,1998-05-01,1998-05-05
+Mindo,Pc,Ecuador,Amazonian,Af,N,2020-12-08,2020-12-08
+Mompaní,Qrt,Mexico,Mexican,Bsk,N,2013-08-10,2013-08-10
+Mont Saint-Michel,BNo,France,Eurasian,Cfb,S,2006-06-29,2006-06-29
+Montauk,NY,United States of America,North American,Dfa,S,1996-05-10,1996-05-10
+Montefiascone,Laz,Italy,Eurasian,Csa,N,2015-12-26,2015-12-31
+Monterey area,CA,United States of America,North American,Csb,N,1986-04-15,2014-12-06
+Monteverde CFR,Ala,Costa Rica,Panamanian,Af,P,2009-06-30,2009-07-01
+Monticello,VA,United States of America,North American,Cfa,S,1995-08-01,2018-12-18
+Montjuc Park,Cat,Spain,Eurasian,Csa,S,2009-04-19,2009-04-19
+Montpelier,LgR,France,Eurasian,Csb,N,2017-06-12,2017-06-12
+Montreal ,Qb,Canada,North American,Dfb,N,1996-07-01,2014-07-21
+Moradabad,UP,India,Oriental,Cwa,N,2013-06-11,2013-06-15
+Morsalines,BNo,France,Eurasian,Cfb,N,2006-06-24,2006-07-01
+Mount Desert Is,ME,United States of America,North American,Dfb,N,1985-07-12,1985-07-15
+Mount Rainier NP,WA,United States of America,North American,Cfb,P,1991-10-01,1991-10-01
+Mumbai,MH,India,Oriental,Am,N,1969-12-15,1978-02-20
+Munich,Bay,Germany,Eurasian,Cfb,N,1968-06-15,1978-06-07
+Munnar,KL,India,Oriental,Am,N,2019-12-27,2012-12-30
+Musoma,Shy,Tanzania,African,Aw,N,2017-10-09,2017-10-09
+Mussoorie,UT,India,Oriental,Cwb,N,1967-08-01,2013-06-29
+Nairobi,Nb,Kenya,African,Cfb,N,2007-06-14,2019-07-27
+Napoli,Cam,Italy,Eurasian,Csa,N,2004-06-28,2004-07-01
+Narni,Umb,Italy,Eurasian,Cfa,N,2015-12-26,2015-12-30
+Nashville,TN,United States of America,North American,Cfa,N,1992-02-15,2018-04-24
+New Haven ,CT,United States of America,North American,Dfa,N,1992-02-15,2011-05-04
+New Road,UT,India,Oriental,Cwb,N,1975-07-01,2013-06-29
+Mexico City,ME,Mexico,Mexican,Cwa,N,2015-11-21,2015-11-21
+New York city,NY,United States of America,North American,Cfa,N,1972-07-01,2017-09-27
+Newport,RI,United States of America,North American,Dfb,N,2007-07-08,2007-07-13
+Newport Pagnell,Bed,England,Eurasian,Cfb,N,2015-03-10,2015-03-12
+Ngorongoro: floor,Aru,Tanzania,African,Aw,P,2017-10-05,2017-10-06
+Ngorongoro: rim,Aru,Tanzania,African,Cwb,P,2017-10-05,2017-10-06
+Ninamarca,Cuz,Peru,South American,Cwb,S,2016-06-15,2016-01-18
+Njoro,RV,Kenya,African,Cfb,S,2007-06-15,2007-06-17
+Oak Hill Road,NC,United States of America,North American,Cfa,N,2000-03-01,2011-06-20
+Ocracoke Island,NC,United States of America,North American,Cfa,S,2002-07-07,2012-10-07
+Olivet,Cen,France,Eurasian,Cfb,N,2019-07-02,2019-07-04
+Ollantaytambo,Cuz,Peru,South American,Cwb,N,2016-06-21,2016-06-23
+Onsea House,Aru,Tanzania,African,BWh,N,2017-10-01,2017-10-02
+Oropesa,Cuz,Peru,South American,Cwb,N,2016-06-15,2016-01-18
+Orte,Umb,Italy,Eurasian,Cfa,N,2015-12-31,2015-12-31
+Orvieto,Umb,Italy,Eurasian,Cfa,N,2015-12-27,2015-12-27
+Osaka,Ks,Japan,Japanese,Cfa,N,2008-09-28,2008-10-01
+Osuna,And,Spain,Eurasian,Csa,N,2017-06-17,2017-06-17
+Otago Penninsula,Ota,New Zealand,Novozelandic,Cfb,S,2000-02-02,2000-02-02
+Ourzazate,Our,Morocco,Saharo-Arabian,BSk,N,2015-07-25,2015-07-26
+Oxford,Oxf,England,Eurasian,Cfb,N,2005-07-01,2005-07-06
+P Viejo Talamanca,Lim,Costa Rica,Panamanian,Af,N,2008-04-11,2008-04-11
+PILA: F Fernandez,Ch,Panama,Panamanian,Af,P,2010-03-01,2010-03-01
+PILA: Las Nubes,Ch,Panama,Panamanian,Af,P,2010-03-02,2010-03-02
+PN Braulio Carillo,Her&,Costa Rica,Panamanian,Am,P,2005-11-04,2016-03-10
+PN Corcovado,Pun,Costa Rica,Panamanian,Am,P,2007-03-29,2009-06-24
+PN Serra de Coll,Cat,Spain,Eurasian,Csa,P,2009-04-22,2009-04-22
+PN Volcan Baru,Chi,Panama,Panamanian,Af,P,2016-01-24,2016-01-24
+PTY apt,Pa,Panama,Panamanian,Am,N,2010-03-05,2016-01-26
+Pacha Quindi,Pc,Ecuador,Amazonian,Cfa,P,2020-12-09,2020-12-09
+Palermo,Sic,Italy,Eurasian,Csa,N,1998-05-05,1998-05-08
+Palo Verde,Gua,Costa Rica,Panamanian,Aw,P,2008-04-06,2011-03-13
+Palo Verde NP,Gua,Costa Rica,Panamanian,Aw,P,2008-04-06,2011-03-13
+Panama Canal,Pa,Panama,Panamanian,Am,N,2010-03-04,2014-03-12
+Panama City,Pa,Panama,Panamanian,Am,N,2010-03-03,2016-01-22
+Paris,IdF,France,Eurasian,Cfb,N,1978-06-01,2019-07-10
+Patria,Cuz,Peru,Amazonian,Af,N,2016-06-16,2016-01-17
+Paucartambo,Cuz,Peru,South American,Cwb,N,2016-06-15,2016-01-18
+Paynes Prairie SP,FL,United States of America,North American,Cfa,P,2006-11-22,2006-11-22
+Swan Quarter,NC,United States of America,North American,Cfa,N,2004-07-16,2004-07-16
+Paz de las Aves,Pc,Ecuador,Amazonian,Cfa,S,2020-12-08,2020-12-08
+Pena in Teverina,Umb,Italy,Eurasian,Cfa,N,2015-12-26,2015-12-30
+Periyar NP,KL,India,Oriental,Am,P,2019-12-30,2020-01-02
+Perpignan,LgR,France,Eurasian,Csb,N,2017-06-12,2017-06-12
+Phnom Krom,SiR,Cambodia,Oriental,Aw,N,2014-07-28,2014-07-28
+Phoenix,AZ,United States of America,North American,Bwh,N,2014-12-03,2016-11-04
+Pilcopata,Cuz,Peru,Amazonian,Af,N,2016-06-16,2016-01-17
+Nimes,LgR,France,Eurasian,Csb,N,2017-06-12,2017-06-12
+PN Donana,And,Spain,Eurasian,Csa,P,2017-06-17,2017-06-17
+Pindari Glacier,UT,India,Oriental,Dwc,P,1976-12-10,1976-12-10
+Pingwe,ZnS,Tanzania,African,Af,N,2017-09-30,2017-09-30
+Pipeline Disc Ctr,Pan,Panama,Panamanian,Am,P,2014-03-11,2014-03-11
+Pipeline Road,Pa,Panama,Panamanian,Am,P,2010-03-05,2014-03-13
+Pisac,Cuz,Peru,South American,Cwb,S,2016-06-23,2016-06-23
+Pisgah NF,NC,United States of America,North American,Cfb,P,1985-10-10,2016-06-01
+Plantation Lodge,Aru,Tanzania,African,Aw,P,2017-10-04,2017-10-06
+Playa los Tubos,MN,Puerto Rico,Panamanian,Am,N,2014-06-12,2014-06-12
+Point Cook CP,Vic,Australia,Australian,Cfb,P,2009-01-04,2009-01-04
+Port Antonio,Po,Jamaica,Panamanian,Af,N,2018-06-14,2018-06-14
+Port Maria,SM,Jamaica,Panamanian,Af,N,2018-06-15,2018-06-15
+Port Royal,SW,Jamaica,Panamanian,Am,N,2018-06-09,2018-06-09
+Protea Hotel,ZnU,Tanzania,African,Af,S,2017-09-29,2017-10-01
+Providence,RI,United States of America,North American,Cfa,N,1982-02-15,2015-10-10
+Puerto Jimenez ,Pun,Costa Rica,Panamanian,Am,N,2009-06-22,2009-06-27
+Pune,MH,India,Oriental,Am,N,1976-12-13,1978-02-20
+Punta Cana,XX,Dominican Republic,Panamanian,Am,N,1995-07-04,1995-07-11
+QRO apt,Qrt,Mexico,Mexican,Bsk,N,2013-08-06,2015-11-22
+Qingdao,Shd,China,Chinese,Cwa,N,2017-09-05,2019-09-23
+Quettehou,BNo,France,Eurasian,Cfb,N,2006-06-24,2006-07-01
+Quito,Pc,Ecuador,Amazonian,Cfb,N,2020-12-03,2020-12-13
+RGN apt,Yn,Myanmar,Oriental,Dfb,N,2018-05-13,2018-05-13
+Raleigh,NC,United States of America,North American,Cfa,N,1981-09-01,2016-11-24
+Ramnagar,UT,India,Oriental,Cwa,N,2013-06-12,2013-06-15
+Ranthambore NP,RJ,India,Oriental,BSh,P,2012-06-29,2012-07-01
+Regent’s Park,Lon,England,Eurasian,Cfb,P,2015-03-08,2015-03-08
+Richmond,VA,United States of America,North American,Cfa,N,1978-08-01,2018-12-18
+Rio Sierpe,Pun,Costa Rica,Panamanian,Am,P,2007-03-31,2007-03-31
+Rio Tempisque,Gua,Costa Rica,Panamanian,Aw,P,2008-04-07,2011-03-11
+Rome,Laz,Italy,Eurasian,Csa,N,2004-06-25,2016-01-01
+Ronda,And,Spain,Eurasian,Csa,N,2017-06-17,2017-06-19
+Rondo Retreat,We,Kenya,African,Am,P,2007-06-19,2007-06-22
+Roorkee,UT,India,Oriental,Cwa,N,1977-10-01,2013-06-29
+Runaway Bay,SA,Jamaica,Panamanian,Af,N,2018-06-15,2018-06-15
+SER apt,Shy,Tanzania,African,Aw,N,2017-10-09,2017-10-09
+SIN apt,Sin,Singapore,Indo-Malayan,Af,N,2014-07-21,2018-08-18
+SJO apt,SJo,Costa Rica,Panamanian,Am,N,2005-11-02,2016-03-10
+SLC apt,UT,United States of America,North American,Dfb,N,2007-05-07,2007-05-09
+SUNY-SB,NY,United States of America,North American,Dfa,S,1993-02-15,2009-11-07
+Sagre de Oro,MdD,Peru,Amazonian,Af,P,2016-06-16,2016-01-17
+Salt Lake City,UT,United States of America,North American,Dfb,N,2007-05-07,2007-05-09
+San Antonio,TX,United States of America,North American,Cfa,N,1990-01-01,1990-01-04
+San Diego,CA,United States of America,North American,Csb,N,1991-01-10,2014-04-12
+San Francisco,CA,United States of America,North American,Csb,N,1986-04-15,2015-08-09
+San Francisco Bay,CA,United States of America,North American,Fte,N,2006-09-24,2006-09-24
+San Jose,SJo,Costa Rica,Panamanian,Am,N,2005-11-02,2016-03-10
+San Juan Island,WA,United States of America,North American,Csb,N,1990-08-15,2005-09-20
+San Juan PRI,SJ,Puerto Rico,Panamanian,Am,N,2014-06-08,2014-06-16
+San Miguel Allende,Gua,Mexico,Mexican,Bsh,N,2013-08-07,2013-08-07
+Sanibel Island,FL,United States of America,North American,Aw,N,2003-12-30,2004-01-04
+Santa Barbara,CA,United States of America,North American,Csb,N,1990-07-01,1992-02-22
+Santa Cruz,CA,United States of America,North American,Csb,N,1986-04-15,2005-08-05
+Santa Elena CRI,Ala,Costa Rica,Panamanian,Af,N,2009-06-29,2009-07-02
+Santa Elena MEX,Yuc,Mexico,Mexican,Aw,N,2014-12-22,2014-12-22
+Santiago PAN,Ver,Panama,Panamanian,Aw,N,2016-01-22,2016-01-22
+Savannah,GA,United States of America,North American,Cfa,N,2009-11-01,2013-12-21
+Sawai Madhopur,RJ,India,Oriental,BSh,N,2012-06-28,2012-07-01
+Schoodic Penninsula,ME,United States of America,North American,Dfb,S,1985-07-15,1985-07-15
+Schuyler,VA,United States of America,North American,Cfa,N,1963-07-01,2019-06-10
+Seattle,WA,United States of America,North American,Csb,N,1990-07-15,2014-10-29
+Sebring,FL,United States of America,North American,Cfa,N,2004-01-03,2004-01-02
+Secas Valley,Pc,Ecuador,Amazonian,Cfb,N,2020-12-05,2020-12-05
+Serengeti NP,Shy,Tanzania,African,Aw,P,2017-10-06,2017-10-09
+Seville,And,Spain,Eurasian,Csa,N,2017-06-14,2017-06-17
+Shalom Home,GJ,India,Oriental,Aw,N,2012-07-05,2012-07-06
+Sheldrick Centre,Nb,Kenya,African,Cfb,S,2007-06-14,2007-06-14
+Siem Reap,SiR,Cambodia,Oriental,Aw,N,2014-07-21,2014-07-29
+Sierra des Cazorles,And,Spain,Eurasian,Csa,P,2017-06-19,2017-06-19
+Singapore,Sin,Singapore,Indo-Malayan,Af,N,2014-07-21,2018-08-18
+Sino-German Ecopark,Shd,China,Chinese,Cwa,N,2017-09-05,2017-09-09
+Sitio Barriles,Ch,Panama,Panamanian,Af,S,2010-03-02,2010-03-02
+Sixaola,Lim,Costa Rica,Panamanian,Af,N,2008-04-11,2008-04-11
+Skoura,Our,Morocco,Saharo-Arabian,BSk,N,2015-07-26,2015-07-26
+Solonge region,Cen,France,Eurasian,Cfb,N,2019-07-03,2019-07-03
+South Hill Estate,UT,India,Oriental,Cwb,S,1975-07-01,2013-06-28
+Southport Spit,Qld,Australia,Australian,Cfa,S,2016-07-03,2016-07-03
+Srinagar,JK,India,Eurasian,Cfb,N,1987-08-12,1987-08-20
+St Ann’s Bay,SA,Jamaica,Panamanian,Af,N,2018-06-15,2018-06-15
+St James Park,Lon,England,Eurasian,Cfb,P,2015-07-29,2015-07-29
+St Louis,MO,United States of America,North American,Cfa,N,1982-02-01,2016-12-02
+St Mere Eglise,BNo,France,Eurasian,Cfb,N,2006-06-27,2006-06-27
+St Vaast,BNo,France,Eurasian,Cfb,N,2006-06-24,2006-06-30
+Stockholm,Sto,Sweden,Eurasian,Dfb,N,1998-09-01,2017-06-11
+Stockholm Archip,Sto,Sweden,Eurasian,Dfb,N,2017-06-11,2017-06-11
+Stone Town,ZnU,Tanzania,African,Af,N,2017-09-29,2017-09-29
+Stony Brook,NY,United States of America,North American,Dfa,N,1993-02-15,2009-11-07
+Stuttgart,BdW,Germany,Eurasian,Cfb,N,2015-01-28,2015-01-30
+Suakholi,UT,India,Oriental,Cwb,N,1973-10-01,2013-06-28
+Sunset Beach,NC,United States of America,North American,Cfb,N,2007-10-19,2007-10-21
+Tahoe NF,CA,United States of America,North American,Csb,P,2011-02-28,2011-02-28
+Tarangire NP,Aru,Tanzania,African,Bsh,P,2017-10-02,2017-10-04
+Tarangire R Camp,Aru,Tanzania,African,Bsh,P,2017-10-02,2017-10-04
+Tasman NP,Tas,Australia,Australian,Fte,P,2009-01-07,2009-01-07
+Tasman Penninsula,Tas,Australia,Australian,Cfb,N,2009-01-07,2009-01-07
+Tasmanian Devil CC,Tas,Australia,Australian,Cfb,P,2009-01-07,2009-01-07
+Tehri Road Landour,UT,India,Oriental,Cwb,N,1967-08-01,2013-06-27
+Tehri Road east,UT,India,Oriental,Cwb,N,1973-10-01,2013-06-28
+Tempe,AZ,United States of America,North American,Bwh,N,2016-11-02,2016-11-04
+Tequisquiapan,Qrt,Mexico,Mexican,Bsk,N,2013-08-06,2013-08-06
+Tilaran,Ala,Costa Rica,Panamanian,Af,N,2009-06-29,2009-06-29
+Titisee,BW,Germany,Eurasian,Cfb,N,2009-10-14,2009-10-18
+Tizi N’Tichka,Mar,Morocco,Saharo-Arabian,Csb,N,2015-07-24,2015-07-27
+Tokyo,Kn,Japan,Japanese,Cfa,N,1999-12-07,1999-12-12
+Toronto,Ont,Canada,North American,Dfb,N,1986-10-01,2012-11-20
+Trumpington,Cmb,England,Eurasian,Cfb,N,2017-04-23,2017-04-25
+Tucson,AZ,United States of America,North American,Bwh,N,1998-02-15,1998-02-18
+Turner Hall Woods,SAn,Barbados,Panamanian,Af,P,2007-04-11,2007-04-11
+UIO apt,Pc,Ecuador,Amazonian,Cfb,N,2020-12-03,2020-12-13
+USVI,ST,Virgin Islands (U.S.),Panamanian,Am,N,1999-02-14,1999-02-22
+Ubeda,And,Spain,Eurasian,Csa,N,2017-06-19,2017-06-19
+Udaipur,RJ,India,Oriental,BSh,N,2012-07-07,2012-07-09
+Uni Tas woods,Tas,Australia,Australian,Cfb,P,2009-01-05,2009-01-08
+Uni Tasmania,Tas,Australia,Australian,Cfb,S,2009-01-04,2009-01-10
+Univ Miami,FL,United States of America,North American,Am,S,2010-03-05,2018-04-06
+Uwharrie NF,NC,United States of America,North American,Cfa,P,1986-04-04,1986-04-06
+Valladolid,Yuc,Mexico,Mexican,As,N,2014-12-24,2014-12-24
+Valle Hornito,Chi,Panama,Panamanian,Af,N,2016-01-22,2016-01-25
+Vero Beach,FL,United States of America,North American,Cfa,N,1983-08-01,1983-08-03
+Vienna,Nie,Austria,Eurasian,Cfb,N,2008-07-09,2015-07-16
+Vitacura,RMe,Chile,South American,Csb,N,2002-02-04,2002-02-04
+Viterbo,Laz,Italy,Eurasian,Csa,N,2015-12-26,2015-12-31
+Wadi Fint,Our,Morocco,Saharo-Arabian,BSk,S,2015-07-24,2015-07-27
+Wakodahatchee,FL,United States of America,North American,Am,P,2018-03-31,2018-03-31
+Washington,DC,United States of America,North American,Cfa,N,1969-01-10,2016-10-06
+Weld Conservancy,NY,United States of America,North American,Dfa,P,1994-02-20,1997-05-10
+William and Mary,VA,United States of America,North American,Cfa,S,1978-08-01,2009-02-13
+Williamsburg,VA,United States of America,North American,Cfa,N,1978-08-01,2009-02-13
+Windsor Hotel,Nb,Kenya,African,Cfb,S,2019-07-23,2019-07-27
+Woodlands HP,Vic,Australia,Australian,Cfb,P,2009-01-04,2009-01-04
+Vancouver,BC,Canada,North American,Cfb,N,1991-07-01,2022-07-21
+Trinity Avenue,NC,United States of America,North American,Cfa,N,2011-02-14,2021-08-06
+Uxmal ZA,Yuc,Mexico,Mexican,Aw,S,2014-12-22,2014-12-22
+Teotihuacan ZA,ME,Mexico,Mexican,Cwa,S,2015-11-21,2015-11-21
+Woodstock lower,UT,India,Oriental,Cwb,S,1969-09-01,2013-06-24
+Woodstock main,UT,India,Oriental,Cwb,S,1967-08-01,2013-06-24
+Yarra Ranges NP,Vic,Australia,Australian,Cfb,P,2009-01-03,2009-01-03
+Yellowwood Forest,IN,United States of America,North American,Cfa,P,1989-04-01,1990-03-01
+Young Harris,GA,United States of America,North American,Cfa,N,2006-09-07,2006-09-09
+ZRH apt,Ze,Switzerland,Eurasian,Cfb,N,2014-05-18,2014-05-21
+Zurich,Zu,Switzerland,Eurasian,Cfb,N,1987-11-01,2017-04-27
+coastal Highlands,Hig,Scotland,Eurasian,Fte,N,1990-06-18,1990-06-24
+rural Lazio,Laz,Italy,Eurasian,Csa,N,2015-12-26,2015-12-31
+Tubingen,BdW,Germany,Eurasian,Cfb,N,2015-01-28,2015-01-30
+coastal MA,MA,United States of America,North American,Fte,P,1989-06-10,1989-06-10
+coastal ME,ME,United States of America,North American,Fte,P,1985-07-13,1985-07-13
+coastal NC,NC,United States of America,North American,Cfa,P,2002-07-07,2012-10-07
+coastal Osa Penin,Pun,Costa Rica,Panamanian,Ftr,P,2007-03-29,2007-03-31
+coastal Puget Sound,WA,United States of America,North American,Fte,P,1990-08-01,1992-06-01
+coastal San Juans,WA,United States of America,North American,Fte,P,1990-08-15,2005-09-20
+rural Alajuela,Ala,Costa Rica,Panamanian,Aw,N,2008-04-06,2011-03-06
+rural Arusha,Aru,Tanzania,African,BWh,N,2017-10-01,2017-10-01
+rural Banteay M,BMC,Cambodia,Oriental,Aw,N,2014-07-27,2014-07-27
+rural Bourgogne,Bor,France,Eurasian,Dfc,N,2017-06-12,2017-06-12
+rural Burgenland,Bur,Austria,Eurasian,Cfb,N,2015-07-14,2015-07-14
+rural Castilla-LM,CaM,Spain,Eurasian,BSk,N,2017-06-14,2017-06-25
+rural Central K,Ce,Kenya,African,Cfb,N,2010-07-26,2010-07-26
+rural Chiriqui,Ch,Panama,Panamanian,Af,N,2010-03-01,2016-01-25
+rural Cocle,Co,Panama,Panamanian,Aw,N,2010-03-03,2016-01-22
+rural Cuzco,Cuz,Peru,South American,Cwb,N,2016-01-18,2016-01-18
+rural Delaware,DE,United States of America,North American,Cfa,N,1979-11-20,2014-07-14
+rural E Puntarenas,Pun,Costa Rica,Panamanian,Am,N,2007-03-26,2007-03-26
+rural Ernakulam,KL,India,Oriental,Am,N,2019-12-24,2020-01-08
+rural Essaouira,Ess,Morocco,Saharo-Arabian,BSk,N,2015-07-20,2015-07-20
+rural Essex,Esx,England,Eurasian,Cfb,N,2017-04-23,2017-04-25
+rural Florida,FL,United States of America,North American,Cfa,N,2010-05-28,2015-08-11
+rural Georgia,GA,United States of America,North American,Cfa,N,2010-05-28,2016-01-02
+rural GMS,GMS,Hungary,Eurasian,Cfb,N,2015-07-14,2015-07-14
+rural Grampians,Mor,Scotland,Eurasian,Cfc,N,1990-06-11,1990-06-18
+rural Guanacaste,Gua,Costa Rica,Panamanian,Aw,N,2008-04-06,2011-03-13
+rural Gujrat,GJ,India,Oriental,BSh,N,2012-07-04,2012-07-02
+rural Heredia ,Her,Costa Rica,Panamanian,Af,N,2005-11-04,2016-03-10
+rural Hessen,He,Germany,Eurasian,Cfb,N,2009-10-14,2016-09-13
+rural Idukki,KL,India,Oriental,Am,N,2019-12-26,2020-01-02
+rural Indiana,IN,United States of America,North American,Cfa,N,1987-07-01,2019-03-24
+rural Kent,Knt,England,Eurasian,Cfb,N,2017-06-12,2017-06-12
+rural Languedoc-R,LgR,France,Eurasian,Csb,N,2017-06-12,2017-06-12
+rural Cataluna,Cat,Spain,Eurasian,Cfb,N,2017-06-12,2017-06-14
+rural Aragon,Ara,Spain,Eurasian,BSk,N,2017-06-14,2017-06-14
+rural Andalucia,And,Spain,Eurasian,Csa,N,2017-06-14,2017-06-25
+rural Canar,Cn,Ecuador,Amazonian,Cfb,N,2020-12-11,2020-12-11
+rural MP,MP,India,Oriental,Cwa,N,1967-08-01,1977-02-20
+rural Marrakech,Mar,Morocco,Saharo-Arabian,BSh,N,2015-07-20,2015-07-20
+rural Maryland,MD,United States of America,North American,Cfa,N,1979-11-20,2014-07-14
+rural N-Pas Calais,NPC,France,Eurasian,Dfc,N,2017-06-12,2017-06-12
+rural New Jersey,NJ,United States of America,North American,Cfa,N,1979-11-20,2014-07-14
+rural Nyanza,Ny,Kenya,African,Af,N,2007-06-22,2007-06-22
+rural Osa,Pun,Costa Rica,Panamanian,Am,N,2009-06-22,2009-06-27
+rural Pahang,Phg,Malaysia,Indo-Malayan,Af,N,2018-08-16,2018-08-16
+rural Panama,Pa,Panama,Panamanian,Am,N,2010-03-03,2016-01-22
+rural Portland,Po,Jamaica,Panamanian,Af,N,2018-06-12,2018-06-14
+rural Rajasthan,RJ,India,Oriental,BSh,N,2012-06-28,2012-06-28
+rural Rhone-Alpes,RhA,France,Eurasian,Dfc,N,2017-06-12,2017-06-12
+rural Rift Valley,RV,Kenya,African,Cfb,N,2007-06-17,2019-07-25
+rural South Carolina,SC,United States of America,North American,Cfa,N,2010-05-28,2016-01-02
+rural San Jose,SaJ,Costa Rica,Panamanian,Am,N,2007-03-26,2007-03-26
+rural Selangor,Sln,Malaysia,Indo-Malayan,Af,N,2018-08-16,2018-08-17
+rural Shandong,Shd,China,Chinese,Cwa,N,2017-09-09,2017-09-09
+rural Shinyanga,Shy,Tanzania,African,Aw,N,2017-10-06,2017-10-06
+rural Siem Reap,SiR,Cambodia,Oriental,Aw,N,2014-07-27,2014-07-27
+rural St Andrew,SW,Jamaica,Panamanian,Am,N,2018-06-10,2018-06-12
+rural St James,SJ,Jamaica,Panamanian,Am,N,2018-06-15,2018-06-18
+rural St Mary,SM,Jamaica,Panamanian,Af,N,2018-06-12,2018-06-15
+rural Stockholm,Sto,Sweden,Eurasian,Dfb,N,1998-09-01,2017-06-11
+rural Tessin,Te,Switzerland,Eurasian,Cfb,N,2014-05-20,2014-05-20
+rural Trelawny,Tr,Jamaica,Panamanian,Am,N,2018-06-15,2018-06-15
+rural UT,UK,India,Oriental,Cwa,N,1967-08-01,2013-06-29
+rural UP,UP,India,Oriental,Cwa,N,1967-08-01,2013-06-29
+rural Umbria,Umb,Italy,Eurasian,Cfa,N,2015-12-26,2015-12-30
+rural upstate NY,NY,United States of America,North American,Dfa,N,1996-07-01,2014-07-14
+rural Vermont,VT,United States of America,North American,Dfb,N,2008-07-28,2014-07-14
+rural Virginia,VA,United States of America,North American,Cfa,N,1982-05-15,2001-06-10
+rural Victoria,Vic,Australia,Australian,Cfb,N,2009-01-04,2009-01-04
+rural W Puntarenas,Pun,Costa Rica,Panamanian,Am,N,2007-03-26,2010-03-01
+rural Western,We,Kenya,African,Af,N,2007-06-22,2007-06-22
+rural Niederost,Nie,Austria,Eurasian,Cfb,N,2008-07-13,2008-07-13
+rural Queretaro,ME,Mexico,Mexican,Bsk,N,2015-11-21,2015-11-21
+rural Yucatan,Yuc,Mexico,Mexican,Aw,N,2014-12-20,2014-12-24
+rural Mexico,Mex,Mexico,Mexican,Bsk,N,2015-11-21,2015-11-21
+rural Zanzibar,ZnS,Tanzania,African,Af,N,2017-09-30,2017-09-30
+rural Zentralschweiz,Ze,Switzerland,Eurasian,Cfb,N,2014-05-18,2014-05-21
+rural central NC,NC,United States of America,North American,Cfa,N,1999-11-22,2019-06-03
+rural eastern NC,NC,United States of America,North American,Aw,N,2010-05-28,2019-08-18
+rural western NC,NC,United States of America,North American,Cfa,N,2001-08-01,2019-06-03
+Kovalam,KL,India,Oriental,Am,N,1978-01-15,1978-01-12
+Antisana,Np,Ecuador,Amazonian,ET,P,2020-12-05,2020-12-05
+Table Mountain,WCp,South Africa,African,Csb,P,2021-08-02,2021-08-02
+Constantia Valley,WCp,South Africa,African,Csb,N,2021-08-03,2021-08-03
+Hout Bay,WCp,South Africa,African,Csb,N,2021-08-03,2021-08-03
+Camps Bay,WCp,South Africa,African,Csb,N,2021-08-03,2021-08-03
+Kommetjie,WCp,South Africa,African,Csb,N,2021-08-04,2021-08-04
+Cape Point,WCp,South Africa,African,Csb,P,2021-08-04,2021-08-04
+Simon’s Town,WCp,South Africa,African,Csb,P,2021-08-04,2021-08-04
+Wolfgat NR,WCp,South Africa,African,Csb,P,2021-08-04,2021-08-04
+Gansbaai,WCp,South Africa,African,Bsk,N,2021-08-05,2021-08-05
+waters off Gansbaai,WCp,South Africa,African,Bsk,N,2021-08-05,2021-08-05
+Dyer Island NR,WCp,South Africa,African,Bsk,P,2021-08-05,2021-08-05
+Stanford,WCp,South Africa,African,Bsk,N,2021-08-04,2021-08-07
+rural Overberg,WCp,South Africa,African,Bsk,N,2021-08-04,2021-08-07
+Betty’s Bay,WCp,South Africa,African,Csb,N,2021-08-07,2021-08-07
+Rooi Els,WCp,South Africa,African,Csb,N,2021-08-07,2021-08-07
+rural KZN,KZN,South Africa,African,Cfa,N,2021-08-08,2021-08-11
+Phinda PGR,KZN,South Africa,African,Cfa,P,2021-08-08,2021-08-11
+Stellenbosch,WCp,South Africa,African,Csb,N,2021-08-11,2021-08-14
+Pneil,WCp,South Africa,African,Csb,N,2021-08-12,2021-08-12
+Cape Town,WCp,South Africa,African,Csb,N,2021-08-01,2021-08-15
+Valetta,Mal,Malta,Eurasian,Csa,N,2021-12-09,2021-12-13
+Tarxien,Mal,Malta,Eurasian,Csa,N,2021-12-11,2021-12-11
+Marsaxlokk,Mal,Malta,Eurasian,Csa,N,2021-12-11,2021-12-11
+Selmun Palace,Mal,Malta,Eurasian,Csa,N,2021-12-12,2021-12-12
+Ggantija Temples,Mal,Malta,Eurasian,Csa,S,2021-12-12,2021-12-12
+Victoria MAL,Mal,Malta,Eurasian,Csa,N,2021-12-12,2021-12-12
+Gozo Channel,Mal,Malta,Eurasian,Csa,P,2021-12-12,2021-12-12
+It-Torri L-Ahmar,Mal,Malta,Eurasian,Csa,N,2021-12-12,2021-12-12
+Rabat,Mal,Malta,Eurasian,Csa,N,2021-12-13,2021-12-15
+Buskett Gardens,Mal,Malta,Eurasian,Csa,P,2021-12-14,2021-12-14
+Dingli Cliffs,Mal,Malta,Eurasian,Csa,N,2021-12-14,2021-12-14
+Victoria CAN,BC,Canada,North American,Cfb,N,1987-07-01,1991-07-19
+Rejkyavik,Ca,Iceland,Western Palearctic,Cfc,N,2022-05-13,2022-05-15
+rural Sudurland,Sl,Iceland,Western Palearctic,Cfc; ET,N,2022-05-15,2022-05-18
+Thingvellir,Sl,Iceland,Western Palearctic,Cfc; ET,P,2022-05-15,2022-05-15
+Hveragerthi,Sl,Iceland,Western Palearctic,Cfc,N,2022-05-15,2022-05-16
+Vik,Sl,Iceland,Western Palearctic,Cfc,N,2022-05-16,2022-05-18
+rural Austurland,Au,Iceland,Western Palearctic,Cfc; ET,N,2022-05-18,2022-05-20
+Faskrudsfjordur,Au,Iceland,Western Palearctic,ET,N,2022-05-19,2022-05-20
+rural Nordurland E,NE,Iceland,Western Palearctic,ET,N,2022-05-20,2022-05-21
+Lake Myvatn,NE,Iceland,Western Palearctic,ET,P,2022-05-20,2022-05-21
+Skalfandi Bay,NE,Iceland,Western Palearctic,ET,N,2022-05-21,2022-05-21
+Akureyri,NE,Iceland,Western Palearctic,ET,N,2022-05-21,2022-05-21
+rural Nordurland V,NV,Iceland,Western Palearctic,ET,N,2022-05-21,2022-05-23
+rural Vesturland,Wl,Iceland,Western Palearctic,"Cfc, ET",N,2022-05-23,2022-05-24
+Hendersonville,NC,United States of America,North American,Cfa,N,2009-12-27,2021-11-26
+CLT apt,NC,United States of America,North American,Cfa,N,2009-01-01,2022-04-09
+PHL apt,Pa,United States of America,North American,Cfa,N,1980-05-01,2021-08-15
+Woods Hole,MA,United States of America,North American,Cfb,N,1989-04-15,2022-04-09
+Raven Rock Community,NC,United States of America,North American,Cfa,N,2022-08-19,2022-08-22
+rural NSW,NSW,Australia,Australian,Cfb,N,1988-01-20,2022-11-14
+RDU apt,NC,United States of America,North American,Cfa,N,1982-02-15,2022-12-14
+YVR apt,BC,Canada,North American,Cfb,N,2010-05-17,2022-07-21
+Maplewood Flats,BC,Canada,North American,Cfb,P,2022-07-20,2022-07-20
+coastal Vancouver Is,BC,Canada,North American,Fte,P,1991-07-19,2022-07-18
+rural Massachusetts,MA,United States of America,North American,Cfa,N,1989-06-01,2023-10-15
+Miami,FL,United States of America,North American,Am,N,2010-03-05,2021-12-08
+DFW apt,TX,United States of America,North American,Cfa,N,1998-04-15,2022-12-14
+Blue Mts NP,NSW,Australia,Australian,Cfb,P,2022-11-12,2022-11-12
+Ku-rin-gai NP,NSW,Australia,Australian,Cfb,P,2022-11-13,2022-11-13
+KEF apt,SP,Iceland,Western Palearctic,Cfc,N,2022-05-13,2022-05-24
+LHR apt,Lon,England,Eurasian,Cfb,N,1978-06-01,2023-02-08
+OAX apt,Oax,Mexico,Mexican,Aw,N,2022-12-04,2022-12-14
+Oaxaca city,Oax,Mexico,Mexican,Aw,N,2022-12-04,2022-12-14
+Monte Alban ZA,Oax,Mexico,Mexican,Aw,P,2022-12-05,2022-12-05
+rural Oaxaca,Oax,Mexico,Mexican,Aw,N,2022-12-05,2022-12-12
+Hierve de Agua,Oax,Mexico,Mexican,Aw,S,2022-12-07,2022-12-07
+Mitla,Oax,Mexico,Mexican,Aw,N,2022-12-07,2022-12-07
+Huayapam,Oax,Mexico,Mexican,Aw,P,2022-12-09,2022-12-09
+S Madre Oaxaca,Oax,Mexico,Mexican,Am,N,2022-12-09,2022-12-09
+PXE apt,Oax,Mexico,Mexican,Bsh,N,2022-12-10,2022-12-12
+Puerto Escondido,Oax,Mexico,Mexican,Bsh,N,2022-12-10,2022-12-12
+Manialtepec,Oax,Mexico,Mexican,Bsh,P,2022-12-11,2022-12-11
+CPT apt,WCp,South Africa,African,Csb,N,2021-08-01,2021-08-15
+Sayil ZA,Yuc,Mexico,Mexican,Aw,S,2014-12-22,2014-12-22
+Ek Balam ZA,Yuc,Mexico,Mexican,As,S,2014-12-24,2014-12-24
+BER apt,Ber,Germany,Eurasian,Dfb,N,2023-02-06,2023-02-08
+JFK apt,NY,United States of America,North American,Cfa,N,1964-06-01,2023-08-04
+VCE apt,Ven,Italy,Eurasian,Cfb,N,2023-07-23,2023-07-23
+Ferrara,EmR,Italy,Eurasian,Cfb,N,2023-07-23,2023-07-28
+Bologna,EmR,Italy,Eurasian,Cfb,N,2023-07-28,2023-08-03
+rural Emil-Roma,EmR,Italy,Eurasian,Cfb,N,2023-07-28,2023-07-31
+SYD apt,NSW,Australia,Australian,Cfb,N,1988-01-08,2023-11-18
+Mosman,NSW,Australia,Australian,Cfb,S,2022-11-09,2023-11-18
+Comacchio,EmR,Italy,Eurasian,Cfb,N,2023-07-27,2023-07-27
+Florence,Tus,Italy,Eurasian,Cfa,N,2023-08-02,2023-08-02
+BLQ apt,EmR,Italy,Eurasian,Cfb,N,2023-08-03,2023-08-03
+LAX apt,CA,United States of America,North American,Csb,N,1988-02-20,2023-11-18
+Sydney,NSW,Australia,Australian,Cfb,N,1988-01-01,2023-11-18
+rural Napo,Napo,Ecuador,Amazonian,"Cfb, Af",N,2023-04-21,2023-04-23
+Gareno,Napo,Ecuador,Amazonian,Af,N,2023-04-21,2023-04-27
+Tena,Napo,Ecuador,Amazonian,Af,N,2023-04-21,2023-04-27
+Santa Fe,NM,United States of America,North American,Bsk,N,2023-10-24,2023-10-27
+rural New Mexico,NM,United States of America,North American,Cfb,N,2023-10-27,2023-10-27
+Taos,NM,United States of America,North American,Dfb,S,2023-10-27,2023-10-27
+HAN apt,RD,Vietnam,Oriental,Cwa,N,2023-12-08,2023-12-21
+Hanoi,RD,Vietnam,Oriental,Cwa,N,2023-12-08,2023-12-21
+rural RD VN,RD,Vietnam,Oriental,Cwa,N,2023-12-11,2023-12-20
+CucPhu NP ,RD,Vietnam,Oriental,Cwa,P,2023-12-11,2023-12-11
+Hoi An,SC,Vietnam,Oriental,Am,P,2023-12-12,2023-12-15
+rural SC VN,SC,Vietnam,Oriental,Am,N,2023-12-14,2023-12-14
+My Son Sanct,SC,Vietnam,Oriental,Am,P,2023-12-14,2023-12-14
+rural NW VN,NW,Vietnam,Oriental,Cwa,N,2023-12-16,2023-12-20
+Topas Ecolodge,NW,Vietnam,Oriental,Cwa,P,2023-12-16,2023-12-20
+Normandy beaches,BNo,France,Eurasian,Cfb,S,2006-06-28,2006-06-28
+rural Limon,Lim,Costa Rica,Panamanian,Af,N,2008-04-09,2008-04-12
+rural Vastra,VaG,Sweden,Eurasian,Cfb,N,2008-07-14,2013-06-01
+Fiskebackskil,VaG,Sweden,Eurasian,Cfb,N,2008-07-14,2013-06-01
+rural Baden-Wurtt,BW,Germany,Eurasian,Cfb,N,2009-10-14,2009-10-18
+Queretaro,Qrt,Mexico,Mexican,Bsk,N,2013-08-06,2015-11-22
+Ake,Yuc,Mexico,Mexican,Aw,S,2014-12-20,2014-12-20
+Merida,Yuc,Mexico,Mexican,Aw,N,2014-12-20,2014-12-24
+Labna ZA,Yuc,Mexico,Mexican,Aw,S,2014-12-22,2014-12-22
+Cordoba,And,Spain,Eurasian,Csa,N,2017-06-19,2017-06-19
+TXL apt,Ber,Germany,Eurasian,Dfb,N,2017-08-17,2023-02-08
+KIN apt,SW,Jamaica,Panamanian,Am,N,2018-06-09,2018-06-10
+Beaufort,NC,United States of America,North American,Cfa,N,1984-07-01,2008-07-05
+Mosaic PNR,WCp,South Africa,African,Bsk,P,2021-08-04,2021-08-07

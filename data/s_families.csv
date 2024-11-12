@@ -1,0 +1,253 @@
+family_ioc,seq,order_ioc,familiar_family,niche,taxonomy,num_gen,num_spp,num_spp_x,num_threat
+Struthionidae,3001,Struthioniformes,Ostriches,flightless omnivores of savannas,EC n(ditypic) n(isolated clade; highly derived),1,2,0,1
+Rheidae,3003,Rheiformes,Rheas,flightless omnivores of savannas,EC n(ditypic) n(isolated clade; highly derived),1,2,0,1
+Apterygidae,3005,Apterygiformes,Kiwis,flightless nocturnal omnivores of forests,EC n(isolated clade; highly derived),1,5,0,4
+Casuariidae,3007,Casuariiformes,Cassowaries and Emu,flightless omnivores of forest and savannah,RC >(Dromaiidae) n(isolated clade; highly derived),2,4,0,0
+Tinamidae,3009,Tinamiformes,Tinamous,terrestrial omnivores of forests and savannas,EC n(traditionally considered basal to the flightless ratites but molecular evidence suggests embedded within them),9,46,0,6
+Anhimidae,3011,Anseriformes,Screamers,swimming vegetarians of marshes and open areas,EC n(possibly basal within Anseriformes but relationshps among the three families unclear),2,3,0,0
+Anseranatidae,3013,Anseriformes,Magpie Goose,swimming vegetarian of wetlands,EC n(monotypic),1,1,0,0
+Anatidae,3015,Anseriformes,Ducks and relatives,swimming vegetarians of wetlands and coastal oceans,EC n(Dendocygna may be basal and sister to the remaining taxa within this family),51,166,8,31
+Megapodiidae,3017,Galliformes,Megapodes,terrestrial browsers of forests (and scrublands),EC n(alternative familiar name = Mound-builders) n(likely sister group to remaining families in Galliformes),7,21,0,11
+Cracidae,3019,Galliformes,Guans and relatives,arboreal omnivores of forests and scrublands,EC n(likely sister to Numididae+Odontophoridae+Phasianidae),11,56,0,19
+Numididae,3021,Galliformes,Guineafowl,terrestrial omnivores of forests and savannas,EC <(Phasianidae),4,6,0,1
+Odontophoridae,3023,Galliformes,New World Quail,terrestrial omnivores of diverse habitats,NC <(Phasianidae) +(Ptilopachus:Phasianidae),10,34,0,7
+Phasianidae,3025,Galliformes,Pheasants and relatives,terrestrial vegetarians or carnivores of diverse habitats,RC x(Numididae) x(Odontophoridae) n(turkeys and grouse formerly considered separate clades now embedded herein) ,53,186,2,44
+Caprimulgidae,3027,Caprimulgiformes,Nightjars,crepuscular/nocturnal aerial insectivores of diverse habitats,EC n(also known as Goatsuckers),20,96,1,9
+Steatornithidae,3029,Steatornithiformes,Oilbird,nocturnal arboreal frugivore of forests,EC n(monotypic) n(sister to Nyctibiidae),1,1,0,0
+Podargidae,3031,Podargiformes,Frogmouths,nocturnal arboreal carnivores of forests,EC n(proposed split of Australasian and Asian frogmouths would require also erecting a monotypic family for Rigidipenna),3,16,0,0
+Aegothelidae,3035,Aegotheliformes,Owlet-nightjars,crepscular aerial/terrestrial insectivores of forests,EC ~o(Caprimulgiformes) n(basal within Apodiformes),1,9,0,1
+Hemiprocnidae,3037,Apodiformes,Treeswifts,aerial insectivores of forests and other habitats,EC ~o(Caprimulgiformes) n(sister to Apodidae) n(also known as Whiskered Swifts),1,4,0,0
+Apodidae,3039,Apodiformes,Swifts,aerial insectivores of diverse habitats,EC ~o(Caprimulgiformes) n(sister to Hemiprocnidae),19,113,0,6
+Trochilidae,3041,Apodiformes,Hummingbirds,aerial necti(omni)vores of forests and other habitats,EC ~o(Caprimulgiformes) n(sister to Hemiprocnidae+Apodidae) n(composed of 8 main clades),112,359,2,38
+Musophagidae,3043,Musophagiformes,Turacos,arboreal frugi(omni)vores of forests and savannas,EC n(isolated clade with closest affinities unclear),6,23,0,2
+Otididae,3045,Otidiformes,Bustards,cursorial omnivores of grasslands and deserts,NC <(Gruiformes) n(isolated clade with closest affinities unclear),11,26,0,8
+Cuculidae,3047,Cuculiformes,Cuckoos and relatives,primarily arboreal insectivores of diverse habitats,EC n(isolated clade with closest affinities unclear),32,148,2,10
+Mesitornithidae,3049,Mesitornithiformes,Mesites,nearly flightless omnivores of scrublands and forests,EC <(Gruiformes) n(isolated clade with closest affinities unclear),2,3,0,3
+Pteroclidae,3051,Pterocliformes,Sandgrouse,terrestrial grani(herbi)vores of arid habitats,EC n(isolated clade with closest affinities unclear),2,16,0,0
+Columbidae,3053,Columbiformes,Pigeons and Doves,arboreal vegetarians of forests and other habitats,EC n(large isolated clade),46,338,13,65
+Heliornithidae,3055,Gruiformes,Finfoots,swimming surface-gleaning insecti(omini)vores of closed habitats,EC n(sister to Sarothruridae),3,3,0,1
+Sarothruridae,3057,Gruiformes,Flufftails and Forest Rails,terrestrial insectivores of forests grasslands and swamps,RC +(Canirallus) n(sister to Heliornithidae),3,15,0,2
+Rallidae,3059,Gruiformes,Coots and relatives,terrestrial omnivores of wetlands and diverse habitats,RC -(Canirallus) n(long considered a core component of Gruiformes) n(the most disparate family within Gruiformes),39,131,21,31
+Psophiidae,3061,Gruiformes,Trumpeters,cursorial frugi(carni)vores of wet forests,EC n(molecular evidence confirms traditional placement within Gruiformes),1,3,0,0
+Gruidae,3063,Gruiformes,Cranes,terrestrial/wading omnivores of wetlands,EC n(sister to Aramidae),4,15,0,10
+Aramidae,3065,Gruiformes,Limpkin,wading mollucsivore of wetlands,EC n(sister to Gruidae),1,1,0,0
+Podicipedidae,3067,Podicipediformes,Grebes,diving carnivores of coastal oceans and lakes,EC n(isolated clade most closely related to Phoenicopteriformes),6,20,3,5
+Phoenicopteridae,3069,Phoenicopteriformes,Flamingos,wading filter feeders of brackish water habitats,EC n(isolated clade most closely related to Podicipediformes),3,6,0,1
+Turnicidae,3071,Charadriiformes,Buttonquail,terrestrial omnivores of warm grasslands,EC ~o(Gruiformes) n(Ortyxelos meiffreni Quail Plover proposed transfer to Glareolidae) n(history of placement within various orders),2,18,0,3
+Burhinidae,3073,Charadriiformes,Stone-curlews and Thick-knees,nocturnal terrestrial arthropodivores of semi-arid habitats and wetlands,EC n(probably sister to Charadriidae),2,10,0,0
+Chionidae,3075,Charadriiformes,Sheathbills,opportunistic carnivores of coastal regions,EC n(sister to Pluvianellidae),1,2,0,0
+Pluvianellidae,3077,Charadriiformes,Magellanic Plover,wading invertibrativore of saline lake shores,EC n(monotypic) <(Charadriidae) n(sister to Chionidae),1,1,0,0
+Haematopodidae,3079,Charadriiformes,Oystercatchers,wading carnivores of coastal and freshwater habitats,EC n(sister to Ibidorhynchidae),1,11,1,1
+Ibidorhynchidae,3081,Charadriiformes,Ibisbill,wading carnivore of highland rocky rivers,EC n(monotypic) n(sister to Haematopodidae),1,1,0,0
+Recurvirostridae,3083,Charadriiformes,Stilts and Avocets,wading carnivores of wetlands,EC n(sister to Haematopodidae+Ibidorhynchidae),3,10,0,1
+Charadriidae,3085,Charadriiformes,Plovers and Lapwings,terrestrial carnivores of open areas and coastal habitats,EC n(Pluvialis belongs in this family contra some suggestions),11,67,1,7
+Pluvianidae,3087,Charadriiformes,Egyptian Plover,terrestrial insectivore of open areas near water,EC <(Glareolidae) n(monotypic) n(isolated lineage within Charadriiformes),1,1,0,0
+Rostratulidae,3089,Charadriiformes,Painted-snipes,crepuscular wading omnivores of wetlands,EC n(sister to Jacanidae),2,3,0,1
+Jacanidae,3091,Charadriiformes,Jacanas,wading invertibrativore of warm wetlands,EC n(sister to Rostratulidae),6,8,0,1
+Pedionomidae,3093,Charadriiformes,Plains-wanderer,terrestrial grani-/insectivore of grasslands,EC n(monotypic) n(isolated clade with closest affinities unclear) n(sister to Thinocoridae),1,1,0,1
+Thinocoridae,3095,Charadriiformes,Seedsnipes,wading herbivores of diverse harsh habitats,EC n(isolated clade with closest affinities unclear) n(sister to Pedionomidae),2,4,0,0
+Scolopacidae,3097,Charadriiformes,Sandpipers and relatives,wading invertebrativores of shore forest and other habitats,EC n(long considered a core component of Charadriiformes),15,93,5,12
+Dromadidae,3099,Charadriiformes,Crab-plover,wading crabivore of coasts,EC n(monotypic) n(likely sister to Glareolidae),1,1,0,0
+Glareolidae,3101,Charadriiformes,Coursers and Pratincoles,aerial and cursorial insectivores of diverse habitats,EC n(likely sister to Dromadidae),4,17,0,2
+Laridae,3103,Charadriiformes,Gulls and relatives,opportunistic carni(omni)vores of mostly wet diverse habitats,RC >(Rynchopidae Sternidae) n(skimmers and terns are embedded within gulls) n(sister to Stercorariidae+Alcidae),22,103,0,15
+Stercorariidae,3105,Charadriiformes,Skuas,opportunistic carnivores of coasts,EC n(sister to Alcidae),1,7,0,0
+Alcidae,3107,Charadriiformes,Auks and relatives,pursuit-diving piscivores of coastal oceans,EC n(sister to Stercorariidae),10,24,1,6
+Rhynochetidae,3109,Eurypygiformes,Kagu,nearly flightless carnivore of forests,NC <(Gruiformes) n(monotypic),1,1,0,1
+Eurypygidae,3111,Eurypygiformes,Sunbittern,terrestrial insectivore of wet forests,NC <(Gruiformes) n(monotypic),1,1,0,0
+Phaethontidae,3113,Phaethontiformes,Tropicbirds,pelagic carnivores of warm oceans,EC n(isolated clade most closely related to Eurypygiformes),1,3,0,0
+Gaviidae,3115,Gaviiformes,Loons,diving piscivores of oceans and lakes,EC n(traditionally considered basal within the clade supra-ratites) n(isolated clade likely closest to Procellariiformes or Sphenisciformes),1,5,0,0
+Spheniscidae,3117,Sphenisciformes,Penguins,flightless pursuit-diving carnivores of coastal oceans,EC n(isolated clade most closely related to Procellariiformes) n(Aptenodytes is likely basal within the family),6,18,0,9
+Oceanitidae,3119,Procellariiformes,Austral Storm Petrels,pelagic carnivores of diverse ocean habitats,NC <(Hydrobatidae) n(molecular data indicate separation from Hydrobatidae) ,5,9,0,2
+Diomedeidae,3121,Procellariiformes,Albatrosses,pelagic carnivores of cold oceans,EC n(species taxonomy unsettled throughout the family),4,21,0,6
+Hydrobatidae,3123,Procellariiformes,Northern Storm Petrels,pelagic carnivores of diverse ocean habitats,RC x(Oceanitidae) n(molecular data indicate separation from Oceanitidae) n(intrafamily taxonomy needs revision),1,17,1,7
+Procellariidae,3125,Procellariiformes,Shearwaters and relatives,pelagic (diving) carnivores of diverse ocean habitats,RC >(Pelecanoididae)  ,16,96,3,37
+Ciconiidae,3127,Ciconiiformes,Storks,wading carnivores of diverse freshwater habitats,EC n(the attractant taxon of many Sibley and Alquist revisions but now considered to contain only storks),6,19,0,5
+Fregatidae,3129,Suliformes,Frigatebirds,raptorial piscivores of oceans,EC n(also known as Man-o’-war Birds) n(basal clade within Suliformes),1,5,0,2
+Sulidae,3131,Suliformes,Gannets and relatives,plunge-diving carnivores of coastal oceans,EC n(traditionally considered within Pelecaniformes),3,10,0,2
+Anhingidae,3133,Suliformes,Anhingas,pursuit-diving piscivores of freshwater habitats,EC n(traditionally considered within Pelecaniformes),1,4,0,0
+Phalacrocoracidae,3135,Suliformes,Cormorants and relatives,diving piscivores of coastal and freshwater habitats,EC n(species taxonomy unsettled throughout family),7,41,1,11
+Threskiornithidae,3137,Pelecaniformes,Ibises and Spoonbills,wading carnivores of diverse freshwater habitats,EC n(likely sister to Ardeidae),13,35,1,8
+Ardeidae,3139,Pelecaniformes,Herons and relatives,wading carnivores of coastal and freshwater habitats,EC n(likely sister to Threskiornithidae),18,66,6,9
+Scopidae,3141,Pelecaniformes,Hamerkop,wading carnivore of diverse freshwater habitats,EC n(monotypic),1,1,0,0
+Balaenicipitidae,3143,Pelecaniformes,Shoebill,wading carnivore of large swamps,EC n(monotypic),1,1,0,1
+Pelecanidae,3145,Pelecaniformes,Pelicans,plunge-diving carnivores of coastal and freshwater habitats,EC n(close to Scopidae and Balaenicipitidae),1,8,0,0
+Opisthocomidae,3147,Opisthocomiformes,Hoatzin,arboreal foli(frugi)vore of riparian forests and swamps,EC n(monotypic),1,1,0,0
+Cathartidae,3149,Acciptriformes,New World Vultures,soaring scavengers of large mammals in forests and open habitats,RC <(Acciptridae) n(separation as order Cathartiformes proposed),5,7,0,2
+Sagittariidae,3151,Acciptriformes,Secretarybird,cursorial carnivore of savannas,NC <(Acciptridae) n(monotypic) n(likely sister to Pandionidae+Accipitridae),1,1,0,1
+Pandionidae,3153,Acciptriformes,Ospreys,raptorial piscivores of coastal and freshwater habitats,NC <(Acciptridae) n(monotypic) n(sister to Accipitridae),1,2,0,0
+Tytonidae,3157,Strigiformes,Barn Owls,nocturnal raptorial carnivores of diverse habitats,EC n(composed of 2 well defined subgroups which are circumscribed as genera Tyto and Phodilus) n(sister to Strigidae),2,20,0,5
+Strigidae,3159,Strigiformes,Owls,nocturnal raptorial carnivores of diverse habitats,EC n(sister to Tytonidae),23,229,5,36
+Colidae,3161,Coliiformes,Mousebirds,arboreal frugivores of forests and scrublands,EC n(isolated clade with closest affinities unclear),2,6,0,0
+Leptosomidae,3163,Leptosomiformes,Cuckoo Roller,arboreal carnivore of forests and woodlands,EC n(monotypic) n(isolated clade with closest affinities unclear),1,1,0,0
+Trogonidae,3165,Trogoniformes,Trogons and Quetzals,arboreal insect/frugivores of forests and woodlands,EC n(isolated clade with closest affinities unclear) n(internal phylogeny is largely geographical),7,43,0,1
+Upupidae,3167,Bucerotiformes,Hoopoes,terrestrial insectivores of diverse habitats,EC n(isolated clade formerly placed in Coraciiformes but now supported as part of Bucerotiformes) n(sister to Phoeniculidae),1,3,1,0
+Phoeniculidae,3169,Bucerotiformes,Wood Hoopoes and Scimitarbills,arboreal insectivores of woodlands scrublands and forests,EC n(sister to Upupidae),2,9,0,0
+Bucorvidae,3171,Bucerotiformes,Ground Hornbills,terrestrial carnivores of savannas,NC <(Bucerotidae),1,2,0,2
+Bucerotidae,3173,Bucerotiformes,Hornbills,arboreal omnivores of forests and woodlands,RC x(Bucorvidae),15,59,0,21
+Coraciidae,3175,Coraciiformes,Rollers,aerial and ground insectivores of diverse habitats,EC n(possibly sister to Brachypteraciidae),2,13,0,0
+Brachypteraciidae,3177,Coraciiformes,Ground Rollers,terrestrial carnivores of forests,EC n(possibly sister to Coraciidae),4,5,0,3
+Alcedinidae,3179,Coraciiformes,Kingfishers,arboreal carnivores of diverse habitats,EC n(split into 3 families proposed) n(sister to Momotidae),19,112,1,9
+Todidae,3181,Coraciiformes,Todies,arboreal carnivore of forests and woodlands,EC n(sister to Momotidae + Alcedinidae),1,5,0,0
+Momotidae,3183,Coraciiformes,Motmots,arboreal carni(frugi)vores of forests and woodlands,EC n(sister to Alcedinidae),6,14,0,1
+Meropidae,3185,Coraciiformes,Bee-eaters,aerial insectivores of diverse habitats,EC n(possibly basal within Coraciiformes),3,30,0,0
+Galbulidae,3187,Piciformes,Jacamars,aerial insectivores of forests and woodlands,EC ~o(Galbuliformes) n(sister to Bucconidae),5,18,0,1
+Bucconidae,3189,Piciformes,Puffbirds,arboreal carnivores of forests and woodlands,EC ~o(Galbuliformes) n(sister to Galbulidae),10,38,0,0
+Capitonidae,3191,Piciformes,New World Barbets,arboreal frigi/carnivores of humid forests,RC x(Semnornithidae) n(close to Semnornithidae and Ramphastidae),2,15,0,2
+Semnornithidae,3193,Piciformes,Toucan Barbets,arboreal frigi/carnivores of humid highland forests,NC <(Capitonidae) n(close to Capitonidae and Ramphastidae),1,2,0,0
+Ramphastidae,3195,Piciformes,Toucans,arboreal frugi(carni)vores of humid forests,EC n(close to Capitonidae and Semnornithidae),5,43,0,1
+Megalaimidae,3197,Piciformes,Asian Barbets,arboreal frigi/carnivores of forests and woodlands,EC n(possibly sister to the three New World families),2,34,0,0
+Lybiidae,3199,Piciformes,African Barbets,terrestrial and arboreal frugi/carnivores of forests and scrublands,EC n(distinct clade within the order),7,43,0,1
+Indicatoridae,3201,Piciformes,Honeyguides,arboreal waxinsectivores of forests ands scrublands,EC n(possibly sister to Picidae),4,17,0,0
+Picidae,3203,Piciformes,Woodpeckers and Wrynecks,arboreal and terrestrial insecti(sapi)vores of forests woodlands and scrublands,EC n(possibly sister to Indicatoridae),36,237,1,16
+Cariamidae,3205,Cariamiformes,Seriemas,cursorial carnivore of open areas,EC <(Gruiformes) n(ditypic) n(possibly sister to Falconidae),2,2,0,0
+Falconidae,3207,Falconiformes,Falcons,arboreal and terrestrial carnivores of diverse habitats,EC n(possibly sister to Cariamidae) n(relationships within the family are fairly well worked out),11,63,2,7
+Strigopidae,3209,Psittaciformes,New Zealand Parrots,arboreal and terrestrial omnivores of diverse habitats,NC <(Psittacidae) n(sister to the other families in Psittaciformes) n(proposed split of Nestor to create new family Nestoridae),2,3,1,3
+Cacatuidae,3211,Psittaciformes,Cockatoos,arboreal vegetarians of forests woodlands and scrublands,NC <(Psittacidae) n(sister to Psittacidae+Psittaculidae),8,21,0,7
+Psittacidae,3213,Psittaciformes,African and New World Parrots,arboreal seedi(frugi)vores of diverse habitats,RC x(Strigopidae Cacatuidae Psittacidae) n(sister to Psittaculidae),36,177,4,55
+Psittaculidae,3215,Psittaciformes,Old World Parrots,arboreal seedi(frugi)vores of diverse habitats,RC <(Psittacidae) n(sister to Psittacidae),51,180,16,34
+Acanthisittidae,3217,Passeriformes,New Zealand Wrens,terrestrial insectivores of forests and alpine habitats,EC n(likely sister to all other species in Passeriformes),2,2,2,1
+Sapayoidae,3219,Passeriformes,Sapayoa,arboreal insect/frugivore of humid forests,EC ~f(Pipridae Tyrannidae) n(monotypic) n(isolated enigmatic species now placed near the based of Passeriformes),1,1,0,0
+Philepittidae,3221,Passeriformes,Asities,arboreal frugi(insecti)vores of forests,NC <(Eurylaimidae) n(isolated basal lineage within Passeriformes),2,4,0,1
+Eurylaimidae,3223,Passeriformes,Typical Broabills,kiting insectivores (frugivores) of diverse habitats,NC <(Philepittidae Calyptomenidae) n(may require further revision) n( Pseudocalyptomena the only African species is sister to the remainder),7,9,0,3
+Calyptomenidae,3225,Passeriformes,African and Green Broadbills,arboreal birds of diverse diet of forests,NC <(Eurylaimidae) n(the 2 genera are geographically and phenotypically distinct),2,6,0,0
+Pittidae,3227,Passeriformes,Pittas,terrestrial carnivores of humid forests,EC n(long recognized as an isolated clade),3,44,0,11
+Furnariidae,3229,Passeriformes,Ovenbirds and Woodcreepers,arboreal and terrestrial insectivores of diverse habitats,RC +(Dendrocolaptidae) n(likely sister to Formicariidae) n(substantial internal revision),70,315,0,29
+Thamnophilidae,3231,Passeriformes,Antbirds,arboreal arthropodi(carni)vores of forests (and other habitats),EC n(substantial internal revision),62,238,0,28
+Formicariidae,3233,Passeriformes,Antthrushes,terrestrial formici(insecti)vores of forests,NC x(Grallariidae) n(likely sister to Furnariidae) n(internal relationships not well defined),2,12,0,0
+Grallariidae,3235,Passeriformes,Antpittas,terrestrial formici(insecti)vores of forests,NC <(Formicariidae) -(Pittasoma:Conophagidae) n(possibly sister to Rhinocryptidae),4,68,0,15
+Conopophagidae,3237,Passeriformes,Gnateaters,terrestrial insectivores of forests,RC +(Pittasoma:Grallariidae) n(despite overt similarities not close to Grallariidae),2,11,0,0
+Rhinocryptidae,3239,Passeriformes,Tapaculos,terrestrial insecti/herbivores of diverse habitats,RC x(Melanopareiidae) n(possibly sister to Grallariidae),12,65,0,11
+Melanopareiidae,3241,Passeriformes,Crescentchests,terrestrial birds of arid scrublands with unknown diet,NC <(Rhinocryptidae) n(relationships to other suboscines unclear),1,5,0,0
+Tyrannidae,3243,Passeriformes,Tyrant Flycatchers,gleaning/kiting insectivores (mostly) of diverse habitats,RC -(Onychorhynchus Myiobius Terenotriccus:Tityridae) +(Calyptura:Cotingidae) +(Piprites:Pipridae),105,436,1,28
+Cotingidae,3245,Passeriformes,Cotingas,arboreal frugi(insecti)vores of forests,RC -(Calyptura:Tyrannidae) -(Laniisoma Laniocera Iodopleura:Tityridae) +(Phibalura:incertae sedis) n(further revisions possible),25,66,0,15
+Pipridae,3247,Passeriformes,Manakins,arboreal frugi(insecti)vores of woodlands and forests,RC -(Piprites:Tyrannidae),17,53,0,5
+Tityridae,3249,Passeriformes,Tityras and relatives,arboreal frugi/insectivores of forests and open areas,RC +(Oxyruncus:incertae sedis) +(Onychorhynchus Myiobius Terenotriccus:Tyrannidae) +(Laniisoma Laniocera Iodopleura Xenopsaris Pachyramphus:Cotingidae) n(further revisions possible),11,45,0,2
+Menuridae,3251,Passeriformes,Lyrebirds,terrestrial carnivores of forests,EC n(likely sister to Atrichornithidae),1,2,0,0
+Atrichornithidae,3253,Passeriformes,Scrubbirds,terrestrial ominivores of humid forests and scrublands,EC n(likely sister to Menuridae),1,2,0,2
+Ptilonorhynchidae,3255,Passeriformes,Bowerbirds,terrestrial frugi(omni)vores of forests and open habitats,EC n(likely close to Climacteridae),8,27,0,0
+Climacteridae,3257,Passeriformes,Australasian Treecreepers,arboreal (terrestrial) insectivores of forests and woodlands,EC n(likely close to Ptilonorhynchidae),2,7,0,0
+Maluridae,3259,Passeriformes,Australasian Wrens,low-foraging insectivores of scrublands and other habitats,EC n(likely sister to the remaining taxa within the meliphagoid clade),6,32,0,3
+Meliphagidae,3261,Passeriformes,Honeyeaters,necti/frugi/insectivores of diverse habitats,RC <(Mohoidae Notiomystidae) +(Magregoria:Paradisaeidae) -(Apalopteron:Zosteropidae),55,195,1,9
+Dasyornithidae,3263,Passeriformes,Bristlebirds,terrestrial insecti/granivores of scrublands and woodlands,NC <(Acanthizidae),1,3,0,2
+Pardalotidae,3265,Passeriformes,Pardalotes,arboreal lerpi(insecti)vores of forests and woodlands,RC x(Acanthizidae),1,4,0,1
+Acanthizidae,3267,Passeriformes,Australasian Warblers,terrestrial (arboreal) insecti(grani)vores of diverse habitats,RC <(Pardalotidae Dasyornithidae) +(Pachycare Oreoscopus:Pachycephalidae),15,66,1,1
+Pomatostomidae,3269,Passeriformes,Australasian Babblers,terrestrial insecti(omini)vores of forests and scrublands,RC -(Pachycare:Acanthizidae),2,5,0,0
+Orthonychidae,3271,Passeriformes,Logrunners,terrestrial insecti(carni)vores of wet forests,EC n(ancient isolated lineage perhaps close to Pomatostomidae),1,3,0,0
+Cnemophilidae,3273,Passeriformes,Satinbirds,arboreal (terrestrial) frugivores of forests and open areas,NC <(Paradisaeidae),2,3,0,0
+Melanocharitidae,3275,Passeriformes,Berrypeckers and relatives,arboreal frugi(insecti)vores of wet forests,NC n(new family created for two previously dispered and enigmatic groups) ~f(Meliphagidae Dicaeidae),4,12,0,0
+Paramythiidae,3277,Passeriformes,Painted Berrypeckers,arboreal frugi(insecti)vores of wet montane forests,NC <(Melanocharitidae) ~f(Diceidae Pycnonotidae Paridae) n(enigmatic in premolecular era),2,3,0,0
+Callaeidae,3279,Passeriformes,New Zealand Wattlebirds,terrestrial insectivores of wet forests,EC n(formerly known as Wattled Crows),2,3,2,1
+Notiomystidae,3281,Passeriformes,Stitchbird,arboreal necti(frugi/insecti)vore of forests,NC <(Meliphagidae),1,1,0,1
+Psophodidae,3283,Passeriformes,Whipbirds,terrestrial insecti(grani)vores of diverse habitats,RC <(Orthonychidae Cinclosomatidae) -(Ifrit:Ifritidae) -(Eupetes:Eupetidae) ~f(Cinclosomatidae),2,6,0,0
+Cinclosomatidae,3285,Passeriformes,Jewel-babblers + Quail-thrushes,terrestrial insectivores of diverse habitats,NC <(Psophodidae),2,12,0,0
+Platysteiridae,3287,Passeriformes,Batises and relatives,arboreal kiting/shriking insectivores of forests and scrublands,NC <(Muscicapidae) n(revision needed),3,32,0,1
+Malaconotidae,3289,Passeriformes,Bushshrikes,arboreal shriking insectivores of woodlands and scrublands,NC <(Laniidae),8,50,0,5
+Machaerirhynchidae,3291,Passeriformes,Boatbills,arboreal kiting insectivores of wet forests ,NC <(Monarchidae),1,2,0,0
+Vangidae,3293,Passeriformes,Vangas and relatives,arboreal carnivores of forests and scrublands,RC >(Prionopidae Tephrodornithidae) +(Tylas:Pycnonotidae) +(Newtonia:Sylviidae) +(Pseudobias:Platystereidae) +(Megabias:Platystereiridae) +(Bias:Platystereiridae) +(Mystacornis:Timaliidae),21,39,0,7
+Pityriasidae,3295,Passeriformes,Bristlehead,arboreal frugi/folivore of wet lowland forests,EC n(monotypic),1,1,0,0
+Artamidae,3297,Passeriformes,Woodswallows and relatives,diverse insecti/omnivores of forests woodlands and scrublands,RC >(Cracticidae) +(Peltops:Monarchidae),6,24,0,0
+Rhagologidae,3299,Passeriformes,Mottled Berryhunter,arboreal insectivore of montane wet forests,EC n(montypic; created for enigmtic species) ~f(Pachycephalidae),1,1,0,0
+Aegithinidae,3301,Passeriformes,Ioras,arboreal insectivores of forests woodlands and scrublands,EC <(Irenidae),1,4,0,0
+Campephagidae,3303,Passeriformes,Cuckooshrikes and relatives,arboreal (terrestrial) insecti(omni)vores of forests and open habitats,RC -(Hemipus Tephrodornis:Tephrodornithidae) -(Chlamydochaera:Turdidae),11,94,0,7
+Mohouidae,3305,Passeriformes,Whiteheads,arboreal insectivores of forests,EC <(Pachycephalidae),1,3,0,1
+Neosittidae,3307,Passeriformes,Sittellas,arboreal insectivores of forests,RC <(Sittidae) ~f(Timaliidae Certhiidae Climacteridae),1,3,0,0
+Eulacestomidae,3309,Passeriformes,Ploughbill ,arboreal insectivore of forests,EC n(montypic; created for enigmatic species) ~f(Climacteridae Cisticolidae Certhiidae),1,1,0,0
+Oreoicidae,3311,Passeriformes,Australo-Papuan Bellbirds,arboreal/terrestrial insecti(grani)vores of diverse habitats,NC n(created for 3 enigmatic species) ~f(Sylviidae Pachycephalidae),3,3,0,0
+Falcunculidae,3313,Passeriformes,Shriketit,arboreal insectivore of woodland,EC <(Pachycephalidae) n(monotypic),1,1,0,0
+Pachycephalidae,3315,Passeriformes,Whistlers and relatives,arboreal/terrestrial insecti(carni)vores of forests,RC +(Colluricincla:incertae sedis) -(Oreoica:Oreoicidae) -(Rhagologus:Rhagologidae) -(Pitohui:Oriolidae) -(Hylocitrea:Hylocitreidae) -(Falcunculus:Falcunculidae) n(further revisions possible),5,64,0,1
+Laniidae,3317,Passeriformes,Shrikes,arboreal insecti(carni)vores of open habitats (and forests),EC n(sister to or close to Corvidae),4,34,0,2
+Vireonidae,3319,Passeriformes,Vireos and relatives,arboreal insectivores of forests,RC +(Erpornis Pteruthius:Timaliidae),8,64,0,1
+Oriolidae,3321,Passeriformes,Old World Orioles,arboreal omnivores of forests and woodlands,RC +(Pitohui:Pachycephalidae),3,37,2,3
+Dicruridae,3323,Passeriformes,Drongos,arboreal insectivores of woodlands and scrublands,EC ~f(Rhipiduridae Monarchidae),1,30,0,3
+Rhipiduridae,3325,Passeriformes,Fantails and relatives,aerial insectivores of diverse habitats,RC +(Lamprolia:Monarchidae) +(Chaetorhychus:Dicruridae),4,55,0,5
+Chloropseidae,3447,Passeriformes,Leafbirds,arboreal omnivores of forests,EC <(Irenidae) ~f(Aegithinidae) n(likely sister to Irenidae),1,13,0,3
+Monarchidae,3327,Passeriformes,Monarchs,arboreal insectivores of forests and woodlands,RC -(Lamprolia:Rhipiduridae) -(Machaerirhynchus:Machaerirhynchidae) -(Eliminia:Stenostiridae) -(Peltops:Artamidae),15,101,4,19
+Corcoracidae,3331,Passeriformes,Corcoracids,terrestrial insecti/granivores of woodlands,EC ~f(Struthideidae) n(alternative familiar name = Australian Mudnesters) n(close to Laniidae),2,2,0,0
+Melampittidae,3333,Passeriformes,Melampittas,terrestrial insecti(carni)vores of wet forests,NC n(created for 2 enigmatic species) ~f(Pittidae Timaliidae Orthonychidae Paradisaeidae Psophodidae),2,2,0,0
+Ifritidae,3335,Passeriformes,Ifrita,arboreal insectivore of wet forests ,EC <(Psophodidae) n(new family created for enigmatic species) ~f(Monarchidae),1,1,0,0
+Paradisaeidae,3337,Passeriformes,Birds-of-paradise,arboreal frugi/insectivores of wet forests,RC -(Cnemophilus Loboparadisea:Cnemophilidae) -(Magregoria:Meliphagidae) ,16,44,0,2
+Petroicidae,3339,Passeriformes,Australasian Robins,arboreal insectivores of forests,EC <(Muscicapidae) ~f(Pachycephalidae),19,51,0,2
+Picathartidae,3341,Passeriformes,Rockfowl,arboreal/terrestrial omnivores of rocky forests,EC <(incertae sedis) ~f(Timaliidae Muscicapidae Sturnidae Corvidae),1,2,0,2
+Chaetopidae,3343,Passeriformes,Rockjumpers,terrestrial carnivores of grasslands,EC <(incertae sedis) ~f(Turdidae Sylviidae Timaliidae),1,2,0,0
+Eupetidae,3345,Passeriformes,Rail-babbler,terrestrial insectivore of lowland forests,EC <(Eupetes:Psophodidae) ~f(Timaliidae),1,1,0,0
+Bombycillidae,3347,Passeriformes,Waxwings,arboreal frugivores of forests,EC x(Ptilogonatidae),1,3,0,0
+Ptiliogonatidae,3349,Passeriformes,Silky-flycatchers,arboreal frugi(insecti)vores of forests and woodlands,RC <(Bombycillidae) ~f(Hypocoliidae),3,4,0,0
+Hypocoliidae,3351,Passeriformes,Hypocolius,arboreal frugivores of woodlands,EC <(Bombycillidae) ~f(Laniidae Pycnonotidae) n(monotypic),1,1,0,0
+Dulidae,3353,Passeriformes,Palmchat,arboreal frugivores of woodlands,EC <(Bombycillidae) n(monotypic),1,1,0,0
+Hylocitreidae,3355,Passeriformes,Hylocitrea,arboreal frugivore of wet forests,EC <(Pachycephalidae) n(monotypic),1,1,0,0
+Stenostiridae,3357,Passeriformes,Fairy Flycatchers,arboreal insectivores of forests and scrublands,RC +(Stenostira Culicicapa:Muscicapidae) +(Elimina:Monarchidae) +(Chelidorhynx:Rhipiduridae) n(new family created for dispersed enigmatic taxa) ~f(Petroicidae),4,9,0,0
+Paridae,3359,Passeriformes,Tits and relatives,arboreal insecti/granivores of forests and scrublands,RC x(Remizidae) +(Cepahlopyrus:Regulidae n(classification of genera recently revised) n(sister to Remizidae),14,64,0,2
+Remizidae,3361,Passeriformes,Penduline Tits,arboreal insectivores of forests and scrublands,EC <(Paridae) n(sister to Paridae),3,11,0,0
+Nicatoridae,3363,Passeriformes,Nicators,arboreal insecti(carni)vores of forests,EC <(incertae sedis) ~f(Laniidae Pycnonotidae Malaconotidae) n(likely sister to Paridae+Remizidae),1,3,0,0
+Panuridae,3365,Passeriformes,Bearded Reedling,clambering insecti/granivore of wetlands,EC <(Paridae) ~f(Paradoxornithidae Sylviidae) n(monotypic) n(likely sister to Alaudidae),1,1,0,0
+Alaudidae,3367,Passeriformes,Larks,terrestrial grani(insecti)vores of diverse (mostly dry) habitats,EC n(likely sister to Panuridae),21,100,0,7
+Pycnonotidae,3369,Passeriformes,Bulbuls,arboreal frugi(omni)vores of forests and open areas,RC -(Tylas:Vangidae) -(Bernieria Xanthomixis:Bernieridae) +(Neolestes:Malaconotidae),32,160,0,13
+Hirundinidae,3371,Passeriformes,Swallows,aerial insectivores of diverse habitats,EC n(closest relatives uncertain),20,89,0,7
+Pnoepygidae,3373,Passeriformes,Cupwings,terrestrial insectivores of forests,RC <(Timaliidae) ~f(Sylviidae) n(formerly known as Wren-Babblers),1,5,0,0
+Macrosphenidae,3375,Passeriformes,Crombecs and relatives,diverse insectivores of diverse habitats,RC <(Sylviidae) +(Achaetops:Timaliidae) ,6,18,0,1
+Cettiidae,3377,Passeriformes,Cettiia Warblers,clambering insectivores of forests scrublands and grasslands,RC <(Sylviidae) +(Phyllergates:Sylviidae,7,32,0,0
+Scotocercidae,3379,Passeriformes,Streaked Scrub Warbler,terrestrial arthropodi(grani)vore of scrublands,EC <(Cisticolidae) n(monotypic),1,1,0,0
+Erythrocercidae,3381,Passeriformes,Yellow Flycatchers,arboreal insectivores of forests,RC <(incertae sedis) ~f(Monarchidae),1,3,0,0
+Hyliidae,3383,Passeriformes,Hylias,arboreal insectivores of wet forests,NC n(erected to house 2 incertae sedis genera; Pholidornis provisionally included but may merit separation into a new family),2,2,0,0
+Aegithalidae,3385,Passeriformes,Bushtits,arboreal omnivores of forests woodlands and sagebrush,RC +(Psaltriparus:Paridae),3,13,0,0
+Phylloscopidae,3387,Passeriformes,Leaf Warblers,gleaning/aerial insectivores of forests and scrublands,RC <(Sylviidae) n(recently revised to lump polyphyletic Seicercus),1,80,0,4
+Acrocephalidae,3389,Passeriformes,Reed Warblers and relatives,clambering insectivores of diverse habitats,RC <(Sylviidae) +(Graueria:incertae sedis),7,55,7,13
+Dicaeidae,3449,Passeriformes,Flowerpeckers,arboreal necti/mistletoei(omni)vores of forests and scrublands,EC <(Nectarinidae) n(sister to Nectariniidae),2,50,0,3
+Locustellidae,3391,Passeriformes,Grassbirds and relatives,clambering insectivores of scrublands,RC <(Sylviidae) +(Robsonius:Timalidae) ~f(Megaluridae) n(recently revised classification),11,65,1,9
+Donacobiidae,3393,Passeriformes,Black-capped Donacobius,clambering insectivore of wetlands,EC <(Troglodytidae) ~f(Turdidae Mimidae Locustellidae) n(monotypic),1,1,0,0
+Bernieridae,3395,Passeriformes,Madagascan Warblers,arboreal insectivores of wet forests and woodlands,RC +(Bernieria Xanthomixis:Pcynonotidae) +(Thamnornis Cryptosylvicola:Sylviidae) +(Hartertula Crossleyia Oxylabes Randia:Timaliidae),8,11,0,1
+Cisticolidae,3397,Passeriformes,Prinias and relatives,clambering insectivores of grasslands and scrublands,RC <(Sylviidae) +(Neomyxis:Timaliidae) +(Eremomela:Sylviidae),26,167,0,9
+Sylviidae,3399,Passeriformes,Sylviid Babblers,arboreal insectivores of diverse habitats,RC <(Paradoxornithidae) -(many_genera_not_detailed),2,34,0,1
+Paradoxornithidae,3401,Passeriformes,Parrotbills and relatives,clambering granivores of wetlands,RC <(Sylviidae),16,37,0,5
+Zosteropidae,3403,Passeriformes,White-eyes and relatives,arboreal omnivores of forests,RC -(Erpornis:Vireonidae) +(Yuhina:Timalidae) +(Apalopteron:Meliphagidae) n(further revisions likely),13,143,3,21
+Timaliidae,3405,Passeriformes,Babblers and relatives,arboreal insecti(omni)vores of forests and scrublands,RC >(Melanocichla) n(many genera removed; ongoing revisions; unsettled monophyly),10,56,0,6
+Pellorneidae,3407,Passeriformes,Ground Babblers,terrestrial insectivores of woodlands and scrublands,RC <(Timaliidae) x(Alcippeidae) +(Laticilla:Cisticolidae) +(Graminicola:Locustellidae) n(further revisions likely),13,65,0,7
+Alcippeidae,3409,Passeriformes,Alcippe Fulvettas,arboreal insecti(berri)vores of forests,NC <(Pellorneidae),1,10,0,0
+Leiothrichidae,3411,Passeriformes,Laughingthrushes and relatives,terrestrial insecti(frugi)vores of woodlands and scrublands,RC <(Timaliidae) n(further revisions likely),16,133,0,19
+Modulatricidae,3413,Passeriformes,Dapple-throat and relatives,terrestrial insecti(berri)vores of forests,RC <(Timalidae) ~f(Sylviidae Turdidae Promeropidae Arcanatoridae),3,3,0,1
+Promeropidae,3415,Passeriformes,Sugarbirds,insectivores of scrublands,RC <(Timaliidae) ~f(Meliphagidae Turdidae Nectarinidae),1,2,0,0
+Irenidae,3417,Passeriformes,Fairy-bluebirds,arboreal frugivores of forests,RC -(Iora:Aegithinidae) -(Chloropsis:Chloropseidae) n(likely sister to Chloropseidae),1,3,0,0
+Regulidae,3419,Passeriformes,Kinglets,arboreal insectivores for forests and woodlands,RC <(Sylviidae),2,6,0,0
+Elachuridae,3421,Passeriformes,Spotted Elachura,terrestrial insectivore of forests,EC <(Timaliidae) n(monotypic),1,1,0,0
+Hyliotidae,3423,Passeriformes,Hyliotas,gleaning insectivores of forests and woodlands,RC <(Sylviidae) n(isolated lineage with no known close relatives although several were proposed in the pre-molecular era) ,1,4,0,1
+Troglodytidae,3425,Passeriformes,Wrens,gleaning insectivores of diverse habitats,RC x(Donacobiidae),19,88,0,8
+Polioptilidae,3427,Passeriformes,Gnatcatchers and relatives,arboreal insectivores of forests and woodlands,EC <(Sylviidae),3,21,0,0
+Sittidae,3429,Passeriformes,Nuthatches,arboreal omnivores of forests and woodlands,EC n(Tichodroma sometimes placed in this family),1,29,0,5
+Tichodromidae,3431,Passeriformes,Wallcreeper,terrestrial insectivores of alpine areas,EC <(Certhiidae) n(monotypic),1,1,0,0
+Certhiidae,3433,Passeriformes,Treecreepers,arboreal insectivores of forests,EC n(long thought to be sister to Sittidae but perhaps sister to all of superfamily Certhioidea),2,11,0,0
+Mimidae,3435,Passeriformes,Mockingbirds and relatives,terrestrial insectivores of forests and scrublands,EC n(sister to Sturnidae),10,34,0,6
+Sturnidae,3437,Passeriformes,Starlings and relatives,terrestrial omnivores of open habitats,EC +(Rhabdornis:Rhabdornithidae) n(sister to Mimidae),31,121,5,11
+Buphagidae,3439,Passeriformes,Oxpeckers,commensal insectivores on large mammals in savannas,EC <(Sturnidae) n(sister to Sturnidae+Mimidae),1,2,0,0
+Turdidae,3441,Passeriformes,Thrushes and relatives,terrestrial insecti(omnivi)vores of forests and woodlands,RC -(Alethe Erithacus Heteroxenicus Brachypteryx Luscinia Myophonus Monticola Pseudocossyphus:Muscicapidae -(Chaetops:Chaetopidae) n(boundaries with Muscicapidae long unclear),18,171,3,16
+Muscicapidae,3443,Passeriformes,Old World Flycatchers and relatives,arboreal kiting insectivores of forests and scrublands,RC +(Alethe Erithacus Heteroxenicus Brachypteryx Luscinia Myophonus Monticola Pseudocossyphus:Turdidae) +(Leonardina:Pellorneidae) n(boundaries with Turdidae long unclear),49,343,0,30
+Cinclidae,3445,Passeriformes,Dippers,underwater carnivores of mountain streams,EC n(sister to Muscicapidae+Turdidae),1,5,0,1
+Nectariniidae,3451,Passeriformes,Sunbirds and Spiderhunters,arboreal necti(insecti/frugi)vores of forests and scrublands,RC x(Dicaeidae) n(sister to Dicaeidae),16,146,0,7
+Passeridae,3453,Passeriformes,Old World Sparrows and Snowfinches,terrestrial granivores of dry habitats,RC -(Plocepasser Histurgops Pseudonigrita Philentairus:Ploceidae) +(Hypocryptadius:Zosteropidae) n(closest relatives unclear),8,43,0,2
+Ploceidae,3455,Passeriformes,Weavers and relatives,arboreal granivores of diverse habitats,RC +(Plocepasser Histurgops Pseudonigrita Philentairus:Passeridae) n(closest relatives unclear),15,117,0,13
+Estrildidae,3457,Passeriformes,Waxbills and relatives,arboreal granivores of diverse habitats,EC n(likely sister to Viduidae),39,141,0,6
+Viduidae,3459,Passeriformes,Indigobirds and relatives,arboreal granivores of open habitats,EC n(likely sister to Estrildidae),2,20,0,0
+Peucedramidae,3461,Passeriformes,Olive Warbler,arboreal insectivore of coniferous highland forests,EC <(Parulidae) ~f(Sylviidae) n(monotypic) n(long included in Parulidae now considered likely sister to Prunellidae),1,1,0,0
+Prunellidae,3463,Passeriformes,Accentors,terrestrial insecti/frugivores of alpine (and lowland) woodlands,EC n(phylogenetic affinities long unclear but now considered likely sister to Peucedramidae),1,13,0,0
+Motacillidae,3465,Passeriformes,Wagtails and Pipits,terrestrial invertebrativores of open habitats,EC n(likely sister to Fringillidae+New World nine-primaried oscines),5,69,0,8
+Urocynchramidae,3467,Passeriformes,Przevalski’s Finch,poorly known inhabitant of alpine scrublands,EC <(Fringillidae) ~f(Emberizidae) n(monotypic) n(phylogenetic affinities long unclear and remain so),1,1,0,0
+Fringillidae,3469,Passeriformes,Finches and relatives,arboreal granivores of diverse habitats,RC x(Urocynthramidae) +(Euphonia Chlorophonia:Thraupidae) n(likely sister to New World nine-primaried oscines),42,214,19,33
+Calcariidae,3471,Passeriformes,Longspurs and Snow Buntings,terrestrial grani/insectivores of cold woodlands and open areas,EC <(Emberizidae) n(long considered part of Emberizidae they are likely sister to the remaining New World nine-primaried oscines),3,6,0,1
+Rhodinocichlidae,3473,Passeriformes,Thrush-tanager,terrestrial insecti(berri)vores of forests,EC <(Thraupidae) n(monotypiic) n(long an enigmatic taxon it is likely the second-most basal group within the New World nine-primaried oscines),1,1,0,0
+Emberizidae,3475,Passeriformes,Old World Buntings,granivores of diverse habitats,RC x(Calcariidae Passarellidae) -(Paroaria Diglossa Charitospiza Saltatricula Coryphaspiza Coryphospingus Rhodopingus Phrygilus Melanodera Halospiza Acanthidops Lophospingus Donacospiza Rowettia Nesospiza Duica Idiospar Piezorina Xenospingus Incaspiza Poospiza Compsospiza Sicalis Emberizoides Embernagra Volatina Sporophila Oryzoborus Melopyrrha Dolospingus Catamenia Tiaris Loxipasser Loxigilla Euneornis Melanospiza Geospiza Camarhynchus Certhidia Pinarolaxias:Thraupidae),1,44,0,4
+Passerellidae,3477,Passeriformes,New World Sparrows,granivores of diverse habitats,RC <(Emberizidae) n(long considered part of Emberizidae it is clearly a separate clade),29,137,1,12
+Calyptophilidae,3479,Passeriformes,Chat-tanagers,insectivores of dense forest,EC <(Thraupidae) n(ditypic),1,2,0,1
+Phaenicophilidae,3481,Passeriformes,Hispaniolan Tanagers,arboreal insecti(frugi)vores of forest,NC <(Thraupidae Parulidae) +(Microligea Xenoligea:incertae sedis) n(likely sister to Nesospingidae+Spindalidae),3,4,0,1
+Neospingidae,3483,Passeriformes,Puerto Rican Tanager,arboreal omnivore of forests,EC <(Thraupidae) n(monotypic) n(likely sister to Spindalidae),1,1,0,0
+Spindalidae,3485,Passeriformes,Spindalises,frugivores of varied habitats,EC <(Thraupidae) n(likely sister to Nesospingidae),1,4,0,0
+Zeledoniidae,3487,Passeriformes,Wrenthrush,terrestrial insectivore of dense thickets,EC <(Parulidae) n(monotypic; formerly incertae sedis) n(isolated and closest relatives unclear),1,1,0,0
+Teretistridae,3489,Passeriformes,Cuban Warblers,arboreal insecti(omni)vores of forest,NC <(Parulidae) n(ditypic; formerly incertae sedis) n(closest relatives unclear),1,2,0,0
+Icteriidae,3491,Passeriformes,Yellow-breasted Chat,arboreal insecti(omni)vore of scrub and forest edge,EC <(Thraupidae) n(monotypic; formerly incertae sedis) n(likely sister to Icteridae),1,1,0,0
+Icteridae,3493,Passeriformes,New World Orioles and Blackbirds,arboreal birds of diverse diet and habitats,EC n(likely close to Parulidae),30,108,1,14
+Parulidae,3495,Passeriformes,New World Warblers,arboreal/(terrestrial) insectivores of woodlands and scrublands,RC <(Peucedramidae) -(Conirostrum:Thraupidae) -(Granatells:Cardinalidae) n(likely close to Icteridae),18,120,0,14
+Mitrospingidae,3497,Passeriformes,Mitrospingid Tanagers,arboreal omnivores of forests and woodlands,RC <(Thraupidae) n(likely sister to Cardinalidae+Thraupidae),3,4,0,0
+Cardinalidae,3499,Passeriformes,Grosbeaks and relatives,arboreal granivores of woodlands,RC -(Parkerthraustes:Thraupidae) -(Saltator:Thraupidae) +(Piranga Habia Chlorothraupis Amaurospiza:Thraupidae) +(Granatellus:Parulidae) n(likely sister to Thraupidae),14,53,0,1
+Thraupidae,3501,Passeriformes,Tanagers and relatives,arboreal omnivores of forests, RCx(Calyptophylidae Mitrospingidae) -(Piranga Habia Chlorothraupis Amaurospiza:Cardinalidae) +(Paroaria Diglossa Charitospiza Saltatricula Coryphaspiza Coryphospingus Rhodopingus Phrygilus Melanodera Halospiza Acanthidops Lophospingus Donacospiza Rowettia Nesospiza Duica Idiospar Piezorina Xenospingus Incaspiza Poospiza Compsospiza Sicalis Emberizoides Embernagra Volatina Sporophila Oryzoborus Melopyrrha Dolospingus Catamenia Tiaris Loxipasser Loxigilla Euneornis Melanospiza Geospiza Camarhynchus Certhidia Pinarolaxias:Emberizidae) +(Parkerthraustes Saltator:Cardinalidae) n(likely sister to Cardinalidae),106,385,1,45
+Nyctibiidae,3030,Nyctibiiformes,Potoos,nocturnal aerial insectivores of forests and scrublands,EC n(sister to Steatornithidae),1,7,0,0
+Platylophidae,3328,Passeriformes,Jayshrike,arboreal insectivore of warm moist forests,NC <(Corvidae),1,1,0,0
+Corvidae,3329,Passeriformes,Crows and relatives,opportunistic omnivores of diverse habitats,EC x(Platylophidae),24,135,0,17
+Accipitridae,3155,Acciptriformes,Hawks and relatives,predators and scavengers of diverse habitats,RC x(Cathartidae) x(Sagittariidae) x(Pandionidae) n(sister to Pandionidae),69,255,1,54
