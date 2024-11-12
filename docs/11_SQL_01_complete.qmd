@@ -38,6 +38,12 @@ con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
 knitr::opts_chunk$set(connection = "con")
 ```
 
+Now we can SQL code directly in Quarto code blocks. Every time we do this, we'll need to tell Quarto that we want to use a different language (SQL) and the name of the connection to the in-memory database. Make sure that the header of every code where you want to use SQL is what is shown below. Refer to the Quarto notebook to see this in a real code block, as the html version doesn't show it.
+
+```
+{sql, connection=con}
+```
+
 ### Build and populate the `observations` table
 
 ```{sql, connection=con}
