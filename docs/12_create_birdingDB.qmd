@@ -1,0 +1,186 @@
+---
+title: "BIO724D: SQL: Introduction to Queries"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Background 
+
+This week, we will work with the database on disk so that it's easy to save your work. This file contains the code that generates the database as a file called `birding.db` and appends the data from .csv files. Note that SQL database files are binary, not text files. 
+
+You do NOT need to run this code unless you accidentally lose the `birding.db` file.
+
+
+## Build the birding database
+
+### Set-up
+
+The following code: (1) loads the necessary libraries, (2) establishes a connection to a database on disk named birding, and (3) allows code to be rendered.
+```{r label=set-up}
+# load packages
+library(tidyverse)
+library(DBI)
+
+# establish connection to in-memory database
+con <- DBI::dbConnect(RSQLite::SQLite(), "birding.db")
+
+# tell knitr about the connection
+knitr::opts_chunk$set(connection = "con")
+```
+
+### Define the tables
+Below is the same SQL code that we used last week to define the 7 tables. These are in separate code blocks because Quarto only allows one SQL command per code block.
+```{sql, connection=con}
+CREATE TABLE observations (
+  seq INT PRIMARY KEY,
+  genus_ioc VARCHAR(32) NOT NULL,
+  species_ioc VARCHAR(32) NOT NULL,
+  subspecies_ioc VARCHAR(32) NOT NULL,
+  date_obs VARCHAR(10),
+  time_obs VARCHAR(48),
+  location_name VARCHAR(24),
+  trip_name VARCHAR(16),
+  notes VARCHAR(256)
+);
+```
+
+```{sql, connection=con}
+-- create the locations table
+CREATE TABLE locations (
+  location_name VARCHAR(24) PRIMARY KEY,
+  province VARCHAR(48),
+  country_name VARCHAR(48),
+  bioregion_name VARCHAR(24),
+  climate VARCHAR(3),
+  protection VARCHAR(1),
+  earliest VARCHAR(10),
+  latest VARCHAR(10)
+);
+```
+
+```{sql, connection=con}
+-- create the trips table
+CREATE TABLE trips (
+  trip_name VARCHAR(16) PRIMARY KEY,
+  countries VARCHAR(128),
+  start_date VARCHAR(10) NOT NULL,
+  end_date VARCHAR(10) NOT NULL
+);
+```
+
+```{sql, connection=con}
+-- create the species table
+CREATE TABLE species (
+  seq INT PRIMARY KEY,
+  genus_ioc VARCHAR(32) NOT NULL,
+  species_ioc VARCHAR(32) NOT NULL,
+  num_spp INT,
+  familiar_ioc VARCHAR(64),
+  conservation VARCHAR(2),
+  endemic VARCHAR(32)
+);
+```
+
+```{sql, connection=con}
+-- create the genera table
+CREATE TABLE genera (
+  genus_ioc VARCHAR(32) PRIMARY KEY,
+  seq INT NOT NULL,
+  family_ioc VARCHAR(32) NOT NULL,
+  familiar_genus VARCHAR(64),
+  taxonomy VARCHAR(128),
+  num_sp INT
+);
+```
+
+```{sql, connection=con}
+-- create the families table
+CREATE TABLE families (
+  family_ioc VARCHAR(32) PRIMARY KEY,
+  seq INT NOT NULL,
+  order_ioc VARCHAR(32),
+  familiar_family VARCHAR(64),
+  niche VARCHAR(64),
+  taxonomy VARCHAR(128),
+  num_gen INT,
+  num_spp INT,
+  num_spp_x INT,
+  num_threat INT
+);
+```
+
+```{sql, connection=con}
+-- create the orders table
+CREATE TABLE orders (
+  order_ioc VARCHAR(32) PRIMARY KEY,
+  seq INT NOT NULL,
+  familiar_ioc VARCHAR(64),
+  taxonomy VARCHAR(128) 
+);
+```
+
+Test whether the tables were created correctly. Substitute table names to check them all.
+```{sql, connection=con}
+SELECT * FROM pragma_table_info ('orders');
+```
+
+### Append data
+
+Read the data from `.csv` files using R, then transfer to the database tables. It is safe to ignore the error messages.
+```{r, warning=FALSE}
+# read data into the observations table
+observations <- read_csv("s_observations.csv", show_col_types = FALSE)
+observations$date_obs <- as.character(observations$date_obs)
+copy_to(dest = con, df = observations, name = "observations", append = TRUE)
+
+# read data into locations table
+locations <- read_csv("s_locations.csv", show_col_types = FALSE)
+locations$earliest <- as.character(locations$earliest)
+locations$latest <- as.character(locations$latest)
+copy_to(dest = con, df = locations, name = "locations", append = TRUE)
+
+# read data into trips table
+trips <- read_csv("s_trips.csv", show_col_types = FALSE)
+trips$start_date <- as.character(trips$start_date)
+trips$end_date <- as.character(trips$end_date)
+copy_to(dest = con, df = trips, name = "trips", append = TRUE)
+
+# read data into species table
+species <- read_csv("s_species.csv", show_col_types = FALSE)
+copy_to(dest = con, df = species, name = "species", append = TRUE)
+
+# read data into the genera table
+genera <- read_csv("s_genera.csv", show_col_types = FALSE)
+copy_to(dest = con, df = genera, name = "genera", append = TRUE)
+
+# read data into the families table
+families <- read_csv("s_families.csv", show_col_types = FALSE)
+copy_to(dest = con, df = families, name = "families", append = TRUE)
+
+# read data into the orders table
+orders <- read_csv("s_orders.csv", show_col_types = FALSE)
+copy_to(dest = con, df = orders, name = "orders", append = TRUE)
+```
+
+Test whether the tables contain data. Test each table.
+```{sql, connection=con}
+SELECT * FROM locations WHERE location_name LIKE 'D%';
+```
+
+Test whether all the rows are present.
+```{sql, connection=con}
+SELECT COUNT(*) FROM observations;
+```
+You should see:    
+observations: 13,510    
+locations: 722    
+trips: 204    
+species: 2327    
+genera: 1015    
+families: 252    
+orders: 44    
+

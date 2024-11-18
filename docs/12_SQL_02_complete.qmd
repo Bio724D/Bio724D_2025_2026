@@ -1,0 +1,361 @@
+---
+title: "BIO724D: SQL: Introduction to Queries"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Background 
+
+Last week's class introduced SQL and covered various methods for querying a relational database. This week, we will cover three different topics: (1) creating views, (2) modifying information in a database, and (3) imposing constraints to maximize data integrity. 
+
+## Set-up
+
+This week, we will work with the database on disk rather than in memory. To see how the data base was set up and stored to disk, refer to the Quarto notebook called `12_create_birdingDB.qmd`. The database is stored in a file called `birding.db`. This file contains the table definitions and the data in a single binary file (not a text file). Make sure that birding and the 7 `.csv` files that we worked with last week are located in your working directory. 
+
+The code below loads the necessary libraries and establishes a connection to the database. 
+```{r label=set-up, warning=FALSE}
+# load packages
+library(tidyverse)
+library(DBI)
+
+# establish connection to database file
+con <- DBI::dbConnect(RSQLite::SQLite(), "birding.db")
+
+# tell knitr about the connection
+knitr::opts_chunk$set(connection = "con")
+```
+
+## Views
+
+A **view** is a temporary table that holds the results of a query. 
+
+One way to think about a view is that it is the equivalent of an assignment statement in R or Python: values are assigned to an identifier (variable name). In most implementations of SQL, views only exist until the end of the session. The next time you work with the database, you can re-create the view by simply running the appropriate code. With SQLite, views are automatically saved in the database and don't need to be re-created.
+
+To create a view, use the following syntax:
+```{sql, connection=con, eval=FALSE}
+CREATE VIEW species_2017 AS
+  SELECT DISTINCT genus_ioc, species_ioc  
+  FROM observations 
+  WHERE date_obs LIKE '2017%';
+```
+Any valid query can be used in the `SELECT` statement. Note the use of the keyword `AS`, which is also used for aliases. This keyword functions as the assignment operator for SQL. 
+
+We can now query the view directly by name.
+```{sql, connection=con}
+SELECT * FROM species_2017 WHERE genus_ioc LIKE 'S%';
+```
+One use for views is to simplify other queries. For example, it's now quite easy to find how many species were observed in 2017. 
+```{sql, connection=con}
+SELECT COUNT(*) FROM species_2017;
+```
+Or how many different genera these represent:
+```{sql, connection=con}
+SELECT COUNT(DISTINCT(genus_ioc)) FROM species_2017;;
+```
+Another use for a view is to compile a report. 
+```{sql, connection=con, eval=FALSE}
+CREATE VIEW locations_2017 AS 
+  SELECT 
+    location_name AS location,
+    MIN(date_obs) AS earliest,
+    COUNT(*) AS '# records'
+  FROM observations 
+  WHERE date_obs LIKE '2017%'
+  GROUP BY location_name
+  ORDER BY date_obs
+;
+```
+This view provides summary statistics.
+```{sql, connection=con}
+SELECT * FROM locations_2017;
+```
+Every time one of the physical tables in the database is updated, relevant values in the view are automatically updated. This particular view won't be updated because 2017 is over, but automatic updating can be useful in situations where there are ongoing changes in the database tables. For example, this is the mechanism that your music player uses to keep track of everything you listen to: what songs, how recently, how many times, etc.
+```{sql, connection=con, eval=FALSE}
+DROP VIEW IF EXISTS species_2017;
+```
+
+We can get a list of all tables and views using a `PRAGMA` statement. A pragma is an extension specific to SQLite that is used to manage the database (not change its contents). To see a list of other pragmas, refer to the [SQLite documentation](https://www.sqlite.org/pragma.html#pragma_table_list).
+```{sql, connection=con}
+PRAGMA table_list;
+```
+
+## Modifying table contents
+
+WARNING: there is no 'undo' command in SQL!! Always make sure your database is backed up (preferably in multiple places) before you make any changes in its content. 
+
+### Adding new records
+Use the `INSERT` command to add a new record (row). The `VALUES` clause is where you list the new values, in column order and separated by commas.
+
+SQL does not provide any direct feedback after inserting a new record. To make sure the new record has been successfully added, it's useful to look at summary statistics or rows as we go. Run the following command before and after inserting records.
+
+```{sql, connection=con}
+SELECT COUNT(*) FROM trips;
+```
+
+Now we can try inserting a new record into the `trips` table. Place the list of values inside round brackets. Be sure to provide the values in column order.
+```{sql, connection=con, eval=FALSE}
+INSERT INTO trips
+VALUES (
+    'Antarctica_24',        -- value for first column
+    'none',                 -- value for second column
+    '2024-03-01',           -- etc.
+    '2024-03-10'
+);
+```
+Run the command on line 40 again to confirm that the number of records has increased by 1. Then run the command below to view your new entry in the database.
+```{sql, connection=con}
+SELECT * FROM trips ORDER BY start_date DESC;
+```
+You can insert more than 1 record by providing lists of values enclosed in round brackets and separated by commas. 
+```{sql, connection=con, eval=FALSE}
+INSERT INTO trips
+VALUES 
+    ('Antarctica_25', 'none', '2025-03-01', '2025-03-10'),
+    ('Antarctica_26', 'none', '2026-03-01', '2026-03-10'),
+    ('Antarctica_27', 'none', '2027-03-01', '2027-03-10')
+;
+```
+Confirm that 3 new trips were added by running line 54 again.
+
+To insert many rows at once, use a `.csv` file and append to the existing table using the same code that we used to first transfer values into the table. The optional argument append argument means that the new values are added (the default is to over-write). Don't run this code now, because it references `new_locations.csv`, a file that doesn't exist; it is included only for reference. 
+```{r}
+#locations <- read_csv("new_locations.csv", show_col_types = FALSE)
+#locations$earliest <- as.character(locations$earliest)
+#locations$latest <- as.character(locations$latest)
+#copy_to(dest = con, df = locations, name = "locations", append = TRUE)
+```
+SQL will raise a error if we attempt to insert a record that contains a duplicate value in the primary key column.
+```{sql, connection=con, eval=FALSE}
+INSERT INTO trips VALUES 
+    ('Antarctica_25', 'none', '2025-03-01', '2025-03-10')
+;
+```
+SQL will also raise an error if we omit a value for a `NOT NULL` column. 
+```{sql, connection=con, eval=FALSE}
+INSERT INTO trips
+VALUES 
+    ('Antarctica_28', 'none', NULL, '2028-03-10')
+;
+```
+WARNING: SQL will *not* raise an error or even a warning if we omit a value for a column that lacks the `NOT NULL` constraint. The following code runs silently.
+```{sql, connection=con}
+INSERT INTO trips
+VALUES 
+    ('Antarctica_28', NULL, '2028-03-01', '2028-03-10')
+;
+```
+
+### Updating existing records
+
+To update a value in one or more existing records, use the `UPDATE` command. Use the `SET` keyword and specify the column and new value to replaces the current value(s). 
+
+Use a `WHERE` clause to specify a condition that identifies which record(s) to update. The condition can refer to a different column or columns than the one you want to update. 
+
+When writing a `WHERE` clause, it's a good idea to rely on the primary key to define the condition, since each row is guaranteed to have a unique value. Another good habit is to make the `WHERE` clause as specific as possible. Following these two suggestions will help avoid unintended consequences. 
+```{sql, connection=con}
+UPDATE trips SET countries = 'International' WHERE trip_name = 'Antarctica_24';
+```
+Note that a separate `UPDATE` statement is required for each new value that you want to use for updating. 
+
+You can, however, use a single `UPDATE` statement on multiple records if the new value you want to insert is the same for all of them. 
+
+Best practice is to test your condition first with a `SELECT` statement.
+```{sql, connection=con}
+SELECT * FROM trips WHERE trip_name LIKE 'Antarctica_%';
+```
+The condition works as expected, so we can use it to delete the unwanted records.
+```{sql, connection=con}
+UPDATE trips SET countries = 'International' WHERE trip_name LIKE 'Antarctica_%';
+```
+
+### Removing existing records
+
+We have now accumulated several useless entries in the `trips` table. 
+
+Use the `DELETE` command to remove records from a table. **Always** use a `WHERE` clause with `DELETE.` This tells SQL which records you want to remove from the table. The `WHERE` condition can apply to any column or columns, and any condition is legal, including compound conditions and nested queries. 
+
+WARNING: if you use `DELETE` without a `WHERE` clause, it will remove all data!
+
+As with `UPDATE` commands, best practice is to use the primary key column and make the condition as specific as possible, then test the condition with a `SELECT` statement to make sure it will only alter the intended records. 
+
+Remember that there is no "undo" with SQL. When deleting rows, best practice is first to use a `SELECT` statement to test the condition; what you get back is what will be removed when you use the same condition in a `DELETE` statement.  
+```{sql, connection=con}
+SELECT * FROM trips WHERE trip_name = 'Antarctica_28';
+```
+The code below is exactly the same as that above, with the exception that `SELECT *` is replaced with `DELETE`.
+```{sql, connection=con}
+DELETE FROM trips WHERE trip_name = 'Antarctica_28';
+```
+Note that SQL operates silently: it does not report if any rows met the condition and were dropped, nor how many. Best practice is to run some queries to ensure that the expected rows were actually dropped.
+
+Because `DELETE` uses `WHERE` clauses, you can easily remove all the remaining "Antarctica" trips at once. The query below tests a condition to do this.
+```{sql, connection=con}
+SELECT * FROM trips WHERE trip_name LIKE 'Antarctica_%';
+```
+Now that we know the condition works as expected, we can delete four rows at once:
+```{sql, connection=con}
+DELETE FROM trips WHERE trip_name LIKE 'Antarctica_%';
+```
+
+### Modifying the definition of a table
+
+It is possible to modify an existing table by changing its name, renaming columns, adding new columns, or deleting columns. It is also possible to changing the data type or characteristics of a column (e.g., add or remove the `NOT NULL` constraint). 
+
+As an example, the following statement renames the `trips` table to `journeys`. 
+```{sql, connection=con, eval=FALSE}
+ALTER TABLE trips RENAME to journeys;
+```
+We won't cover statements that alter tables here, because they are rarely needed. However it's good to be aware that they exist. Refer to the official [SQLite documentation](https://www.sqlite.org/lang_altertable.html) for details.   
+
+### Deleting a table
+
+Finally, SQL makes it easy (some would say too easy!) to delete a table. 
+
+The most common situation where this might occur is that you need to make extensive changes to the organization of the table and it's simply easier to start from scratch by removing the current table and creating a new one.
+
+Use the `DROP` keyword to remove a table. The syntax is simple (see below). Warning: SQL does not ask if you are sure, it immediately deletes the table.
+```{sql, connection=con, eval=FALSE}
+DROP TABLE journeys;
+```
+`DROP` can also be used to remove individual columns, key constraints, and other features. Refer to the official [SQLite documentation](https://www.sqlite.org/lang_altertable.html) for details. 
+
+Don't drop something unless you really mean it. There is no undo!
+
+
+## Data Integrity
+
+SQL provides robust mechanisms to protect against errors during data entry and modification. We will cover a few of the most common ones here. 
+
+### Column constraints
+
+Many data integrity mechanisms are implemented directly into the table definition, where specific conditions can be applied to individual columns. These are known as **column constraints** in the SQL world.
+
+**NOT NULL constraint.** Include `NOT NULL` after a column definition to specify that missing values are not allowed.
+
+**UNIQUE constraint.** Include `UNIQUE` after a column definition to specify that no duplicate values are allowed.
+
+**PRIMARY KEY constraint.** Include `PRIMARY KEY` after a column definition to designate it as the primary key. `PRIMARY KEY` always implies `NOT NULL`. If there is only one primary key column (the usual situation), then it also implies `UNIQUE.` If more than one column is designated as the primary key, one or more of the primary key columns can contain duplicate values as long as all *combinations* of values are unique.
+
+Note that SQLite does not require tables to have a primary key. This due to an accident of history, not because it is a good idea. All other common implementations of SQL require a primary key. It is strongly recommended that you always designate a primary key even if the SQL implementation does not force you to do so.
+
+**Default values.** Providing a default value for a column can contribute to data integrity and is also useful in other ways. For instance, if a column is used in queries that carry out arithmetic, you might want to replace `NULL` with `0` (zero) to avoid errors.
+
+To specify a default value for a column, include the `DEFAULT` keyword followed by round brackets surrounding the default value. When a new record is added to a table, any missing values will be replaced by the default value and all other values will be unmodified.
+
+**Check constraints.** SQL allows you to place constraints on the specific values that are allowed in a given column. For example, negative values or zero might be excluded from a numeric column. Any valid condition can be used to test whether a value is allowed.   
+
+To specify a check constraint for a column, include a line at the end of the table definition that begins with the keyword `CHECK` followed by round brackets surrounding the column name and condition. When a new record is added to a table, any records that contain values that do not meet the condition will raise an error.
+ 
+Some examples of check constraints that could be applied to the `birding` database are:    
+  `CHECK (date_obs > '1900-01-01')`    
+  `CHECK (num_sp > 0 AND num_sp < 120)`    
+  `CHECK (climate IN (Af, Am, Aw, As, BWh, BWk, BSh, BSk, CSa, CSb, Csc))`
+
+In the last example, there are in reality many additional climates in the Koppen-Geiger classification, but the above example illustrates how to use a *controlled vocabulary* to ensure that only valid values are present in your database.  
+
+**Example of column constraint syntax.** 
+
+The following table definition illustrates the syntax of each type of constraint mentioned above. Good database design takes full advantage of these mechanisms to ensure data integrity.
+```{sql, connection=con, eval=FALSE}
+-- create a test taxon table
+CREATE TABLE taxon (
+  taxon_ioc VARCHAR(32) PRIMARY KEY,
+  seq INT UNIQUE NOT NULL,
+  familiar_taxon VARCHAR(64) UNIQUE,
+  taxonomy VARCHAR(128) DEFAULT('no notes'),
+  num_sp INT,
+  CHECK (num_sp > 0)
+);
+
+```
+Check to see if it worked.
+```{sql, connection=con}
+SELECT * FROM pragma_table_info ('taxon');
+```
+Drop the `taxon` table since we don't need it.
+```{sql, connection=con, eval=FALSE}
+DROP TABLE taxon;
+```
+
+### Foreign keys
+
+The birding database is in third normal form. However, we haven't imposed any constraints other than designating a `PRIMARY KEY` and indicating that some columns should be `NOT NULL`. In a relational database, an important additional layer of data integrity involves imposing *foreign key constraints*. Foreign keys check the contents of the columns that form relationships between tables, ensuring that for every value in table A there is a matching value in table B. In SQL terms, the column in table A *references* the column in table B. 
+
+Note that a foreign key is a one-way relationship: every value in table A must have a match in table B, but not the other way around This means that the column in table B can contain additional values that are not in table A. Also note that the the relationship can be one-to-one or one-to-many or many-to-many. Refer to the slide deck for a visual representation.
+
+An odd feature of SQLite is that foreign key constraints are off by default. In most other implementations, they are on by default. 
+
+To activate foreign key constraints in SQLite, use a `PRAGMA` statement.   
+```{sql, connection=con}
+PRAGMA foreign_keys = ON;
+```
+In SQLite, the simplest way to create a foreign key is create the table again. Most implementations of SQL allow foreign keys to be created and dropped without needing to re-create the table, but this is difficult in SQLite.
+
+First, drop the existing `observations` table.
+```{sql, connection=con, }
+DROP TABLE observations;
+```
+This removes the data *and* the definition of the `observations` table. It is completely gone.
+
+Now we can create a new definition for the `observations` table. By default, any new table definition is added to the current database. The definition below includes a new line that specifies the foreign key. If we try to reference a table or column that does not exist in the current database, SQL will throw an error.
+```{sql, connection=con}
+CREATE TABLE observations (
+  seq INT PRIMARY KEY,
+  genus_ioc VARCHAR(32) NOT NULL,
+  species_ioc VARCHAR(32) NOT NULL,
+  subspecies_ioc VARCHAR(32) NOT NULL,
+  date_obs VARCHAR(10),
+  time_obs VARCHAR(48),
+  location_name VARCHAR(24),
+  trip_name VARCHAR(16),
+  notes VARCHAR(256),
+  FOREIGN KEY (location_name) REFERENCES locations(location_name)
+);
+```
+Next, check that the table definition worked. 
+```{sql, connection=con}
+SELECT * FROM pragma_table_info ('observations');
+```
+Note that SQLite does not provide any indication that the foreign key was added. To be sure it exists, we will need to do some testing.
+
+Now that the new table definition is live, we can insert the data. Make sure that the `.csv` files containing the data are in the working directory.
+```{r, warning=FALSE}
+observations <- read_csv("s_observations.csv", show_col_types = FALSE)
+observations$date_obs <- as.character(observations$date_obs)
+copy_to(dest = con, df = observations, name = "observations", append = TRUE)
+```
+SQL did not raise an error. The fact that nothing happened is significant: it means that value in the locations_name column for every one of the >13K records contains a match in the location_name column in the locations table. 
+
+How can we be sure the foreign key constraint is working? Try to add a new record with an obviously incorrect location name:
+```{sql, connection=con, eval=FALSE}
+INSERT INTO observations VALUES (
+  13511,
+  'Cyanocitta',
+  'cristata',
+  'cristata',
+  '2024-11-19',
+  '1500',
+  'North Pole',
+  'Durham_res',
+  'beautiful!'
+);
+```
+
+The new observation can't be added because SQL because 'North Pole' is not a value in the `location_name` column of the `locations` table. 
+
+```{sql, connection=con}
+SELECT * FROM locations WHERE location_name LIKE 'No%';
+```
+Try changing the location name in the `INSERT` statement to 'Durham' and see what happens. 
+
+The foreign key constraint will also raise an error if we try to update an existing record.
+```{sql, connection=con, eval=FALSE}
+UPDATE observations SET location_name = 'South Pole' WHERE seq = 100;
+```
+These are good errors! Foreign key constraints detect data mismatches that would almost certainly produce incorrect results with future queries. 
+
+In general, it is good practice to define a foreign key constraint for every relation between tables in a database.
