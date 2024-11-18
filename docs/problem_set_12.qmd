@@ -1,0 +1,50 @@
+---
+title: "Assignment 11: SQL, Part I"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using R code**.
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Fall2024.qmd`
+
+Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) on your Github site.
+
+
+## Set-up 
+
+Before starting the problems, recreate the birding database from class. Refer to `SQL_01_complete.html` (available on the class wiki) for the code to load packages, import files, and build the database. This notebook also contains the queries we went over in class, as well as notes about syntax and usage. 
+
+## Problems
+
+*If you get stuck, describe how you are trying to solve the problem in words, or pseudocode, or both!!*
+
+**1. Add a foreign key constraint.**
+
+Although the database `birding.db` is in third normal form, it currently does not contain foreign key constraints. Your task is to add a foreign key constraint from the `order_ioc` column in the `families` table to the `order_ioc column` in the `orders` table. 
+
+To do this, follow the approach we used in class to add a foreign key constraint. (1) Drop the existing `families` table and create a new definition that includes the foreign key constraint mentioned above. (2) Use a PRAGMA to turn on foreign key constraints. (3) Load the data from `families.csv` into your new `families` table. (Hint: refer to the notebook `12_create_birdingDB.qmd` and look for an R code block.) Attempting to load the data will generate an error; scroll down and you will find this message: `FOREIGN KEY constraint failed`. This means that there is an incompatibility and that none of the data loaded. (4) To load the data, temporarily turn off foreign key constraints with the PRAGMA. (5) Your next task is to find the incompatible entry. (Hint: there is just one incorrect `order_ioc` value, and it is in the `families` table, not the `orders` table.) To locate the bad value, use a query or queries to find all differences between the list of `orders_ioc` values in the two tables. (Hint: there are several ways to do this, but the perhaps the simplest method is to use a nested query.) (6) Once you have located the bad value, use an `UPDATE` statement to fix it. (7) Turn on foreign key constraints again. You should have no errors.
+
+Show your code for adding the foreign key constraint, loading the data, finding the bad value, and fixing the bad value.
+
+**2. Incorporate a taxonomic revision.** 
+
+The IOC receives proposals from taxonomists to revise groups based on phylogenetic analyses and (in the case of species boundaries) based on fieldwork. These proposals are evaluated by a panel of experts and some are eventually approved. You can see the current cases [here](https://www.worldbirdnames.org/new/updates/proposed-splits/).
+
+Imagine that the IOC panel approves a proposal to move the Great Potoo, *Nyctibius grandis*, into a new genus called *Nyctiboides* to reflect its basal phylogenetic position within the genus and much larger genetic distance from other species in the genus *Nyctibius*. (Note: this is a made-up example!!) 
+
+Your task is to figure out what changes will need to be made in the birding database to reflect the new taxonomic organization. First, examine the organization of the information in the tables to identify which columns and tables need to updated. Describe these in words (bullet points are acceptable). Second, write code for making the needed changes.
+
+
