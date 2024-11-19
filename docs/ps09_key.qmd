@@ -1,0 +1,209 @@
+---
+title: "Bio 724D: Applying control flow and functions to a parsing problem"
+format: 
+  html:
+    toc: true
+    embed-resources: true
+    df-print: kable
+---
+
+
+
+## Introduction
+
+During the first half of our class session we introduced to the concepts and syntax for writing control flow statements and functions in R.  We now turn to a motivating example to practice these skills.
+
+
+
+## Libraries
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+
+get_stanzas <- function(poem) {
+  # input: a single string representing one or more stanzas, 
+  #        stanzas separated by newlines
+  # output: a vector of strings, each string representing a stanzas
+  stanzas <- str_split_1(poem, "\n\n")
+  return (stanzas) # return the vector of stanzas
+}
+
+count_lines <- function(stanza) {
+  # input: a single string representing a single stanza
+  #         each line separated by a newline
+  # output: an integer giving the number of lines in the stanza
+  lines <- str_split_1(stanza, "\n")
+  return (length(lines))
+}
+
+count_words <- function(stanza) {
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of words in the stanza
+  words <- 
+    stanza |> 
+    str_squish() |>
+    str_split_1("\\s")
+  
+  return (length(words))
+}
+
+count_alphabetical<- function(stanza) {
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of alphabetical characters in the stanza
+  return (str_count(stanza, "[:alnum:]"))
+}
+
+count_punctuation <- function(stanza) {
+  # input: a single string representing a single stanza
+  # output: an integer giving the number of punctuation characters in the stanza
+  return (str_count(stanza, "[:punct:]"))
+}
+
+
+analyze_poem <- function(poem) {
+  # input: a single string representing one or more stanzas, 
+  #        stanzas separated by newlines
+  # output: a data frame, each row representing a stanza and the corresponding
+  #        metrics calculated above
+  
+  df <- tibble(
+    stanza = integer(),
+    num_lines = integer(),
+    num_words = integer(),
+    num_alpha = integer(),
+    num_punct = integer()
+  )
+  
+  # extract the stanzas
+  stanzas <- get_stanzas(poem)
+  
+  # iterate over the stanzas with a for-loop
+  # growing the data frame by one row at a time
+  for (i in 1:length(stanzas)) {
+    df <-
+      df |>
+      add_row(
+        stanza = i,
+        num_lines = count_lines(stanzas[i]),
+        num_words =  count_words(stanzas[i]),
+        num_alpha = count_alphabetical(stanzas[i]),
+        num_punct = count_punctuation(stanzas[i])
+      )
+  }
+  return(df)
+}
+
+```
+
+
+## Problem 1
+
+
+```{r}
+poem_files <- list.files(pattern="*.txt",
+                        full.names = TRUE)
+n_poems <- length(poem_files)
+
+
+results <- list(first = character(n_poems), last = character(n_poems), 
+                title = character(n_poems), text = character(n_poems))
+
+for (i in 1:n_poems) {
+  bname = str_split_1(basename(poem_files[i]), "\\.")[1] # base filename w/out extension
+  parts = bname |> str_split_1("_") # split filename into parts separated by underscores
+  results$first[i] <- parts[1]
+  results$last[i] <- parts[2]
+  results$title[i] <- parts[3]
+  results$text[i] <- read_file(poem_files[i])
+}
+  
+```
+
+
+## Problems 2 and 3
+
+```{r}
+poem_df <- tibble( first_name = character(),
+                       last_name = character(),
+                       title = character(),
+                       stanza = integer(),
+                       num_lines = integer(),
+                       num_words = integer(),
+                       num_alpha = integer(),
+                       num_punct = integer())
+
+
+for (i in 1:n_poems) {
+  poem_data <- analyze_poem(results$text[i])
+  poem_data$first_name = results$first[i]
+  poem_data$last_name = results$last[i]
+  poem_data$title = results$title[i]
+  poem_df <- bind_rows(poem_df, poem_data)
+}
+
+```
+
+## Problem 4
+
+```{r}
+#  Using the output of Problem 3, add the following metrics (per stanza) to the data frame:
+#    word_complexity – the average number of alphanumeric characters per word
+#    punct_density – the average number of punctuation characters per line
+
+
+poem_df <-
+  poem_df |> 
+  mutate(word_complexity = num_alpha/num_words,
+         punct_density = num_punct/num_lines)
+
+```
+
+## Problem 5
+
+```{r}
+# 
+# On a per poem basis (hint: group_by), generate a derived data frame with the following:
+# 
+# stanza_complexity – the average word_complexity for the poem as a whole
+# poem_complexity – the number of stanzas times the stanza complexity
+# punct_metric – the median punct_density for the poem as a whole
+
+summary_stats <-
+  poem_df |>
+  group_by(title, first_name, last_name) |>
+  summarize(stanza_complexity = mean(word_complexity),
+            poem_complexity = n() * stanza_complexity,
+            punct_metric = median(punct_density))
+
+summary_stats
+```
+
+```{r}
+# What are the top three poems in terms of poem_complexity? What are the top three poems in terms of stanza_complexity?
+
+summary_stats |>
+  arrange(desc(poem_complexity)) |> 
+  head(3) |>
+  select(title, first_name, last_name, poem_complexity)  
+```
+
+
+```{r}
+summary_stats |>
+  arrange(desc(stanza_complexity)) |> 
+  head(3) |>
+  select(title, first_name, last_name, stanza_complexity)
+```
+
+```{r}
+summary_stats |>
+  arrange(punct_metric) |>
+  head(1) |>
+  select(title, first_name, last_name, punct_metric)
+```
+
+
+
