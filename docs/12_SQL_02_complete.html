@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Greg Wray">
-<meta name="dcterms.date" content="2024-11-18">
+<meta name="dcterms.date" content="2024-11-19">
 
-<title>BIO724D: SQL: Introduction to Queries</title>
+<title>BIO724D: SQL: Views, Modifications, and Constraints</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3086,7 +3086,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">BIO724D: SQL: Introduction to Queries</h1>
+<h1 class="title">BIO724D: SQL: Views, Modifications, and Constraints</h1>
 </div>
 
 
@@ -3103,7 +3103,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 18, 2024</p>
+      <p class="date">November 19, 2024</p>
     </div>
   </div>
   
@@ -3366,21 +3366,13 @@ vertical-align: -.125em;
 </tr>
 <tr class="even">
 <td style="text-align: left;">main</td>
-<td style="text-align: left;">trips</td>
-<td style="text-align: left;">table</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">main</td>
 <td style="text-align: left;">species_2017</td>
 <td style="text-align: left;">view</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">main</td>
 <td style="text-align: left;">sqlite_schema</td>
 <td style="text-align: left;">table</td>
@@ -3388,11 +3380,19 @@ vertical-align: -.125em;
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">main</td>
 <td style="text-align: left;">locations</td>
 <td style="text-align: left;">table</td>
 <td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">trips</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
@@ -3414,25 +3414,25 @@ vertical-align: -.125em;
 </tr>
 <tr class="even">
 <td style="text-align: left;">main</td>
-<td style="text-align: left;">families</td>
-<td style="text-align: left;">table</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">main</td>
 <td style="text-align: left;">orders</td>
 <td style="text-align: left;">table</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">main</td>
+<td style="text-align: left;">sqlite_stat1</td>
+<td style="text-align: left;">table</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
 <tr class="even">
 <td style="text-align: left;">main</td>
-<td style="text-align: left;">taxon</td>
-<td style="text-align: left;">table</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: left;">locations_2017</td>
+<td style="text-align: left;">view</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">0</td>
 </tr>
@@ -3476,7 +3476,7 @@ vertical-align: -.125em;
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;2024-03-10&#39;</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Run the command on line 40 again to confirm that the number of records has increased by 1. Then run the command below to view your new entry in the database.</p>
+<p>Run the query to count the number of records again to confirm that it has increased by 1. Then run the command below to view your new entry in the database.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> trips <span class="kw">ORDER</span> <span class="kw">BY</span> start_date <span class="kw">DESC</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -3564,7 +3564,7 @@ vertical-align: -.125em;
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;Antarctica_27&#39;</span>, <span class="st">&#39;none&#39;</span>, <span class="st">&#39;2027-03-01&#39;</span>, <span class="st">&#39;2027-03-10&#39;</span>)</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Confirm that 3 new trips were added by running line 54 again.</p>
+<p>Confirm that 3 new trips were added by running the query to show all records in reverse order again.</p>
 <p>To insert many rows at once, use a <code>.csv</code> file and append to the existing table using the same code that we used to first transfer values into the table. The optional argument append argument means that the new values are added (the default is to over-write). Don’t run this code now, because it references <code>new_locations.csv</code>, a file that doesn’t exist; it is included only for reference.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#locations &lt;- read_csv(&quot;new_locations.csv&quot;, show_col_types = FALSE)</span></span>
@@ -3732,9 +3732,8 @@ vertical-align: -.125em;
 <code>CHECK (date_obs &gt; &#39;1900-01-01&#39;)</code><br>
 <code>CHECK (num_sp &gt; 0 AND num_sp &lt; 120)</code><br>
 <code>CHECK (climate IN (Af, Am, Aw, As, BWh, BWk, BSh, BSk, CSa, CSb, Csc))</code></p>
-<p>In the last example, there are in reality many additional climates in the Koppen-Geiger classification, but the above example illustrates how to use a <em>controlled vocabulary</em> to ensure that only valid values are present in your database.</p>
-<p><strong>Example of column constraint syntax.</strong></p>
-<p>The following table definition illustrates the syntax of each type of constraint mentioned above. Good database design takes full advantage of these mechanisms to ensure data integrity.</p>
+<p>Regarding the last example, there are in reality many additional climates in the Köppen-Geiger classification, but this example illustrates how to use a <em>controlled vocabulary</em> to ensure that only valid values are present in your database.</p>
+<p><strong>Example of column constraint syntax.</strong> The following table definition illustrates the syntax of each type of constraint mentioned above. Good database design takes full advantage of these mechanisms to ensure data integrity.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- create a test taxon table</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> taxon (</span>
@@ -3750,59 +3749,19 @@ vertical-align: -.125em;
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> pragma_table_info (<span class="st">&#39;taxon&#39;</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>5 records</caption>
+<table class="caption-top">
+<caption>0 records</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">cid</th>
 <th style="text-align: left;">name</th>
 <th style="text-align: left;">type</th>
-<th style="text-align: right;">notnull</th>
+<th style="text-align: left;">notnull</th>
 <th style="text-align: left;">dflt_value</th>
-<th style="text-align: right;">pk</th>
+<th style="text-align: left;">pk</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">taxon_ioc</td>
-<td style="text-align: left;">VARCHAR(32)</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">seq</td>
-<td style="text-align: left;">INT</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">familiar_taxon</td>
-<td style="text-align: left;">VARCHAR(64)</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">taxonomy</td>
-<td style="text-align: left;">VARCHAR(128)</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">‘no notes’</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">num_sp</td>
-<td style="text-align: left;">INT</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: right;">0</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -3942,8 +3901,8 @@ vertical-align: -.125em;
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>observations<span class="sc">$</span>date_obs <span class="ot">&lt;-</span> <span class="fu">as.character</span>(observations<span class="sc">$</span>date_obs)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">copy_to</span>(<span class="at">dest =</span> con, <span class="at">df =</span> observations, <span class="at">name =</span> <span class="st">&quot;observations&quot;</span>, <span class="at">append =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>SQL did not raise an error. The fact that nothing happened is significant: it means that value in the locations_name column for every one of the &gt;13K records contains a match in the location_name column in the locations table.</p>
-<p>How can we be sure the foreign key constraint is working? Try to add a new record with an obviously incorrect location name:</p>
+<p>SQL did not raise an error. The fact that nothing happened is significant: it means that value in the <code>locations_name</code> column for every one of the &gt;13K records in the <code>observations</code> table contains a match in the <code>location_name</code> column in the <code>locations</code> table.</p>
+<p>But how can we be <em>sure</em> the foreign key constraint is working? Try to add a new record with an obviously incorrect location name:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> observations <span class="kw">VALUES</span> (</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">13511</span>,</span>

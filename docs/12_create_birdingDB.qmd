@@ -1,5 +1,5 @@
 ---
-title: "BIO724D: SQL: Introduction to Queries"
+title: "BIO724D: SQL: Build a database on disk"
 author: "Greg Wray"
 date: "`r Sys.time()`"
 format: 
@@ -128,7 +128,7 @@ Test whether the tables were created correctly. Substitute table names to check 
 SELECT * FROM pragma_table_info ('orders');
 ```
 
-### Append data
+### Append the data
 
 Read the data from `.csv` files using R, then transfer to the database tables. It is safe to ignore the error messages.
 ```{r, warning=FALSE}
@@ -166,12 +166,15 @@ orders <- read_csv("s_orders.csv", show_col_types = FALSE)
 copy_to(dest = con, df = orders, name = "orders", append = TRUE)
 ```
 
+
+### Validate the database
+
 Test whether the tables contain data. Test each table.
 ```{sql, connection=con}
 SELECT * FROM locations WHERE location_name LIKE 'D%';
 ```
 
-Test whether all the rows are present.
+Test whether all the rows are present. Test each table.
 ```{sql, connection=con}
 SELECT COUNT(*) FROM observations;
 ```

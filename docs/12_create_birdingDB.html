@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Greg Wray">
-<meta name="dcterms.date" content="2024-11-18">
+<meta name="dcterms.date" content="2024-11-19">
 
-<title>BIO724D: SQL: Introduction to Queries</title>
+<title>BIO724D: SQL: Build a database on disk</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3086,7 +3086,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">BIO724D: SQL: Introduction to Queries</h1>
+<h1 class="title">BIO724D: SQL: Build a database on disk</h1>
 </div>
 
 
@@ -3103,7 +3103,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 18, 2024</p>
+      <p class="date">November 19, 2024</p>
     </div>
   </div>
   
@@ -3288,8 +3288,8 @@ vertical-align: -.125em;
 </div>
 </div>
 </section>
-<section id="append-data" class="level3">
-<h3 class="anchored" data-anchor-id="append-data">Append data</h3>
+<section id="append-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="append-the-data">Append the data</h3>
 <p>Read the data from <code>.csv</code> files using R, then transfer to the database tables. It is safe to ignore the error messages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read data into the observations table</span></span>
@@ -3325,6 +3325,9 @@ vertical-align: -.125em;
 <span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;s_orders.csv&quot;</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="fu">copy_to</span>(<span class="at">dest =</span> con, <span class="at">df =</span> orders, <span class="at">name =</span> <span class="st">&quot;orders&quot;</span>, <span class="at">append =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="validate-the-database" class="level3">
+<h3 class="anchored" data-anchor-id="validate-the-database">Validate the database</h3>
 <p>Test whether the tables contain data. Test each table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> locations <span class="kw">WHERE</span> location_name <span class="kw">LIKE</span> <span class="st">&#39;D%&#39;</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3458,7 +3461,7 @@ vertical-align: -.125em;
 </table>
 </div>
 </div>
-<p>Test whether all the rows are present.</p>
+<p>Test whether all the rows are present. Test each table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> observations;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

@@ -1,5 +1,5 @@
 ---
-title: "BIO724D: SQL: Introduction to Queries"
+title: "BIO724D: SQL: Views, Modifications, and Constraints"
 author: "Greg Wray"
 date: "`r Sys.time()`"
 format: 
@@ -106,7 +106,7 @@ VALUES (
     '2024-03-10'
 );
 ```
-Run the command on line 40 again to confirm that the number of records has increased by 1. Then run the command below to view your new entry in the database.
+Run the query to count the number of records again to confirm that it has increased by 1. Then run the command below to view your new entry in the database.
 ```{sql, connection=con}
 SELECT * FROM trips ORDER BY start_date DESC;
 ```
@@ -119,7 +119,7 @@ VALUES
     ('Antarctica_27', 'none', '2027-03-01', '2027-03-10')
 ;
 ```
-Confirm that 3 new trips were added by running line 54 again.
+Confirm that 3 new trips were added by running the query to show all records in reverse order again.
 
 To insert many rows at once, use a `.csv` file and append to the existing table using the same code that we used to first transfer values into the table. The optional argument append argument means that the new values are added (the default is to over-write). Don't run this code now, because it references `new_locations.csv`, a file that doesn't exist; it is included only for reference. 
 ```{r}
@@ -255,11 +255,9 @@ Some examples of check constraints that could be applied to the `birding` databa
   `CHECK (num_sp > 0 AND num_sp < 120)`    
   `CHECK (climate IN (Af, Am, Aw, As, BWh, BWk, BSh, BSk, CSa, CSb, Csc))`
 
-In the last example, there are in reality many additional climates in the Koppen-Geiger classification, but the above example illustrates how to use a *controlled vocabulary* to ensure that only valid values are present in your database.  
+Regarding the last example, there are in reality many additional climates in the Köppen-Geiger classification, but this example illustrates how to use a *controlled vocabulary* to ensure that only valid values are present in your database.  
 
-**Example of column constraint syntax.** 
-
-The following table definition illustrates the syntax of each type of constraint mentioned above. Good database design takes full advantage of these mechanisms to ensure data integrity.
+**Example of column constraint syntax.** The following table definition illustrates the syntax of each type of constraint mentioned above. Good database design takes full advantage of these mechanisms to ensure data integrity.
 ```{sql, connection=con, eval=FALSE}
 -- create a test taxon table
 CREATE TABLE taxon (
@@ -328,9 +326,9 @@ observations <- read_csv("s_observations.csv", show_col_types = FALSE)
 observations$date_obs <- as.character(observations$date_obs)
 copy_to(dest = con, df = observations, name = "observations", append = TRUE)
 ```
-SQL did not raise an error. The fact that nothing happened is significant: it means that value in the locations_name column for every one of the >13K records contains a match in the location_name column in the locations table. 
+SQL did not raise an error. The fact that nothing happened is significant: it means that value in the `locations_name` column for every one of the >13K records in the `observations` table contains a match in the `location_name` column in the `locations` table. 
 
-How can we be sure the foreign key constraint is working? Try to add a new record with an obviously incorrect location name:
+But how can we be *sure* the foreign key constraint is working? Try to add a new record with an obviously incorrect location name:
 ```{sql, connection=con, eval=FALSE}
 INSERT INTO observations VALUES (
   13511,
