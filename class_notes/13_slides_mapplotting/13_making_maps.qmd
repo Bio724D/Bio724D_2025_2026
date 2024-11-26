@@ -83,19 +83,53 @@ The default coordinate system used is WGS84 with a Mercator projection:
 
 ```{r}
 ggplot() +
-  geom_sf(data = countries)
+  geom_sf(data = countries) 
 ```
+## Creating an SF object on the fly
+
+Let's create a SF point object representing where Durham is on the map. 
+
+```{r}
+# create a data frame with the latitude and longitude of durham
+durham <- tibble(long = -78.9, lat = 36) 
+durham
+```
+
+Now convert that data frame to an `sf` object using `st_as_sf`, and specify the coordinate reference system:
+
+```{r}
+durham_sf <- st_as_sf(durham, 
+                      coords = c("long","lat"),
+                      crs=4326)
+
+durham_sf
+```
+
+To plot this point data we can simply include it as another `geom_sf` layer:
+
+```{r}
+ggplot() +
+  geom_sf(data = countries) +
+  geom_sf(data = durham_sf, color = "red")
+```
+
+
+
 
 ## Mapping with a different CRS
 
 
-If we want to use a different coordinate system we can specify that using the `coord_sf` function. Here we use [EPS:3035](https://spatialreference.org/ref/epsg/3035/) which uses the Lambert Azimuthal Equal Area projection:
+If we want to use a different coordinate system we can specify that using the `coord_sf` function. Here we use [EPS:3035](https://spatialreference.org/ref/epsg/3035/) which uses the Lambert Azimuthal Equal Area projection.
+
+Note that because we specified our point data (location of Durham) as an `sf` object the CRS transform also applies to that data:
 
 
 ```{r}
 ggplot(data = countries) +
     geom_sf() +
-    coord_sf(crs = st_crs("EPSG:3035"))
+    geom_sf(data = durham_sf, color="red") +
+    coord_sf(crs = st_crs("EPSG:3035")) 
+    
 ```
 
 ## Chloropleth plots
@@ -214,14 +248,21 @@ As a final example, let's plot the locations in North Carolina where there have 
 nc_snouters <- 
   read_tsv("https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/nc_snouter_sites.tsv")
 
+
 head(nc_snouters)
+
+snouters_sf <-
+  st_as_sf(nc_snouters, 
+           coords = c("longitude","latitude"),
+           crs=4326)
+
+
 ```
 
 ```{r}
 ggplot() +
   geom_sf(data = north_carolina, fill = "antiquewhite") +
-  geom_point(data = nc_snouters, 
-             mapping=aes(x = longitude, y = latitude), 
+  geom_sf(data = snouters_sf, 
              color="firebrick",
              size = 2,
              shape = 9) +
