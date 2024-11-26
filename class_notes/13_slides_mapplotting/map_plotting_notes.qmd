@@ -1,0 +1,323 @@
+---
+title: "Untitled"
+format: html
+---
+
+
+
+Have students install
+
+* sf -- package for working with "shape files" -- core GIS functionality
+* rnaturalearth -- source of map data
+
+
+```{r}
+library(tidyverse)
+library(sf)
+library(rnaturalearth)
+```
+
+
+
+
+
+```{r}
+# install.packages("maps")
+# install.packages("mapproj")
+library(tidyverse)
+library(maps)
+
+```
+
+
+```{r}
+# Import the data with coordinates
+world <- map_data("world")
+
+# Plot the map. group = group connects the points in the correct order
+ggplot(data = world, aes(x = long, y = lat, group = group)) + 
+  geom_polygon() +
+  coord_quickmap()
+
+# # Equivalent to:
+# ggplot(world, aes(map_id = region)) +
+#   geom_map(data = world, map = world,
+#     aes(x = long, y = lat, map_id = region)) 
+```
+ 
+```{r}
+uganda <- map_data("world", "uganda")
+
+ggplot(data = uganda, aes(x = long, y = lat, group = group)) + 
+  geom_polygon() +
+  coord_quickmap()
+```
+ 
+ 
+ 
+```{r}
+ggplot(data = world, aes(x = long, y = lat, group = group)) + 
+  geom_polygon() +
+  geom_point(data = filter(world.cities, pop > 100000), color="red", 
+             mapping=aes(x = long, y = lat), 
+             inherit.aes = FALSE,
+             size = 0.1) +
+```
+ 
+ 
+ 
+ 
+```{r}
+us_states <- map_data("state")
+ggplot(data = us_states, aes(x = long, y = lat, group = group)) + 
+  geom_polygon() 
+```
+ 
+ 
+ 
+```{r}
+
+ggplot(data = us_states, aes(x = long, y = lat, group = group)) + 
+  geom_polygon(fill = "white",
+               color = "black") +
+  geom_point(data = filter(us.cities, !(country.etc %in% c("HI","AK"))), 
+             mapping=aes(x = long, y = lat), 
+             inherit.aes = FALSE,
+             color="red",
+             alpha = 0.75,
+             size = 0.5) +
+  coord_map()
+```
+ 
+```{r}
+nc <- 
+  us_states |>
+  filter(region == "north carolina")
+```
+ 
+
+
+```{r}
+
+ggplot(data = nc, aes(x = long, y = lat, group = group)) + 
+  geom_polygon(fill = "white",
+               color = "black") 
+
+```
+
+```{r}
+kayla <- 
+  read_csv("~/Downloads/kayla_NC_sampling_locations_coordinates.csv") |>
+  rename(lat = latitude, long = longitude)
+
+snouters <- 
+  read_tsv("~/Downloads/nc_snouter_sites.tsv") |>
+  rename(lat = latitude, long = longitude)
+```
+
+```{r}
+
+cities <- c("Durham NC","Raleigh NC","Charlotte NC","Asheville NC","Wilmington NC")
+
+ggplot(data = nc, aes(x = long, y = lat, group = group)) + 
+  geom_polygon(fill = "white",
+               color = "black") +
+  geom_point(data = snouters, 
+             mapping=aes(x = long, y = lat), 
+             inherit.aes = FALSE,
+             color="firebrick",
+             size = 1.5,
+             shape = 4) +
+  geom_point(data = filter(us.cities, name %in% cities), 
+             mapping=aes(x = long, y = lat), 
+             inherit.aes = FALSE,
+             color="blue",
+             shape = 17,
+             alpha = 0.75,
+             size = 2) +  
+  coord_map()
+```
+
+
+
+```{r}
+library(sf)
+library(giscoR)
+```
+
+
+```{r}
+world <- gisco_get_countries(year = "2024")
+```
+
+
+```{r}
+ggplot() +
+  geom_sf(data = world) +
+  coord_sf()
+```
+
+
+```{r}
+usa <- gisco_get_countries(country = "USA")
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = usa) +
+  coord_sf()
+```
+
+
+
+
+```{r}
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+```
+
+
+```{r}
+cbstates <- st_read("~/Downloads/cb_2023_us_all_20m/cb_2023_us_state_20m/cb_2023_us_state_20m.shp")
+```
+
+```{r}
+continental_us <-
+  filter(cbstates, !(NAME %in% c("Hawaii","Alaska","Puerto Rico")))
+```
+
+
+```{r}
+ggplot() +
+  geom_sf(data = continental_us, graticule = TRUE) +
+  coord_sf()
+```
+
+
+```{r}
+nc <- 
+  continental_us |>
+  filter(NAME == "North Carolina")
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = nc) +
+  coord_sf()
+```
+
+
+
+```{r}
+nc <- st_read("~/Downloads/cb_2023_37_place_500k/cb_2023_37_place_500k.shp")
+```
+
+
+
+
+
+```{r}
+
+
+asia <- gisco_get_countries(region = "Asia")
+
+ggplot(asia) +
+  geom_sf(fill = "cornsilk", color = "#887e6a") +
+  theme(
+    panel.background = element_rect(fill = "#fffff3"),
+    panel.border = element_rect(colour = "#887e6a", fill = NA, linewidth = 1.5),
+    axis.text = element_text(
+      family = "serif", colour = "#887e6a",
+      face = "bold"
+    )
+  )
+```
+
+```{r}
+
+
+americas <- gisco_get_countries(region = "Americas")
+
+ggplot(americas) +
+  geom_sf(fill = "cornsilk", color = "#887e6a", graticule = TRUE) +
+  theme(
+    panel.background = element_rect(fill = "#fffff3"),
+    panel.border = element_rect(colour = "#887e6a", fill = NA, linewidth = 1.5),
+    axis.text = element_text(
+      family = "serif", colour = "#887e6a",
+      face = "bold"
+    )
+  )
+```
+
+
+
+```{r}
+nc_kml <- st_read("~/Downloads/cb_2023_37_cd118_500k/cb_2023_37_cd118_500k.kml")
+
+```
+
+
+```{r}
+us_counties <- st_read("~/Downloads/cb_2023_us_county_5m/cb_2023_us_county_5m.shp")
+nc_counties <-
+  us_counties |>
+  filter(STATE_NAME == "North Carolina")
+
+ggplot() +
+  geom_sf(data = nc_counties, fill = NA, graticule = TRUE) +
+  geom_point(data = snouters, 
+             mapping=aes(x = long, y = lat), 
+             inherit.aes = FALSE,
+             color="firebrick",
+             size = 2,
+             #alpha = 0.65,
+             shape = 9) +
+  # geom_point(data = filter(us.cities, name %in% cities), 
+  #            mapping=aes(x = long, y = lat), 
+  #            inherit.aes = FALSE,
+  #            color="steelblue",
+  #            shape = 17,
+  #            alpha = 0.1,
+  #            size = 2) +  
+  coord_sf() #+ 
+  #theme_classic()
+
+```
+
+
+
+```{r}
+rtp_names <- c("Wake")
+rtp_counties <-
+  nc_counties |>
+  filter(NAME %in% rtp_names)
+
+
+
+ggplot() +
+  geom_sf(data = rtp_counties, fill = NA) +
+  geom_point(data = kayla, 
+             mapping=aes(x = long, y = lat), 
+             inherit.aes = FALSE,
+             color="firebrick",
+             size = 2,
+             #alpha = 0.65,
+             shape = 9) +
+  # geom_point(data = filter(us.cities, name %in% cities), 
+  #            mapping=aes(x = long, y = lat), 
+  #            inherit.aes = FALSE,
+  #            color="steelblue",
+  #            shape = 17,
+  #            alpha = 0.1,
+  #            size = 2) +  
+  coord_sf() #+ 
+  #theme_classic()
+
+```
+
+
+```{r}
+nc_counties_map <- map_data("county", "north carolina") %>% 
+  select(lon = long, lat, group, id = subregion)
+```
+
