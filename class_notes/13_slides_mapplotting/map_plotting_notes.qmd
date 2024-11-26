@@ -7,27 +7,76 @@ format: html
 
 Have students install
 
-* sf -- package for working with "shape files" -- core GIS functionality
-* rnaturalearth -- source of map data
+* sf -- package for working with "simple feature" files -- core GIS data type
+* rnaturalearth and rnaturalearthdata -- source of map data
 
 
 ```{r}
 library(tidyverse)
 library(sf)
 library(rnaturalearth)
+library(rnaturalearthdata)
 ```
-
-
 
 
 
 ```{r}
-# install.packages("maps")
-# install.packages("mapproj")
-library(tidyverse)
-library(maps)
+world <- ne_countries(scale = "medium", returnclass = "sf")
 
+usa <- 
+  world |> 
+  filter(name == "United States of America")
+
+uganda <- 
+  world |> 
+  filter(name == "Uganda")
 ```
+
+
+```{r}
+ggplot(data = world) +
+    geom_sf()
+```
+
+```{r}
+ggplot(data = usa) +
+    geom_sf()
+```
+
+
+Get info about the Coordinate Reference System associated with this map
+
+```{r}
+st_crs(world)
+```
+
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(crs = st_crs("EPSG:3035"))
+```
+
+
+
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(crs = st_crs("EPSG:4326"))
+```
+
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(crs = st_crs("EPSG:6350"))
+```
+
+
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(crs = "+proj=robin")
+```
+
 
 
 ```{r}
@@ -177,26 +226,33 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 
 
 ```{r}
-cbstates <- st_read("~/Downloads/cb_2023_us_all_20m/cb_2023_us_state_20m/cb_2023_us_state_20m.shp")
+cbstates <- st_read("~/Downloads/cb_2023_us_county_5m/cb_2023_us_county_5m.shp")
 ```
 
 ```{r}
 continental_us <-
-  filter(cbstates, !(NAME %in% c("Hawaii","Alaska","Puerto Rico")))
+  filter(cbstates, !(STATE_NAME %in% c("Hawaii","Alaska","Puerto Rico",
+                                       "United States Virgin Islands",
+                                       "Commonwealth of the Northern Mariana Islands",
+                                       "Guam","American Samoa")))
 ```
 
 
 ```{r}
 ggplot() +
-  geom_sf(data = continental_us, graticule = TRUE) +
-  coord_sf()
+  geom_sf(data = uganda) +
+  coord_sf(crs = "+proj=aeqd +lat_0=8.5 +lon_0=21.5 +x_0=5621452.02 +y_0=5990638.423 +datum=WGS84 +units=m +no_defs +type=crs")
+  #coord_sf(xlim = c(-130, -65), ylim = c(20, 50), 
+  #         #crs = "+proj=laea +lat_0=30 +lon_0=-95",
+  #         expand = FALSE)
+  #coord_sf(crs = st_crs("EPSG:5072"))
 ```
 
 
 ```{r}
 nc <- 
   continental_us |>
-  filter(NAME == "North Carolina")
+  filter(STATE_NAME == "North Carolina")
 ```
 
 ```{r}
@@ -254,6 +310,13 @@ ggplot(americas) +
 ```{r}
 nc_kml <- st_read("~/Downloads/cb_2023_37_cd118_500k/cb_2023_37_cd118_500k.kml")
 
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = continental_us) +
+  #coord_sf()
+  coord_sf(crs = st_crs("EPSG:5072"))
 ```
 
 
@@ -320,4 +383,23 @@ ggplot() +
 nc_counties_map <- map_data("county", "north carolina") %>% 
   select(lon = long, lat, group, id = subregion)
 ```
+
+
+
+
+
+
+```{r}
+census_states <- st_read("~/Downloads/cb_2023_us_state_5m/cb_2023_us_state_5m.shp")
+
+cont_us <- filter(census_states, STATEFP < 60, !(NAME %in% c("Hawaii","Alaska")))
+```
+
+
+```{r}
+ggplot() +
+  geom_sf(data = cont_us) + 
+  coord_sf()
+```
+
 

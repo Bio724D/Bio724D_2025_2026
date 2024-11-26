@@ -1,0 +1,59 @@
+---
+title: "Untitled"
+format: html
+---
+
+
+```{r}
+library(tidyverse)
+library(sf)
+```
+
+```{r}
+countries <-
+  st_read("~/Downloads/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp")
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = countries) +
+  coord_sf()
+```
+
+
+```{r}
+states <-
+  st_read("~/Downloads/ne_10m_admin_1_states_provinces/ne_10m_admin_1_states_provinces.shp")
+```
+
+
+```{r}
+ggplot() +
+  geom_sf(data = states) +
+  coord_sf()
+```
+
+```{r}
+us_states <- 
+  states |>
+  filter(admin == "United States of America")
+```
+
+
+```{r}
+ggplot() +
+  geom_sf(data = us_states) +
+  coord_sf() 
+```
+
+
+
+
+```{r}
+ggplot() +
+  geom_sf(data = us_states) +
+  coord_sf(crs = st_crs("EPSG:5072")) 
+```
+
+
+
