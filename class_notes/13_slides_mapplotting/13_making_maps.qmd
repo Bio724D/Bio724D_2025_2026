@@ -1,29 +1,125 @@
 ---
-title: "Untitled"
-format: html
+title: "Introduction to geospatial mapping in R"
+author: "Paul Magwene"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
 ---
 
 
-```{r}
+## Libraries
+
+Install the `sf` and `ggspatial` packages via R package manager.
+
+
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(patchwork)
+
 library(sf)
+library(ggspatial) # nice extras
 ```
+
+## Data: Shapefile
+
+We're going to get data on country, state, and county boundaries from a website called "Natural Earth"](https://www.naturalearthdata.com/).  Natural Earth is a public domain map data set available at 3 different scales. The data is free to use and the development of Natural Earth is supported by the North American Cartographic Information Society.
+
+The [downloads page on Natural Earth](https://www.naturalearthdata.com/downloads/) provides links to different types of features (cultural (political), physical, raster) at 3 different scales. We'll use the [large scale cultural data (1:10m)](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/).
+
+Download and de-compress the zip files for:
+
+* [Admin 0 - Countries](https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip)
+* [Admin 1 – States, Provinces](https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_1_states_provinces.zip)
+* [Admin 2 – Counties](https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_2_counties.zip)
+
+Place the directories extracted from the zip files your working directory before proceeding. You should have the following three directories in your working directory:
+
+1. `ne_10m_admin_0_countries`
+2. `ne_10m_admin_1_states_provinces`
+3. `ne_10m_admin_2_counties`
+
+
+## Reading shape files
+
+In the `sf` package, all function that operate on spatial data are prefixed by `st_` (referring to to spatial type).
+
+The function to read a simple features file (or other common GIS data files) is `sf::st_read`. Let's start by reading the Natural Earth countries file:
+
 
 ```{r}
 countries <-
-  st_read("~/Downloads/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp")
+    st_read("ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp")
 ```
+
+## SF objects are data frames
+
+```{r}
+typeof(countries)
+class(countries)
+dim(countries)
+```
+
+
+## Where's the geometry?
+
+Look at the `countries` object in your data viewer.  You'll see lots of variables (columns) with some obvious and non-obvious meanings. The very last column is called "geometry", and the values of this column are lists that represent the geometric objects of the mapping (country boundaries in this case)
+
+
+
+## Querying simple features objects about the CRS
+
+We can ask a simple features object about it's coordinate reference system:
+
+```{r}
+st_crs(countries)
+```
+
+## Mapping a simple features data frame
+
+Mapping a data frame representing simple features data in ggplot is easy using the `geom_sf` object.
+
+The default coordinate system used is WGS84 with a Mercator projection:
 
 ```{r}
 ggplot() +
-  geom_sf(data = countries) +
-  coord_sf()
+  geom_sf(data = countries)
 ```
+
+## Mapping with a different CRS
+
+
+If we want to use a different coordinate system we can specify that using the `coord_sf` function. Here we use [EPS:3035](https://spatialreference.org/ref/epsg/3035/) which uses the Lambert Azimuthal Equal Area projection:
+
+
+```{r}
+ggplot(data = countries) +
+    geom_sf() +
+    coord_sf(crs = st_crs("EPSG:3035"))
+```
+
+## Chloropleth plots
+
+A chloropleth plot is a map in which the areas or regions are colored with respect to a numerical variable.  The Natural Earth country data files include information on population (`POP_EST`) so let's plot this numerical variable on our map. We'll also demonstrate how to zoom in on a particular map region (note xlim = longitude limits, ylim = latitude limits)
+
+```{r}
+ggplot() +
+  geom_sf(data = countries,
+          aes(fill = POP_EST)) +
+  coord_sf(xlim = c(-20, 97), ylim = c(60, -37), expand = FALSE) +
+  scale_fill_viridis_c(option = "inferno", trans = "log10") +
+  labs(fill = "Log10(Population)")
+```
+
+
+## Filtering an SF data frame
+
+Let's load the states/provinces SF file and demonstrate that we can filter the resulting data structures just like any other data frame:
 
 
 ```{r}
 states <-
-  st_read("~/Downloads/ne_10m_admin_1_states_provinces/ne_10m_admin_1_states_provinces.shp")
+  st_read("ne_10m_admin_1_states_provinces/ne_10m_admin_1_states_provinces.shp")
 ```
 
 
@@ -32,6 +128,8 @@ ggplot() +
   geom_sf(data = states) +
   coord_sf()
 ```
+
+Let's filter the states data frame to just include those in the United States.
 
 ```{r}
 us_states <- 
@@ -46,7 +144,7 @@ ggplot() +
   coord_sf() 
 ```
 
-
+That plot looks a little funny (can you figure out why?). Let's try a different coordinate reference system:
 
 
 ```{r}
@@ -54,6 +152,85 @@ ggplot() +
   geom_sf(data = us_states) +
   coord_sf(crs = st_crs("EPSG:5072")) 
 ```
+
+Let's further filter the US states to only include those in the continental US and then use patchwork to compare the Mercator projection to an area preserving Albers projection:
+
+```{r}
+continental_us <- 
+  us_states |>
+  filter(!(name %in% c("Alaska","Hawaii")))
+
+us1 <-
+  ggplot() +
+  geom_sf(data = continental_us) +
+  coord_sf()
+  
+us2 <-
+  ggplot() +
+  geom_sf(data = continental_us) +
+  coord_sf(crs = st_crs("EPSG:6350")) 
+
+us1 + us2 # layout via patchwork
+```
+
+## Zooming in further: US counties and North Carolia
+
+Let's get even further levels of detail by plotting US county boundaries. 
+
+As we did above, we'll focus on the continental US.  In this data, the `REGION` column is what we need to sort on. Besides Hawaii (HI) and Alaska (AK) we also need to filter out Puerto Rico (PR) and the Virgin Islands (VI).
+
+```{r}
+us_counties <- 
+  st_read("ne_10m_admin_2_counties/ne_10m_admin_2_counties.shp")
+
+continental_counties <-
+  us_counties |>
+  filter(!(REGION %in% c("AK","HI","PR", "VI")))
+
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = continental_counties)
+```
+
+## Focusing on North Carolina
+
+```{r}
+north_carolina <-
+  us_counties |>
+  filter(REGION == "NC")
+
+ggplot() +
+  geom_sf(data = north_carolina)
+```
+
+## Plotting localilies on our NC map
+
+
+As a final example, let's plot the locations in North Carolina where there have been reported citings of  rare and beautiful North Carolina Blue Snouters.
+
+```{r}
+nc_snouters <- 
+  read_tsv("https://raw.githubusercontent.com/Bio724D/Bio724D_2024_2025/refs/heads/main/data/nc_snouter_sites.tsv")
+
+head(nc_snouters)
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = north_carolina, fill = "antiquewhite") +
+  geom_point(data = nc_snouters, 
+             mapping=aes(x = longitude, y = latitude), 
+             color="firebrick",
+             size = 2,
+             shape = 9) +
+  annotation_scale(location = "bl", width_hint = 0.4) +
+  labs(title = "Locations of NC Blue Snouter citings",
+       x = "Longitude", y = "Latitude") +
+  theme_minimal()
+```
+
 
 
 
