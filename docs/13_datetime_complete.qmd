@@ -1,0 +1,420 @@
+---
+title: "BIO724D: Dates and times in R"
+author: "Greg Wray"
+date: "`r Sys.time()`"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Background 
+
+Working with dates and times presents several challenges. First, date and time values are recorded in many different formats. Second, math with date and time values presents challenges due to inconsistent and non-decimal numbering systems. Third, time zones and daylight savings time complicate coordination of values and math with values.
+
+The tidyverse package `lubridate` is designed to make all of these problems significantly easier to manage. Base R does provide functions to work with date and time objects, but they have somewhat limited utility compared with the `lubridate` functions. In addition, the `lubridate` functions are designed to work seamlessly with the rest of the `tidyverse`.
+
+Refer to chapter 17 in *R for Data Science* (2ed) and the slide deck for this week's class for background information and additional examples. Refer to the `lubridate` cheat-sheet for quick reference.
+
+## Set-up
+
+The only package we need to install is `tidyverse`, since `lubridate` is a standard component. Some older videos and books may instruct you to load `lubridate` separately, as it was initially a separate package, but this is no longer necessary. 
+
+```{r label=set-up}
+# load packages
+library(tidyverse)
+```
+
+## Working with date and date-time objects
+
+### Date and date-time objects
+
+Date and date-time objects are special data types. R does not automatically convert a well-formatted date or date-time string into a date or date-time object. 
+```{r}
+my_date <- "2024-11-26"
+my_datetime <- "2024-11-26 15:30:00"
+typeof(my_date)
+typeof(my_datetime)
+```
+To coerce strings into date and date-time objects, use the functions `as_date` and `as_datetime`. 
+```{r}
+my_date_ob <- as_date(my_date)
+my_datetime_ob <- as_datetime(my_datetime)
+typeof(my_date_ob)
+typeof(my_datetime_ob)
+```
+The data type of both date and date-time objects is double because values are stored as seconds since 1970-01-01 00:00:00 UTC, and converted to human-readable form only when displayed. 
+
+This is clearer when asking for the data class: 
+```{r}
+class(my_date_ob)
+class(my_datetime_ob)
+```
+Date objects are designated as class "Date", which is easy to remember; date-time objects are designated as class "POSIXct", which is less obvious and derives from the POSIX standard for implementations of UNIX; the "ct" is short for "calendar time".
+
+As with other data types, date and date-time objects are vectors and can be indexed in the usual ways.
+```{r}
+my_dates <- as_date(c("2024-12-01", "2024-12-02","2024-12-03"))
+my_dates[2]
+```
+
+
+### Current date and date-time objects
+
+**Retrieving the current date or date-time.** `lubridate` provides the functions `today` and `now` to retrieve current date and date-time objects.  
+```{r}
+# retrieve the current date
+today()
+# retrieve the current date and time
+now()
+```
+Note that both objects are returned in ISO 8601 format and that the second object includes an abbreviation for the time zone.
+
+**Specifying a different time zone.** By default, `today` and `now` use the local time zone. Optionally, you can provide a different time zone. The following provides the same information for Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), Universtal Time, and Zulu Time. Either 3-letter abbreviation works. 
+```{r}
+# retrieve the current date
+today(tzone="UTC")
+# retrieve the current date and time
+now(tzone="GMT")
+```
+Currently, `today` and `now` do not accept most 3- and 4-letter standard time zone abbreviations as arguments. However, you can enter a string formatted in various other ways to specify many different time zones:    
+
+- Continent/city or ocean/island (e.g., "Asia/Taipei" and "Pacific/Galapagos"). Many options!    
+- Country name (e.g., "Turkey", "Singapore"). Only works for a few countries. 
+- Country 3-letter abbreviation (e.g., "PRC", "ROK"). Also only works for a few countries.
+- Hour offsets from GMT (e.g., "Etc/GMT-5", "Etc/GMT+4"). Only works with integers.
+- The three primary European time zones: "EET", "CET", "WET"
+- The four primary US time zones: "EST5EDT", "CST6CDT", "MST7MDT", "PST8PDT"
+- Several other US time zones (e.g., "US/Alaska", "US/Hawaii", "US/Arizona")
+- Multiple ways of designating GMT: "GMT", "GMT0", "GMT+0", "GMT-0", "UTC", "Universal", "Zulu"
+
+The code below retrieves the current date-time for Auckland, New Zealand.
+```{r}
+now(tzone="Pacific/Auckland")
+```
+This statement will likely return *tomorrow's* date, since is New Zealand is usually 18 hours ahead of Durham (depending on daylight savings time). 
+
+If you don't know the time zone descriptor, an alternative approach is to use the offset from GMT. The code below retrieve the current date-time for 2 hours later than GMC 
+```{r}
+now(tzone="Etc/GMT-2")
+```
+Note that date-time objects include a descriptor of the time zone. The format depends on how you query. "NZDT" is short for "New Zealand Daylight Savings Time" and "+02" is short for 2 hours ahead of GMT.
+
+To see a complete list of accepted strings that can be used to designate a time zone, use the function `OlsonNames`. The list is very long, so we will just retrieve the first and last 20 entries for purposes of illustration.
+```{r}
+# see all valid values for optional tzone argument
+head(OlsonNames(), 20)
+tail(OlsonNames(), 20)
+```
+The name of this function honors Arthur David Olson, who founded what is now by far the most widely used database of time zones. The database is currently maintained by the Internet Assigned Numbers Authority (IANA) and is still typically referred to as the Olson database. You can access it [here](https://www.iana.org/time-zones).
+
+### Converting dates and date-times to standard format
+
+A common data cleaning task is converting dates and date-times to ISO 8601 format. This can be challenging because dates and times are represented in many different formats. 
+
+`lubridate` provides a family of helper functions that make the conversion process simple. For example, the function `dmy` converts a string where the first value is the date, the second value is the month, and the third value is the year and returns a date object in ISO 8601-format: year-month-date.
+
+**Usage.** To use these functions, first identify the order of units in the input data, specifically which values correspond to year (**y**), month (**m**), and date (**d**). This can be difficult or impossible to determine with just one or a few values, but is usually clear when many values are present. Next, select the function with the name that corresponds to the order of units. For example, if dates are in the format commonly used in the US, you will need to use `mdy` to convert to ISO 8601 format.
+
+**Creating date objects.** This family of functions has a different version for every possible order of units, including the improbable `myd` function. 
+```{r}
+test_1 <- mdy("09-22-2022")
+str(test_1)
+test_2 <- dmy("22-09-2022")
+str(test_2)
+test_3 <- ymd("2022-09-22")
+str(test_3)
+```
+These functions automatically parse a variety of date representations, including different kinds of separators, no separators, and string representations of month and date. They can correctly parse some other conventional but potentially confusing formats, as the last example shows. The following inputs all generate the same result.
+```{r}
+test_1 <- mdy("09-22-2022")
+str(test_1)
+test_2 <- mdy("09.22.2022")
+str(test_2)
+test_3 <- mdy("09/22/2022")
+str(test_3)
+test_4 <- mdy("09 22 2022")
+str(test_4)
+test_5 <- mdy("09222022")
+str(test_5)
+test_6 <- mdy("Sep/22/2022")
+str(test_6)
+test_7 <- mdy("SEP/22/2022")
+str(test_7)
+test_8 <- mdy("September 22nd, '22")
+str(test_8)
+```
+These functions will raise a warning if the string provided is not compatible with the order of units.
+```{r}
+test_1 <- mdy("22-09-2022")
+```
+**Creating date-time objects.** To create date-time objects, simply "extend" the name of any of the 6 functions above with `_h`, `_hm`, or `_hms` to add hours, minutes, and seconds. 
+
+These functions assume 24-hour time in the input string unless you include `AM`, `am`, `PM`, or `pm` to signal 12-hour time. Note that they return data class POSIXct.
+```{r}
+test_1 <- ymd_h("2022.09.22 3")
+str(test_1)
+test_2 <- ymd_hm("2022.09.22 3:30")
+str(test_2)
+test_3 <- ymd_hms("2022.09.22 3:30:09")
+str(test_3)
+test_4 <- ymd_hms("2022.09.22 3:30:09AM")
+str(test_4)
+test_5 <- ymd_hms("2022.09.22 3:30:09pm")
+str(test_5)
+```
+### Parsing date and time objects
+
+It is often useful to extract part of a date or date-time object. `lubridate` provides a family of functions to do this. They also work with plain strings that are formatted to ISO 8601 specifications.
+
+These functions are all named for the singular of the unit: `year`, `month`, `minute`, etc. 
+
+Caution: do not confuse these functions with another family of `lubridate` functions that are plurals of these same units and are used to create time spans (see the second on **Periods**).
+
+Important: these functions return numeric, character, or logical values, not date or time objects.
+
+**Extracting components of a date or date-time object.** The code below takes as input the following date-time object generated above: "2022-03-22 03:30:09". Note that the day of the month is retrieved by `mday` (or it's alias `day`), because `date` is another function.
+```{r}
+extract_1 <- year(test_3)
+extract_1
+extract_2 <- mday(test_3)
+extract_2
+```
+Other functions extract month, hour, minute, and second.
+
+**Extracting other information from a date or date-time object.** Some special parsing functions are worth noting. 
+```{r}
+extract_3 <- wday(test_3)                 # day of the week (numeric) 
+extract_3
+extract_4 <- qday(test_3)                 # day within the quarter (numeric)
+extract_4
+extract_5 <- yday(test_3)                 # day within the year (numeric)
+extract_5
+extract_6 <- week(test_3)                 # week of the year (numeric)
+extract_6
+```
+Other functions return logical values that can be useful for filtering.  
+```{r]}
+extract_7 <- dst(test_3)                  # is it daylight savings? (logical)
+extract_7
+extract_8 <- am(test_3)                   # is it morning? (logical)
+extract_8
+extract_9 <- leap_year(test_3)            # is it a leap year? (logical)
+extract_9
+```
+Refer to the `lubridate` cheatsheet for even more extraction and logical functions.
+
+For the `month` and `wday` extraction functions, it is also possible to return values as strings. Use the optional argument `label=TRUE` to turn on names, and the optional variable `abbr=FALSE` to display full names.
+```{r}
+extract_10 <- wday(test_3, label=TRUE)     # day of the week (factor, abbreviated label)
+extract_10
+extract_11 <- month(test_3, label=TRUE, abbr=FALSE)   # month (factor, full label)
+extract_11
+```
+**Updating date and date-time objects.** The same set of functions can be used to update a single component of an existing object. 
+
+Use the assignment operator pointing to the appropriate function wrapped around the date or date-time object and supply a new value on the right hand side.
+```{r}
+test_3
+hour(test_3) <- 15
+test_3
+```
+**Rounding date and date-time objects.** Additional functions provide the ability to reduce precision of a date or date-time value. 
+
+Use the function `round_date` to round to the nearest larger unit. The first argument is the data object and the second argument is the time unit to apply. Although the second argument is technically optional, the default is seconds, which is rarely useful.
+```{r}
+my_datetime <- as_datetime("2024-11-26 15:35:01")
+rounded <- round_date(my_datetime, unit="hours") 
+rounded
+rounded <- round_date(my_datetime, unit="months") 
+rounded
+```
+Two other functions provide the ability to round up or down: `floor_date` and `ceiling_date`.
+
+```{r}
+floored <- floor_date(my_datetime, unit="days") 
+floored
+```
+
+
+## Math with date and time objects 
+
+Calculating time spans is complicated. Units differ in their "base" (60, 24, 7, 365, etc.). Daylight savings time as well as leap years and leap seconds add further complexity. 
+
+The `lubridate` package offers three ways to represent time spans, each of which can be useful in different contexts. In general, you should use the simplest method that allows you to accomplish your task. The three `lubridate` time span methods are presented below in order of increasing complexity. The first of these is sufficient for many biological data sets.
+
+### Durations
+
+A **duration** is a timespan that is defined only by its length. It is simply a number of seconds. Durations ignore dates, time zones, and irregularities like leap years and daylight savings time. A simple way to think about a duration is that it is the time that you would see if you used a stopwatch to measure time. The stopwatch doesn't care what time of day it is, what day of the year it is, or what time zone it is in. All that matters is how many seconds have elapsed.
+
+**Creating durations.** To create a duration, use a function with a name like this: "d"+unit+"s". For example, to create a duration in units of minutes, use the function `dminutes`. 
+```{r}
+dur_1 <- dhours(36)
+str(dur_1)
+dur_2 <- dmonths(2)
+str(dur_2)
+```
+No matter what units are used to create a duration, it is always stored in units of seconds.
+
+Use the `c` function to create a vector of durations.
+```{r}
+dur_3 <- dhours(c(22, 80, 450, 9722))
+dur_3[1]
+dur_3[2]
+dur_3[3]
+dur_3[4]
+```
+Durations are returned in seconds, along with a helpful conversion into appropriately scaled, human-readable units.
+
+For small time units, the conversion into seconds is exact. For example, 1 minute = 60 seconds. For the two largest time units, the conversion is approximate: `lubridate` uses the "average" of 365.25 days to represent 1 year and 4.35 weeks to reprsent 1 month.
+```{r}
+dur_4 <- dmonths(2)
+dur_4
+```
+Units smaller than a second can also be stored as durations: milliseconds, microseconds, nanoseconds, and picoseconds.
+```{r}
+dur_5 <- dmicroseconds(2355345245)
+dur_5
+```
+
+**Math with durations.** The basic math operators all work with durations.
+```{r}
+dur_6 <- ddays(4) + ddays(62)
+dur_6
+dur_7 <- dseconds(33)^2
+dur_7
+```
+Durations can also be used to modify date and date-time objects.
+```{r}
+dur_8 <- today() + ddays(2)
+dur_8
+dur_9 <- now() + dminutes(60)
+dur_9
+```
+Adding a duration object to a date or date-time object returns a date or date-time object. When using durations to alter date and date-time objects, `lubridate` keeps track of human units correctly.
+```{r}
+leap_year(2024)
+as_date("2024-2-28") + ddays(1)
+as_date("2023-2-28") + ddays(1)
+```
+
+
+### Periods
+
+A **period** is a timespan that corresponds to human units like days or months. For example, a period of 1 day *usually* contains 24 hours, but it will contain 23 or 25 hours if it is the day when a transition to or from daylight savings time takes place. A period is not a fixed number of seconds. Rather, it is a fixed number of human units that takes into account any irregularities like leap years and daylight savings time. 
+
+**Creating period objects.** To create a period object, use a function with plural of the unit name. For instance, use `minutes` to create a period object with units in minutes.
+```{r}
+per_1 <- hours(4)
+per_1
+class(per_1)
+per_2 <- minutes(240)
+per_2
+```
+**Math with period objects.** The standard arithmetic operators work with period objects.  
+```{r}
+per_3 <- per_1 + per_2          
+per_3
+```
+Note that mixing different units does not result in unit conversion. Importantly, it also does not result in unit consolidation. In the example above, the result is 8 hours, but is represented as 4 hours and 240 minutes. This is different from durations, which convert everything to seconds.
+
+To convert period objects of different units to a common unit, use the function `period_to_seconds`. For the larger units, the function assumes that a year is 365.25 days long and a month is that number of seconds divided by 12. In other words a month is neither 28, 29, 30, nor 31 days long.
+```{r}
+per_4 <- period_to_seconds(per_3)
+per_4
+```
+To convert this value back into hours, divide by 3600 (60 seconds per minute * 60 minutes per hour) and use the appropriate function:
+```{r}
+per_5 <- hours(per_4/3600)
+per_5
+```
+Adding a period object to a date or date-time object returns a date or date-time object. The following code asks: What will be the date 42 days from now?
+```{r}
+per_6 <- today() + days(42)
+per_6
+```
+**Math with durations *vs* dates.** Notice the different result when adding a duration compared with adding a period to the current date. Adding a period produces a more human-friendly result, namely the same date, two months from now. Adding duration might give a different date (depending on whether the two month have 28, 29, 30, or 31 days), and it always converts the date object to a date-time object in order to accommodate the extra seconds that are used to represent an "average" month.   
+```{r}
+# add a period of 2 months to today's date
+today() + months(2)    
+# add a duration of 2 months to today's date
+today() + dmonths(2)   
+```
+
+
+### Intervals
+
+An **interval** is a time span that is defined by two values: a starting point at a specific date-time and an end point at a specific date-time. It's length is defined as the difference between the start and end points, after after taking into account any irregularities like leap years and daylight savings time. A simple way to think about an interval is that it is the amount of time between two date-time points.
+
+Intervals can be useful for field observations and experiments where you are taking notes in human time rather than using a stopwatch.
+
+**Creating interval objects.** To create an interval, use the `%--%` operator to connect two date or date-time objects. 
+
+The following is an example using date objects:
+```{r}
+intv_1 <- ymd("2024-01-01") %--% ymd("2024-02-29")
+str(intv_1)
+```
+Note that an interval data object contains three values: its length in seconds, its starting point, and the time zone. 
+
+Also note that when you create an interval, the default time zone is *not* local, but instead GMT/UTC. This is different from most other `lubridate` functions! 
+
+To enforce an interval object to use a different time zone, add the optional `tz` argument:
+```{r}
+intv_2 <- ymd("2024-01-01", tz="Europe/Rome") %--% ymd("2024-12-31", tz="Europe/Rome")
+intv_2
+```
+If you want to use the system's local time zone, use the base R function `Sys.timezone`.
+```{r}
+intv_3 <- ymd("2024-01-01", tz = Sys.timezone()) %--% ymd("2024-12-31", tz = Sys.timezone())
+intv_3
+```
+Note that the system's local time zone is aware of whether daylight savings time is or is not in effect.
+
+To create an interval from date-time objects, follow the same pattern and make sure to use the longer version of the constructor functions:
+```{r}
+intv_4 <- ymd_hms("2024-05-01 12:00:00") %--% ymd_hms("2024-05-01 15:32:17")
+intv_4
+```
+
+**Working with intervals.** `lubridate` provides a few useful functions that make it easier to work with intervals.
+
+To retrieve the start, end, and length in seconds of an interval, use the functions `int_start`, `int_end`, and `int_length`:
+```{r}
+int_end(intv_4)
+int_length(intv_4)
+```
+To shift an interval along the time line, use the function `int_shift`. Shifts can be positive or negative. Intervals shifted by a duration will retain their exact length in seconds. Intervals shifted by a period may not (see **Periods**, above).
+
+The following code moves the interval back in time by 4 hours (i.e., it now starts 4 hours earlier):
+```{r}
+intv_5 <- int_shift(intv_4, hours(-4))
+intv_5
+```
+
+
+**Math with intervals.** One useful feature of an interval is that it can return an exact measure of the time that elapses between a given starting and ending point that is based on human-readable dates and times.  
+
+An example is the length of the month February, which differs depending on the year:
+```{r}
+ymd("2024-02-01") %--% ymd("2024-03-01") / days(1)
+ymd("2025-02-01") %--% ymd("2025-03-01") / days(1)
+```
+`lubridate` is aware that 2024 is a leap year and 2025 is not, and adjusts the length of the interval accordingly.
+
+A second useful feature of intervals is that they can test for overlap, enclosure, or alignment of points or intervals in time.  
+
+Use the `%within%` operator to test whether a date, date-time, or interval falls within an interval: 
+```{r}
+intv_6 <- ymd("2024-08-26") %--% ymd("2024-11-26")   # fall semester for graduate courses
+today() %within% intv_6                              # is today within the fall semester?
+ymd("2024-12-31") %within% intv_6                    # what about the last day of 2024? 
+```
+Use the functions `int_overlaps` and `int_aligns` to test whether a date, date-time, or interval overlaps with an interval or shares an endpoint, respectively.
+```{r}
+intv_7 <- ymd("2024-11-27") %--% ymd("2024-12-01")  # Thanksgiving break
+int_overlaps(intv_6, intv_7)                        # does break overlap with the grad semester?
+intv_8 <- ymd_h("2024-08-26 00") %--% ymd_h("2024-08-27 00")  # FDOC                       
+int_aligns(intv_6, intv_8)                          # does FDOC align with the semester?
+```
+These logical returns can be very useful for filtering rows.
