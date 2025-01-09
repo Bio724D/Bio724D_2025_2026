@@ -242,7 +242,7 @@ ggplot() +
 ## Plotting localilies on our NC map
 
 
-As a final example, let's plot the locations in North Carolina where there have been reported citings of  rare and beautiful North Carolina Blue Snouters.
+As a final example, let's plot the locations in North Carolina where there have been reported sightings of rare and beautiful North Carolina Blue Snouters.
 
 ```{r}
 nc_snouters <- 
@@ -267,7 +267,7 @@ ggplot() +
              size = 2,
              shape = 9) +
   annotation_scale(location = "bl", width_hint = 0.4) +
-  labs(title = "Locations of NC Blue Snouter citings",
+  labs(title = "Locations of NC Blue Snouter sightings",
        x = "Longitude", y = "Latitude") +
   theme_minimal()
 ```
