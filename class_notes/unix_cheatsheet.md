@@ -57,21 +57,32 @@ Side note: Why is it common to use names like `foo`, `bar`, and `baz` in example
 
 
 
-## Wildcards and globbing
+## Wildcards, globbing, and expansions
 
-Most shells allow you to find or manipulate files whose names match a specified pattern.  These patterns are usually referred to as "wildcards" and the process of matching with wildcards is colloquially known as "globbing".  Globbing patterns are somewhat similar to regular expressions, but not as rich or expressive in their capabilities.
+Most shells allow you to find or manipulate files whose names match a specified pattern. These patterns are somewhat similar to regular expressions, but not as rich or expressive in their capabilities.
 
 ### Wildcard patterns
+
+The simples approach is to use "wildcards". The process of matching with wildcards is colloquially known as "globbing".  
 
 * `?` -- a question mark matches any single character
   * e.g. `ls pic?.jpg` -- lists files like `pic1.jpg`, `picA.jpg`, `pick.jpg`, etc.
 * `*` -- an asterisk matches any number of characters
   * e.g. `ls *.jpg` -- lists all files whose names end in `.jpg`
   * e.g. `rm *junk*` -- removes all files whose names  contain `junk` as a substring; be very careful with globbing when removing files!
-* `[...]` -- square brackets matches any one of the enclosed characters
+  * hint: use `ls` to check which files a wildcard pattern will match before using it to move, rename, or remove files
+
+### Expansions
+
+Expansions allow you to refer to multiple files at once by specifying either a **range** of numbers or letters or a **set** of characters or strings.
+
+* `{ .. }` -- curly braces match a range of numbers or letters 
+  * e.g. `f_{01..20].txt` -- refers to `f_01.txt`, `f_02.txt` . . . `f_20.txt`
+  * e.g. `f_1{A..H}.txt` -- refers to `f_1A.txt`, `f_1A.txt` . . . `f_1H.txt`
+* `[ ]` -- square brackets matches any one of the enclosed characters
   * e.g. `ls b[lr]*.jpg` -- lists all files whose name starts with `b` and whose second letter is either `l` or `r` and which end in `.jpg`. For example `blood.jpg`, `break.jpg`, but *not* `beak.jpg`
-
-
+* `{ , }` -- curly braces with commans match any of the enclosed strings (see above for single characters)
+  * e.g., `ls {DNA,RNA}_??.txt` -- lists files such as `DNA_27.txt` and `RNA_11.txt` but *not* `ANA_27.txt` or `333_27.txt` 
 
 
 ## Unix standard streams
