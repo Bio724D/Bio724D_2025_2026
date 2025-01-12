@@ -81,7 +81,7 @@ Expansions allow you to refer to multiple files at once by specifying either a *
   * e.g. `f_1{A..H}.txt` -- refers to `f_1A.txt`, `f_1A.txt` . . . `f_1H.txt`
 * `[ ]` -- square brackets matches any one of the enclosed characters
   * e.g. `ls b[lr]*.jpg` -- lists all files whose name starts with `b` and whose second letter is either `l` or `r` and which end in `.jpg`. For example `blood.jpg`, `break.jpg`, but *not* `beak.jpg`
-* `{ , }` -- curly braces with commans match any of the enclosed strings (see above for single characters)
+* `{ , }` -- curly braces with commas match any of the enclosed strings (see above for single characters)
   * e.g., `ls {DNA,RNA}_??.txt` -- lists files such as `DNA_27.txt` and `RNA_11.txt` but *not* `ANA_27.txt` or `333_27.txt` 
 
 
