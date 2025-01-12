@@ -63,7 +63,7 @@ Most shells allow you to find or manipulate files whose names match a specified 
 
 ### Wildcard patterns
 
-The simples approach is to use "wildcards". The process of matching with wildcards is colloquially known as "globbing".  
+The simplest approach is to use "wildcards". The process of matching with wildcards is colloquially known as "globbing".  
 
 * `?` -- a question mark matches any single character
   * e.g. `ls pic?.jpg` -- lists files like `pic1.jpg`, `picA.jpg`, `pick.jpg`, etc.
