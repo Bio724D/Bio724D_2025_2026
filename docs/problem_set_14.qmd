@@ -1,5 +1,5 @@
 ---
-title: "Problem Set 14: Introduction to Unix"
+title: "Problem Set 14: Introduction to Unix (updated)"
 author: "Greg Wray"
 date-format: iso
 format: 
@@ -56,13 +56,13 @@ For this problem set, we will be using your VM and working with the information 
 
 * Show the command that uses `date` to return the date that `~/example_directory/foo` was last modified. Can you think of a situation where this might be useful?
 
-4. Practice getting help with another Unix command: `tr`. Use the `man` page to learn how this command can be useful for processing text files. 
+4. (Updated) Practice getting help with another Unix command: `tr`. Use the `man` page to learn how this command can be useful for processing text files. 
 
 * Each man page starts with an entry called `NAME` that provides the name of the command and a brief description of what it does. This description is very brief: it useful as a reminder for someone who has used the command in the past, but less helpful if you are completely unfamiliar with the command. Read the man page to gain a clear understanding of what `tr` does. Try out a few options to get a feel for how it works. Write a longer description that is useful for someone who has never heard of the command before.
 
-* Next, use your understanding of `tr` to process the `VoyageOfTheBeagle.txt` file. Show the command that uses `tr` to convert every instance of `Beagle` to `BEAGLE`.  
+* Next, use your understanding of `tr` to process the `VoyageOfTheBeagle.txt` file. Show the command that uses `tr` to convert every instance of `B` to `b`.  
 
-* Show the command that uses `tr` to delete every instance of `tortoise`. 
+* Show the command that uses `tr` to delete every instance of `*`. 
 
 * Show the command that uses `tr` to squeeze every instance of `--` to `-`. 
 
