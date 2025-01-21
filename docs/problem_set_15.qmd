@@ -1,0 +1,82 @@
+---
+title: "Problem Set 15: Data wrangling in Unix"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using the Unix command line**. 
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignment number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Spring2025.qmd`
+
+Submit both your markdown file and the generated HTML document via the Assignments submission section on Sakai.
+
+
+
+## Problems
+
+1. What does the `--complement` option to the `cut` command do? When might it be useful?  Give a simple example of using this option. 
+
+
+2. The NY Times created a repository of COVID-19 related data available here:  https://github.com/nytimes/covid-19-data . One of the sub-folders in the repository provides reports seven-day rolling averages of cases and deaths due to COVID-19, as described here: https://github.com/nytimes/covid-19-data/tree/master/rolling-averages. 
+   
+    The following file, `us-states.csv` lists daily rolling averages, broken down by state: [us-states.csv](https://github.com/nytimes/covid-19-data/raw/master/rolling-averages/us-states.csv)
+    
+    
+    a) Show how to use `wget` to download `us-states.csv` directly within your VM
+    
+    b) The directory https://github.com/nytimes/covid-19-data/tree/master/rolling-averages includes multiple data files on a per county basis: `us-counties-202*.csv`.  Read the man pages for `wget` and show how you would use the `-i/--input-file` option to download all the data files listed on that web page. 
+    
+      * Note: A peculiarity with data hosted on Github is that to access the direct URL for files you need to click the "Raw"  icon associated with each file. We will demonstrate this in class.
+    
+  
+
+3. When using `grep` to filter rows in a tabular data file, header lines are typically lost. For example, the first few lines of the file `us-states.csv`  look like this:
+
+    ```
+$ head -4 us-states.csv 
+date,geoid,state,cases,cases_avg,cases_avg_per_100k,deaths,deaths_avg,deaths_avg_per_100k
+2020-01-21,USA-53,Washington,1,0.14,0,0,0,0
+2020-01-22,USA-53,Washington,0,0.14,0,0,0,0
+2020-01-23,USA-53,Washington,0,0.14,0,0,0,0
+    ```
+
+    If we filter this with `grep` to get all the data from 2021, the resulting output looks like this:
+
+    ```
+$ grep "^2021" us-states.csv | head -4
+2021-01-01,USA-69,Northern Mariana Islands,0,0.88,1.62,0,0,0
+2021-01-01,USA-66,Guam,9,8.29,4.92,0,0.14,0.08
+2021-01-01,USA-72,Puerto Rico,763,804.29,23.75,18,12.71,0.38
+2021-01-01,USA-78,Virgin Islands,5,8.14,7.66,0,0,0
+    ```
+
+    **Task:** Using core Unix commands, show how to generate a derived file that  includes just observations from 2021, but that also includes the original header line.
+
+
+4. Using the NY Times `us-states.csv` data file:
+
+    a) How many "states" are represented in the `us-states.csv` data file?
+    
+    b) Show how to derived an alphabetically sorted file with the names of each "state" in the data
+
+    c) Show how to extract all the lines of the CSV file giving information about cases/deaths in North Carolina in December 2021.
+
+    d) Show how to sort `us-states.csv` by the `deaths_avg_per_100k` column with the largest values of this variable at the top of the output
+    
+    e) In the 100 entries with respect to `deaths_avg_per_100k`, how many and which states are represented? Give the counts per state in this top 100 list.
+
+    f) In `us-states.csv` the date field is a single column. Using core Unix tools show how to create a derived valid CSV file, `us-states-expanded.csv` where the year, month, and day are broken out into their own column. Make sure to update the header line of this derived file to include the new columns.
