@@ -1,0 +1,30 @@
+# Read about the GFF file format for genome annotation here:
+# https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md
+
+# Create ~/data and ~/analysis directories on your VM
+
+# Download the budding yeast GFF file directly to you VM using `wget` to ~/data
+
+# In ~/analysis, create a symbolic link with a to the yeast GFF file with a more friendly name
+
+# Examine yeast GFF file using head, tail, and less, wc
+
+# Split GFF file in tabular data and sequence data
+
+# Remove metadata from tabular data file
+
+# How many genome features are recognized in the yeast genome?
+
+# What are the types of features?
+
+# How many genes are there?
+
+# Generated a count of all the features sorted from most to least frequent
+
+# How many genes are encoded on each chromosome?
+
+# What is the nucleotide composition of the yeast genome?
+
+# Find the gene features related to the the cAMP-PKA pathway? What are the common names of these features? Repeat this for the TOR pathway and the RIM101 pathway.
+
+
