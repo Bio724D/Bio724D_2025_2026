@@ -1,0 +1,56 @@
+# Read about the GFF file format for genome annotation here:
+# https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md
+
+# Create ~/data and ~/analysis directories on your VM
+
+# Download the budding yeast GFF file directly to you VM using `wget` within ~/data
+
+# In ~/analysis, create a symbolic link with a to the yeast GFF file with a more friendly name
+# ln -s ~/data/saccharomyces_cerevisiae_R64-5-1_20240529.gff ./yeast.gff
+
+# Examine yeast GFF file using head, tail, and less, wc
+
+# Deterine where the ##FASTA metaline occurs
+
+grep -n "##FASTA" yeast.gff
+
+# Split GFF file in tabular data and sequence data
+
+head -n 28370 yeast.gff > yeast_tabular.gff
+tail -n +28370 yeast.gff > yeast_sequence.fasta
+
+# Remove metadata from tabular data file
+
+grep -v "^#" yeast_tabular.gff > yeast_tabular_clean.gff
+
+# How many genome features are recognized in the yeast genome?
+
+wc -l yeast_tabular_clean.gff 
+
+# What are the types of features?
+
+cut -f 3 yeast_tabular_clean.gff | sort | uniq
+
+# How many genes are there?
+
+cut -f 3 yeast_tabular_clean.gff | grep -c -w gene
+
+# Generated a count of all the features sorted from most to least frequent
+
+cat yeast_tabular_clean.gff | cut -f 3 | sort | uniq -c | sort -k 1 -n -r
+
+## Get a count of features per chromosome
+
+cat yeast_tabular_clean.gff | cut -f 1 | sort | uniq -c | sort -k 1 -n -r
+
+# How many genes are encoded on each chromosome?
+
+cat yeast_tabular_clean.gff | cut -f 1,3 | grep -w gene | sort | uniq -c | sort -k 1 -n -r
+
+# What is the nucleotide composition of the yeast genome?
+
+grep -v "^#" yeast_sequence.fasta | grep -v "^>" | fold -w 1 | grep -c "T"
+
+# Find the gene features related to the the cAMP-PKA pathway? What are the common names of these features? Repeat this for the TOR pathway and the RIM101 pathway.
+
+
