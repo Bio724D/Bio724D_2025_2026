@@ -8,7 +8,7 @@ Some additional options for commands we covered last week
     - `echo -e "You know nothing, Jon Snow.\n\t- Ygritte"`: the -e option interprets escaped characters
     - `echo "on" $(date) $(pwd) "contained" $(ls -la | wc -l) "files"`: command substitution
   
-* `grep` -- returns lines matching a pattern
+* `grep` -- returns lines matching a pattern   
   A few additional options can be useful; see Commonly used Unix commands from last week for an introduction
   - `grep Stegosaurus t1.txt t2.txt t3.txt`: searches multiple files
   - `grep -hn Scarlet IOC_14.2.csv`:	includes line numbers
@@ -43,7 +43,7 @@ New commands
   - `cut -f1,3 columns.txt` get first and third column
   - you can also specify bounded ranges: e.g., `-f2-5` returns columns 2 through 5
   - or open ranges: e.g., `-f-3` returns columns 1 through 3, and `-f5-` returns 5 through the last column
-  - column specifications can be mixed (e.g., -f-3,6,9- returns columns 1, 2, 3, 6, and 9 through the last column 
+  - column specifications can be mixed (e.g., -f-3,6,9- returns columns 1, 2, 3, 6, and 9 through the last column   
   Because cut assumes a TAB-delimited file, you will need to specify any other delimiter explicitly
   - `cut -f2,7 -d"," df1.csv`: removes columns 2 and 7 from a comma-separated file
 
