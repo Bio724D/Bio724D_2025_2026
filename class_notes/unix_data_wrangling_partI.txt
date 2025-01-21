@@ -1,0 +1,26 @@
+NOTEBOOK FOR WRANGLING IOC BIRD LIST
+BIO724D class session 15
+2025-10-21
+
+Record data source
+    International Ornithological Committee (IOC) list and taxonomy of recognized bird species
+    Downloaded from: https://www.worldbirdnames.org/new/ioc-lists/master-list-2/
+    Downloaded on: 2025-01-21
+    File: IOC_Names_File_Plus-14.2.xlsx
+    Exported to csv and saved as: IOC_14.2.csv
+
+Explore file contents
+
+Add final return
+
+Extract relevant columns
+
+Rename column headers
+
+Remove irrelevant rows
+
+Add some metadata
+
+Gather some basic information
+
+
