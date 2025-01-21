@@ -9,7 +9,6 @@ Some additional options for commands we covered last week
     - `echo "on" $(date) $(pwd) "contained" $(ls -la | wc -l) "files"`: command substitution
   
 * `grep` -- returns lines matching a pattern   
-  A few additional options can be useful; see Commonly used Unix commands from last week for an introduction
   - `grep Stegosaurus t1.txt t2.txt t3.txt`: searches multiple files
   - `grep -hn Scarlet IOC_14.2.csv`:	includes line numbers
   - `grep -n Scarlet IOC_14.2.csv`:	includes file name and line numbers
