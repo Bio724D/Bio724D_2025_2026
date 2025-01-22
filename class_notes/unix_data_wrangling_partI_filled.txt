@@ -1,0 +1,50 @@
+NOTEBOOK FOR WRANGLING IOC BIRD LIST
+BIO724D class session 15
+2025-10-21
+
+Record data source
+    International Ornithological Committee (IOC) list and taxonomy of recognized bird species
+    Downloaded from: https://www.worldbirdnames.org/new/ioc-lists/master-list-2/
+    Downloaded on: 2025-01-21
+    File: IOC_Names_File_Plus-14.2.xlsx
+    Exported to csv and saved as: IOC_14.2.csv
+
+Explore file contents
+    head -n20 IOC_14.2.csv
+    tail -20 IOC_14.2.csv
+    cat IOC_14.2.csv | wc -l
+
+Add final return
+    cp IOC_14.2.csv df1.csv
+    echo >> df1.csv
+    tail df1.csv
+
+Extract relevant columns
+    cut -f2,4-6,8 -d"," df1.csv | head
+    cut -f2,4-6,8 -d"," df1.csv > df2.csv
+
+Rename column headers
+    head -n1 df2.csv
+    grep "^14\.1" df2.csv
+    grep -v "^14\.1" df2.csv > df3.csv
+    echo seq,rank,extinct,name_Eng,name_sci > hdrs.txt 
+    cat hdrs.txt df3.csv > df4.csv
+
+Remove irrelevant rows
+    grep "Gill, F," df4.csv
+    grep -v "Gill, F," df4.csv > df5.csv
+
+Add some metadata
+    version=14.2
+    echo "# Bird species recognized by IOC version $version" > mdata.txt
+    echo "# downloaded from http://www.worldbirdnames.org/ on `date -I`" >> mdata.txt
+    echo “#" >> mdata.txt
+    cat mtdata.txt
+    cat mdata.txt df5.csv > df6.csv
+    head df6.csv
+    mv df6.csv IOC_14.2_clean.csv
+
+Gather some basic information
+    grep -c ORDER df7.csv                   # how many orders?
+    grep -v † df7.csv | grep -c Species     # how many extant species?
+    cut -f5 -d"," df7.csv | grep Falco      # which species are in the genus Falco?
