@@ -27,7 +27,7 @@ New commands
   - `date -I`: returns just the date, in ISO-8601 format
   - `date +%D`: returns just the date, in Linux format
   - `date +%D:%H:%M`: returns the date, hours, and minutes (+ notation provides many options) 
-  - `date -s`: seconds since 1970:01:00:00
+  - `date -s`: seconds since 1970:01:01:00:00
 
 * `cut` -- removes sections (bytes, characters, or fields) from input
   - For this example create a file (`columns.txt`) with the following command (`\t` = TAB character, `\n` = newline character): 
