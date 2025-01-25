@@ -24,7 +24,7 @@ New commands
 
 * `date` -- returns the date-time
   - `date`: returns a full report, e.g., Tue Jan 21 06:25:17 AM EST 2025 
-  - `date` -I: returns just the date, in ISO-8601 format
+  - `date -I`: returns just the date, in ISO-8601 format
   - `date +%D`: returns just the date, in Linux format
   - `date +%D:%H:%M`: returns the date, hours, and minutes (+ notation provides many options) 
   - `date -s`: seconds since 1970:01:00:00
