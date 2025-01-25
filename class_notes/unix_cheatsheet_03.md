@@ -40,6 +40,7 @@ Some additional options for commands we covered in the two previous weeks
   - `grep Red IOC_14.2.csv | grep -v Falcon`: AND NOT; returns lines containing first but not second pattern
  
 * sort -- sorts lines of input
+  
   You can sort the contents of a file or input string
   - `sort file.txt`: sorts lines in `file.txt`
   - `echo -e 'foo\nbar\nbaz\nqux' | sort`: requires the `-e` option to insert RETURNs (otherwise, it is a single line) 
