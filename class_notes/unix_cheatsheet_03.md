@@ -40,7 +40,7 @@ Some additional options for commands we covered in the two previous weeks
   - `grep Red IOC_14.2.csv | grep Falcon`: AND; returns lines containing both patterns
   - `grep Red IOC_14.2.csv | grep -v Falcon`: AND NOT; returns lines containing first but not second pattern
  
-* sort -- sorts lines of input
+* `sort` -- sorts lines of input
   
   You can sort the lines of a file or input string
   - `sort file.txt`: sorts lines in `file.txt`
