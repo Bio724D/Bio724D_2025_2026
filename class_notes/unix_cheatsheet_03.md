@@ -37,18 +37,49 @@ Some additional options for commands we covered in the two previous weeks
   `grep` does not understand logic operators, but you can construct OR and AND searches
   - `grep -e Hoatzin -e Kagu IOC_14.2.csv`: OR; returns lines containing either pattern
   - `grep Red IOC_14.2.csv | grep Falcon`: AND; returns lines containing both patterns
-  - `grep Red IOC_14.2.csv | grep -v Falcon`: AND NOT; returns lines containing first but not second pattern   
+  - `grep Red IOC_14.2.csv | grep -v Falcon`: AND NOT; returns lines containing first but not second pattern
+ 
+* sort -- sorts lines of input
+  You can sort the contents of a file or input string
+  - `sort file.txt`: sorts lines in `file.txt`
+  - `echo -e 'foo\nbar\nbaz\nqux' | sort`: requires the `-e` option to insert RETURNs (otherwise, it is a single line) 
+
+  Default is to sort by character in ascending order, but this can be changed  
+  - `sort file.txt`: sorts lines in `file.txt`: alphabetical order
+  - `sort -r file.txt`: sorts in reverse
+  - `sort -n file.txt`: numeric sort (integers only)
+  - `sort -g file.txt`: general numeric sort (handles floats, but slower)
+  - `sort -d file.txt`: use only alphanumeric characters and blanks for sorting
+  - `sort -f file.txt`: ignore case
+
+  Default behavior is to use the entire line, but this can also be changed
+  - `sort -k 3 -n columns.txt` -- sort numerically on the 3rd field (column) of the data
+ 
+  Beware that `sort` may use different ordering in different shells  
+  - `echo -e 'zebra\nAnkara\nZeus\nant' | sort`: alphabetical with bash on our VMs but not in some other shells!
+  - `echo -e '99\nAnkara\n Zeus\n1' | sort`: same as above!
+ 
+  If your sort results are not what you expect:
+  - In some shells, `sort` uses ASCII encoding: white-space, numerals, upper-case letters, lower-case letters
+  - Use the `--debug` option to highlight the field in each line that `sort` is using
+  - See [this page](./unexpected-sorting.md) and the [GNU FAQ](https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021) if you're still getting unexpected results
  
 * `tr` -- translate (substitute) or delete characters in input
 
-  Note that unlike most commands `tr` will not take a file as an argument, so typically you would use `cat` to send the contents of a file through `tr` or `echo` to send from STDIN
-  - `echo ATGCAA | tr A a`: substitute lower case "a" for uppercase "A"
-  - `echo ATGCAA | tr -d A`: delete all "A" characters
+  Note that unlike most commands `tr` will not take a file as an argument, so typically you would use `cat` or `echo` to send text through a pipe to `tr`.
+
+  Note also that `tr` operates on a character-by-character basis; it does not substitute or delete strings.
+
+  The default behavior of `tr` is substitution 
+  - `echo ATGCaa | tr A a`: substitute lower case "a" for uppercase "A"
   - `echo ATGCAA | tr ATGC TACG`: substitute each character in the first set ("ATGC") with the matching character in the second set ("TAGC")
- 
-  Pre-defined character can be very useful
   - `cat file.txt | tr [:lower:] [:upper:]`: convert all lower-case letters to uppder-case 
 
+  The `-d` option tells `tr` to delete the specified character or set
+  - `echo ATGCAA | tr -d A`: delete all "A" characters
+  - `echo file.txt | tr -d `: delete all "A" characters
+ 
+ 
 New commands
 
 * `sed` -- sed is a "stream editor", a tool that offers powerful text manipulation capabilities.  For the purposes of this introduction we're going to focus on just one use case -- text substitution.
