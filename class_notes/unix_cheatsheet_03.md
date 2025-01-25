@@ -7,10 +7,12 @@ Some additional options for commands we covered in the two previous weeks
 * ` echo` -- display a line of text   
   The `-e` option interprets escaped characters   
     - `echo -e "You know nothing, Jon Snow.\n\t- Ygritte"`: interprets as RETURN and TAB characters   
-    - `echo "You know nothing, Jon Snow.\n\t- Ygritte"`: interprets as string literal   
+    - `echo "You know nothing, Jon Snow.\n\t- Ygritte"`: interprets as string literal
+  
   The `-e` also interprets Unicode characters   
     - `echo -e "\u03A9"`: use `\u` (lower-case u) to specify a 4-digit Unicode character 
-    - `echo -e "\U01F60E"`: use `\U` (upper-case U) to specify a 6-digit Unicode character   
+    - `echo -e "\U01F60E"`: use `\U` (upper-case U) to specify a 6-digit Unicode character
+  
   Enclose a command in `$( )` to insert the result in the output (command substitution)  
     - `echo "on" $(date) $(pwd) "contained" $(ls -la | wc -l) "files"`   
 
