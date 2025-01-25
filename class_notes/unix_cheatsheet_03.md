@@ -18,18 +18,22 @@ Some additional options for commands we covered in the two previous weeks
 
 * `grep` -- returns lines matching a pattern
   It is possible to search multiple files at once   
-  - `grep Stegosaurus t1.txt t2.txt t3.txt`: searches for Stegosaurus in 4 files   
+  - `grep Stegosaurus t1.txt t2.txt t3.txt`: searches for Stegosaurus in 4 files
+     
   The following options help locate matching lines by file and by line   
   - `grep -hn Scarlet IOC_14.2.csv`: includes line numbers   
   - `grep -n Scarlet IOC_14.2.csv`:	includes file name and line numbers
+    
   These are miscellaneous but must-know options for `grep`
   - `grep -i green IOC_14.2.csv`: ignore case
   - `grep -c ORDERS IOC_14.2.csv`: return count of matching lines
   - `grep -v ssp IOC_14.2.csv`: return lines without a match
+    
   To see lines around matching lines, use upper-case A/B/C options
   - `grep -A5 Hoatzin IOC_14.2.csv`: return 5 lines before each matching line (**A**bove)
   - `grep -C5 Hoatzin IOC_14.2.csv`: return 5 lines after each matching line (**B**elow)
   - `grep -C5 Hoatzin IOC_14.2.csv`: return 5 lines before and after each matching line (**C**ontext)
+    
   `grep` does not understand logic operators, but you can construct OR and AND searches
   - `grep -e Hoatzin -e Kagu IOC_14.2.csv`: OR search; returns lines containing either pattern
   - `grep Red IOC_14.2.csv | grep Falcon`: AND search; returns lines containing both patterns
