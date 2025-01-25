@@ -47,7 +47,7 @@ Some additional options for commands we covered in the two previous weeks
   - `echo -e 'foo\nbar\nbaz\nqux' | sort`: requires the `-e` option to separate into multiple lines 
 
   Default is to sort by character in ascending order, but this can be changed  
-  - `sort file.txt`: sorts lines in `file.txt`: alphabetical order
+  - `sort file.txt`: sorts lines in `file.txt` in alphabetical order
   - `sort -r file.txt`: sorts in reverse
   - `sort -n file.txt`: numeric sort (integers only)
   - `sort -g file.txt`: general numeric sort (includes floats, but slower)
