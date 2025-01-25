@@ -35,9 +35,9 @@ Some additional options for commands we covered in the two previous weeks
   - `grep -C5 Hoatzin IOC_14.2.csv`: return 5 lines before and after each matching line (**C**ontext)
     
   `grep` does not understand logic operators, but you can construct OR and AND searches
-  - `grep -e Hoatzin -e Kagu IOC_14.2.csv`: OR search; returns lines containing either pattern
-  - `grep Red IOC_14.2.csv | grep Falcon`: AND search; returns lines containing both patterns
-  - `grep Red IOC_14.2.csv | grep -v Falcon`: AND NOT search; returns lines containing both patterns   
+  - `grep -e Hoatzin -e Kagu IOC_14.2.csv`: OR; returns lines containing either pattern
+  - `grep Red IOC_14.2.csv | grep Falcon`: AND; returns lines containing both patterns
+  - `grep Red IOC_14.2.csv | grep -v Falcon`: AND NOT; returns lines containing first but not second pattern   
  
 * `tr` -- translate or delete characters
     Translate means character-for-character substitution
