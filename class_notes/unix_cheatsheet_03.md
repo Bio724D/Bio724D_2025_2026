@@ -17,6 +17,7 @@ Some additional options for commands we covered in the two previous weeks
     - `echo "on" $(date) $(pwd) "contained" $(ls -la | wc -l) "files"`   
 
 * `grep` -- returns lines matching a pattern
+  
   It is possible to search multiple files at once   
   - `grep Stegosaurus t1.txt t2.txt t3.txt`: searches for Stegosaurus in 3 files
      
