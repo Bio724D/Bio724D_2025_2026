@@ -72,7 +72,7 @@ Some additional options for commands we covered in the two previous weeks
 
   Note that, unlike most commands, `tr` will not take a file as an argument; use `cat` or `echo` to send text through a pipe to `tr`.
 
-  Note also that `tr` operates on a character-by-character basis. Use `sed` to substitute or delete strings.
+  Note also that `tr` operates on a character-by-character basis. Use `sed` to substitute or delete strings (see below).
 
   The default behavior of `tr` is substitution 
   - `echo ATGCaa | tr A a`: substitute lower case "a" for uppercase "A"
