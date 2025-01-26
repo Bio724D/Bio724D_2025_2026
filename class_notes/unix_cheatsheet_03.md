@@ -68,7 +68,7 @@ Some additional options for commands we covered in the two previous weeks
   - Use the `--debug` option to highlight the field in each line that `sort` is using
   - See [this page](./unexpected-sorting.md) and the [GNU FAQ](https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021) if you're still getting unexpected results
  
-* `tr` -- translate (substitute) or delete characters in input
+* `tr` -- translate (substitute), delete, or squeeze characters in input
 
   Note that unlike most commands `tr` will not take a file as an argument, so typically you would use `cat` or `echo` to send text through a pipe to `tr`.
 
@@ -80,9 +80,11 @@ Some additional options for commands we covered in the two previous weeks
   - `cat file.txt | tr [:lower:] [:upper:]`: convert all lower-case letters to uppder-case 
 
   The `-d` option tells `tr` to delete the specified character or set
-  - `echo ATGCAA | tr -d A`: delete all "A" characters
-  - `echo file.txt | tr -d `: delete all "A" characters
+  - `cat file.txt | tr -d A`: delete all "A" characters
+  - `cat file.txt | tr -d [:digit:]`: delete all numerals
  
+  The `-s` option tells `tr` to squeeze repeats of the specified character
+  - `cat file.txt | tr -s " "`: compresses multiple spaces into a single space 
  
 New commands
 
