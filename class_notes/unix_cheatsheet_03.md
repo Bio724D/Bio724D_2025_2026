@@ -32,7 +32,7 @@ Some additional options for commands we covered in the two previous weeks
     
   To see lines around matching lines, use upper-case A/B/C options; the number specifies how many lines
   - `grep -A5 Hoatzin IOC_14.2.csv`: return 5 lines **A**fter each matching line
-  - `grep -B10 Hoatzin IOC_14.2.csv`: return 10 lines **B**efore each matching line 
+  - `grep -B10 Hoatzin IOC_14.2.csv`: return 10 lines **B**elow each matching line 
   - `grep -C5 Hoatzin IOC_14.2.csv`: return 5 lines before and after each matching line (**C**ontext)
     
   `grep` does not understand logic operators, but you can construct OR and AND searches
