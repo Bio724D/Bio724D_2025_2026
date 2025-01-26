@@ -84,7 +84,7 @@ Some additional options for commands we covered in the two previous weeks
   - `cat file.txt | tr -d [:digit:]`: delete all numerals
  
   The `-s` option tells `tr` to squeeze repeats of the specified character
-  - `cat file.txt | tr -s " "`: compresses multiple spaces into a single space 
+  - `cat file.txt | tr -s " "`: compress multiple consecutive spaces into a single space 
  
 New commands
 
