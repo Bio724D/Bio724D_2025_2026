@@ -7,38 +7,31 @@ Some additional options for commands we covered in the two previous weeks
 * `echo` -- display a line of text   
   The `-e` option interprets escaped characters   
     - `echo -e "You know nothing, Jon Snow.\n\t- Ygritte"`: interprets as RETURN and TAB characters   
-    - `echo "You know nothing, Jon Snow.\n\t- Ygritte"`: interprets as string literal
+    - `echo "You know nothing, Jon Snow.\n\t- Ygritte"`: interprets as a string literal (default)
   
   The `-e` option also interprets Unicode characters   
     - `echo -e "\u03A9"`: use `\u` (lower-case u) to specify a 4-digit Unicode character 
     - `echo -e "\U01F60E"`: use `\U` (upper-case U) to specify a 6-digit Unicode character
+    - `echo -e "\U0001F60E"`: also works with 8 digits; left-pad with 0s (useful for scripts)
   
-  Enclose a command in `$( )` to insert the result in the output (command substitution)  
-    - `echo "on" $(date) $(pwd) "contained" $(ls -la | wc -l) "files"`   
-
-* `grep` -- returns lines matching a pattern
+* `grep` -- returns lines matching a pattern  
+  To search for a Unicode character, precede with **$** and enclose in **single** quotes
+  - `grep $'\u2020' IOC_14.2.csv`: searches for `†`
   
-  It is possible to search multiple files at once   
-  - `grep Stegosaurus t1.txt t2.txt t3.txt`: searches for Stegosaurus in 3 files
-     
-  The following options provide location information for matching lines   
-  - `grep -hn Scarlet IOC_14.2.csv`: includes line numbers   
-  - `grep -n Scarlet IOC_14.2.csv`:	includes file name and line numbers
-    
-  The following are very useful other options for `grep`
-  - `grep -i green IOC_14.2.csv`: ignore case
-  - `grep -c ORDERS IOC_14.2.csv`: return count of matching lines
-  - `grep -v ssp IOC_14.2.csv`: return lines without a match
+  It is possible to search multiple files at once, including location information   
+  - `grep $'\u2020' df1.csv df2.csv df3.csv`: searches for `†` in 3 files; displays file name by default
+  - `grep -hn $'\u2020' df1.csv df2.csv df3.csv`: displays only line numbers   
+  - `grep -n $'\u2020' df1.csv df2.csv df3.csv`:	displays file name and line numbers
     
   To see lines around matching lines, use upper-case A/B/C options; the number specifies how many lines
-  - `grep -A5 Emu IOC_14.2.csv`: return 5 lines **A**fter each matching line
-  - `grep -B10 Emu IOC_14.2.csv`: return 10 lines **B**efore each matching line 
-  - `grep -C5 Emu IOC_14.2.csv`: return 5 lines before and after each matching line (**C**ontext)
+  - `grep -A5 $'\u2020' IOC_14.2.csv`: return 5 lines **A**fter each matching line
+  - `grep -B10 $'\u2020' IOC_14.2.csv`: return 10 lines **B**efore each matching line 
+  - `grep -C5 $'\u2020' IOC_14.2.csv`: return 5 lines before and after each matching line (**C**ontext)
     
   `grep` does not understand logic operators, but you can construct OR and AND searches
-  - `grep -e Hoatzin -e Kagu IOC_14.2.csv`: OR; returns lines containing either or both patterns
-  - `grep Red IOC_14.2.csv | grep Falcon`: AND; returns lines containing both patterns
-  - `grep Red IOC_14.2.csv | grep -v Falcon`: AND NOT; returns lines containing first but not second pattern
+  - `grep -e Hoatzin -e Kagu IOC_14.2.csv`: OR; returns lines containing **either or both** patterns
+  - `grep $'\u2020' IOC_14.2.csv | grep 'Genus'`: AND; returns lines containing **both** patterns
+  - `grep $'\u2020' IOC_14.2.csv | grep -v 'ssp'`: AND NOT; returns lines containing **first but not second** pattern
  
 * `sort` -- sorts lines of input
   
@@ -72,12 +65,11 @@ Some additional options for commands we covered in the two previous weeks
 
   Note that, unlike most commands, `tr` will not take a file as an argument; use `cat` or `echo` to send text through a pipe to `tr`.
 
-  Note also that `tr` operates on a character-by-character basis. Use `sed` to substitute or delete strings (see below).
+  Note also that `tr` operates on a character-by-character basis. Use `sed` to manipulate strings (see below).
 
-  The default behavior of `tr` is substitution 
-  - `echo ATGCaa | tr A a`: substitute lower case "a" for uppercase "A"
-  - `echo ATGCAA | tr ATGC TACG`: substitute each character in the first set with the corresponding character in the second set
-  - `cat file.txt | tr [:lower:] [:upper:]`: convert all lower-case letters to upper-case 
+  The default behavior of `tr` is substitution; this works with special characters and Unicode 
+  - `cat IOC_14.2.csv | tr † E`: substitute `†` with `E`
+  - `cat IOC_14.2.csv | tr $'\u2020' E`: same result
 
   The `-d` option tells `tr` to delete the specified character or set
   - `cat file.txt | tr -d A`: delete all "A" characters
