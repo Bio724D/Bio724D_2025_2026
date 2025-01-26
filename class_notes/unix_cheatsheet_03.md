@@ -77,7 +77,7 @@ Some additional options for commands we covered in the two previous weeks
   The default behavior of `tr` is substitution 
   - `echo ATGCaa | tr A a`: substitute lower case "a" for uppercase "A"
   - `echo ATGCAA | tr ATGC TACG`: substitute each character in the first set with the corresponding character in the second set
-  - `cat file.txt | tr [:lower:] [:upper:]`: convert all lower-case letters to uppder-case 
+  - `cat file.txt | tr [:lower:] [:upper:]`: convert all lower-case letters to upper-case 
 
   The `-d` option tells `tr` to delete the specified character or set
   - `cat file.txt | tr -d A`: delete all "A" characters
