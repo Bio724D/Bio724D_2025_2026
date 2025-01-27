@@ -1,8 +1,8 @@
 
 
-### More commonly used Unix commands
+### Yet more commonly used Unix commands
 
-Some additional options for commands we covered in the two previous weeks
+**Additional options and applications for commands we covered in the two previous weeks**
 
 * `echo` -- display a line of text   
   The `-e` option interprets escaped characters   
@@ -71,14 +71,8 @@ Some additional options for commands we covered in the two previous weeks
   - `cat IOC_14.2.csv | tr † E`: substitute `†` with `E`
   - `cat IOC_14.2.csv | tr $'\u2020' E`: same result
 
-  The `-d` option tells `tr` to delete the specified character or set
-  - `cat file.txt | tr -d A`: delete all "A" characters
-  - `cat file.txt | tr -d [:digit:]`: delete all numerals
- 
-  The `-s` option tells `tr` to squeeze repeats of the specified character
-  - `cat file.txt | tr -s " "`: compress multiple consecutive spaces into a single space 
- 
-New commands
+
+**New commands**
 
 * `sed` -- sed is a "stream editor", a tool that offers powerful text manipulation capabilities.  For the purposes of this introduction we're going to focus on just one use case -- text substitution.
   - `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/`: substitute the first occurence of "Hello" with "Goodbye"
