@@ -77,7 +77,7 @@
 
 **New commands**
 
-* `sed` -- sed is a "stream editor", a tool that offers powerful text manipulation capabilities.  
+* `sed` -- sed is a "stream editor", a tool that offers powerful text manipulation/transformation capabilities.  Here are some examples of transformations you can carry out with `sed`
 
   * Text substitution
     - `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/`: substitute the first occurence of "Hello" on each line with "Goodbye"
@@ -92,4 +92,11 @@
   * Deleting specific lines
     - `seq 1 10 | sed 5d` -- delete line 5 from the input
     - `seq 1 10 | sed 4,8` -- delete lines 4 to 8 (inclusive) from the input
+
+  * Stopping after a specific line or match
+    - `seq '100 q' VoyageOfTheBeagle.txt` -- print first 100 lines
+    - `seq '/Coral/ q' VoyageOfTheBeagle.txt` -- print every line until a match to "Coral" is found and then quit
+
+    
+
 
