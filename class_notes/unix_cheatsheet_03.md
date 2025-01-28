@@ -74,8 +74,18 @@
 
 **New commands**
 
-* `sed` -- sed is a "stream editor", a tool that offers powerful text manipulation capabilities.  For the purposes of this introduction we're going to focus on just one use case -- text substitution.
-  - `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/`: substitute the first occurence of "Hello" with "Goodbye"
-  - `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/'`: substitute the all occurences of "Hello" with "Goodbye" (the `g` at the end of the sed command means "globally")
-  - `echo "Hello world, Hello universe" | sed 's/Hello//g'`: delete all occurences of "Hello"
+* `sed` -- sed is a "stream editor", a tool that offers powerful text manipulation capabilities.  
+
+  * Text substitution
+    - `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/`: substitute the first occurence of "Hello" on each line with "Goodbye"
+    - `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/'`: substitute  all occurences of "Hello" with "Goodbye" (the `g` at the end of the sed command means "globally")
+    - `echo "Hello world, Hello universe" | sed 's/Hello//g'`: delete all occurences of "Hello"
+
+  * Printing specific lines
+    - `sed -n 100p VoyageOfTheBeagle.txt` -- print line 100 from the file `VoyageOfTheBeagle.txt`
+    - `sed -n 90,110p VoyageOfTheBeagle.txt` -- print lines 90-110 from `VoyageOfTheBeagle.txt`
+
+  * Deleteing specific lines
+    - `seq 1 10 | sed 5d` -- delete line 5 from the input
+    - `seq 1 10 | sed 4,8 -- delete lines 4 to 8 (inclusive) from the input
 
