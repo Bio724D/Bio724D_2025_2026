@@ -71,8 +71,8 @@
   Note also that `tr` operates on a character-by-character basis. Use `sed` to manipulate strings (see below).
 
   The default behavior of `tr` is substitution; this works with special characters and Unicode 
-  - `cat IOC_14.2.csv | tr † E`: substitute `†` with `E`
-  - `cat IOC_14.2.csv | tr $'\u2020' E`: same result
+  - `cat IOC_14.2.csv | tr ü u`: substitute `ü` with `u`
+  - `cat IOC_14.2.csv | tr $'\u00FC' E`: same result
 
 
 **New commands**
