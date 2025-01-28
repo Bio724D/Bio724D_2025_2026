@@ -27,9 +27,9 @@ Some commands are single like the following:
 
 Other commands are single letters followed by additional arguments like:
 
+* `s/regex/replacement/[flags]` -- substitute 
 * `a text` -- append text after a line
 * `i text` -- insert text before a line
-* `s/regex/replacement/[flags]` -- substitute 
 
 
 See the [GNU sed manual](https://www.gnu.org/software/sed/manual/html_node/sed-commands-list.html#sed-commands-list) for the full list of commands.
