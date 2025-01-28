@@ -47,7 +47,19 @@ See the [GNU sed manual](https://www.gnu.org/software/sed/manual/html_node/sed-c
 
 * The `-n` argument to sed silences automatic printing
 
-    - `sed -n '' input.txt` -- every line processed but nothing
+    - `sed -n '' input.txt` -- every line processed but nothing printed
+    - `sed -n 'p' input.txt` -- every line printed just once
+
+
+## Sed address
+
+Addresses in sed are used to select lines on which to execute the corresponding sed command.
+
+There are three basic ways to specify addresses:
+
+* A numeric address -- i.e. a line number
+* Regular expressions -- lines that have a regular expression match
+* Ranges -- i.e., a range of line numbers or line numbers and regular expressions
 
 
 
