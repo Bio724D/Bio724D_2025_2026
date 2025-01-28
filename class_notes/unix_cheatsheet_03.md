@@ -18,6 +18,9 @@
   To search for a Unicode character, precede with **$** and enclose in **single** quotes
   - `grep $'\u2020' IOC_14.2.csv`: searches for `†`
   
+  For some regex constructions, you will need to use the `-E` option
+  - `grep -E "Ta|Va" VoyageOfTheBeagle.txt`: returns lines with `Tahiti`, `Vancouver`, etc.
+  
   It is possible to search multiple files at once, including location information   
   - `grep $'\u2020' df1.csv df2.csv df3.csv`: searches for `†` in 3 files; displays file name by default
   - `grep -hn $'\u2020' df1.csv df2.csv df3.csv`: displays only line numbers   
