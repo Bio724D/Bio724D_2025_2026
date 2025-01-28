@@ -62,7 +62,7 @@
   If your sort results are not what you expect:
   - In some shells, `sort` uses ASCII encoding to determine order: whitespace, numerals, upper-case letters, lower-case letters
   - Use the `--debug` option to highlight the field in each line that `sort` is using
-  - See [this page](./unx_unexpected_sorting.md) and the [GNU FAQ](https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021) if you're still getting unexpected results
+  - See [this page](./unix_unexpected_sorting.md) and the [GNU FAQ](https://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021) if you're still getting unexpected results
  
 * `tr` -- translate (substitute), delete, or squeeze characters in input
 
@@ -97,6 +97,6 @@
     - `seq '100 q' VoyageOfTheBeagle.txt` -- print first 100 lines
     - `seq '/Coral/ q' VoyageOfTheBeagle.txt` -- print every line until a match to "Coral" is found and then quit
 
-    
+
 
 
