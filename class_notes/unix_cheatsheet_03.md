@@ -82,13 +82,14 @@
   * Text substitution
     - `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/`: substitute the first occurence of "Hello" on each line with "Goodbye"
     - `echo "Hello world, Hello universe" | sed 's/Hello/Goodbye/'`: substitute  all occurences of "Hello" with "Goodbye" (the `g` at the end of the sed command means "globally")
+    - `sed 's/Beagle/Pomeranian/g' VoyageOfTheBeagle.txt > VoyageOfThePomeranian.txt`
     - `echo "Hello world, Hello universe" | sed 's/Hello//g'`: delete all occurences of "Hello"
 
   * Printing specific lines
     - `sed -n 100p VoyageOfTheBeagle.txt` -- print line 100 from the file `VoyageOfTheBeagle.txt`
     - `sed -n 90,110p VoyageOfTheBeagle.txt` -- print lines 90-110 from `VoyageOfTheBeagle.txt`
 
-  * Deleteing specific lines
+  * Deleting specific lines
     - `seq 1 10 | sed 5d` -- delete line 5 from the input
-    - `seq 1 10 | sed 4,8 -- delete lines 4 to 8 (inclusive) from the input
+    - `seq 1 10 | sed 4,8` -- delete lines 4 to 8 (inclusive) from the input
 
