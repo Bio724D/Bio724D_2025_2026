@@ -82,3 +82,20 @@ Examples:
 
 
 
+## Multiple commands
+
+Multiple sed commands can be specified by repeated `-e` calls at the command line or by specificying a script file to read the commands from.
+
+*  `sed -e '1i #Header' -e '5d' -e '7a Hello' input.txt` -- insert a line before the first line, delete the 5th line,  and append a line with "Hello" after the 7th line
+
+* create a file, `myscript.txt` that contains the following
+
+    ```
+    # myscript.txt
+    1i #Header
+    5d
+    7a Hello
+    ```
+
+    Execute this as: `sed -f myscript.txt input.txt`
+
