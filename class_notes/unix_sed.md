@@ -51,15 +51,34 @@ See the [GNU sed manual](https://www.gnu.org/software/sed/manual/html_node/sed-c
     - `sed -n 'p' input.txt` -- every line printed just once
 
 
-## Sed address
+## Sed addresses
 
 Addresses in sed are used to select lines on which to execute the corresponding sed command.
 
-There are three basic ways to specify addresses:
+[There are three basic ways to specify addresses](https://www.gnu.org/software/sed/manual/html_node/sed-addresses.html#sed-addresses):
 
 * A numeric address -- i.e. a line number
 * Regular expressions -- lines that have a regular expression match
 * Ranges -- i.e., a range of line numbers or line numbers and regular expressions
+
+Examples:
+
+* Print a specific line, given by number
+
+    - `sed -n '6p' input.txt` -- print line six from the input
+
+* Print a range of lines, given by numeric values or ranges
+
+    - `sed -n '2,5p' input.txt` -- print lines 2 to 5 inclusive
+    - `sed -n '2,+4p' input.txt` -- print line 2 and the next 4 lines
+
+* Delete a range of lines
+
+    - `sed '2,5d' input.txt` -- print all lines except 2 to 5 (inclusive)
+
+* Print up to a given line matched by a regular expression and then quit
+
+    - `sed '/Coral/ q' input.txt` -- print all lines until the pattern "Coral" is encountered and then quit.
 
 
 
