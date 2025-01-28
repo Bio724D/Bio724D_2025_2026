@@ -30,37 +30,37 @@ Submit both your markdown file and the generated HTML document via the Assignmen
 
 1. Print some non-standard characters using their Unicode values. For each character, show the code that you would use to `echo` the character to the command line (STDOUT).
 
-* ü -- lower-case u with an umlaut.
-
-* symbols for female and male.
-
-* ˚ -- the degree symbol. 
-
-* The mathematical symbol for the set of real numbers.
-
-* The mathematical symbol for set union.
+    * ü -- lower-case u with an umlaut.
+    
+    * symbols for female and male.
+    
+    * ˚ -- the degree symbol. 
+    
+    * The mathematical symbol for the set of real numbers.
+    
+    * The mathematical symbol for set union.
 
 2. Tomorrow is Chinese New Year, and we will slither into the Year of the Snake. In a slightly more challenging exercise, find some Unicode symbols that celebrate this event. Show the code you would use to echo each character to the command line.
 
-* The emoji for snake.
-
-* The Chinese character for snake (or year of the snake if you prefer).
-
-* The emoji that represents your reaction to seeing a snake.
+    * The emoji for snake.
+    
+    * The Chinese character for snake (or year of the snake if you prefer).
+    
+    * The emoji that represents your reaction to seeing a snake.
 
 3. For this problem, work with the file `IOC_14.2.csv` that we used last week in class (the original, not the "clean" version we created). 
 
-* Examine the file with the command line tool of your choice and note that column 5 has the header name `SP; Extinct (†)`. On a small subset of rows, this column contains the symbol `†`, which indicates that the taxon is extinct. Show the code you would use to count the number of lines containing `†` in column 5 using `grep`. Report the number you get.
-
-* Non-standard characters can complicate downstream analysis of data. Show the code you would use to replace every `†` with `E` using `tr`. Use the Unicode representation for `†`, not the character itself.
-
-* Column 10 lists the "Authority" for each taxon. This is the name of author who formally described that taxon. How many entries were made by Müller? How many by Peréz?
+    * Examine the file with the command line tool of your choice and note that column 5 has the header name `SP; Extinct (†)`. On a small subset of rows, this column contains the symbol `†`, which indicates that the taxon is extinct. Show the code you would use to count the number of lines containing `†` in column 5 using `grep`. Report the number you get.
+    
+    * Non-standard characters can complicate downstream analysis of data. Show the code you would use to replace every `†` with `E` using `tr`. Use the Unicode representation for `†`, not the character itself.
+    
+    * Column 10 lists the "Authority" for each taxon. This is the name of author who formally described that taxon. How many entries were made by Müller? How many by Peréz?
 
 4. For this problem, work with the `saccharomyces_cerevisiae_R64-5-1_20240529.gff` file that we worked with last week in class (either the original or the "clean" version). Examine the file and note that column 1 (chromosome number) is a mix of characters and Roman numerals. This makes it difficult to carry out simple tasks like ordering by chromosome. Your task here is to design an approach that uses `sed` to replace values in column 1 with integers that correspond to chromosome number.
 
-* Show the code that would replace all cases of `chrI` with `1` in column 1. Hint: this is harder than it sounds: don't convert `chrIII` to `1II`.
-
-* You could manually repeat this process for other chromosomes, but don't do that now! We will learn how to write loops in our next class session. Instead, outline an *overall* strategy to replace the value in column 1 for each chromosome with the corresponding integer. 
+    * Show the code that would replace all cases of `chrI` with `1` in column 1. Hint: this is harder than it sounds: don't convert `chrIII` to `1II`.
+    
+    * You could manually repeat this process for other chromosomes, but don't do that now! We will learn how to write loops in our next class session. Instead, outline an *overall* strategy to replace the value in column 1 for each chromosome with the corresponding integer. 
 
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.5.54">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -3088,38 +3088,32 @@ vertical-align: -.125em;
 <section id="problems" class="level2">
 <h2 class="anchored" data-anchor-id="problems">Problems</h2>
 <ol type="1">
-<li>Print some non-standard characters using their Unicode values. For each character, show the code that you would use to <code>echo</code> the character to the command line (STDOUT).</li>
-</ol>
+<li><p>Print some non-standard characters using their Unicode values. For each character, show the code that you would use to <code>echo</code> the character to the command line (STDOUT).</p>
 <ul>
 <li><p>ü – lower-case u with an umlaut.</p></li>
 <li><p>symbols for female and male.</p></li>
 <li><p>˚ – the degree symbol.</p></li>
 <li><p>The mathematical symbol for the set of real numbers.</p></li>
 <li><p>The mathematical symbol for set union.</p></li>
-</ul>
-<ol start="2" type="1">
-<li>Tomorrow is Chinese New Year, and we will slither into the Year of the Snake. In a slightly more challenging exercise, find some Unicode symbols that celebrate this event. Show the code you would use to echo each character to the command line.</li>
-</ol>
+</ul></li>
+<li><p>Tomorrow is Chinese New Year, and we will slither into the Year of the Snake. In a slightly more challenging exercise, find some Unicode symbols that celebrate this event. Show the code you would use to echo each character to the command line.</p>
 <ul>
 <li><p>The emoji for snake.</p></li>
 <li><p>The Chinese character for snake (or year of the snake if you prefer).</p></li>
 <li><p>The emoji that represents your reaction to seeing a snake.</p></li>
-</ul>
-<ol start="3" type="1">
-<li>For this problem, work with the file <code>IOC_14.2.csv</code> that we used last week in class (the original, not the “clean” version we created).</li>
-</ol>
+</ul></li>
+<li><p>For this problem, work with the file <code>IOC_14.2.csv</code> that we used last week in class (the original, not the “clean” version we created).</p>
 <ul>
 <li><p>Examine the file with the command line tool of your choice and note that column 5 has the header name <code>SP; Extinct (†)</code>. On a small subset of rows, this column contains the symbol <code>†</code>, which indicates that the taxon is extinct. Show the code you would use to count the number of lines containing <code>†</code> in column 5 using <code>grep</code>. Report the number you get.</p></li>
 <li><p>Non-standard characters can complicate downstream analysis of data. Show the code you would use to replace every <code>†</code> with <code>E</code> using <code>tr</code>. Use the Unicode representation for <code>†</code>, not the character itself.</p></li>
 <li><p>Column 10 lists the “Authority” for each taxon. This is the name of author who formally described that taxon. How many entries were made by Müller? How many by Peréz?</p></li>
-</ul>
-<ol start="4" type="1">
-<li>For this problem, work with the <code>saccharomyces_cerevisiae_R64-5-1_20240529.gff</code> file that we worked with last week in class (either the original or the “clean” version). Examine the file and note that column 1 (chromosome number) is a mix of characters and Roman numerals. This makes it difficult to carry out simple tasks like ordering by chromosome. Your task here is to design an approach that uses <code>sed</code> to replace values in column 1 with integers that correspond to chromosome number.</li>
-</ol>
+</ul></li>
+<li><p>For this problem, work with the <code>saccharomyces_cerevisiae_R64-5-1_20240529.gff</code> file that we worked with last week in class (either the original or the “clean” version). Examine the file and note that column 1 (chromosome number) is a mix of characters and Roman numerals. This makes it difficult to carry out simple tasks like ordering by chromosome. Your task here is to design an approach that uses <code>sed</code> to replace values in column 1 with integers that correspond to chromosome number.</p>
 <ul>
 <li><p>Show the code that would replace all cases of <code>chrI</code> with <code>1</code> in column 1. Hint: this is harder than it sounds: don’t convert <code>chrIII</code> to <code>1II</code>.</p></li>
 <li><p>You could manually repeat this process for other chromosomes, but don’t do that now! We will learn how to write loops in our next class session. Instead, outline an <em>overall</em> strategy to replace the value in column 1 for each chromosome with the corresponding integer.</p></li>
-</ul>
+</ul></li>
+</ol>
 </section>
 </section>
 
