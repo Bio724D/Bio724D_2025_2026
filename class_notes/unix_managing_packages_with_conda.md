@@ -48,13 +48,37 @@ conda activate genomics
 3. When working in an environment you can search for and install other tools using `conda search` and `conda install`
 
 ```
-conda search fastp
-conda install fastp
+conda search seqkit
+conda install seqkit
 ```
 
-4. To leave your current conda environemnt
+Now the [seqkit](https://bioinf.shenwei.me/seqkit/) program is available to you, but just in the `genomics` environment:
+
+```
+seqkit stats --help
+```
+
+Note that seqkit has many subcommands like `stats`, `seq`, `grep`, etc. See the [seqkit documentation](https://bioinf.shenwei.me/seqkit/#subcommands) for info and examples.
+
+
+4. To leave your current conda environment
 ```
 conda deactivate
+```
+
+Since you should now be back in your base environment, seqkit is no longer available:
+
+```
+seqkit stats --help  # should generate a command not found error
+```
+
+
+## Listing your available conda environments
+
+Typically one creates different conda environments for different types of pipelines or tasks.  To remind yourself of the conda environments you've created:
+
+```
+conda env list
 ```
 
 

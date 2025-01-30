@@ -17,8 +17,14 @@ Once you know the name of the package you want to, you can use `apt` with the `i
 sudo apt install zip
 ```
 
+Here we've installed the `zip` command line tools that allows us to zip/unzip archives stored in the common zip format.
+
 We invoked `apt` by prefixing it with the `sudo` command ("super user do"). `sudo` is the command line equivalent of saying "invoke the following command with Administrator privileges". For security reasons, installing software "globally" on a Unix-based system requires you have administrative rights on a system (this is generally true on MacOS and Windows too).  You'll be prompted to enter your password (your NetID password in the case of your VM) before the `apt install` subcommand will work.
 
 ### Your turn
 
 Use `apt` to search for and install the programs `zip`, `dos2unix`, and `parallel`. 
+
+For info about context when `dos2unix` is useful see [dealing with line endings](./unix_line_endings.md).
+
+We'll review `parallel` in our lecture on scripting.
