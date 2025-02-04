@@ -46,6 +46,16 @@ AWK is names after it's three inventors, all of whom were computer scientists at
 * Brian W. Kernighan -- contributed to the development of Unix; helped to popularize the C programming language (Kernighan and Ritchie, The C Programming Language, 1978 is known simply as "K&R C")
 
 
+## Why Awk
+
+* Awk combines the text processing powers of many of the core Unix utilities such as `cut`, `grep`, and `sed` into a single programming language.
+
+* Awk is concise and has a relatively simple syntax.
+
+* Awk is fast and can handle GBs of data efficiently!
+
+
+
 
 
 
