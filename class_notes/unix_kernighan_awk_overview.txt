@@ -1,5 +1,4 @@
 # Retrieved from https://www.cs.princeton.edu/courses/archive/spring19/cos333/awk.help
-
 Awk help
 
 Sat Feb  9 11:18:11 EST 2019

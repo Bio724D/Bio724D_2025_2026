@@ -1,0 +1,85 @@
+---
+title: "Problem Set 17: Awk"
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+# Instructions
+
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using the Unix command line**. 
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignment number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Spring2025.qmd`
+
+Submit both your markdown file and the generated HTML document via the Assignments submission section on Canvas.
+
+
+# Problems
+
+## Background
+
+[Ste12](https://www.yeastgenome.org/locus/S000001126) is a transcription factor that regulates genes in the pheromone induced mating pathway of the budding yeast *Saccharomyces cerevisiae*.
+
+Studies show that Ste12 recognizes and binds DNA sequence motifs upstream of the genes it regulates.  A [sequence logo](http://users.fred.net/tds/lab/how.to.read.sequence.logos/) for the Ste12 binding site is shown in the figure below.
+
+![STE12 binding site motif from [The Yeast Transcription Factor Specificity Compendium](http://yetfasco.ccbr.utoronto.ca/)](./STE12-motif.png)
+
+The canonical sequence motif for Ste12 binding is "TGAAACA" but the sequence logo indicates that some positions can be variable.  
+
+For the sake of this problem let's assume the following: 
+
+  - The first position can be T or A
+  - The second postion  can be either G or A
+  - The last position can be either A or G or T
+  - The intermediate sites need to be "AAAC"
+  
+The file [STE12_promoter_table.tsv](https://github.com/Bio724D/Bio724D_2023_2024/raw/main/data/STE12_promoter_table.tsv)  contains information about some genes that Ste12 is hypothesized to regulate. This file has three columns that contain:
+
+1. The systematic ID of each gene
+2. A column indicating where in the yeast genome the upstream sequence of each gene (see next field) was copied from
+3. A string giving the nucleotide sequence of the 500bp upstream of each gene (case should be ignored)
+
+
+## Problems
+
+1.  Show how to use `grep` to calculate the number of times the Ste12 DNA binding motif appears in the upstream region of the **first gene (YAR009C) in the table**. Account for variable positions in your count and make your regex as concise and readable as possible. Also make sure to deal with case!
+
+2. Write an Awk script, `uppercase_motif.awk`, that returns the 1st (systematic ID) and 3rd (nucleotide sequence) columns of an input file formatted like `STE12_promoter_table.csv` with the text in the third column converted to upper case.
+
+3. Write an Awk script, `count_motif.awk`, that calculates the number of  Ste12 DNA binding motifs found in the upstream region of each gene in `STE12_promoter_table.tsv`. Account for variable positions in your count; also make sure to deal with case! 
+
+    Your script should return a tab delimited table of the form:
+
+    ```
+    systematic_name motif_count
+    YAR009C          2
+    YBR067C          0
+    YCL027W          3
+    YDR365W-B        1
+    ...<output truncated>...
+    ```
+
+    The Awk function `gsub` (global substitution) can be used for counting regex matches. Read the [String Functions](https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html) section of the [GNU Awk manual](https://www.gnu.org/software/gawk/manual/gawk.html) for more info.
+
+4. Challenging: Write an Awk script, `motif_matches.awk`, that returns both the motif count and the found matches.  Your output should return a tab-delimited table of the form:
+
+    ```
+    systematic_name	motif_count	matches
+    YAR009C	2	AGAAACT,aaaaacg,
+    YBR067C	0	
+    YCL027W	3	TGAAACA,TGAAACG,tgaaaca,
+    YDR365W-B	1	tgaaacg,
+    ```
+
+    The Awk function `patsplit` (global substitution) can be used for splitting a string on a regex match. Read the [String Functions](https://www.gnu.org/software/gawk/manual/html_node/String-Functions.html) section of the [GNU Awk manual](https://www.gnu.org/software/gawk/manual/gawk.html) for more info. Hint: The `seps` array in the argument to `patsplit` is where you'll find the specific matches found by your regex.
+
