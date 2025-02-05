@@ -1,7 +1,4 @@
-BEGIN {
-    FS = "\t"
-}
-
+BEGIN { FS = "\t" }
 
 /##FASTA/ { exit }
 /^#/ { next }
