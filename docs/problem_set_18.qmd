@@ -1,0 +1,67 @@
+---
+title: "Problem Set 18: Scripting in Unix"
+author: "Greg Wray"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using the Unix command line**. 
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignment number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Spring2025.qmd`
+
+Submit both your markdown file and the generated HTML document via the Assignments submission section on Sakai.
+
+
+## Problems
+
+
+1. Unix/bash scripts can accept input directly from the keyboard. Investigate how to do this using whatever search tools you prefer. Then write a small script that: 
+
+* Prompts the user to input a name. 
+
+* Then prompts the user to input a birthday (year, month, and date).
+
+* Calculates their age in years. Bonus: calculates age in months.
+
+* Reports back the person's name and age in a human-readable sentence. 
+
+* Reports a friendly message if the current date is their birthday.
+
+
+2. Write a bash function to search for a string within a file and report on the results. Give your function a descriptive name. It should do the following:
+
+* Accept 3 arguments as inputs : search string, input file name, and output file name
+
+* Calculate the number of lines where the search string occurs in the input file
+
+* Append a single line containing the file name, search string, number of matching lines to the output file. Format the output to be compatible with a `.csv` file.
+
+
+3. Next, test your function to make sure it is working as intended. Show code for testing. Test your function using some "corner cases" (e.g., no matches).  
+
+
+4. Now that you are confident that your function is working properly, the next step is to make it able to diagnose and report on problems with the input string and files. Add code to trap at least one kind of problem that might arise with the inputs. Include an `exit` command and a description of the error so that future users can fix the problem. 
+
+
+5. Create a bash script to filter records in the yeast `.gff` file that we have been working with in class based on the systematic gene name. Normally, filtering tablular data is fairly straightforward, but in this case we have a complication: the systematic gene name is embedded within the ninth (attribute) column, which contains a list of semicolon-delimited items. The systematic name has the form `ID=SystematicName` (e.g., `ID=YALO69W`). Your script should accept two arguments: 1) a `.gff` file; and 2) a file of systematic gene names (1 per line), and produce a file containing the entire line when there is a match with one of the systematic names. Let's break that down into steps: 
+
+* Use the awk script that was introduced at the end of the class on February 4th to extract lines that match the a search term in column 9. 
+
+* Wrap the awk script in a for loop where the set is the list of systematic gene names in the input file.
+
+* Test your script with different inputs to make sure it is working as expected.
+
