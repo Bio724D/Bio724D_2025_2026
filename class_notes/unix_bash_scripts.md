@@ -140,8 +140,9 @@ bash yeast_feature_counts.sh > yeast_features.csv
 
 # --- REPLACE THESE VARIABLES --- #
 
-GFF_URL=""  # RefSeq URL Location
 OUT_DIR="output"  # Directory for output, will be created if necessary
+GFF_URL=""  # RefSeq URL Location
+
 
 # -- END USER DEFINED VARIBLES -- #
 
@@ -215,12 +216,13 @@ bash ecoli_feature_count.sh
     nargs=$#
 
     if [ $nargs -ne 2 ]; then
-        echo "usage: $0 URL OUTDIR"
+        echo "usage: $0 OUTDIR URL"
         exit 1
     fi
 
-    GFF_URL=$1  # RefSeq URL Location
-    OUT_DIR=$2  # Directory for output, will be created if necessary
+    OUT_DIR=$1  # Directory for output, will be created if necessary
+    GFF_URL=$2  # RefSeq URL Location
+    
 
     # Create output directory if it doesn't exist
     if [ ! -e ${OUT_DIR} ]; then
@@ -231,9 +233,13 @@ bash ecoli_feature_count.sh
     gff_gz=${OUT_DIR}/gff.gz
     gff_file=${OUT_DIR}/features.gff
 
-    # download and unzip the data if 
-    if [ ! -f ${gff_file} ]; then
+    # download the data if needed
+    if [ ! -f ${gff_gz} ]; then
         wget ${GFF_URL} -O ${gff_gz}
+    fi
+
+    # and unzip the data if needed
+    if [ ! -f ${gff_file} ]; then
         gunzip ${gff_gz} -c > ${gff_file} 
     fi
 
@@ -255,7 +261,7 @@ celegans_url=https://ftp.ncbi.nlm.nih.gov/genomes/refseq/invertebrate/Caenorhabd
 And then call the bash script
 
 ```bash
-feature_count.sh $celegans_url celegans
+feature_count.sh celegans $celegans_url 
 ```
 
 #### Back to reproducibility
@@ -268,15 +274,26 @@ To illustrate this, let's assume we wanted to compare feature counts across mult
 Saccharomyces_cerevisiae,https://ftp.ncbi.nlm.nih.gov/genomes/refseq/fungi/Saccharomyces_cerevisiae/reference/GCF_000146045.2_R64/GCF_000146045.2_R64_genomic.gff.gz
 Escherichia_coli,https://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/Escherichia_coli/reference/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.gff.gz
 Caenorhabditis_elegans,https://ftp.ncbi.nlm.nih.gov/genomes/refseq/invertebrate/Caenorhabditis_elegans/reference/GCF_000002985.6_WBcel235/GCF_000002985.6_WBcel235_genomic.gff.gz
+
 ```
 
-Now we can generate feature counts for each genome by creating a bash script called `multi_species_count.sh` that includes a call to `parallel`:
+Now we can generate feature counts for each genome by creating a bash script called `multi_species_count.sh` that processes the lines of this file
 
 
 ```bash
+#!/bin/bash
 # multi_species_count.sh
-
-parallel --colsep="," 'mkdir -p {1}; ./feature_count.sh {2} {1} > {1}/ftrcounts.csv' :::: genomelist.csv
+while IFS="," read OUTDIR URL
+do
+    # we need this check because our redirection call below
+    # will try and reference OUTDIR before the directories are referenced i
+    # in feature_count.sh
+    if [ ! -e ${OUTDIR} ] 
+    then
+        mkdir -p ${OUTDIR}
+    fi
+    bash feature_count.sh ${OUTDIR} ${URL} > ${OUTDIR}/ftr_counts.csv
+done <  genomelist.csv
 ```
 
 and run this as:
@@ -285,13 +302,13 @@ and run this as:
 bash multi_species_count.sh
 ```
 
-For each species name in your input list, there should now be a corresponding directory that contains a `ftrcounts.csv` file with the respective counts:
+For each species name in your input list, there should now be a corresponding directory that contains a `ftr_counts.csv` file with the respective counts:
 
 ```bash
 $ ls -1 */ftrcounts.csv
-Caenorhabditis_elegans/ftrcounts.csv
-Escherichia_coli/ftrcounts.csv
-Saccharomyces_cerevisiae/ftrcounts.csv
+Caenorhabditis_elegans/ftr_counts.csv
+Escherichia_coli/ftr_counts.csv
+Saccharomyces_cerevisiae/ftr_counts.csv
 ```
 
 In terms of reproducibility, our full analysis now requires three files:
@@ -300,11 +317,7 @@ In terms of reproducibility, our full analysis now requires three files:
 2. The list of genomes we're processing: `genomelist.csv`
 3. Our `multi_species_count.sh` that processes the information in (2)  through the pipeline in (1)
 
-There is a slight increase in complexity versus our single species script, but with the following advantages:
-
-1. It's trivial to extend our analysis to include new species/genomes of interest -- we simply add additional species names and URLs to `genomelist.csv`
-
-2. We can run this analysis efficiently for many genomes at once by adding the argument `--jobs=n` to the call to `parallel` where `n` is the number of threads we want to run simultaneously (assuming that you have access to a multi-CPU machine or a compute cluster)
+There is a slight increase in complexity versus our single species script, but with the advantage that it's now trivial to extend our analysis to include new species/genomes of interest -- we simply add additional species names and URLs to `genomelist.csv`
 
 
 ## Other resources
