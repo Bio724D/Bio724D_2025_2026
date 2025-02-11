@@ -7,7 +7,7 @@ Shell scripts are small programs written in the language of the shell; they're c
 
 ## Bash scripts are picky
 
-One annoying feature of bash scripting is that it's particularly picky about white space around commands and arguments, because essentially it tries to execute each line as if it was written at the command line itself ([see](https://uvesway.wordpress.com/2013/03/11/some-whitespace-pitfalls-in-bash-programming/)). When following the examples below I recommend you be careful to follow the spacing I've used to avoid hard to diagnose syntax errors.  For this reason, bash is *not* my preferred scripting environment. However it's so ubiquitous in bioinformatics that it's worth learning the basics of bash.
+One annoying feature of bash scripting is that it's particularly picky about white space around commands and arguments, because essentially it tries to execute each line as if it was written at the command line itself ([see](https://uvesway.wordpress.com/2013/03/11/some-whitespace-pitfalls-in-bash-programming/)). When following the examples below be careful to follow the spacing I've used to avoid hard to diagnose syntax errors. 
 
 ## Simple script examples
 
