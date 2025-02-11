@@ -1,0 +1,93 @@
+---
+title: "Bash Examples"
+author: "Bio724D: Spring 2025"
+date: today
+
+format: beamer
+aspectratio: 1610
+
+# Colors
+colortheme: bio724
+code-block-bg: "#f2f2f2"
+
+# Fonts 
+fontheme: default
+mainfont: Helvetica Light 
+mainfontoptions:
+  - BoldFont=Helvetica
+  - ItalicFont=Helvetica Light Oblique
+monofont: Monaco
+monofontoptions:
+  - Scale=0.97
+
+# Other customizations most easily done in LaTeX itself
+include-in-header:
+  text: |
+    \setbeamerfont{title}{series=\bfseries}
+    \setbeamerfont{frametitle}{series=\bfseries}
+    \setbeamertemplate{itemize item}[circle]
+    \setbeamertemplate{itemize subitem}[square]
+
+execute:
+  echo: true
+  eval: false
+---
+
+## Three types of Bash scripts
+
+
+* Executable documentation -- "here's how I did this thing"
+
+* Template -- "here's how to do this thing with different inputs"
+
+* Program -- "here's how to do this thing in a general sense; can be integrated into other scripts or programs"
+
+
+
+
+## Bash example: Executable documentation
+
+
+\scriptsize
+
+```bash
+wget -q \
+https://ftp.ncbi.nlm.nih.gov/genomes/refseq/fungi/Saccharomyces_cerevisiae\
+/reference/GCF_000146045.2_R64/GCF_000146045.2_R64_genomic.gff.gz
+
+gunzip GCF_000146045.2_R64_genomic.gff.gz
+
+awk -F"\t" -v OFS="," \
+    'NF == 9 {cts[$3] += 1}
+    END {for (ftr in cts) 
+            print ftr, cts[ftr] }' \
+    GCF_000146045.2_R64_genomic.gff |
+sort -t, -k 2 -nr 
+```
+
+\normalsize
+
+
+
+
+## Bash example: Templating
+
+Let's turn our "executable documentation" style script into a template script...
+
+
+* See class notes
+
+
+## Bash example: Program
+
+Let's turn our "template" into a program
+
+* See class notes
+
+
+## Coming full circle: Executable documentation again
+
+Let's write a script that executes our program for multiple inputs
+
+* See class notes
+

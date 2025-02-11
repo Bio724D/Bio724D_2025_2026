@@ -154,7 +154,8 @@ fi
 gff_gz=${OUT_DIR}/gff.gz
 gff_file=${OUT_DIR}/features.gff
 
-# download and unzip the data if 
+# download and unzip the data if file doesn't exist
+# avoids writing over existing data
 if [ ! -f ${gff_file} ]; then
     wget ${GFF_URL} -O ${gff_gz}
     gunzip ${gff_gz} -c > ${gff_file} 

@@ -148,67 +148,7 @@ echo {a..g} # lower case character range
 echo {a..G}  
 ```
 
-## Process substitution
 
-> Process substitution is a form of redirection where the input or output of a process (some sequence of commands) appear as a temporary file. -- [Bash Hackers Wiki](https://wiki.bash-hackers.org/syntax/expansion/proc_subst)
-
-A process substitution is created by wrapping a pipeline or list of commands in the following syntax:
-
-```bash
-<( commands )
-```
-
-I find process substitution to be most useful when a program takes multiple inputs and I want to create the inputs themselves from pipelines or compound commands. Here's an example, where I use `parallel` to create all possible combinations of chromosomes and features from an annotation file without having to create intermediate files:
-
-```bash
-parallel echo {1} {2} :::: <(cut -f 1 yeast_features.txt | sort | uniq ) :::: <(cut -f 2 yeast_features.txt | sort | uniq)
-```
-
-## Looping
-
-Bash has three loop (iteration) constructs -- `for` loops, `while` loops, and `until` loops. Here I discuss only `for` loops which are the most widely used of the three.
-
-### For loops
-
-Syntax:
-
-```bash
-for name in [ words ]
-do
-  [ commands ]
-done
-```
-
-Meaning:
-
-Expand `[ words ]` as needed and apply `[ commands ]` to each element of the resultant list; the variable `name` gets bound to each element.
-
-Examples:
-
-```bash
-# loop over the numbers 1 to 4
-for item in {1..4} 
-do
-  echo ${item} potato!
-done
-```
-
-```bash
-# loop over the .txt files in your current directory
-# where the list of files is generated via command subsitution
-for filename in $(ls *.txt)
-do
-  echo ${filename} backward is $(echo ${filename} | rev)
-done
-```
-
-```bash
-# loop over a list of strings
-for word in Who What Where When Why How
-do
-  echo "Newspaper writers are taught to discuss:" $word
-done
-```
 
 ## If and If-else statements
 
@@ -259,6 +199,141 @@ The operators `-gt` ("greater than") and `-lt` ("less than") in these examples a
 ---
 
 **Note**: Some examples you'll find online will wrap the `condition` statement in double brackets like so: `[[ condition ]]`. For discussions of the differences between single and double brackets around conditional statements see [here](https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-bash) and [here](https://stackoverflow.com/questions/669452/are-double-square-brackets-preferable-over-single-square-brackets-in-b). 
+
+
+
+## Looping
+
+Bash has three loop (iteration) constructs -- `for` loops, `while` loops, and `until` loops. Here I discuss `for` loops and `while` loops.
+
+### For loops
+
+Syntax:
+
+```bash
+for name in [ words ]
+do
+  [ commands ]
+done
+```
+
+Meaning:
+
+Expand `[ words ]` as needed and apply `[ commands ]` to each element of the resultant list; the variable `name` gets bound to each element.
+
+Examples:
+
+```bash
+# loop over the numbers 1 to 4
+for item in {1..4} 
+do
+  echo ${item} potato!
+done
+```
+
+```bash
+# loop over the .txt files in your current directory
+# where the list of files is generated via command subsitution
+for filename in $(ls *.txt)
+do
+  echo ${filename} backward is $(echo ${filename} | rev)
+done
+```
+
+```bash
+# loop over a list of strings
+for word in Who What Where When Why How
+do
+  echo "Newspaper writers are taught to discuss:" $word
+done
+```
+
+### While loops
+
+Syntax:
+
+```bash
+while [ condition ]
+do
+  [ commands ]
+done
+```
+
+Meaning:
+
+While the boolean `condition` is true, excecute `[ commands ]`.
+
+Examples:
+
+Simulate coin flips until you get a "tail":
+
+```
+# $RANDOM is a built-in variable that returns a random number between 0 and 32767
+while [ ${RANDOM} -lt 16384 ]; do
+    echo "Heads"
+done
+```
+
+
+
+
+### Iterating over the lines of a file using a while loop and `read`
+
+The bash function `read`  reads a line from the standard input and split it into fields (for more info type `help read` NOT `man read` because `read` is a built-in bash function and not a command; yes, this is confusing!). 
+
+We can combine `read` and the `while` loop to read lines from a file as so:
+
+```bash
+# read lines from a file
+while read line
+do
+    echo $line
+done <  input.txt
+
+```
+
+Notice that placement of the input redirection operator relative to the while block!
+
+
+If you have a space or tab delimited file with two columns (fileds) you can access the individual columns like so:
+
+```bash
+while read col1 col2
+do
+    echo "Column 1 is: " $col1 
+    echo "Column 2 is: " $col2
+done <  input.txt
+```
+
+By default whitespace is used to split fields, but you can change that by setting a global variable called `IFS` (Internal Field Separator; similar to Awk's `FS`).  For a CSV file you can change `IFS` like so:
+
+
+```bash
+while IFS="," read col1 col2
+do
+    echo "Column 1 is: " $col1 
+    echo "Column 2 is: " $col2
+done <  input.csv
+```
+
+
+
+
+## Process substitution
+
+> Process substitution is a form of redirection where the input or output of a process (some sequence of commands) appear as a temporary file. -- [Bash Hackers Wiki](https://wiki.bash-hackers.org/syntax/expansion/proc_subst)
+
+A process substitution is created by wrapping a pipeline or list of commands in the following syntax:
+
+```bash
+<( commands )
+```
+
+I find process substitution to be most useful when a program takes multiple inputs and I want to create the inputs themselves from pipelines or compound commands. Here's an example, where I use `parallel` to create all possible combinations of chromosomes and features from an annotation file without having to create intermediate files:
+
+```bash
+parallel echo {1} {2} :::: <(cut -f 1 yeast_features.txt | sort | uniq ) :::: <(cut -f 2 yeast_features.txt | sort | uniq)
+```
 
 ---
 
