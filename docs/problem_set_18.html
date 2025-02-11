@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.5.54">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -3088,33 +3088,29 @@ vertical-align: -.125em;
 <section id="problems" class="level2">
 <h2 class="anchored" data-anchor-id="problems">Problems</h2>
 <ol type="1">
-<li>Unix/bash scripts can accept input directly from the keyboard. Investigate how to do this using whatever search tools you prefer. Then write a small script that:</li>
-</ol>
+<li><p>Unix/bash scripts can accept input directly from the keyboard. Investigate how to do this using whatever search tools you prefer. Then write a small script that:</p>
 <ul>
 <li><p>Prompts the user to input a name.</p></li>
 <li><p>Then prompts the user to input a birthday (year, month, and date).</p></li>
 <li><p>Calculates their age in years. Bonus: calculates age in months.</p></li>
 <li><p>Reports back the person’s name and age in a human-readable sentence.</p></li>
 <li><p>Reports a friendly message if the current date is their birthday.</p></li>
-</ul>
-<ol start="2" type="1">
-<li>Write a bash function to search for a string within a file and report on the results. Give your function a descriptive name. It should do the following:</li>
-</ol>
+</ul></li>
+<li><p>Write a bash function to search for a string within a file and report on the results. Give your function a descriptive name. It should do the following:</p>
 <ul>
 <li><p>Accept 3 arguments as inputs : search string, input file name, and output file name</p></li>
 <li><p>Calculate the number of lines where the search string occurs in the input file</p></li>
 <li><p>Append a single line containing the file name, search string, number of matching lines to the output file. Format the output to be compatible with a <code>.csv</code> file.</p></li>
-</ul>
-<ol start="3" type="1">
-<li><p>How would you test your function to make sure it is working as intended? Show working code that you could use to validates your function. Test your function using some “corner cases” (e.g., no matches).</p></li>
+</ul></li>
+<li><p>Next, test your function to make sure it is working as intended. Show code for testing. Test your function using some “corner cases” (e.g., no matches).</p></li>
 <li><p>Now that you are confident that your function is working properly, the next step is to make it able to diagnose and report on problems with the input string and files. Add code to trap at least one kind of problem that might arise with the inputs. Include an <code>exit</code> command and a description of the error so that future users can fix the problem.</p></li>
-<li><p>Create a bash script to filter records in the yeast <code>.gff</code> file that we have been working with in class based on the systematic gene name. Normally, filtering tablular data is fairly straightforward, but in this case we have a complication: the systematic gene name is embedded within the ninth (attribute) column, which contains a list of semicolon-delimited items. The systematic name has the form <code>ID=SystematicName</code> (e.g., <code>ID=YALO69W</code>). Your script should accept two arguments: 1) a <code>.gff</code> file; and 2) a file of systematic gene names (1 per line), and produce a file containing the entire line when there is a match with one of the systematic names. Let’s break that down into steps:</p></li>
-</ol>
+<li><p>Create a bash script to filter records in the yeast <code>.gff</code> file that we have been working with in class based on the systematic gene name. Normally, filtering tablular data is fairly straightforward, but in this case we have a complication: the systematic gene name is embedded within the ninth (attribute) column, which contains a list of semicolon-delimited items. The systematic name has the form <code>ID=SystematicName</code> (e.g., <code>ID=YALO69W</code>). Your script should accept two arguments: 1) a <code>.gff</code> file; and 2) a file of systematic gene names (1 per line), and produce a file containing the entire line when there is a match with one of the systematic names. Let’s break that down into steps:</p>
 <ul>
 <li><p>Use the awk script that was introduced at the end of the class on February 4th to extract lines that match the a search term in column 9.</p></li>
 <li><p>Wrap the awk script in a for loop where the set is the list of systematic gene names in the input file.</p></li>
 <li><p>Test your script with different inputs to make sure it is working as expected.</p></li>
-</ul>
+</ul></li>
+</ol>
 </section>
 </section>
 
