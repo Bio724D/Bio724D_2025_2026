@@ -158,9 +158,15 @@ For every gene alignment
 
 
 ```
-parallel --colsep ',' --header 1 `get_sequences.sh` :::: gene_list.csv
+parallel "echo get_sequences.sh" :::: gene_species_list.csv
 
+parallel "echo combined.sh" :::: gene_list.csv
 
+parallel "echo align_sequences.sh" ::: gene_fasta_dir/*.fasta
+
+parallel "echo analyze_alignments.sh {}" ::: alignment_dir/*.fasta
+
+parallel "echo build_trees.sh {}" ::: alignment_dir/*.fasta
 
 ```
 
