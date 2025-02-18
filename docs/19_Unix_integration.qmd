@@ -154,11 +154,11 @@ For every gene alignment
 - Core script: `build_gene_trees.sh`
 
 
-## Mockup of the "driver" script
+## Mockup the "conductor" script
 
 
 ```
-parallel "echo get_sequences.sh" :::: gene_species_list.csv
+parallel "echo get_sequences.sh" :::: gene_species_id_list.csv
 
 parallel "echo combined.sh" :::: gene_list.csv
 

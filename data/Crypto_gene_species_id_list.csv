@@ -1,0 +1,17 @@
+Gene,Species,ID
+CAC1,Cneoformans,CNAG_03202
+CAC1,Cdeneoformans,CNG03670
+CAC1,Cgattii,CGB_G1390C
+PDE1,Cneoformans,CNAG_05081
+PDE1,Cdeneoformans,CNL05390
+PDE1,Cgattii,CGB_D1640C
+PDE2,Cneoformans,CNAG_07470
+PDE2,Cdeneoformans,CNB01170
+PDE2,Cgattii,CGB_B6520W
+PKA1,Cneoformans,CNAG_00396
+PKA1,Cdeneoformans,CNA03840
+PKA1,Cgattii,CGB_A3580C
+PKA2,Cneoformans,CNAG_04162
+PKA2,Cdeneoformans,CNI02980
+PKA2,Cgattii,CGB_H5240W
+
