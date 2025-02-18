@@ -3076,69 +3076,83 @@ vertical-align: -.125em;
 
 <section id="describe-your-problem-in-biological-terms" class="level2">
 <h2 class="anchored" data-anchor-id="describe-your-problem-in-biological-terms">Describe your problem in biological terms</h2>
-<p>I want to study the evolution of the cAMP-PKA signal transduction pathway in the fungal genus Cryptococcus.</p>
-<p>I want to study the relationship between tree cover and insect diversity in the Amazon rain forest during different seasons.</p>
-<p>I want to study how plumage color relates to social status in parrots.</p>
-<p>Comment: All biologically interesting; let’s take a stab at envisioning how we might exploit computing to help us tackle these problems.</p>
+<ul>
+<li><p>I want to study the evolution of the cAMP-PKA signal transduction pathway in the fungal genus Cryptococcus.</p></li>
+<li><p>I want to study the relationship between tree cover and insect diversity in the Amazon rain forest during different seasons.</p></li>
+<li><p>I want to study how plumage color relates to social status in parrots.</p></li>
+</ul>
+<p>Comment: Let’s take a stab at envisioning how we might exploit computing to help us tackle these problems.</p>
 </section>
 <section id="describe-your-problem-in-terms-of-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="describe-your-problem-in-terms-of-the-data">Describe your problem in terms of the data</h2>
-<p>I want to study the evolution of the cAMP-PKA signal transduction pathway in the fungal genus Cryptococcus.</p>
+<section id="i-want-to-study-the-evolution-of-the-camp-pka-signal-transduction-pathway-in-the-fungal-genus-cryptococcus." class="level4">
+<h4 class="anchored" data-anchor-id="i-want-to-study-the-evolution-of-the-camp-pka-signal-transduction-pathway-in-the-fungal-genus-cryptococcus.">I want to study the evolution of the cAMP-PKA signal transduction pathway in the fungal genus Cryptococcus.</h4>
 <ul>
 <li>I will use comparative phylogenetic methods to characterize sequence divergence of the proteins and genes that make up the cAMP-PKA pathway in different species of Cryptococcus</li>
 </ul>
-<p>I want to study the relationship between tree cover and insect diversity in the Amazon rain forest.</p>
+</section>
+<section id="i-want-to-study-the-relationship-between-tree-cover-and-insect-diversity-in-the-amazon-rain-forest." class="level4">
+<h4 class="anchored" data-anchor-id="i-want-to-study-the-relationship-between-tree-cover-and-insect-diversity-in-the-amazon-rain-forest.">I want to study the relationship between tree cover and insect diversity in the Amazon rain forest.</h4>
 <ul>
 <li>I will use high resolution satellite image data to measure tree cover in 10 km^2 regions of three different study sites, at four different time points, and integrate that with measures of insect abundance collected in experimental plots at the same sites at the same time points.</li>
 </ul>
-<p>I want to study how plumage color relates to social status in parrots.</p>
+</section>
+<section id="i-want-to-study-how-plumage-color-relates-to-social-status-in-parrots." class="level4">
+<h4 class="anchored" data-anchor-id="i-want-to-study-how-plumage-color-relates-to-social-status-in-parrots.">I want to study how plumage color relates to social status in parrots.</h4>
 <ul>
 <li>I will analyze spectrophotometric measurements of the wings of individuals from three different parrot flocks, belonging to two different species. These data will be integrated with measure of social dominance collected for the same individuals.</li>
 </ul>
 </section>
+</section>
 <section id="describe-your-problem-in-pseudocode" class="level2">
 <h2 class="anchored" data-anchor-id="describe-your-problem-in-pseudocode">Describe your problem in pseudocode</h2>
-<ul>
-<li><p>I will use comparative phylogenetic methods to characterize sequence divergence of the proteins and genes that make up the cAMP-PKA pathway in different species of Cryptococcus</p>
-<pre><code>For every gene of interest
+<section id="i-will-use-comparative-phylogenetic-methods-to-characterize-sequence-divergence-of-the-proteins-and-genes-that-make-up-the-camp-pka-pathway-in-different-species-of-cryptococcus" class="level4">
+<h4 class="anchored" data-anchor-id="i-will-use-comparative-phylogenetic-methods-to-characterize-sequence-divergence-of-the-proteins-and-genes-that-make-up-the-camp-pka-pathway-in-different-species-of-cryptococcus">I will use comparative phylogenetic methods to characterize sequence divergence of the proteins and genes that make up the cAMP-PKA pathway in different species of Cryptococcus</h4>
+<pre><code>```
+For every gene of interest
   For every species of interest
     Find the sequence for that (gene,species) a put it in  FASTA file
-
+    
 For every gene of interest
   Combine all FASTA files containing that gene into a single file
-
+  
 For every gene specific FASTA file
   Align the gene sequences
-
+  
 For every gene alignment
   Identify conserved and variable sequence regions
-  Build gene trees</code></pre></li>
-<li><p>I will use high resolution satellite image data to measure tree cover in 10 km^2 regions of three different study sites and integrate that with measures of insect abundance collected in experimental plots at the same sites.</p>
-<pre><code>For every study sites
+  Build gene trees
+```</code></pre>
+</section>
+<section id="i-will-use-high-resolution-satellite-image-data-to-measure-tree-cover-in-10-km2-regions-of-three-different-study-sites-and-integrate-that-with-measures-of-insect-abundance-collected-in-experimental-plots-at-the-same-sites." class="level4">
+<h4 class="anchored" data-anchor-id="i-will-use-high-resolution-satellite-image-data-to-measure-tree-cover-in-10-km2-regions-of-three-different-study-sites-and-integrate-that-with-measures-of-insect-abundance-collected-in-experimental-plots-at-the-same-sites.">I will use high resolution satellite image data to measure tree cover in 10 km^2 regions of three different study sites and integrate that with measures of insect abundance collected in experimental plots at the same sites.</h4>
+<pre><code>```
+For every study sites
   For every time point
     Download 100 km^2 satellite images
-
+    
 For every satellite image
   Split the image into 10 km^2 sub-images
-
+  
 For every sub-image
   Measure tree cover area with an LLM based image analysis tool
-
+  
 For every experimental plot
   Calculate average insect abundace
   Calculate sum tree cover for the sub-images corresponding to the plot
-
+  
 For every study site
   For every experimental plot
     Combine insect abundance and tree cover data
   Analyze relationships within study sites
-  Compare relationships across study sites</code></pre></li>
-</ul>
+  Compare relationships across study sites
+```</code></pre>
+</section>
 </section>
 <section id="describe-the-problem-at-a-more-granular-level" class="level2">
 <h2 class="anchored" data-anchor-id="describe-the-problem-at-a-more-granular-level">Describe the problem at a more granular level</h2>
-<ul>
-<li><p>I will use comparative phylogenetic methods to characterize sequence divergence of the proteins and genes that make up the cAMP-PKA pathway in different species of Cryptococcus</p>
+<section id="i-will-use-comparative-phylogenetic-methods-to-characterize-sequence-divergence-of-the-proteins-and-genes-that-make-up-the-camp-pka-pathway-in-different-species-of-cryptococcus-1" class="level4">
+<h4 class="anchored" data-anchor-id="i-will-use-comparative-phylogenetic-methods-to-characterize-sequence-divergence-of-the-proteins-and-genes-that-make-up-the-camp-pka-pathway-in-different-species-of-cryptococcus-1">I will use comparative phylogenetic methods to characterize sequence divergence of the proteins and genes that make up the cAMP-PKA pathway in different species of Cryptococcus</h4>
 <pre><code>For every gene of interest
   For every species of interest
     Find the sequence for that (gene,species) a put it in FASTA file</code></pre>
@@ -3167,8 +3181,8 @@ For every study site
 <li>How will I identify conserved and variable regions? How might this relate to information such as domain structure?<br>
 </li>
 <li>What phylogenetic methods will I use to build gene trees?</li>
-</ul></li>
 </ul>
+</section>
 </section>
 <section id="mockup-scripts-and-data-inputs-for-the-individual-steps-of-the-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="mockup-scripts-and-data-inputs-for-the-individual-steps-of-the-analysis">Mockup scripts and data inputs for the individual steps of the analysis</h2>
@@ -3196,11 +3210,17 @@ For every study site
 <li>Core script: <code>build_gene_trees.sh</code></li>
 </ul>
 </section>
-<section id="mockup-of-the-driver-script" class="level2">
-<h2 class="anchored" data-anchor-id="mockup-of-the-driver-script">Mockup of the “driver” script</h2>
-<pre><code>parallel --colsep &#39;,&#39; --header 1 `get_sequences.sh` :::: gene_list.csv
+<section id="mockup-the-conductor-script" class="level2">
+<h2 class="anchored" data-anchor-id="mockup-the-conductor-script">Mockup the “conductor” script</h2>
+<pre><code>parallel &quot;echo get_sequences.sh&quot; :::: gene_species_id_list.csv
 
+parallel &quot;echo combined.sh&quot; :::: gene_list.csv
 
+parallel &quot;echo align_sequences.sh&quot; ::: gene_fasta_dir/*.fasta
+
+parallel &quot;echo analyze_alignments.sh {}&quot; ::: alignment_dir/*.fasta
+
+parallel &quot;echo build_trees.sh {}&quot; ::: alignment_dir/*.fasta
 </code></pre>
 </section>
 
