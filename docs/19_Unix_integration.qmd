@@ -1,0 +1,166 @@
+---
+title: "Pipeline building: A conceptual overview"
+author: Paul M. Magwene
+format: 
+  html:
+    embed-resources: true
+---
+
+
+
+##  Describe your problem in biological terms
+
+I want to study the evolution of the cAMP-PKA signal transduction pathway in the fungal genus Cryptococcus.
+
+I want to study the relationship between tree cover and insect diversity in the Amazon rain forest during different seasons.
+
+I want to study how plumage color relates to social status in parrots.
+
+Comment: All biologically interesting; let's take a stab at envisioning how we might exploit computing to help us tackle these problems.
+
+
+## Describe your problem in terms of the data
+
+I want to study the evolution of the cAMP-PKA signal transduction pathway in the fungal genus Cryptococcus.
+
+  * I will use comparative phylogenetic methods to characterize sequence divergence of the proteins and genes that make up the cAMP-PKA pathway in different species of Cryptococcus
+
+
+I want to study the relationship between tree cover and insect diversity in the Amazon rain forest.
+
+  * I will use high resolution satellite image data to measure tree cover in 10 km^2 regions of three different study sites, at four different time points, and integrate that with measures of insect abundance  collected in experimental plots at the same sites at the same time points.
+  
+
+I want to study how plumage color relates to social status in parrots.
+
+  * I will analyze spectrophotometric measurements of the wings of individuals from three different parrot flocks, belonging to two different species.  These data will be integrated with measure of social dominance collected for the same individuals.
+
+
+## Describe your problem in pseudocode
+
+  * I will use comparative phylogenetic methods to characterize sequence divergence of the proteins and genes that make up the cAMP-PKA pathway in different species of Cryptococcus
+  
+    ```
+    For every gene of interest
+      For every species of interest
+        Find the sequence for that (gene,species) a put it in  FASTA file
+        
+    For every gene of interest
+      Combine all FASTA files containing that gene into a single file
+      
+    For every gene specific FASTA file
+      Align the gene sequences
+      
+    For every gene alignment
+      Identify conserved and variable sequence regions
+      Build gene trees
+    ```
+
+
+  * I will use high resolution satellite image data to measure tree cover in 10 km^2 regions of three different study sites and integrate that with measures of insect abundance  collected in experimental plots at the same sites.
+  
+    ```
+    For every study sites
+      For every time point
+        Download 100 km^2 satellite images
+        
+    For every satellite image
+      Split the image into 10 km^2 sub-images
+      
+    For every sub-image
+      Measure tree cover area with an LLM based image analysis tool
+      
+    For every experimental plot
+      Calculate average insect abundace
+      Calculate sum tree cover for the sub-images corresponding to the plot
+      
+    For every study site
+      For every experimental plot
+        Combine insect abundance and tree cover data
+      Analyze relationships within study sites
+      Compare relationships across study sites
+    ```
+
+
+## Describe the problem at a more granular level
+
+  * I will use comparative phylogenetic methods to characterize sequence divergence of the proteins and genes that make up the cAMP-PKA pathway in different species of Cryptococcus
+  
+    ```
+    For every gene of interest
+      For every species of interest
+        Find the sequence for that (gene,species) a put it in FASTA file
+    ```
+    - Where will information on gene homology come from?   Existing annotation (e.g. GFF files)?  De novo analysis? How will I code or keep track of this data?
+    - Which and species will I analyze?
+    - Where will the sequence data come from? Nucleotide sequences? Protein sequences? Both?
+    - What tools and data formats will I be working with? 
+    - How would I deal with a case where a gen of interest is missing for one species?  Or there are two orthologs?
+    
+  
+    ```
+    For every gene of interest
+      Combine all FASTA files containing that gene into a single file
+    ```
+    - I'll probably want to have some sort of naming convention for the sequence headers to be able to distinguish species and source in these combined files
+    - Combining files seems straightforward; `cat`?
+    
+    ```  
+    For every gene specific FASTA file
+      Align the gene sequences
+    ```
+    - What aligner will I use?
+    
+    ```  
+    For every gene alignment
+      Identify conserved and variable sequence regions
+      Build gene trees
+    ```
+    - How will I identify conserved and variable regions? How might this relate to information such as domain structure?  
+    - What phylogenetic methods will I use to build gene trees?
+    
+
+## Mockup scripts and data inputs for the individual steps of the analysis
+
+
+```
+For every gene of interest
+  For every species of interest
+    Find the sequence for that (gene,species) a put it in FASTA file
+```
+- Core script: `get_sequences.sh`
+    
+    
+```
+For every gene of interest
+  Combine all FASTA files containing that gene into a single file
+```
+- Core script: `combine_sequences.sh`
+    
+
+```  
+For every gene specific FASTA file
+  Align the gene sequences
+```
+- Core script: `align_sequences.sh`
+
+
+```  
+For every gene alignment
+  Identify conserved and variable sequence regions
+  Build gene trees
+```
+- Core script: `analyze_alignments.sh`
+- Core script: `build_gene_trees.sh`
+
+
+## Mockup of the "driver" script
+
+
+```
+parallel --colsep ',' --header 1 `get_sequences.sh` :::: gene_list.csv
+
+
+
+```
+
