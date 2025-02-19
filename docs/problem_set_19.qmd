@@ -1,0 +1,78 @@
+---
+title: "Problem Set 19: Unix Wrap-Up"
+author: "Bio 724"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+---
+
+
+# Instructions
+
+Create a Quarto markdown document and answer the questions below using code blocks that generate the correct outputs. We encourage you to include explanatory text in your markdown document, however **each of your solutions should show how to generate the answer using the Unix command line**. 
+
+Write "robust" solutions wherever possible. A good rule of thumb for judging whether your solution is appropriately "robust" is to ask yourself "If I added additional observations or variables to this data set, or if the order of variables changed, would my code still compute the right solution?"
+
+Make sure your markdown is nicely formatted -- use headers, bullets, numbering, etc so that the structure of the document is clear.
+
+Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
+
+When completed, title your markdown file as follows (replace `XX` with the assignment number, e.g. `01`, `02`, etc):
+
+-   `netid-assignment_XX-Spring2025.qmd`
+
+Submit both your markdown file and the generated HTML document via the Assignments submission section on Sakai.
+
+
+## Problems
+
+
+[Imagemagick](https://imagemagick.org/) is a command line tool for working with images.  Like seqkit, Imagemagick uses sub-commands to provide the many different image manipulation utilties it provides.
+
+
+
+1. Following the same basic steps we reviewed in our [data lunch on creating conda environments](https://github.com/Bio724D/Bio724D_2024_2025/blob/main/class_notes/unix_managing_packages_with_conda.md), carry out the following. For steps a-c show the commands you executed but don't include the output:
+
+    a. Create a new conda environment called `imaging`
+    b. Activate the imaging environment
+    c. Install imagemagick using the standard conda `install` command
+    d. Confirm Imagemagick is properly installed using the command `magick --version` (paste the output output into a codeblock)
+
+
+1. Using `wget` to download the `example_images.zip` file from the course wiki and unzip it in your home directory (this will create the directroy `~/example_images`)
+
+
+2. From inside the directory `~/example_images` show how to use `find` to list all the JPEG (.jpg) images in sub-directories of example_images
+
+
+3. Read the imagemagick tutorial on image resizing (https://usage.imagemagick.org/resize/#resize) and the show how to do the following:
+
+    a. Show how to use imagemagick to resize the image `~/example_images/dogs/chester.jpg` to 50% of it's original size (maintain the image's aspect ratio).
+    
+    b. Show how to use imagemagick to resize the image `~/example_images/dogs/chester.jpg` to have a maximum dimension of 300 pixels (maintain the image's aspect ratio).
+
+
+4.  Read the man page for the built-in Unix command `basename`. 
+
+    a. What is your understanding of what `basename` does? Illustrate it with an example.
+
+    b. What does the `-s` option of `basename` do?  Show how you can use the `-s` option to get the name of a JPEG file without the ending `.jpg` suffix
+
+
+6. Write a script (`resize_jpeg.sh`) that takes two arguments:
+
+    1. first argument -- a full textual filepath to a JPEG image (e.g. `example_images/dogs/chester.jpg`)
+    2. second argument --  an integer value that specifies the percent to resize to
+    
+    Your script should:
+    
+    * include an `if` statement to make sure it received two arguments
+    * The script should use imagemagick to create a resized version of the image a folder name `resized_images`. The name of the resized image should follow this template:
+      - If the original input file basename was `chester.jpg` and the integer argument was 25, the output file's basename should be `chester_resized_25perc.jpg`
+      
+    
+   
+7. Show how to use `find` and its `-exec` option to transform  all the JPEG images in `example_images` to 25% scaled versions.  To exclude JPEGs in the output directory `resized_images` you can add the `find` flags `-not -path "./resized_images/*"` to your command as discussed on [StackOverflow](https://stackoverflow.com/a/15736463).
+
+8. TRICKY: Show how to use both `find` and `parallel` together to resize all the images in the folder `example_images` by values of 10%, 25%, and 50%. Both `find` and `parallel` use `{}` as a placeholder, so change the placeholder symbol to double carats (`^^`) using the `-I` flag. Again, make sure to exclude the directory `resized_images`.
