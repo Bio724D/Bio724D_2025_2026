@@ -31,5 +31,6 @@ class_notes/13_slides_mapplotting/ne_10m_admin_2_counties/ne_10m_admin_2_countie
 python_notebooks/.ipynb_checkpoints/boolean_networks_example-checkpoint.ipynb
 python_notebooks/.ipynb_checkpoints/intro-pandas-checkpoint.ipynb
 python_notebooks/.ipynb_checkpoints/Untitled-checkpoint.ipynb
-python_notebooks/Untitled.ipynb
+python_notebooks/Untitled*.ipynb
 python_notebooks/.ipynb_checkpoints
+
