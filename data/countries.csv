@@ -1,0 +1,71 @@
+country_name,continent_name,area_total,area_water,coastline,bioregion_name,bioregion_count,climate_count,species_total,species_resident,species_endemic,species_threatened,biodiv_index,plant_sp_count,human_pop,urban_pct,agricul_pct,forest_pct,protected_count,protected_area,iba_count,iba_area,eba_count,country_formal_en,country_formal_self,country_iso
+Argentina,South America,2780400,43710,4989,South_American,1,19,1000,575,14,58,0.615,10221,46994384,92.5,53.9,10.7,250,125394,274,397509,10,Argentine Republic,República Argentina,ARG
+Australia,Australia,7741220,58920,25760,Australian,2,13,726,493,354,52,0.853,30000,25466459,86.2,48.2,16.3,4072,1025880,310,438400,15,Commonwealth of Australia,Commonwealth of Australia,AUS
+Austria,Europe,83871,1426,0,Eurasian,1,6,305,47,0,13,0.469,15638,8859449,58.8,32.4,46.9,695,24514,56,14447,0,Republic of Austria,Republik Österreich,AUT
+Barbados,North America,430,0,97,Panamanian,1,1,204,42,1,3,NULL,2100,294560,31.2,23.3,4.7,6,3,7,2,1,Barbados,Barbados,BRB
+Belgium,Europe,30528,250,67,Eurasian,1,2,265,33,0,11,0.445,1340,11977634,98.2,44.1,22.4,72,862,48,6483,0,Kingdom of Belgium,Koninkrijk België,BEL
+Belize,North America,22966,160,386,Mexican,1,3,532,290,0,14,0.643,4192,415789,46.6,6.9,60.6,51,9132,6,31246,1,Belize,Belice,BLZ
+Bhutan,Asia,38394,0,0,Oriental,1,7,623,399,0,19,0.607,5600,884546,44.4,13.6,85.5,9,10513,23,12133,1,Kingdom of Bhutan,Druk Gyal Khap,BTN
+Botswana,Africa,581730,15000,0,African,1,3,539,365,0,21,0.461,920,2450668,72.9,45.8,19.8,12,104988,12,134196,0,Republic of Botswana,Lefatshe la Botswana,BWA
+Brazil,South America,8515770,157630,7491,Amazonian,2,11,1816,1440,257,149,0.877,34387,220051512,87.8,32.9,61.9,657,557700,231,923096,25,Federative Republic of Brazil,República Federativa do Brasil,BRA
+Cambodia,Asia,181035,4520,443,Oriental,1,2,514,297,2,32,0.568,5000,16926984,24.2,30.9,52.9,23,32672,40,44174,4,Kingdom of Cambodia,Preăh Réachéanachâkr Kâmpŭchéa,KHM
+Canada,North America,9984670,891163,202080,North_American,2,18,516,73,3,22,0.299,3270,37694085,81.6,6.9,38.2,3226,925227,325,300900,0,Canada,Canada,CAN
+Chile,South America,756102,12290,6435,South_American,1,10,439,157,14,34,0.57,5284,18186770,87.7,21.2,24.3,87,141421,177,55346,5,Republic of Chile,República de Chile,CHL
+China,Asia,9596960,270550,14500,Chinese,4,19,1289,688,67,96,0.839,32200,1394015977,61.4,56.2,22.4,885,686806,512,1192573,14,People's Republic of China,Zhōnghuá Rénmín Gònghéguó,CHN
+Colombia,South America,1138910,100210,3208,Panamanian,2,13,1873,1552,95,88,0.935,24025,49588357,82.4,37.5,54.4,95,94670,128,93334,20,Republic of Colombia,República de Colombia,COL
+Costa Rica,North America,51100,40,1290,Panamanian,1,7,853,549,8,28,0.82,12119,5097988,89.8,34.5,54.6,130,11755,21,30710,6,Republic of Costa Rica,República de Costa Rica,CRI
+Croatia,Europe,56594,620,5835,Eurasian,1,9,308,47,0,18,0.538,4288,2003431,58.6,23.7,34.4,195,4211,43,21755,0,Republic of Croatia,Republika Hrvatska,HRV
+Dominican Republic,North America,48670,350,1288,Panamanian,1,9,245,75,1,17,0.661,6000,10499707,82.5,48.7,41.7,45,15545,21,7220,1,Dominican Republic,República Dominicana,DOM
+Ecuador,South America,283561,6720,2237,Amazonian,1,16,1629,1343,42,99,0.873,19352,16904867,64.2,22.2,50.2,25,128548,109,92531,9,Republic of Ecuador,República del Ecuador,ECU
+Egypt,Africa,1001450,6000,2450,Saharo-Arabian,1,3,377,78,0,19,0.326,2250,111247248,43.1,3.6,0.1,23,10084,34,36174,0,Arab Republic of Egypt,Jumhūrīyat Miṣr al-ʻArabīyah,EGY
+England,Europe,130279,500,3200,Eurasian,1,2,266,36,0,11,0.32,1407,56286961,83.9,71.0,8,706,51317,78,7925,0,England,England,GBR
+Finland,Europe,338145,34330,4600,Eurasian,1,3,263,39,0,15,0.290,1300,5626414,85.8,7.5,72.9,270,28408,99,28100,0,Republic of Finland,Suomen tasavalta,FIN
+France,Europe,643801,3374,4853,Eurasian,1,12,358,60,1,17,0.423,4630,62814233,81.0,52.5,31.2,1521,84505,277,97135,1,French Republic,République française,FRA
+Germany,Europe,357022,8350,2389,Eurasian,1,5,312,47,0,11,0.365,3001,80159662,77.5,47.7,32.7,7317,111577,542,77206,0,Federal Republic of Germany,Bundesrepublik Deutschland,DEU
+Greece,Europe,131957,1310,13676,Eurasian,1,9,347,53,0,18,0.55,4992,10607051,79.7,47.6,31.7,88,4626,204,43959,0,Hellenic Republic,Ellinikí Dimokratía,GRC
+Hong Kong,Asia,1108,35,733,Oriental,1,1,219,42,0,21,NULL,300,7249907,100,2.01,65,25,440,2,65,0,Hong Kong Special Administrative Region of the People's Republic of China,Jūng'wàh Yàhnmàhn Guhng'wòhgwok Hēunggóng Dahkbiht Hàhngjingkēui,HKG
+Hungary,Europe,93028,3420,0,Eurasian,1,5,286,37,0,13,0.441,2500,9771827,71.9,58.4,22.9,186,6492,54,13425,0,Hungary,Magyarország ,HUN
+Iceland,Europe,103000,2750,4970,Western Palearctic,1,2,109,6,0,7,0.133,490,357603,93.7,18.7,0.5,79,9807,99,24834,0,Iceland,Ísland,ISL
+India,Asia,3287263,314070,7000,Indo-Malayan,3,23,1212,743,75,94,0.732,18664,1326093247,34.9,60.4,23.8,495,154508,554,194158,12,Republic of India,Bhārat Gaṇarājya,IND
+Indonesia,Asia,1904569,93000,54720,Indo-Malayan,1,9,1747,1477,528,152,1.000,19232,281562465,58.6,31.2,51.7,1072,357425,226,259324,38,Republic of Indonesia,Republik Indonesia,IDN
+Iran,Asia,1648195,116600,3180,Saharo-Arabian,1,13,473,97,1,31,0.471,7500,88386937,77.3,30.1,6.8,78,83034,105,85982,3,Islamic Republic of Iran,Jomhuri-ye Eslâmi-ye Irân,IRN
+Ireland,Europe,70273,1390,1448,Eurasian,1,2,209,20,0,9,0.279,980,5176569,64.7,64.5,11.0,72,655,105,5702,0,Republic of Ireland,Éire,IRL
+Italy,Europe,301340,7200,7600,Eurasian,1,13,356,58,0,18,0.512,5599,62402659,71.0,43.2,31.8,423,22051,172,68969,0,Italian Republic,Repubblica Italiana,ITA
+Jamaica,North America,10991,160,1022,Panamanian,1,4,184,63,32,10,0.665,3308,2808570,56.3,41.0,30.9,143,9159,16,3143,1,Jamaica,Jamaica,JAM
+Japan,Asia,377915,13430,29751,Japanese,1,4,447,361,86,21,0.638,5565,125507472,91.8,12.3,68.5,96,25610,195,304051,7,Japan,Nihon-koku,JPN
+Kenya,Africa,580367,11227,536,African,2,7,1057,779,11,44,0.643,6506,53527936,28,48.6,7.8,68,45473,68,66501,8,Republic of Kenya,Jamhuri ya Kenya,KEN
+Latvia,Europe,64589,2340,1370,Eurasian,1,1,269,40,0,16,0.420,1648,1801246,68.7,29.2,54.1,209,8288,70,8640,0,Republic of Latvia,Latvijas Republika,LVA
+Malaysia,Asia,329847,1190,4675,Indo-Malayan,1,2,721,480,9,66,0.809,15500,32652083,77.2,26.3,67.6,184,15584,55,51356,7,Malaysia,Malaysia,MYS
+Malta,Europe,316,0,255,Eurasian,1,1,200,6,0,6,NULL,1342,460891,90,80,0.5,7,3,21,3226,0,Republic of Malta,Repubblika ta' Malta,MLT
+Mexico,North America,1964375,20430,9330,Mexican,2,15,1105,591,126,69,0.928,26071,128649565,80.7,54.7,33.9,212,183075,228,365494,22,United Mexican States,Estados Unidos Mexicanos,MEX
+Morocco,Africa,716550,250,2945,Saharo-Arabian,1,8,342,63,2,20,0.459,3675,35561654,63.5,68.5,12.6,12,3175,49,46186,0,Kingdom of Morocco,al-Mamlakah al-Maghribiyah,MAR
+Myanmar,Asia,676578,23070,1903,Oriental,1,8,1034,680,10,60,0.628,7000,56590071,31.1,19.5,43.6,3,1736,57,55898,7,Republic of the Union of Myanmar,Pyidaungzu thămăda myama naingngandaw,MMR
+Namibia,Africa,824292,1002,1572,African,1,6,598,393,1,36,0.553,4481,2803660,54.9,47.2,8.8,21,112160,19,108396,4,Republic of Namibia,Rephaboliki ya Namibia,NAM
+Nepal,Asia,147181,3830,0,Tibetan,2,9,822,479,1,38,0.642,6973,30327877,20.6,28.8,25.4,14,12705,27,26516,4,Federal Democratic Republic of Nepal,Saṅghīya Lokatāntrika Gaṇatantra Nepāla,NPL
+Netherlands,Europe,41543,33893,451,Eurasian,1,1,271,33,0,10,0.412,325,17280397,92.2,53.3,11.2,89,4901,104,17722,0,Netherlands,Nederland,NLD
+New Zealand,Oceania,268838,4301,15134,Novozelandic,1,9,231,112,92,67,0.52,2382,4925477,86.7,40.4,38.6,235,63341,165,461749,6,New Zealand,New Zealand,NZL
+Norway,Europe,323802,19520,25148,Eurasian,1,9,255,42,0,11,0.297,2800,5467439,83.0,2.7,33.2,200,101692,80,20168,0,Kingdom of Norway,Kongeriket Norge,NOR
+Panama,North America,75420,1080,2490,Panamanian,1,7,885,621,10,23,0.793,9915,3894082,68.4,30.4,61.9,31,15474,53,25010,7,Republic of Panama,República de Panamá,PAN
+Papua New Guinea,Australia,462840,9980,5152,Australian,1,3,741,609,112,36,0.775,10973,10046233,13.7,2.6,63.1,29,10549,5,251986,13,Independent State of Papua New Guinea,Independen Stet bilong Papua Niugini ,PNG
+Peru,South America,1285216,5220,4414,Amazonian,2,15,1861,1327,138,104,0.843,17144,31914989,78.3,18.5,57.7,35,68203,116,200220,20,Republic of Peru,República del Perú,PER
+Portugal,Europe,92090,620,1793,Eurasian,1,2,312,46,6,20,0.511,2800,10207177,67.9,39.7,37.8,58,6027,106,29254,2,Portuguese Republic,República Portuguesa,PRT
+Puerto Rico,North America,9104,145,501,Panamanian,1,4,262,64,16,11,0.63,2335,3193694,82.7,22.3,56.3,35,920,20,1972,1,Commonwealth of Puerto Rico,Commonwealth of Puerto Rico,PRI
+Qatar,Asia,11586,0,563,Saharo-Arabian,1,1,234,22,0,9,0.189,300,2444174,99.2,5.8,0,4,17,5,152,0,State of Qatar,Dawlat Qaṭar,QAT
+Romania,Europe,238391,8500,225,Eurasian,1,5,321,41,0,21,0.424,3515,18148155,54.7,60.7,28.7,157,10896,130,41575,0,Romania,România,ROU
+Scotland,Europe,77933,929,18672,Eurasian,1,4,267,36,1,11,0.32,2000,5463400,83.9,80,18.5,706,51317,183,16670,1,Scotland,Scotland,GBR
+Singapore,Asia,719,10,193,Indo-Malayan,1,1,367,193,0,23,NULL,2282,6209660,100,0.9,23.1,5,30,3,222,0,Republic of Singapore,Republik Singapura,SGP
+Slovenia,Europe,20273,122,47,Eurasian,1,5,290,46,0,13,0.558,2900,2097893,56.1,22.8,62.3,32,1203,36,6959,0,Republic of Slovenia,Republika Slovenija,SVN
+South Africa,Africa,1214470,4620,2798,African,1,10,762,500,18,55,0.714,21250,56978635,65.3,79.8,7.6,405,66454,99,100408,6,Republic of South Africa,Republic of South Africa,ZAF
+South Korea,Asia,99720,2800,2413,Chinese,1,8,361,46,0,33,0.423,3500,51835110,81.4,17.5,63.4,30,6839,40,1371,1,Republic of Korea,Daehanminguk,KOR
+Spain,Europe,506370,6390,4964,Eurasian,1,8,383,78,8,21,0.486,5050,50015792,80.8,52.6,36.9,328,42402,469,223339,1,Kingdom of Spain,Reino de España,ESP
+Sri Lanka,Asia,65610,980,1340,Oriental,1,4,376,168,30,16,0.656,3314,21982608,19.2,43.5,29.4,110,8695,70,3947,1,Democratic Socialist Republic of Sri Lanka,Śrī Laṁkā Prajātāntrika Samājavādī Janarajaya,LKA
+Sweden,Europe,450295,39960,3218,Eurasian,1,6,278,44,0,11,0.304,2000,10202491,88.0,7.4,68.9,361,34760,84,26633,0,Kingdom of Sweden,Konungariket Sverige,SWE
+Switzerland,Europe,41277,1280,0,Eurasian,1,6,285,47,0,9,0.497,2700,8403994,73.9,38.4,31.8,2177,11856,31,5465,0,Swiss Confederation,Confoederatio helvetica,CHE
+Taiwan,Asia,35980,3720,1566,Oriental,1,11,375,11,27,25,NULL,4422,23595274,80.1,22.7,58.0,92,7146,54,6840,2,Republic of China,Zhōnghuá Mínguó,TWN
+Tanzania,Africa,947300,61500,1424,African,2,14,1074,812,31,49,0.674,10008,58552845,35.2,44.8,51.6,91,264582,80,168865,9,United Republic of Tanzania,Jamhuri ya Muungano wa Tanzania,TZA
+Thailand,Asia,513120,2230,3219,Indo-Malayan,2,5,936,594,2,67,0.67,11625,68977400,51.4,43.3,32.2,158,70773,62,44928,6,Kingdom of Thailand,Ratcha-anachak Thai,THA
+Turkey,Asia,783562,13930,7200,Eurasian,1,14,393,64,0,24,0.572,10001,84119531,77.5,49.7,14.9,78,11968,193,128920,1,Republic of Türkiye,Türkiye Cumhuriyeti,TUR
+United Arab Emirates,Asia,83600,0,1318,Saharo-Arabian,1,2,292,38,0,16,0.392,600,10032213,87.8,4.6,3.8,2,0,30,4204,0,United Arab Emirates,al-Imārāt al-‘Arabīyah al-Muttaḥidah,ARE
+United States of America,North America,9833517,685924,19924,North_American,1,26,844,273,71,89,0.677,19473,332639102,82.7,44.4,33.9,3532,2357977,645,1180408,10,United States of America,United States of America,USA
+Vietnam,Asia,331210,21140,3444,Oriental,1,6,831,508,10,51,0.682,8500,104799174,34.5,39.3,48.1,54,9953,63,17859,7,Socialist Republic of Vietnam,Cộng hòa Xã hội chủ nghĩa Việt Nam,VNM
+Virgin Islands (U.S.),North America,346,0,188,Panamanian,1,2,150,27,1,4,NULL,1272,106405,82.7,6.9,55,15,33,9,62,1,Virgin Islands of the United States,Virgin Islands of the United States,VIR
