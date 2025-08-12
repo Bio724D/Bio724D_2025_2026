@@ -1,6 +1,6 @@
-# Bio724D_2024_2025
+# Bio724D_2026_2026
 
-Course website for Biology 724D: Foundations of Data Science for Biologists (2024-2025 AY)
+Course website for Biology 724D: Foundations of Data Science for Biologists (2025-2026 AY)
 
 
 ### Course Description
@@ -13,4 +13,4 @@ The primary goal is to provide a foundation of practical computing concepts and 
 
 ### More information
 
-For additional details, see the [Bio 724D Course Wiki](https://github.com/Bio724D/Bio724D_2024_2025/wiki)
+For additional details, see the [Bio 724D Course Wiki](https://github.com/Bio724D/Bio724D_2025_2026/wiki)
