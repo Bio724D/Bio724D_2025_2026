@@ -60,6 +60,18 @@ penguins <- read_csv("~/Bio724/penguins.csv")
 ```
 
 
+## Penguins!
+
+![Adelie Penguins](https://upload.wikimedia.org/wikipedia/commons/e/e3/Hope_Bay-2016-Trinity_Peninsula%E2%80%93Ad%C3%A9lie_penguin_%28Pygoscelis_adeliae%29_04.jpg)
+
+![Chinstrap Penguin](https://upload.wikimedia.org/wikipedia/commons/0/08/South_Shetland-2016-Deception_Island%E2%80%93Chinstrap_penguin_%28Pygoscelis_antarctica%29_04.jpg)
+
+
+![Gentoo Penguin](https://upload.wikimedia.org/wikipedia/commons/0/00/Brown_Bluff-2016-Tabarin_Peninsula%E2%80%93Gentoo_penguin_%28Pygoscelis_papua%29_03.jpg)
+
+
+
+
 # Simple data frame manipulations
 
 When the penguins data set is loaded it is treated as a "data frame", which is an R data structure that represents tabular data. The data frame is the data structure we'll be using most often in this class.
