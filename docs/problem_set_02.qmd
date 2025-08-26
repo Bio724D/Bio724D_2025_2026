@@ -16,9 +16,9 @@ Make sure your markdown is nicely formatted -- use headers, bullets, numbering, 
 
 Make sure to "Render" your document before submission to confirm that all code blocks and formatting is as you expect.
 
-When completed, title your markdown file as follows (replace `XX` with the assignemnt number, e.g. `01`, `02`, etc):
+When completed, title your markdown file as follows (replace `XX` with the assignment number, e.g. `01`, `02`, etc):
 
--   `netid-assignment_XX-Fall2024.qmd`
+-   `netid-assignment_XX.qmd`
 
 Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`) on your Github site.
 
