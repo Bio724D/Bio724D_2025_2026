@@ -60,6 +60,7 @@ Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`
 10 * 2 
 10 / 2
 10 ^ 2 
+10 ** 2
 10 %% 3 
 10 %/% 3
 ```
@@ -82,7 +83,10 @@ log(10)
 log10(10)
 exp(1)
 abs(-10)
-sin(3.14)  # R knows some common constants!
+sin(3.14) # bad approximation
+cos(3.14)
+pi # R has a predefined value for pi, still an approximation of course!
+sin(pi)  
 cos(pi)
 ```
 
