@@ -1,11 +1,12 @@
 ---
 title: "Data types in R"
 author: "Greg Wray"
-date: "`r Sys.time()`"
 format: 
   html:
-    embed-resources: true
+      embed-resources: true
 editor: source
+date: today
+date-format: iso
 ---
 
 ## Set up
@@ -17,115 +18,158 @@ library(tidyverse)
 penguins <- read_csv("penguins.csv")
 ```
 
-## Metadata
+## Basic data types
 
-R provides several functions to learn about an object's metadata. 
+R provides six basic data types: **Integer**: stores whole numbers. **Double**: stores floating point numbers. The term "double" is short for double-precision, which means that twice as much memory is allocated to store extra decimal places. **Character**: stores strings, which are vectors of individual letters, spaces, and punctuation marks. **Logical**: stores `TRUE` and `FALSE` values; these are called Boolean in many other computing languages. **Complex**: holds complex numbers with a real part and an imaginary part (i). **Raw**: holds `0`s and `1`s without any implied meaning.
 
-```{r}
+The first four data types are used very commonly, while the last two are rarely needed.
 
-# every variable has at least two attributes (types of metadata):
-
-# R provides additional ways to learn about metadata:
-
-# data frames have additional metadata:
-
-```
-
-## Data types
-
-R automatically assigns a data type based on the value to you provide. Sometimes it needs a little help to make the right choice. Experiment to learn how to avoid unexpected data type assignment. There are six basic ("atomic") data types in R: four are common (numeric, integer, character, and logical) and two are rarely used (complex and raw).
+**Creating basic data objects.** 
 
 ```{r}
 
+
 ```
 
-## Reassignment
 
-R allows you to update the value of variable. If you update with a value of a different data type, R silently changes the data type of the variable. This is convenient, but beware that it can lead to problems if you are not careful!
+**Basic data types are vectors.** Most programming languages have **atomic** data types, which are single values of a particular type, such as an integer or a string. R is unusual in that there are no true atomic data types; instead, the most basic data types are **vectors**: sequences of values of the same type.
 
 ```{r}
 
+
 ```
+
+
+## Data structures
+
+Most programming languages provide ways to organize information into packages that make working with data easier and safer. These packages are called **data structures**. Examples include vectors and data frames. Behind the scenes, R organizes your data in a way that speeds up calculations and minimizes memory usage, while retaining the ability to present values back to you in human-readable form. A data structure also contains rules that govern what kinds of operations are allowed. If you try to break one of those rules, R will give you an error message.  
+
+R provides several fundamental data structures. A **vector** is the simplest: as mentioned earlier, it contains a series of values of a single data type. An **array** is similar but extends values in two dimensions, while a **matrix** holds values of a single type in three or more dimensions. A **list** is a 1-dimensional data structure that can hold values of different types and even other data structures. A **data frame** is a table with multiple, equal-length columns, each of which can be a different data type but each containing only one data type.   
+
+**Array.** 
+
+```{r}
+
+
+```
+
+**List.** 
+
+```{r}
+
+
+```
+
+**Data Frame.** 
+
+```{r}
+
+
+```
+
+
+## Indexing data structures
+
+You will often want to access specific values within a data object. This process is called **indexing**. 
+
+**Indexing vectors.** 
+
+```{r}
+
+
+```
+
+**Indexing arrays.** 
+
+```{r}
+
+
+```
+
+**Indexing data frames.** 
+
+```{r}
+
+
+```
+
+
+## Data objects and metadata
+
+In R, there is no such thing as "just" data; values are always stored with additional information, called **metadata** or **attributes**. Data and its associated metadata are stored together in memory in a package called a **data object**.
+
+```{r}
+
+
+```
+
+
+## Assignment
+
+Assignment is one of the most common operations in writing code. Your work in R will go more smoothly if you keep in mind the following basic concepts about assignment.
+
+**1. Data type is inferred during assignment.** 
+
+```{r}
+
+
+```
+
+**2. Assignment recycles or drops values if dimensions do not match.** 
+
+```{r}
+
+
+```
+ 
+**3. Reassignment overwrites the previous value.** 
+
+```{r}
+
+
+```
+
+**4. The RHS is fully evaluated before assignment happens.** 
+
+```{r}
+
+
+```
+
+**5. Indexing can be used on either or both sides during assignment.** 
+
+```{r}
+
+
+```
+
 
 ## Data type coercion
 
-R allows you to change the type of a variable *after* assignment, but only if it makes sense. This is known as *coercion*. You can also coerce data type during assignment.
+R allows you to change the type of a variable *after* assignment, but only if it makes sense. This is known as **coercion** in R documentation (most programming languages call this **casting**). You can also coerce data type during assignment.
 
 ```{r}
 
-```
-
-And with the `penguins` data frame for practice:
-
-```{r}
 
 ```
 
-## Vectors
-
-In R, atomic data types are always vectors. If you provide just one value, R will create a vector of length 1. The `c` function is an easy way to create longer vectors.
-
-```{r}
-
-```
 
 ## Missing values
 
-R has three special values to represent missing, invalid, and undefined data. The most common is NA, which is short for not available, and indicates missing data. R provides several tools for working with NA values.
+R uses the special value `NA` to represent missing data (the name is short for "not available"). 
 
 ```{r}
 
-```
-
-## Lists
-
-R will automatically coerce values to the most general type if you pass obviously different kinds of values in an assignment statement. If you instead intend to create a list, you will need to use the list generator function.
-
-```{r}
 
 ```
 
-Make a list that approximates a dataframe, then add column names:
 
-```{r}
-
-```
 
 ## Vectorized operations
 
-R allows you to apply a mathematic operation or function to a vector in a single step, without the need for a loop. 
+R allows you to apply an operator or function to a vector, array, or column within a data frame in a single step. This avoids the need to set up a loop to process each item individually. This is called **vectorization**, and it is an important element of the **functional programming paradigm** (more on this later). 
 
 ```{r}
 
 ```
-
-More practice with the `penguins` data frame:
-
-```{r}
-
-```
-
-## Working with atomic vectors
-
-Practice the following operations with atomic vectors to become comfortable with common operations you'll need later. 
-
-Updating individual items in a data frame:
-
-```{r}
-
-```
-
-Exploring values:
-
-```{r}
-
-```
-
-Extracting distinct values and summary statistics:
-
-```{r}
-
-```
-
-
 
