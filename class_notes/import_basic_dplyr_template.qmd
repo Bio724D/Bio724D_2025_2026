@@ -1,6 +1,8 @@
 ---
 title: "Data import and simple data frame manipulation"
 date-format: iso
+execute:
+  eval: true
 format: 
   html:
     embed-resources: true
