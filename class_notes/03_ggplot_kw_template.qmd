@@ -1,0 +1,192 @@
+---
+title: "03_ggplot_kw"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+---
+
+Learning objectives:
+
+-   Practice basic ggplot syntax using the penguins dataset
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Starting Out
+
+Let's use the penguins dataset to practice ggplot syntax!
+
+There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica. To use the dataset, we need to install and load the package `palmerpenguins`
+
+```{r}
+library(palmerpenguins)
+```
+
+Lets assign the data to our own named data frame so we can see it in our environment.
+
+```{r}
+
+
+```
+
+We will be using ggplot to make these figures. ggplot is included in the package tidyverse, which we should already have installed.
+
+```{r}
+library(tidyverse)
+```
+
+We can use tidyverse functions to remove any NA values in the dataset to avoid warnings when plotting.
+
+```{r}
+
+```
+
+## Layer 1 - Data
+
+We start with calling ggplot as a function with parenthesis. The first layer is the data - this gives us an empty canvas to build onto. In this case, we specify our penguins dataset within the parenthesis using `data = penguins`
+
+```{r}
+
+```
+
+## Layer 2 - Aesthetics = Mapping
+
+In ggplot, 'aesthetics' refers to the mapping of columns of our dataset onto aesthetic attributes of our plot. In this case, the attributes we want to specify are the x and y coordinates of the plot. Use the `aes()` function to map the x coordinate to the `species` column in our penguins dataset.
+
+```{r}
+
+```
+
+## Layer 3 - Geometries
+
+Like an oil painting, we are building in layers on top of what we have already done. In ggplot, we use the + operator after the `ggplot()` call to tell R that the following layer is part of the plot. Lets start with a basic **bar plot** with height corresponding to the count of the data values, which in ggplot is called using the function `geom_bar()`
+
+```{r}
+
+```
+
+### Two variables
+
+Lets specify a variable to plot on the y-axis, in this case body mass in grams. You can also try using the other columns (`bill_depth_mm, bill_length_mm, flipper_length_mm`) for the following plots, and see what else you can learn!
+
+```{r}
+
+```
+
+This allows us to use a bivariate visualization method like a **scatterplot.** In ggplot syntax, a scatterplot is created by calling the function `geom_point()`
+
+```{r}
+
+```
+
+### Adding more - boxplots
+
+This plot is already informative! We can qualitatively guess that some species might tend have higher body mass than others. In order to help quantify this and make the plot more attractive looking, lets add on a box and whisker plot **on top** of our points already plotted. That's the power of working in layers - we can add new elements without messing up our already plotted data!
+
+```{r}
+
+```
+
+### Making things look nicer - transparency
+
+Opacity in programming languages is often specified using the value `alpha` . Lets adjust the opacity of our plot to be half opacity by adding `alpha = 0.5` to our main statement, inside of the aesthetic statement:
+
+```{r}
+
+```
+
+If we want to only adjust one element of our plot at a time, we can **set** alpha to a specific value within one geom.
+
+Lets remove our previous addition and add a new `alpha` value to our `geom_boxplot`, without calling `aes():`
+
+```{r}
+
+```
+
+We can add some random horizontal spacing and noise to this by adding what is called **jitter**. Since it doesn't make sense to add jitter to a boxplot, lets just add it to our `geom_point` function. ggplot includes two ways to do this: setting the `position` value like we set the `alpha` value by adding `position = "jitter"`, or replacing the `geom_point` function with a `geom_jitter` function.
+
+```{r}
+
+```
+
+Lets also try replacing geom_point with geom_jitter:
+
+```{r}
+
+```
+
+## Three variables - Color
+
+Color is an aesthetic! Lets add a new `aes()` function with a `color` variable to our `geom_point` layer, and specify the `sex` column in our dataset:
+
+```{r}
+
+```
+
+Llets split our boxplots up by sex as well:
+
+```{r}
+
+```
+
+## Grouping and dodging
+
+`position_dodge` adjusts the horizontal position of the data by using a grouping variable `group`. In this case, we will set our grouping variable to also be sex, and add our `position_dodge` statement to the geom with a width of 0.75.
+
+```{r}
+
+```
+
+We can simultaneously dodge and jitter by using `position_jitterdodge` and changing `width` to `dodge.width`
+
+```{r}
+
+```
+
+## Density plots
+
+If we want to look at just the overall distribution of one column, we can use a density plot.
+
+```{r}
+
+```
+
+To make the shape of the plot a little clearer, let's add a fill to the plot:
+
+```{r}
+
+```
+
+The geom_rug function can be very useful in 2d visualizations like this, since it helps show the marginal distributions within the data.
+
+```{r}
+
+```
+
+Like with the boxplot examples above, we can set the color to correspond to a variable in the data to get more insights on our dataset:
+
+```{r}
+
+```
+
+## Scatter plots
+
+Our boxplots are useful for comparing a numerical data column (body mass) to a categorical data column (species). You can use a simple scatter plot to compare two numerical data columns together, and color by a third categorical data type.
+
+```{r}
+
+```
+
+## Optional - beeswarm plots
+
+### Beeswarm plots
+
+A more structured way of looking at the data instead of jittering is to use the `ggbeeswarm` package to make a beeswarm plot. This clusters the points together in a sort of violin shape while avoiding any overlaps and still allowing you to see the data.
+
+```{r}
+#install.packages(ggbeeswarm)
+library(ggbeeswarm)
+
+```
