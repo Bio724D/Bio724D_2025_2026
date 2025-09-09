@@ -1,0 +1,556 @@
+---
+title: "03_ggplot_kw_complete"
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+---
+
+Learning objectives:
+
+-   Practice basic ggplot syntax using the penguins dataset
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Starting Out
+
+Let's use the penguins dataset to practice ggplot syntax!
+
+This is a commonly used example dataset that contains morphological information about Antarctic penguins.
+
+There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.
+
+To use the dataset, we need to install the package `palmerpenguins`
+
+```{r}
+library(palmerpenguins)
+```
+
+Since this is a prepackaged dataset, lets assign the data to our own named data frame so we can see it in our environment.
+
+```{r}
+data(package = 'palmerpenguins')
+
+penguin_data <- penguins
+
+head(penguin_data)
+```
+
+We have several columns to work with here: The penguin species, island of collection, bill measurements, flipper length, body mass, sex, and date.
+
+You will notice that some rows have NA values - this won't affect our practice plotting other than giving us some warnings, but this is why data cleanup is so important before every project!
+
+Lets just quickly drop the rows with NA values.
+
+We will be using ggplot to make these figures. ggplot is included in the package tidyverse, which we should already have installed.
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+tidy_data <- drop_na(penguin_data)
+```
+
+## Layer 1 - Data
+
+Remember - ggplot works in layers!
+
+We start with calling ggplot as a function with parenthesis.
+
+The first layer is the data - this gives us an empty canvas to build onto. In this case, we specify our penguins dataset within the parenthesis using `data = penguins`
+
+*Note: You can omit the `data =` part and just call a data frame like `ggplot(penguin_data)`, but it is always good to clearly specify what your code is doing!*
+
+```{r}
+ggplot(data = tidy_data)
+```
+
+The data loaded correctly, and now we have a blank canvas to work with.
+
+## Layer 2 - Aesthetics = Mapping
+
+In ggplot, 'aesthetics' refers to the mapping of columns of our dataset onto aesthetic attributes of our plot.
+
+In this case, the attributes we want to specify are the x and y coordinates of the plot.
+
+Use the `aes()` function to map the x coordinate to the `species` column in our penguins dataset.
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species))
+```
+
+Now we can see that our species have appeared on the x-axis of our canvas!
+
+However, there still isn't any data shown. We need to specify a **geometry** that gives our data a shape to display
+
+## Layer 3 - Geometries
+
+Like an oil painting, we are building in layers on top of what we have already done.
+
+In ggplot, we use the + operator after the `ggplot()` call to tell R that the following layer is part of the plot.
+
+Lets start with a basic **bar plot** with height corresponding to the count of the data values, which in ggplot is called using the function `geom_bar()`
+
+We use the plus sign to add a new line that is automatically indented for us, and call the `geom_bar()` function. We don't need to add anything within the parentheses yet.
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species)) +
+  geom_bar()
+```
+
+You will notice that even though we didn't specify a y-axis variable, the `geom_bar` function automatically used the count of the values we specified in the x-axis call (number of occurrences within each species).
+
+*In the weeds: This is because `geom_bar` is performing a statistical transformation on our data frame (counting the number of values). If you want to manually specify a value for the y-axis, you should use the `geom_col` function, which leaves the data as-is.*
+
+### Two variables
+
+Lets specify a variable to plot on the y-axis, in this case body mass in grams:
+
+You can also try using the other columns (`bill_depth_mm, bill_length_mm, flipper_length_mm`) for the following plots, and see what else you can learn!
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g))
+```
+
+This allows us to use a bivariate visualization method like a **scatterplot**
+
+In ggplot syntax, a scatterplot is created by calling the function `geom_point()`
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_point()
+```
+
+### Adding more - boxplots
+
+This plot is already informative! We can qualitatively guess that some species might tend have higher body mass than others.
+
+In order to help quantify this and make the plot more attractive looking, lets add on a box and whisker plot **on top** of our points already plotted. That's the power of working in layers - we can add new elements without messing up our already plotted data!
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_point() +
+  geom_boxplot()
+```
+
+### Making things look nicer - transparency
+
+Woo! We have nice boxplots that clearly show where the means of our clusters are different.
+
+However, this plot still looks kind of ugly. Lets add some optional variables to make it nicer to look at and clearly display our data points behind the boxplots.
+
+We can do this by first adjusting the opacity of the boxplots. Opacity in programming languages is often specified using the value `alpha` . Lets adjust the opacity of our plot to be half opacity by adding `alpha = 0.5` to our main statement, inside of the aesthetic statement:
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g, alpha = 0.5)) +
+  geom_point() +
+  geom_boxplot()
+```
+
+We can now see the points behind our boxplots!
+
+But something's going on - the opacity of both the points and the boxplots were affected, and we have this annoying 'alpha' thing in the legend.
+
+This is because we specified `alpha` in the `aes()` statement within the first line (the first layer!) - which affects the entire plot.
+
+If we want to only adjust one element of our plot at a time, we can **set** alpha to a specific value within one geom.
+
+Lets remove our previous addition and add a new `alpha` value to our `geom_boxplot`, without calling `aes():`
+
+*In the weeds: Why the legend? Remember - aesthetics = mapping! Adding alpha within the aesthetic statement will work, but ggplot will assume the alpha is something we got from the data, and therefore adds it to the legend. By setting alpha to a specific value outside of aes(), we tell ggplot that alpha doesn't have anything to do with the data.*
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_point() +
+  geom_boxplot(alpha = 0.5)
+```
+
+Woohoo! Now our points are nice and dark behind our translucent boxplots.
+
+However, they are all smushed up against each other in a straight line, and it can be hard to see how the distribution of the points works.
+
+We can add some random horizontal spacing and noise to this by adding what is called **jitter**.
+
+*NOTE: This is just random noise, and does not represent properties of the original data!*
+
+Since it doesn't make sense to add jitter to a boxplot, lets just add it to our `geom_point` function.
+
+ggplot includes two ways to do this: setting the `position` value like we set the `alpha` value by adding `position = "jitter"`, or replacing the `geom_point` function with a `geom_jitter` function.
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_point(position = "jitter") +
+  geom_boxplot(alpha = 0.5)
+```
+
+Lets also try replacing geom_point with geom_jitter:
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_jitter() +
+  geom_boxplot(alpha = 0.5)
+```
+
+You can see that this gives essentially the same result, although the random noise means the exact position of the points will be different.
+
+*Note: The spread of the jittered points can look pretty chaotic! If you want to make a very pretty publication-worthy graph while avoiding overplotting, consider installing the package `ggbeeswarm` to make a nicely shaped spread of points.*
+
+## Three variables - Color
+
+We have a lot of variables in our dataset, some of which may be correlated with each other. Lets see if there is any association between a penguins body mass and its sex by coloring our points!
+
+Color is an aesthetic! Lets add a new `aes()` function with a `color` variable to our `geom_point` layer, and specify the `sex` column in our dataset:
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_point(aes(color = sex), position = "jitter") +
+  geom_boxplot(alpha = 0.5)
+```
+
+Wow! It looks qualitatively like male penguins might tend to have larger body mass than female penguins across all species.
+
+To quantitate this, lets split our boxplots up by sex as well:
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_point(aes(color = sex), position = "jitter") +
+  geom_boxplot(aes(color = sex), alpha = 0.5)
+```
+
+Very cool - it looks like our groups are separated nicely!
+
+We will get into more details on color and color palettes later, but for now lets keep making this plot better.
+
+## Grouping and dodging
+
+If you want to separate out the points so that they go under their boxplots again instead of jittering them, we can use a `position_dodge` in combination with `group`
+
+`position_dodge` adjusts the horizontal position of the data by using a grouping variable. In this case, we will set our grouping variable to also be sex, and add our `position_dodge` statement to the geom with a width of 0.75.
+
+*Note: position_dodge - like jitter and alpha - is not an aesthetic and goes outside of the aes parenthesis but within the geom parenthesis.*
+
+*In the weeds: You will notice that a position_dodge with a width of 0.75 aligns suspiciously perfectly with our boxplots. This is because boxplots are actually already using position_dodge by default when you add another variable like color!*
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_jitter(aes(group = sex, color = sex), position = position_dodge(width = 0.75)) +
+  geom_boxplot(aes(color = sex), alpha = 0.5)
+```
+
+We have lost our jitter, but we can add it back!
+
+To add it back while retaining the grouping, we can simultaneously dodge and jitter by using `position_jitterdodge` and changing `width` to `dodge.width`
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_jitter(aes(group = sex, color = sex), position = position_jitterdodge(dodge.width = 0.75)) +
+  geom_boxplot(aes(color = sex), alpha = 0.5)
+```
+
+This plot is looking pretty great!
+
+## Density plots
+
+If we want to look at just the overall distribution of one column, we can use a density plot.
+
+```{r}
+ggplot(tidy_data, aes(x = body_mass_g)) +  
+  geom_density()
+```
+
+To make the shape of the plot a little clearer, let's add a fill to the plot:
+
+```{r}
+ggplot(tidy_data, aes(x = body_mass_g)) +  
+  geom_density(fill = "grey")
+```
+
+The geom_rug function can be very useful in 2d visualizations like this, since it helps show the marginal distributions within the data.
+
+```{r}
+ggplot(tidy_data, aes(x = body_mass_g)) +  
+  geom_density(fill= "grey") + 
+  geom_rug()
+```
+
+Like with the boxplot examples above, we can set the color to correspond to a variable in the data to get more insights on our dataset:
+
+```{r}
+ggplot(tidy_data, aes(x = body_mass_g,
+                     color = species,
+                     fill = species)) +
+  geom_density(alpha = 0.5) +
+  geom_rug()
+```
+
+## Scatter plots
+
+Our boxplots are useful for comparing a numerical data column (body mass) to a categorical data column (species). You can use a simple scatter plot to compare two numerical data columns together, and color by a third categorical data type.
+
+```{r}
+ggplot(tidy_data, aes(x = body_mass_g, y = flipper_length_mm, color = species)) +
+  geom_point()
+```
+
+## Optional - beeswarm plots
+
+### Beeswarm plots
+
+A more structured way of looking at the data instead of jittering is to use the `ggbeeswarm` package to make a beeswarm plot. This clusters the points together in a sort of violin shape while avoiding any overlaps and still allowing you to see the data.
+
+```{r}
+#install.packages(ggbeeswarm)
+library(ggbeeswarm)
+
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex),dodge.width = 0.75, cex = 1.3) +
+  geom_boxplot(aes(color = sex), alpha = 0.5, outlier.shape = NA)
+```
+
+
+## Titles and labels
+
+Lets add some necessary information to this plot to take it closer to being publication-worthy.
+
+There are multiple ways to add labels and titles to a plot, but lets use a simple one - the `labs()` function. This function controls the labels for data, axes, and the plot itself. Each variable within labs can be passed a string specifying our title, but you can also automate titles using R variables!
+
+Remember to add a plus sign when adding a new layer!
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex),dodge.width = 0.75, cex = 1.3) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins")
+```
+
+We can also edit the axis labels to change the automatic names from the data into something nicer to look at:
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex), dodge.width = 0.75, cex = 1.3) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins") 
+```
+
+## Themes and color palettes
+
+If you want to get rid of that default grey background, you need to change the **theme**.
+
+Themes in ggplot govern all the **elements** of the plot - the text font and size, the background color, axis ticks, gridlines - every little detail. They can get very complex and you can create your own custom themes, but a good alternative to the default is `theme_bw()`, which changes the background to white and adds a nice dark border around the plot.
+
+*Note: You can also edit the legend by adding a legend() function, which can again be very detailed!*
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex), dodge.width = 0.75, cex = 1.3) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins") +
+  theme_bw()
+```
+
+Much better!
+
+ggplot comes with a pretty nice set of default colors, but they can be a little repetitive. In addition, many of the default colors are unfortunately not colorblind-friendly.
+
+There are many, many ways to color your plots, but the simplest option is to manually set your colors using the `scale_color_manual` function.
+
+This function allows you to map colors directly to your data, which works well when you only have a few variables. Since we have two options for our variable we are coloring by, we can give it two color values. R also knows the names of most basic colors, so you don't even need to know any fancy hex or RGB codes!
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex), dodge.width = 0.75, cex = 1.3) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins") +
+  scale_color_manual(values = c("pink","purple")) +
+  theme_bw()
+```
+
+In addition to manually setting colors, we can use pre-made color palettes. You can always copy the hex codes into scale_color_manual, but there are many palettes built into R packages!
+
+A great place to start is <https://r-graph-gallery.com/color-palette-finder>, where you can preview a bunch of popular palettes from the package **paletteer**
+
+Pick one and import the package below!
+
+```{r}
+library(paletteer)
+```
+
+A personal favorite of mine for discrete data points is Darjeeling1 from the wesanderson package. This package has palettes based on multiple Wes Anderson movies, so I will import that for this example.
+
+```{r}
+my_colors <- paletteer::paletteer_d("wesanderson::Darjeeling1")
+```
+
+We can access the hex codes directly in the vector we just created, or we could use a scale_color_ function.
+
+Scales are complicated, but in this case we are using a paletteer-specific scales function for discrete (not continuous) colors from the wesanderson package, and specifying the reverse direction.
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex), dodge.width = 0.75, cex = 1.3) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins") +
+  scale_color_paletteer_d("wesanderson::Darjeeling1", direction = -1) +
+  theme_bw()
+```
+
+Amazing! We now have a very nice plot, suitable for most presentations.
+
+*Note: Darjeeling1 and other palettes are pretty and nice for adding color to discrete, labeled data, but still don't have perfect variability between colors for colorblind-friendliness or greyscale. If your color is important and directly related to the data such as in a heatmap, options such as the **viridis** package have carefully selected palettes that are very useful for continuous datasets.*
+
+## Checking significance
+
+From all of our plots, it looks like the Gentoo penguins have larger body mass than the Adelie or Chinstrap penguins. Is this statistically significant?
+
+We can do a quick check by using a new package called **ggpubr.** This package has lots of small tools to help make your plots publication-ready, but the most commonly used is a function to quickly compare and plot the means of groups in a plot.
+
+We can do this by adding another layer to our plot that this library supplies, `stat_compare_means()`. You can just call this by itself if you have a simple plot, but lets add information to make sure we use a t-test, show the significance as asterisks, and compare all three of our groups to each other.
+
+```{r}
+library(ggpubr)
+```
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = species, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex), dodge.width = 0.75, cex = 1.3) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins") +
+  theme_bw() +
+    stat_compare_means(method ="t.test",label = "p.signif", comparisons = list(c("Gentoo", "Chinstrap"), c("Adelie", "Chinstrap"), c("Adelie", "Gentoo")))
+```
+
+Amazing! Since we have so many data points, all of our comparisons are very significant, and even the two similar species are different from each other.
+
+*Note: Be careful using these "pre-made" statistical tests! `stat_compare_means` is useful to do quick visualizations like this, but its always a good idea to independently perform statistical tests yourself outside of the ggplot/R framework to make sure your data is actually significant, and not a result of a coding typo or plotting quirk.*
+
+*Note 2: Another alternative to ggpubr is the package **ggsignif**, which works similarly but has a few different functionalities.*
+
+## Faceting
+
+It looks like male penguins have higher body mass than female penguins. Does this hold true within each species? Lets check significance again, but this time we will split up the species so we can check male vs. female trends independently for each species.
+
+We can do this through **faceting.** Faceting is an incredibly powerful tool in ggplot! It essentially splits your plot into smaller subplots or "facets" based on some aspect of your data. In this case, we can split up our data based on the species column into three separate plots so we can more clearly show our statistical comparison.
+
+We will use the function `facet_wrap()`, which takes a set of variables to facet by. We are only specifying one variable, so we give it `vars(species)` . In order for this to work, we need to change our x-axis call in the first line of our ggplot to be "sex" instead of "species", since we are now faceting by species instead.
+
+We will also need to space out our points from beeswarm further.
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = sex, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex), dodge.width = 0.75, cex = 2.5) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  facet_wrap(vars(species)) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins") +
+  theme_bw()
+```
+
+Very nice! We now have three windows or facets for our data. Lets now add our `stat_compare_means` line from before, but comparing female vs male instead of species:
+
+```{r}
+ggplot(data = tidy_data, mapping = aes(x = sex, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex),dodge.width = 0.75, cex = 2.5) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  facet_wrap(vars(species)) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins") +
+  theme_bw() + 
+  stat_compare_means(method ="t.test",label = "p.signif", comparisons = list(c("female", "male")))
+```
+
+Great! We are now doing separate comparisons for each species, and they all happen to be significant!
+
+*Note: Why "wrap"? All the facet functions split your data into facets, but they display it differently. `facet_wrap` will wrap your data into more rows if needed to fit your screen, or stretch it out if you have plenty of space. If you want a specific layout, `facet_grid` lets you specify how many rows and columns you want your plots to fill.*
+
+*In the weeds: You may be familiar with a different way to specify facets using a tilde (\~). Facets can be given using a formula, and the most basic formula with only one variable would be `~species` . Facets can also be given a character vector, like `c("species")`. These different methods can be useful for more complex faceting arrangements, so look further into them if your data gets complex.*
+
+## Exporting a plot
+
+We can export this plot as a png by using either the `png()` function or the `ggsave()` function. We need to save the plot to a variable first, and then specify the file name as well as the dimensions of the plot.
+
+```{r}
+
+plot1 <- ggplot(data = tidy_data, mapping = aes(x = sex, y = body_mass_g)) +
+  geom_beeswarm(aes(group = sex, color = sex),dodge.width = 0.75, cex = 2.5) +
+  geom_boxplot(aes(color = sex), alpha = 0.5) +
+  facet_wrap(vars(species)) +
+  labs(x = "Species",
+       y = "Body Mass (g)",
+       title = "Relationship between body mass and sex by penguin species",
+       caption = "Data from palmerpenguins") +
+  theme_bw() + 
+  stat_compare_means(method ="t.test",label = "p.signif", comparisons = list(c("female", "male")))
+
+ggsave(plot1, file = "body_mass_penguins.png", width = 7, height = 5, dpi = 300)
+```
+
+
+
+
+```{r}
+library(patchwork)
+
+my_colors = list(
+  scale_fill_brewer(palette = "Dark2"),
+  scale_color_brewer(palette = "Dark2")
+)
+
+plot1 <-
+  ggplot(tidy_data, aes(x = body_mass_g, fill = species)) + 
+  geom_histogram(position = "identity",  # for non-stacked histograms
+                 alpha = 0.5) +
+  my_colors
+
+
+plot2 <-
+  ggplot(tidy_data, aes(x = flipper_length_mm, fill = species)) + 
+  geom_histogram(position = "identity",  
+                 alpha = 0.5) +
+  my_colors
+
+
+plot3 <-
+  ggplot(tidy_data, aes(x = body_mass_g, y = flipper_length_mm, color = species)) + 
+  geom_point() + 
+  my_colors
+
+# adding draws plots horizontally
+# dividing specifies vertical stacking
+layout <- (plot1 + plot2) / (plot3)
+
+layout
+
+```
+
+## Exporting plots
+
+Finally, let's save our patchwork layout plot as a png.
+
+```{r}
+ggsave(layout, file = "patchwork_penguins.png", width = 10, height = 8, dpi = 300)
+```
