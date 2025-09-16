@@ -1,12 +1,15 @@
 ---
-title: "Data types in R"
+title: "Filtering in R"
 author: "Greg Wray"
-date: "`r Sys.time()`"
+date: today
+date-format: iso
 format: 
   html:
     embed-resources: true
 editor: source
 ---
+
+One of the most fundamental tasks in data analysis is searching for patterns. Filtering is the process of isolating observations or records in a data set that match a specific criterion. This is often the first step in finding patterns and testing for similarities and differences among subsets of the data. In the first half of today's class, we'll first briefly review indexing and piping methods, then cover basic filtering methods. 
 
 ## Set up
 
@@ -21,155 +24,217 @@ yeast <- read_csv("seg_strain_table.csv")
 
 ## Indexing methods
 
-Indexing is how you tell R which items within a data object you want to work with. Base R provides three methods for indexing data objects, and `dplyr` provides a fourth method. Here, we will look at how these four indexing methods apply to data frames specifically. 
+Indexing is how you tell R which items within a data object you want to work with. Base R provides three methods for indexing data objects, and `dplyr` provides a fourth method. Here, we look at how these four indexing methods apply to data frames specifically. 
 
-**Square-bracket indexing** `[ ]` is the most general method, and can be applied to any data object. Square bracket indexing usually preserves the class of the items, so indexing a column in a data frame will return a list. In general, using numbers to index data objects is efficient for one-time operations but using names is better for code you want to keep. 
+**Square-bracket indexing** `[ ]` is the most general method, and can be applied to any data object. Square bracket indexing usually preserves the class of the items, so indexing a column in a data frame will return a list. In general, using numbers to index data objects is efficient for one-time operations, but using names is more robust and far better for code you keep. 
 
-```{r eval = FALSE}
+```{r}
 # columns can be indexed by integer
 
 # columns can also be indexed by name; quotes are required
 
-# rows can be indexed by integer (but usually not by name)
-# note the comma!
+# rows can be indexed by integer by adding a comma
 
 # combinations of rows and columns can be indexed by integers and column names
 
-# R will complain if integers are out of range or names don't exist
-
-# out-of-range errors also occur with the other indexing methods
 ```
 
-**Double square bracket indexing** `[[ ]]` is useful when you want only the *values* in a column of a data. This is an important distinction: square bracket indexing usually returns a list, while double square bracket indexing returns an atomic vector without the column name. This can be important in pipes, as we will see later. 
+**Double square bracket indexing** `[[ ]]` is useful when you want only the *values* in a column of a data. This is an important distinction: square bracket indexing usually returns a list, while double square bracket indexing returns a vector of values without the column name. This can be important in pipes, as we will see later. 
 
 ```{r eval = FALSE}
 # compare what happens when you use single and double square brackets to index
 
-# column names also work
+# column names also work (these are equivalent to the above indexing
 
 ```
 
-**Dollar-sign indexing** `$` only works if columns have names. Quotes are not needed around names, as they are part of the metadata of the object. When applied to a data frame, dollar sign indexing returns an atomic vector. Only 1 column can be indexed at a time.
+**Dollar-sign indexing** `$` only works if columns have names. Quotes are not needed around names, as they are part of the metadata of the object. When applied to a data frame, dollar sign indexing returns an atomic vector. Only one column can be indexed at a time.
 
-```{r eval = FALSE}
+```{r}
 # indexing a column in a data frame should be familiar by now
 
-# don't try to index multiple columns!
-
 ```
 
-**Indexing with dplyr** `dplyr` functions ("verbs") provide  more flexible indexing than the Base R methods. To index columns, use the `select` verb and index by name; quotes are not needed. (Dollar sign indexing does *not* work.) Note that `select` returns a tibble. If you need to index columns in a pipe and pass the results to a function that expects values (rather than list), use the dplyr verb `pull` or use dollar sign indexing. Note also that the conventions illustrated below apply to many other `dplyr` verbs. 
+**Indexing with dplyr** The dplyr functions ("verbs") provide  more flexible indexing than the Base R methods. To index columns, use the `select` verb and index by name; quotes are not needed (dollar sign indexing does not work). Note that `select` returns a tibble, even if you only ask for one column. If you need to index columns in a pipe and pass the results to a function that expects a vector (rather than list), use the dplyr verb `pull` or use dollar sign indexing.   
 
 ```{r eval = FALSE}
 # basic indexing using select as an example 
 
-# many "helper" functions are available
+```
+
+Several helper functions are available that can simplify indexing columns. The following are some of the more useful ones. Note that `where` allows you to specify a condition for selecting columns.
+
+```{r}
+# examples of helper functions
 
 ```
 
-## Filtering in R
 
-Filtering is the process of extracting a specific subset of rows from a data frame. Paul introduced the `dplyr` verb `filter` in session 02. (Note that there is also a base R `filter` function that works slightly differently.) 
+## Piping in R
 
-Today, we will briefly review basic filtering, then move on to some intermediate filtering methods using logical and factor data types.   
+Pipes provide a readable, debuggable, extensible way to write code when working with data frames.
+
+Before diving in, make sure you have the RStudio preferences set to use the **native pipe operator**, which looks like this: `|>`. Go to the `Tools` menu, select `Global options`, and the `Code` panel. Practice using the keyboard shortcut for the pipe operator `shift-ctrl-M` as you go through this workbook. 
+
+In older code you may encounter the original **magrittr pipe operator**, which looks like this `%>%` and depends on the `magrittr` package. In general, it's better to use the native pipe operator in code you generate, including re-purposing old code. However, it's safer to retain the magrittr pipe operator when simply running legacy code, since it functions differently from the native pipe operator in some circumstances.   
 
 **Recap of piping basics**
 
-Filtering rows and selecting columns is commonly done in pipes. Two things to keep in mind when piping are how missing values are handled and what kind of data structure the next step expects.  
+Two things to keep in mind when using pipes are how missing values are handled and what kind of data structure the next step expects. In general, base R functions require vectors and don't accept `NA`s. In contrast, Tidyverse functions typically accept data frames or tibbles and silently accept missing values. When in doubt, check the documentation! 
 
 ```{r eval = FALSE}
-# many functions don't accept NA values (check function documentation)
+# example of a function that doesn't accept NA values by default and a solution
 
-# some functions require vectors as input (check function documentation)
+# example of a function that requires a vector as input and a solution
 
 ```
+
+A more readable way to solve this problem is to use `dplyr`'s `pull` function, which passes a single vector of values to the next step in a pipe.  
+
+```{r}
+# extract a column by name
+
+```
+
+You can also extract a column by position using `pull`. Using negative values references columns by position counting from the right-most column, which is useful when you don't know the name of the last column or columns.
+
+```{r}
+# extract a column by position
+
+```
+
+**Implicit data object**
+
+For nearly all `dpyr` functions, the first argument you pass is the data object you want to work with. When using `dplyr` functions in a pipe, however, you need to omit the the data object. 
+
+```{r}
+# not in a pipe
+
+# in a pipe
+
+```
+
+
+## Filtering in R
+
+Filtering is the process of extracting a specific subset of rows from a data frame. Paul introduced the `dplyr` verb `filter` earlier. (Note that there is a base R function of the same name that works slightly differently; the name `filter` is reassigned to the `dplyr` function when the tidyverse is loaded.) 
+
+Here, we will briefly review basic filtering, then move on to some intermediate filtering methods using logical and factor data types.
 
 **Recap of filtering basics**
 
-The `filter` verb provides a way to subset rows by condition. The following examples illustrate some simple conditions based on numerical comparisons, but bear in mind that conditions can also involve testing for set membership, string composition, logic comparisons, values returned by embedded functions, and more.   
+The `filter` verb provides a way to subset rows by condition. Conditions can be numeric, logical, string-, or set-based, or some combination of these. The overall condition must evaluate to TRUE or FALSE.  
 
-```{r eval = FALSE}
-# basic format for filtering
-
-# functions can be embedded directly into filtering conditions
-# find the female with the shortest flippers
+```{r}
+# basic format for filtering 
 
 ```
 
+Compound conditions can be constructed using operators and parentheses to indicate order of evaluation. 
+
+```{r}
+# compound conditions
+
+# two ways to make the previous expression clearer
+
+```
+
+Functions can be embedded directly into filtering conditions. In the second example, we first use the `mutate` function to create a new column with values computed from other columns, then filter based on the new values.
+
+```{r}
+# find the female with the shortest flippers
+
+# find the yeast strain with the largest average adhesion value
+
+```
+
+Conditions can also involve testing for set membership, string composition, and logic comparisons. We will cover filtering with strings later, but for now the following is a simple example of testing for membership in a defined set of values using the `%in%` operator.  
+
+```{r}
+# testing for set membership
+
+```
+
+
 **Filtering with Boolean indexing**  
 
-Boolean indexing involves creating a vector that contains logical (TRUE/FALSE) values based on some condition or combination of conditions that you specificy. This vector can then be use to filter rows where the index column is TRUE.
+Boolean indexing involves creating a vector that contains logical (TRUE/FALSE) values based on some condition or combination of conditions that you specify. This vector can then be use to filter rows where the index column is TRUE.
 
 To illustrate how this works, consider two vectors.
 
-```{r eval = FALSE}
+```{r}
 # ceate an integer vector and a logical vector of equal lengths
 
 # now we can filter the first vector based on truth values
 
 ```
 
-Now let's apply this process to a column in a data frame. Using a descriptive name for the new index column helps to make the code easier to interpret later.
+Now let's apply this process to a column in a data frame. We'll again use `mutate`, this time to create the index column. Using a descriptive name for the new column helps to make the code easier to interpret later.
 
-```{r eval = FALSE}
+```{r}
 # first, create the index column
 
 # second, filter using the index column
 
 # this becomes more powerful when you use it in a pipe  
 
-# and then use it later in another operation, and then another operation...
 ```
 
 
 **Filtering with factors** 
 
+**Factors** are a special data structure that allows for efficient processing of categorical data. They are most useful in cases where you plan to store a limited number of distinct data values, typically strings. Examples of data that are often stored as factors include experimental/control and sex. Behind the scenes, R stores factor values as integers. The data object contains a look-up table that associates these integer values with a representation of the values (e.g., control = 0, experimental = 1). This encoding provides more efficient use of memory and faster operations on the data (e.g., filtering, sorting, grouping).
+
 You may encounter data frames containing factors, so it is important to know how to recognize them. 
 
-```{r eval = FALSE}
+```{r}
 # factors look like ordinary character columns
 
 # the best way to check is with a logical test
 
 ```
 
-Factors have several useful properties. One of the most important advantages is that they help catch data input errors. Note that R uses "levels" to referr to the values of a factor. 
+Factors have several useful properties. One of the most important advantages is that they help catch data input errors. Note that R uses the term "levels" to refer to the set of defined values that a factor object can take. 
 
 ```{r eval = FALSE}
 # factors only allow pre-defined values
 
 ```
 
-To explore how to work with factors, we will switch to the yeast data frame.  
+To explore how to work with factors, we will switch to the yeast data frame. First, we will convert a column from character to factor.
 
-```{r eval = FALSE}
-# convert an existing character column into a factor column
+```{r}
+# coerce a column to factor
 
-# filtering by factor is based on the character representation
+```
+
+When you filter a factor column, use the human representation, not the underlying integer value.
+
+```{r}
 # identify the strain with 'C' morphology that has the lowest cAMP concentration
 
+```
+
+The `CM` columns in the yeast data set contain a measure of colony morphology from simple (1.0) to more complex (higher values).   
+
+```{r}
 # take a quick look at colony morphology scores
 
+```
+
+The `Pool` column represents colony morphology as one of two possible values: "S" (simple) and "C" (complex). However, we can see that there is one `CM` value that is intermediate. We can assign a new factor level "I" to accommodate intermediate values.
+
+```{r}
 # add a new allowable value
-# here, we want to allow for intermediate complexity 
 
-# add another allowable value
-# here, we use boolean indexing to identify the most extreme complexity
-#  first create the new level
+# plot with 3 levels
 
-#  next, create a boolean index
-
-#  last, filter for extreme complexity and assign the new value "X"
-
-# Note that mutate allows assignment of values (not covered previously). 
-#   If the column specified does not exist, it is created
-#   If the column already exists
-#   In both cases, the values in the column are assigned based on the condition
 ```
 
 By default, factor values are represented in alphabetical order. Sometimes it is useful to have factors in a different order because this represents a property of the data. This is why factor values are called "levels" in R. 
 
-```{r eval = FALSE}
+```{r}
+# reorder levels
 
 ```
 
