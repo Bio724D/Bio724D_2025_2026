@@ -311,6 +311,34 @@ lm_by_species_sex_df
 ::: {.callout-note collapse="true"}
 ## Extended example: ANOVA visualized
 
+
+### ANOVA, key idea
+
+Recall that the key idea behind Analysis of Variance (ANOVA) is that:
+
+* If the observations in each group are drawn from populations with equal means (and variances) then the variation _between_ group means should be similar to the inter-individual variation _within groups_.
+
+* The test statistic used in ANOVA is designated $F$, and is based on the ratio of two measures of variance, the "group mean square deviation" ($\text{MS}_\text{groups}$; measures between group variance) and the "error mean square deviation" ($\text{MS}_\text{error}$; measures within group variance):
+
+\[
+F = \frac{\text{MS}_\text{group}}{\text{MS}_\text{error}}
+\]
+
+* Under the null hypothesis, the between group and within group variances are similar and thus the $F$ statistic should be approximately 1.
+
+* Large values of the $F$-statistic means that the between group variance exceeds the within group variance, indicating that at least one of the means is different from the others
+
+### Partioning of sum of squares
+
+Another way to think about ANOVA is as a "partitioning of variance".  The total variance among all the individuals across groups can be decomposed into: 
+
+  1) variance of the group means around the "grand mean"
+  2) variance of individuals around the group means.  
+  
+However, rather than using variance we use sums of square deviations around the respective means (usually shortened to "sums of squares"). 
+
+
+
 ```{r}
 #| output: true
 
@@ -318,14 +346,31 @@ clean_penguins <-
   penguins |>
   filter(!is.na(sex))
 
+# for completeness we show one way to calculate the grand mean (in tibble form)
 penguins_grand <-
   clean_penguins |>
   summarize(mean_bodymass = mean(body_mass_g))
 
+# group means
 penguins_group <-
   clean_penguins |>
   group_by(species) |>
   summarize(mean_bodymass = mean(body_mass_g))  
+
+# deviations of each penguin around grand mean and group means
+individual_deviates <-
+  clean_penguins |>
+  select(species, body_mass_g) |>
+  mutate(grand_deviates = body_mass_g - mean(body_mass_g)) |>
+  group_by(species) |>
+  mutate(group_deviates = body_mass_g - mean(body_mass_g))
+  
+# deviations of group means around grand mean
+group_deviates <-
+  penguins_group |>
+  mutate(deviates = mean_bodymass - mean(clean_penguins$body_mass_g))
+  
+
 
 ```
 
@@ -426,7 +471,8 @@ p_within
 
 library(patchwork)
 
-combined <- (p_total + theme(legend.position = "none")) + 
+combined <-  
+  (p_total + theme(legend.position = "none")) +
   (p_between + theme(legend.position = "none")) +
   (p_within + theme(legend.position = "none")) 
 
