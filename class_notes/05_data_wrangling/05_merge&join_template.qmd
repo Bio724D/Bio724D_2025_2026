@@ -87,6 +87,7 @@ ggplot(wdata6, aes(x=Humidity9am, y=Humidity3pm, color=Location)) +
   facet_wrap(~ Location) +
   theme_light() 
 ```
+
 ```{r}
 ggplot(wdata6, aes(x=RainToday, y=WindGustSpeed, color=RainToday)) +
   geom_point(position='jitter', alpha=0.2, size=0.1, na.rm=TRUE) +
@@ -115,45 +116,32 @@ The simplest way to combine values from two data frames into one is to use `bind
 
 ```{r}
 # simple column merge
-bind_cols(x, y)                # columns in the result appear in the order provided 
+
 ```
 Note that if the two data frames contain one or more columns with the same name, they are are both retained, but they are automatically renamed by appending '...' and the column number. This can get very confusing with larger data frame. Best practice is to provide distinct column names *before* merging. 
 
 ```{r}
 # rename columns before merging 
-y <- rename(y, X = A, Y = B)  # syntax is: new name = old name   
-bind_cols(x, y)
+
 ```
 
 Now, with the weather data, merge `wdata6_next`, which contains the column `RainTomorrow`, with the main data set:
 
 ```{r c-merge}
-# reminder about which columns are present pre-merge
-colnames(wdata6)
-colnames(wdata6_next)
-# simple merge operation
-df <- bind_cols(wdata6, wdata6_next)
-# check results
-df
-colnames(df)
-select(df, Location, RainToday, RainTomorrow)
+
 ```                               
 
 Horizontal merges are risky. If rows in the two source data frames are not aligned correctly, you will associate the wrong values in the merged data frame. Below is a contrived example: first randomize values and then merge them. They values are meaningless, but `bind_cols` has no mechanism for detecting this and does not return an error or warning. It's very easy to make this kind of mistake!
 
 ```{r c-merge randomized}
-# randomize values in "RainTomorrow" and assign to a new data frame
-randomized <- sample(wdata6_next$RainTomorrow)
-wdata6_next_rand <- data.frame("RainTomorrow" = randomized)
-# same operation, but merging a different "right" data frame
-bind_cols(wdata6, wdata6_next_rand)    
+
 ```
 
 Another potential problem to be aware of is that the number of rows must be the same in both data frames. If row numbers are mismatched, dplyr will *not* use recycling to make their length equal, and will instead throw an error.  
 
-```{{r c-merge unequal}}
+```{r c-merge unequal}
 # attempt to merge data frames with unequal column lengths
-bind_cols(wdata6, wdata1_next)    
+
 ```
 
 Checking that a horizontal merge is working correctly is time-consuming and error-prone. A left join (discussed below) is *far* safer than a horizontal merge, and should be the preferred method whenever possible. 
@@ -180,7 +168,7 @@ Now, carry out the row merge:
 
 ```{r}
 # simple row merge
-bind_rows(x, y)                
+
 ```
 Note that rows appear in the order provided, and that duplicated rows are retained.
 
@@ -188,44 +176,36 @@ The code below attaches weather observations for an additional location to the d
 
 ```{r r-merge}
 # example of a row merge; rows of wdata1 are appended "below" those of wdata7
-bind_rows(wdata6, wdata1)                
+
 ```
 
 Show unique locations and count rows to confirm that the operation worked as expected.
 
 ```{r r-merge confirm}
-unique(wdata6$Location)
-unique(wdata1$Location)
-unique(bind_rows(wdata6, wdata1)$Location)
-dim(wdata6)
-dim(wdata1)
-dim(bind_rows(wdata6, wdata1))
+
 ```
 
 An optional argument allows you to track which original data frame each rows came from. 
 
 ```{r r-merge source}
 # you can use any name for this new column
-bind_rows(wdata6, wdata1, .id = "original_df")    
-tail(bind_rows(wdata6, wdata1, .id = "original_df"))
+
 ```
 
 It is also possible to perform set operations during vertical merges. For instance, if you want to ensure that there are no duplicated rows in the merged data frame, use `union()` instead of `bind_rows()`.
 
 ```{r r-merge union}
 # to remove any rows that duplicate values in previous rows
-union(wdata6, wdata1)
-dim(union(wdata6, wdata1))   # in this case, there are no duplicates
+
 ```
 
 To return only rows that are present in both data frames, use `intersect()`. We will create two small data frames with overlapping dates; to make things easier to follow, row numbers in these data frames correspond to date in the month.
 
 ```{r r-merge intersect}
 # make two small data frames with partially overlapping row numbers
-df1 <- wdata1[1:10,]            # dates 1-10
-df2 <- wdata1[5:15,]            # dates 5-15
+
 # return only rows present in both (use dates to confirm)
-intersect(df1, df2)              
+
 ```
 
 It is also possible to return only set differences using `set_difference()`; see documentation for details.
@@ -263,10 +243,9 @@ Now, try the join.
 
 ```{r}
 # default join syntax is simple
-left_join(x, y)                # note that R reports joining by A and B
 
 # for a left join, order matters
-left_join(y, x)                # result is different from the previous
+
 ```
 
 Left joins always return at least the number of rows in the first data frame, and may return more. The order of the data frames matters when specifying a left join, since values are compared asymmetrically, from the second to the first (from right to left). This is not the case for some other join methods, where values are compared in both directions. Importantly, matching rows do not need to be in the same order and do not need to be present 1:1 in the two tables. 
@@ -275,24 +254,21 @@ A common use case for left joins is when you have a data frame and want to add m
 
 ```{r}
 # append location metadata to the weather data frame
-wdata6_ann <- left_join(wdata6, wlocs)
-wdata6_ann
+
 ```
 
 To view a random sample of rows, use `slice_sample()` and pass the number of rows you want back.
 
 ```{r}
 # retrieve a sample of 10 rows
-wdata6_ann |> 
-  slice_sample(n = 10) |> 
-  select(Location, Province, Geolocation, Elevation)
+
 ```
 
 By default, all of the dplyr join functions will use all columns with the same name in the two data frames as join columns. This is usually, but not always, what you want. Best practice is to specify the join column(s) explicitly for any code that you want to keep, since it signals what you intend rather than what dplyr assumes by default. 
 
 ```{r}
 # explicitly specify the join column 
-left_join(wdata6, wlocs, by = "Location")      
+
 ```
 
 **Inner joins**
@@ -303,10 +279,9 @@ Again, we can visualize this with tiny data frames.
 
 ```{r}
 # inner join syntax
-inner_join(x, y)                # inner joins retain only the intersection of join values
 
 # order does not matter for an inner join 
-inner_join(y, x)                # same content, although column order has changed
+
 ```
 
 During an inner join, no new missing values are generated. This is in contrast with left and full joins. (If there are any missing values *before* an inner join, they are passed on.) 
@@ -315,15 +290,10 @@ Now try an inner join with the weather data sets.
 
 ```{r}
 # inner join syntax
-inner_join(wdata6, wlocs)                
+
 ```
 
 Inner joins produce the smallest (or equal to the smallest) return of the three join methods we will cover in class. This is because values in the join column must match in both directions. This also means that order in which data frames are specified in the join statement does not change what is returned. 
-
-```{r}
-# order does not matter for an inner join 
-inner_join(wlocs, wdata6)    # same result as the previous join                
-```
 
 **Full joins**
 
@@ -333,33 +303,25 @@ We can again visualize this with the tiny data frames.
 
 ```{r}
 # full join syntax
-full_join(x, y)                # all data are retained, and NAs added as needed 
 
 # order does not matter for a full join
-full_join(y, x)                # same content, although column order has changed
+
 ```
 
 Now try this with the weather data:
 
 ```{r}
 # full join syntax
-full_join(wdata6, wlocs)                # all data are retained, and NAs added as needed 
+
 ```
 
 Because this is a big data set, it's difficult to visualize what just happened. Filtering for rows where the Location matches or does not match can help.
 
 ```{r}
 # retrieve a row where the join values match
-wdata6_ann |> 
-  full_join(wlocs, by='Location') |> 
-  filter(Location == "Ballarat") |> 
-  head(1)
 
 # retrieve a row where the join values do not match
-wdata6_ann |> 
-  full_join(wlocs, by='Location') |> 
-  filter(Location == "CoffsHarbor") |> 
-  head(1)
+
 ```
 
 
