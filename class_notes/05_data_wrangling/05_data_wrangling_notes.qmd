@@ -1,7 +1,7 @@
 ---
 title: "Bio 724: Data wrangling class notes"
 author: "Paul Magwene"
-date: "2024-09-25"
+date: today
 date-format: iso
 format: 
   html:
