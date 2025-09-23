@@ -49,6 +49,7 @@ To facilitate downstream analyses, data should be organized in a manner such tha
 
 ![Visual representation of tidy data (from R4DS2e).](images/image_tidy_data_R4DS.png)
 
+
 ## `dplyr` and `tidyr` to the rescue
 
 The tidyverse packages `dplyr` and `tidyr` provide many useful tools for wrangling data into a tidy form.
@@ -60,12 +61,9 @@ The tidyverse packages `dplyr` and `tidyr` provide many useful tools for wrangli
 -   `mutate`
 -   `rename`
 -   `arrange`
-
-#### dplyr functions introduced in this lecture
-
-- `left_join`
-- `full_join`
-- `inner_join`
+-   `left_join`
+-   `full_join`
+-   `inner_join`
 
 
 #### key functions introduced by tidyr
