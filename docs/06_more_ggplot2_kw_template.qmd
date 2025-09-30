@@ -1,0 +1,378 @@
+---
+title: "Bio 724: More ggplot2"
+author: "Kayla Wilhoit"
+format: 
+  html:
+    embed-resources: true
+---
+
+
+# Libraries
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+
+# ggplot2 extensions
+library(ggrepel)
+library(GGally)
+library(plotly)
+
+# packages requiring extra installation steps
+library(ggmagnify)
+library(ggtree)
+
+# data
+library(palmerpenguins)
+
+# tree making
+library(ape)
+
+```
+
+```{r}
+#install.packages("ggmagnify", repos = c("https://hughjonesd.r-universe.dev", 
+#                 "https://cloud.r-project.org"))
+
+#if (!require("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+
+#BiocManager::install("ggtree")
+```
+
+
+
+
+## Depicting 3D data using color
+
+* ggplot2 has no built-in support for 3D graphs; instead it emphasizes the use of color, or other aesthetics, to depict more than two dimensions
+
+* Contour plots and heat maps are among the most common ways to generate figures representing 3D data in ggplot
+
+
+### Contour plots
+
+Contour plots are most useful when you want to represent a variable (say "z") as a function of two other variables (x and y).  Contour plots use nested lines (think contour lines on a topographic map) and optionally color to depict such relationships.
+
+Take for example the mathematical function: $z = \sin(x) + \cos(y)$.  A 3D plot of this function looks like this (generated using Wolfram Alpha):
+
+![3d plot](./plot_sinx_plus_cosy.png)
+
+
+Below is code to generate the representation of a contour plot for the same function:
+
+```{r}
+zfunc <- function(x,y) {
+  sin(x) + cos(y)
+}
+# try some other functions! 
+# e.g. z = sin(sqrt(x^2 + y^2))
+
+
+# create sets of points over which to evaluate zfunc
+x <- seq(-2*pi, 2*pi, length = 100)  
+y <- seq(-2*pi, 2*pi, length = 100)
+
+# expand grid creates all pairwise combinations of x and y
+xy <- expand_grid(x,y)  
+
+xyz <- mutate(xy, z = zfunc(x,y))
+
+```
+
+```{r}
+
+```
+
+I think a diverging color scheme makes more sense here, since the data is centered around zero. I like the "RdBu" (red-blue) diverging color scheme for data like this, but reversed (so blue = low, red = high)
+
+```{r}
+
+blue.red.color.scheme <- rev(brewer.pal(9,"RdBu"))
+
+```
+
+### Heat maps
+
+Heat maps are another way to depict 3D data with color. Typically the x, y axes represent a combination of a categorical variable and a continuous variable. 
+
+`geom_tile` (for small data) and `geom_raster` (for large data) are the standard ggplot2 functions for creating heat maps.
+
+Here we create a heat map showing gene expression over time for about 700 genes that were identified as showing cell cycle oscillatory behavior by Spellman et al. 1998:
+
+
+First load and filter the data:
+
+```{r, message=FALSE, warning=FALSE}
+yeast_long <- read_csv("spellman-long.csv")
+cell_cycle <- read_csv("spellman-cell-cycle-list.txt")
+
+# get just the cell cycle genes as given in the cdc28 exptl conditions
+
+
+# Q: how would you do the first filter step with a join?
+# Q: could you combine the two filters above?
+```
+
+Then draw the plot:
+
+```{r}
+#| fig-width: 4
+#| fig-height: 12
+
+# let's explicitly generate a color scheme
+color.scheme <- rev(brewer.pal(9,"PiYG"))
+
+
+```
+
+
+The real power of heat maps becomes apparent when you you rearrange the rows of the heat map to emphasize patterns of interest. For example, let’s recreate that heat map in which we sort genes by the time of their maximal expression. This is one way to identify genes that reach their peak expression at similar times, which is one criteria one might use to identify genes acting in concert.
+
+```{r}
+
+
+```
+
+
+```{r}
+#| fig-width: 6
+#| fig-height: 18
+
+# draw from the bottom row up, whereas we want to depict the
+# earliest peaking genes at the top of the figure
+
+```
+
+
+```{r}
+ggsave("cdc28-heatmap.png", better_heat,  width = 4, height = 12, dpi=600)
+```
+
+
+### Subset data
+
+Let's try another method for making a heatmap with a small subset of the data. We will pick three genes out of the whole Spellman dataset to focus on: NOP16, NOP56, and ACT1. These are genes involved in ribosome biogenesis.
+
+```{r}
+# YER002W = NOP16
+# YLR197W = NOP56
+# YFL039C = ACT1
+
+
+
+```
+
+```{r}
+# display the heatmap
+```
+
+### Make small interactive heatmap
+
+Heatmaps are great, but the exact numbers can be obscured by the color values. We can preserve the big picture visuals of a heatmap and additionally include detailed information by making the plot interactive using the plotly package.
+
+We will make the same heatmap as before, but we will add interactivity through a tooltip window that displays when the cursor is hovered over the heatmap tiles. We need to specify the data and formatting included in our tooltips to pass to plotly later, so we will use mutate to create a new column with that information:
+
+```{r}
+tooltip_data <- three_genes %>%
+  mutate(tooltip_text = paste0("Gene: ", gene, "\n", "Time (min): ", time, "\n", "Expression: ",expression))
+```
+
+Now we can add the tooltip_text column as a "text" call in ggplot, and then use the ggplotly wrapper to start the interactive window
+
+
+```{r}
+# create the interactive plot
+```
+
+
+### Adding a tree to the plot
+
+As you might be able to guess from the data, NOP16 and NOP56 are "related" genes with similar DNA sequence, while ACT1 is not closely related. We can add information on the relatedness between the genes to the heatmap by adding a tree, which will let us see if the patterns of gene expression correlate between closely related genes.
+
+We will use the `ape` library to create the tree using Newick format, and then plot it using the `ggtree` library we downloaded earlier.
+
+```{r}
+library(ape)
+library(ggtree)
+tree <- read.tree(text = "((NOP16:3,NOP56:3):5,ACT1:8);")
+```
+
+```{r}
+# display tree plot
+```
+
+
+To add our plot to our heatmap and maintain our interactivity, we can use the subplot function within plotly instead of patchwork. 
+
+```{r}
+# add tree plot to heatmap
+```
+
+
+
+## Annotations
+
+## ggplot2 extensions
+
+There is an "official" gallery for ggplot2 extensions, which can be found at the following URL: https://exts.ggplot2.tidyverse.org/index.html
+
+We've already used some ggplot2 extensions, such as `patchwork`. Today we'll introduce a few more
+
+
+  * ggrepel -- for annotation  / labeling; https://ggrepel.slowkow.com/
+
+  * ggmagnify -- magnified insets; https://github.com/hughjonesd/ggmagnify
+    -- see also https://ggforce.data-imaginist.com/ for a facet style "zoom"
+
+
+## Basic annotations
+
+### Highlighting via layers
+
+A simple way to highlight data of interest is by layering geoms. 
+
+Here for example we highlight two points in a data set by stacking two `geom_point` layers:
+
+
+```{r}
+# highlight biggest and smallest penguins by body mass
+
+```
+
+
+### Annotating 
+
+
+ggplot has an `annotate` function for drawing text, line segments, curves, etc to explicitly call out features in plots.
+
+From the `annotate` help: "This function adds geoms to a plot, but unlike a typical geom function, the properties of the geoms are not mapped from variables of a data frame, but are instead passed in as vectors"
+
+Here's an updated version of the figure above to which we've added text and arrows:
+
+
+```{r}
+# adding text and arrows
+  
+```
+
+### Magnifying regions of a plot
+
+ggmagnify provides a geom for "zooming in" on a region of a plot.
+
+```{r, warning=FALSE}
+# zooming in on c(190,195,45,50), to c(220, 235, 25,40)
+
+```
+
+
+
+### Labeling points
+
+Labeling points with text is another form of annotation.  The function `geom_text` supports basically labeling, but as we'll see below it has some limitations. A ggplot extension package called `ggrepel` extends the functionality of `geom_text`, allowing for nicer automatic labelling of points.
+
+#### Example data: Microbescope
+
+The website [Information is Beautiful](https://informationisbeautiful.net/) has lots of interesting data visualizations and “data stories”. One of the data stories of biomedical interest is the [MicrobeScope](https://informationisbeautiful.net/visualizations/the-microbescope-infectious-diseases-in-context/), which presents data on the contagiousness of various microbes and its relationship to deadliness, fatality rate, media coverage, etc.
+
+![Microscope figures](./microbescope_image.png)
+
+
+I’ve made a cleaned up version of the data used to produce the figure above available to you as a CSV file at the following URL:
+
+  * [microbescope_clean.csv](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/microbescope_clean.csv) – this data was derived from the “original data” sheet in the data provided at http://bit.ly/KIB_Microbescope
+
+
+```{r, warning=FALSE, message=FALSE}
+microbescope <- read_csv("microbescope_clean.csv")
+```
+
+
+#### Basic `geom_text` plot
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+
+
+```
+
+#### Extended version using ggrepel
+
+```{r, warning=FALSE, message=FALSE}
+#| fig-width: 15
+#| fig-height: 10
+
+
+my_colors <- c("#335060","#9d9353","#e13698","#37251e",
+               "#81aea3","#ff8106","#888888", "firebrick")
+
+microbescope |>
+  drop_na() |>
+  filter(average_basic_reproductive_rate < 20) |>
+  ggplot(aes(x = average_basic_reproductive_rate,
+             y = case_fatality_rate, 
+             shape = pathogen_type,
+             color = primary_mode_of_transmission)) +
+  # draw background rectangles
+  geom_rect(aes(ymin=0, ymax=1,xmin=-1,xmax=21), 
+            alpha=0.003,color='#D3D3D3', linetype="dashed") +
+  geom_rect(aes(ymin=20, ymax=50,xmin=-1,xmax=21), 
+            alpha=0.003,color='#D3D3D3', linetype="dashed") +  
+  # draw points
+  geom_point(size=4, alpha=0.6) + 
+  scale_color_manual(values = my_colors) +
+  # draw labels
+  geom_text_repel(aes(label=disease), 
+                  size = 4,
+                  force = 1,
+                  force_pull = 2) +  
+  scale_y_sqrt(breaks=c(0,0.1,1,seq(10,100,10)),
+               minor_breaks = NULL, 
+               sec.axis = dup_axis(name = "",
+                                   breaks = c(0.2, 8, 35, 80),
+                                   labels = c("Less deadly", "Quite deadly", "Deadly", "Extremely Deadly"))) +
+
+  coord_cartesian(xlim = c(0,20)) +
+  labs(x = "Contagiousness: R0",
+       y = "Deadliness: Case fatality rate (%)") +
+  
+  theme_bw() +
+  theme(legend.position = "top", legend.background = element_rect(size = 0.5, colour='grey')) +
+  guides(color = guide_legend(title = "Primary Mode of Transmission"),
+         shape = guide_legend(title = "Pathogen Type")) 
+
+ggsave("microbescope.png", width = 14, height=8)
+```
+
+
+
+## Misc
+
+  * GGally -- ggpairs; https://ggobi.github.io/ggally/articles/ggpairs.html
+  
+  
+The `ggpairs` function from the package GGally is really useful for exploratory data analysis.  It will generate a "matrix" of plots representing the relationships between all pairs of variables in a data frame. It handles continuous and categorical data well:
+
+
+```{r, warning=FALSE, message=FALSE}
+#| fig-width: 8
+#| fig-height: 8
+
+```
+
+
+
+
+## GT for tables
+
+The `gt` library allows you to make publication-ready tables directly from an R data frame, using the piping and filtering syntax that you are familiar with from dplyr. This circumvents any errors you may get while manually creating a table in another format like excel.
+```{r}
+library(gt)
+```
+
+
+```{r}
+# create table from MicrobeScope data
+```
+
