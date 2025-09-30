@@ -27,11 +27,13 @@ Submit both your markdown file (`.qmd`) and the generated HTML document (`.html`
 ### Problems
 
 
-1. Using the `penguins` data from `palmerpenguins`, re-create the following plot with the included annotation elements:
+1. Locate a graphic in a publication that you think does *not* represent graphical excellence. Provide the reference and figure number. Download or grab a screenshot of the graphic and insert it into your homework notebook. Explain what is not great about the graphic and what you think could be done better. 
+
+2. Using the `penguins` data from `palmerpenguins`, re-create the following plot with the included annotation elements:
 
 ![Penguin outlier figure](./penguin-outlier.png)
     
-2. Using the data below, create a heatmap depicting covid deaths on average per 100K people, over time for US states. Filter out non-states (e.g. territories, protectorates) except for the District of Columbia.Make sure to use an appropriate color scale for the type of data depicted.
+3. Using the data below, create a heatmap depicting covid deaths on average per 100K people, over time for US states. Filter out non-states (e.g. territories, protectorates) except for the District of Columbia.Make sure to use an appropriate color scale for the type of data depicted.
 
 * [nytimes-covid-data-us-states_2022-02.csv](https://github.com/Bio724D/Bio724D_2024_2025/raw/main/data/nytimes-covid-data-us-states_2022-02.csv) -- Data on COVID cases and deaths, by state, from 2020 to 2022, compiled by the NY Times.
 
