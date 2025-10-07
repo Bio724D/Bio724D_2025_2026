@@ -50,6 +50,8 @@ A few complications exist with the data.  They include:
 * There's any empty last column
 * There are two rows of metadata at the end of the file
 
+We explored how to deal with the non-UTF8 encoding in [earlier lecture](https://bio724d.github.io/Bio724D_2025_2026/import_basic_dplyr_template.html#loading-a-file-with-a-non-standard-encoding).
+
 
 The first two columns hold Time (s) and Temperature (°C) info.  
 
@@ -59,11 +61,11 @@ The subsequent columns are the absorbance readings for each of the 96 wells on t
 
 * Create a data frame from the `crypto_tecan_run_example.txt` file
 
-  * Remove the empty last column and two rows of metadata
+  * Easy: Remove the empty last column and two rows of metadata
 
-  * Give the columns meaningful names
+  * Challenging: Give the columns meaningful names
 
-  * Since there are 98 columns it would be tedious, error prone, and inefficient to create all of these by hand.   Solve this with computation. The function `rep` is useful here.
+    * Since there are 98 columns it would be tedious, error prone, and inefficient to create all of these by hand.   Solve this with computation. The functions `rep` and `str_c` are useful here.
   
 Having solved the problem above, your data should look like this:
 
@@ -120,7 +122,7 @@ Having solved the problem above, your data should look like this:
 
 Now that we've wrangled the data into some basic shape we can start to do something useful with it.  The simplest useful step towards our end goal, would be to plot a single growth curve from this experiment.  This is relatively straightforward because we have a data frame with `time` as a variable, and many columns (`A_1`, `A_2`, etc) that contains absorbance readings.
 
-* Unless you wrangled it already, your `time` column a character type. Convert it to a data type representing time durations using the `lubridate::as.duration` function (see the [lubridate docs](https://lubridate.tidyverse.org/) )
+* Unless you wrangled it already, your `time` column is a character type. Convert it to a data type representing time durations using the `lubridate::as.duration` function (see the [lubridate docs](https://lubridate.tidyverse.org/) )
 
 * Create a plot showing absorbance vs time for the well "B_2". When plotting I recommend changing the time (duration) column to a numeric variable using `as.numeric(time, "hours")` which will convert seconds to hours. Your plot should look like the following:
 
@@ -129,7 +131,7 @@ Now that we've wrangled the data into some basic shape we can start to do someth
 
 ## Challenge 4: Plotting multiple wells in a grid
 
-Our next step is to see if we can 
+Our next step is to see if we can generate a plot:
 
 
 * Create a "long" version of your absorbance data frame, that has the following form:
