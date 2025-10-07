@@ -50,6 +50,9 @@ A few complications exist with the data.  They include:
 * There's any empty last column
 * There are two rows of metadata at the end of the file
 
+
+### Read the data
+
 We explored how to deal with the non-UTF8 encoding in [earlier lecture](https://bio724d.github.io/Bio724D_2025_2026/import_basic_dplyr_template.html#loading-a-file-with-a-non-standard-encoding).
 
 
@@ -61,11 +64,9 @@ The subsequent columns are the absorbance readings for each of the 96 wells on t
 
 * Create a data frame from the `crypto_tecan_run_example.txt` file
 
-  * Easy: Remove the empty last column and two rows of metadata
+* Easy: Remove the empty last column and two rows of metadata
 
-  * Challenging: Give the columns meaningful names
-
-    * Since there are 98 columns it would be tedious, error prone, and inefficient to create all of these by hand.   Solve this with computation. The functions `rep` and `str_c` are useful here.
+* Challenging: Give the columns meaningful names. Since there are 98 columns it would be tedious, error prone, and inefficient to create all of these by hand.   Solve this with computation. The functions `rep` and `str_c` are useful here.
   
 Having solved the problem above, your data should look like this:
 
