@@ -107,9 +107,6 @@ The `print` function on the other hand returns a character vector representing t
 print(with_newline)
 ```
 
-However, print 
-
-
 An important difference is that `cat` returns a NULL object wile `print` returns the character object.
 
 
@@ -143,6 +140,8 @@ str_c(hello, hello_emoji)
 # when you have a vector of strings and 
 # you want to combine them into a single string
 str_flatten(greetings, collapse = " ")
+
+# what happens when you leave out the collapse argument?
 ```
 
 ## String interpolation
