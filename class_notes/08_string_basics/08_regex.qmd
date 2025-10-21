@@ -256,8 +256,7 @@ str_view(prots$sequence, "")
 
 # what fraction of the proteins contain these letters?
 num_amb <- count(filter(prots, str_detect(prots$sequence, "")))
-prop_amb <- 1 - (num_amb / nrow(prots))
-print(prop_amb)
+print(num_amb / nrow(prots)))
 ```
 
 This is a small fraction, consistent with overall good data quality. Note that `str_detect()` uses a different optional argument to invert the search pattern from the one used by `str_view()`.
