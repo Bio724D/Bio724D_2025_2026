@@ -255,7 +255,7 @@ Notice that the descriptions all say "partial". We are not the first to notice t
 str_view(prots$sequence, "")
 
 # what fraction of the proteins contain these letters?
-num_amb <- count(filter(prots, str_detect(prots$sequence, "", negate = TRUE)))
+num_amb <- count(filter(prots, str_detect(prots$sequence, "")))
 prop_amb <- 1 - (num_amb / nrow(prots))
 print(prop_amb)
 ```
