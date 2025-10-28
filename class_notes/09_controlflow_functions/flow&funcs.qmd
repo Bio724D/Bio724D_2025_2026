@@ -1,0 +1,205 @@
+---
+title: "BIO724D: Introduction to control flow and functions"
+author: "Greg Wray"
+date: today
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+
+```{r include = FALSE, silent = TRUE}
+library(tidyverse)
+```
+
+## Programming
+
+So far, most of what have covered in class has focused on commands that are run one at a time or in short blocks to carry out a single step in an overall workflow. Often, this process involves out-of-order operations, such as going back to re-run an earlier block to modify the contents of a data frame, then skipping ahead a few blocks to re-plot the data to understand the effects, and so forth. 
+
+For many data analysis tasks, this interactive, one-step-at-a-time, non-linear process works extremely well. Examples include wrangling data frames and exploratory data analysis. But there will likely be occasions where you need to write a program. Programming is the process of composing individual commands into an overall structure that runs without interruption from start to finish. Programming is particularly useful when you need to carry out the same set of operations many times, when the same set of commands occurs at several different steps in the overall work flow, or when you need to evaluate intermediate results and modify subsequent steps accordingly. A robust program typically also tests that input data is of the correct type and conforms to specific expectations, and may have the ability to handle or report some common errors. Crucially, programming contributes to reproducibility, because it preserves a precise record of all the steps you used to generate the statistical results, figures, and tables in a publication. 
+
+Two kinds of structures are integral to programming, and are part of nearly every computer language.
+
+  * **Control flow** provides the ability to move beyond a strictly linear, one-after-another sequence of commands. With *branch* structures, different commands are executed depending on whether a condition is true or false. With *loops*, the same set of commands is repeated a specified number or times or whenever a specified condition is true. 
+
+  * **Functions** provide the ability to store the steps that accomplish a specific task and then re-use them later at any time, even in another program.  
+
+Today, we'll take a look at the basics of control flow and functions as they are implemented in R. Much of what we cover will be directly applicable to other programming languages, although details of syntax and usage may differ. 
+
+
+## Control flow in R: the basics
+
+Most programming languages provide at least two basic kinds of control flow structures: *for loops* as a way of repeating and *if/else* as a way of branching. R and most other programming languages offer other control flow structures, but these are provided for convenience and clarity only, and do not contribute additional capabilities. If you really want to geek out, read up on formal proofs by Alan Turing and Alonzo Church demonstrating that no additional control structures beyond for loops and if/else are required to carry out any conceivable computation. Programming languages that offer this infinite range of computing tasks are known as *Turing Complete*. 
+
+**For loops.** Loops provide a way to execute a set of statements multiple times. R makes it simple to apply a function or arithmetic operation to all of the items in a vector, matrix, or data frame column without needing to set up a loop. But what if you want to carry out the same set of operations on multiple vectors, matrices, data frames, or even files? For loops provide this and many other capabilities. 
+
+The three elements of a for loop are: (1) an object or set of objects that you want to work with, (2) a loop counter, and (3) the body of the loop, namely the statements you want to execute multiple times. 
+
+As an example, here is a loop that reads the contents of three `.csv` files with identical structure but different values, and assigns each to a position within a list. The files are named `2024-MAR-week-#.txt` where `#` is the number of the week. The function uses a `stringr` function and the loop counter to generate the names of the files to be read.
+
+Indenting the body of the loop is not required but is strongly recommended for readability.
+
+```{r, message=FALSE, warning=FALSE}
+# create an empty list to hold the data frames
+
+# set up a for loop to read file contents into the list
+
+```
+
+Check that the loop worked correctly and examine the data. The list `weeks` is no longer empty: each item in the list is a data frame that contains weather data for one week in March, 2007.
+
+```{r}
+
+```
+
+We could have easily written three lines of code, each importing a different file. But imagine doing this for every week of the year. If any part of the line needed to be changed in the future, it would require modifying 52 lines of code! This would be laborious and create many opportunities for errors. 
+
+**If / else structures.** Branches provide a way to execute different blocks of code or skip specific blocks of code depending on a condition. The most basic form of branching is an if/else structure. You provide a condition: if the condition is true, the `if` block of code is executed; if it is false, the `else` block of code is executed. It is also possible to use an `if` statement by itself (without an `else`).   
+
+The three elements of an if/else structure are: (1) an object or set of objects that you want to work with, (2) a condition that evaluates to `TRUE` or `FALSE`, and (3) the body of the alternative branches, namely the statements you want to execute if the statement is `TRUE` and the statements you want to execute if it is `FALSE`. 
+
+To illustrate how branching works, we will work with the weather data files that we imported earlier. The code below defines a for loop that uses an if/else structure to issue a verbal report whose structure differs depending on rainfall data for each week.  
+
+Again, indenting is not required but is strongly recommended. As structures become more complicated, indenting makes code *much* easier to read.
+
+```{r}
+# set up a for loop to step through the 'weeks' list
+# use an if / else structure to provide different reports based on total rainfall
+
+```
+
+We will cover more complex branching structures next week.
+
+**Conditions.** Like most programming languages, R allows you to create a great variety of conditions. Here are some simple ways to create a condition:  
+
+  * Test for equivalence using `==` and for non-equivalance using `!=`. 
+  * Test quantitative comparisons with `>`, `<`, `>=`, and `<=`. 
+  * Test for set membership using `in` and providing a list of values.
+  * Test for data type using `is.integer` and similar functions.
+  
+The important thing to remember about constructing a condition is that it must evaluate to `TRUE` or `FALSE.`
+
+We will return to conditions next week, to consider: additional operators, compound conditions, helper functions, rounding errors, and some important quirks related to NAs. 
+
+
+## Functions in R: the basics
+
+Functions are useful for several reasons. One of the most important is that functions help **eliminate redundant code**. They make writing and maintaining code much easier, because any updates only need to be applied once, rather than to multiple places in a program. Using functions also reduces errors that can arise when you need to update the same set of instructions in multiple locations. If you find yourself copy/pasting code between parts of a program, you should probably be writing a function instead. Functions also **simplify debugging code**. They make the overall structure and logic of a program easier to understand. If named well, a function describes what it does, making code more readable. A third advantage of functions is to **speed up code development**. It's often easier to imagine how to solve a complex task by breaking it down into smaller steps. Functions allow you to treat some of those steps as "black boxes" to be filled in later, and instead focus on the overall logic of solving the big problem. And, of course, using functions that were written by other people can save enormous amounts of time. Very few programmers want to write code to replace the base R and tidyverse functions. And fourth, functions **facilitate re-using your code**. Many functions carry out simple, generic tasks, and can be re-used with little or no modification in other programs. By writing your own functions, you can create a library of code tailored to specific tasks that arise in your research. You can then use these functions in future projects.
+
+To illustrate how functions work, we will write some functions that process Lewis Carroll's poem "Jabberwocky". 
+
+```{r}
+# read the file into a data object
+
+# review the organization of the poem
+
+```
+
+**Naming functions.** It is good practice to give your functions names that describe what they do. In general, use verbs for function names and nouns for data object names. Strive to keep function names short, but favor clarity over brevity (remember that auto-complete can do most of the typing for you). 
+
+Beware: if you give a new function a name that is the same as an existing function, R will substitute your function for the original. R will not raise an error or even issue a warning! This can lead to unexpected results and may remove a capability that you need. If you accidentally define a function with the name of an existing function, simply clear the environment. You can then try again with a different, and this time unique, function name. 
+
+A handy function called `exists` can check whether a function (or any other object) already exists. Suppose you want to write a function to count the number of lines in "Jabberwocky".
+
+```{r}
+# check to see if any object has been defined; note the quotes
+
+```
+
+It's good that we checked, as there is a base R function called `count`! The more specific name `count_lines` is not in use by base R or any other library that is currenty loaded.
+
+**Writing functions.** Defining a function involves three components: a name, the arguments, and the body. We put these together by: (1) calling the base R function `function` and assigning it to the function name, (2) specifying the argument(s), and (3) enclosing the body of the function in curly braces. The body is the code that will run when the function is called. In this case, the body consists of a single statement that calls the `stringr` function that counts pattern matches using a simple regex that finds end-of-line characters.  
+
+Once again, indenting is optional but strongly recommended for clarity. 
+
+```{r}
+# define a function to count the number of lines in a text object
+
+```
+
+Note that the function `count_lines` now exists in the environment. Like all objects created during an R session, it will disappear when you close the file or quit. We will look at how to save functions next week, but for now you can easily re-create a function by running the code block that defines it.
+
+To invoke the function, substitute `text` for the object you want the function to work with; internally, that object is known by the variable name in the function definition.
+
+```{r}
+
+```
+
+This code block runs without an error, but it also does not return any output. To capture the result of a function, assign it to a value.
+
+```{r}
+
+```
+
+Our function generates a number, which is what we wanted. Or is it?
+
+**Validating functions.** The first thing you should do after defining a function is test whether it works as expected. Check and you will see that "Jabberwocky" does not contain 33 lines! We need to modify our regex to get an accurate line count. In this case, we are falsely counting extra "lines" of the poem at the end of each stanza. A simple fix to our regex will avoid double-counting consecutive return characters. 
+
+```{r}
+# modify the function to avoid double-counting 
+
+```
+
+This still isn't right! Can you spot the problem?
+
+```{r}
+# modify the function again to count lines correctly 
+
+```
+
+Now it returns the correct value.
+
+In general, you should test several inputs to ensure that a function does what you want it to. It is especially important to test "corner cases", such as `0`, `1`, and `-1` for numerics; `""`, `" "`, `"\t"` and `"\n"` for strings; and `NA` for all data types.  
+
+**Defining return values.** By default, an R function will automatically return the value calculated on the last line of the function body. This is called an *implicit* return. Using an implicit return works for simple functions where it is immediately clear what is being done. 
+
+In general, however, it is better to indicate an *explicit* data object that you want the function to return to the main program. You can do this by including a `return` statement in the function. The `return` statement does not need to be the last statement in the function, although it often is. 
+
+An important limitation to remember is that R functions can only return one data object. If you want to return multiple values, you can put them into a single vector, list, data frame, or other data structure. To access individual values in the main program, simply index this data object in the usual way. 
+
+```{r}
+# modify the function to make the return value explicit 
+
+```
+
+The function works as it did before, but the logic is clearer (including to future you).
+
+**Internal values are private.** Any variable assigned within a function remains *private* to that function: the main program and other functions cannot access it. There is a very good reason for this, which will become clear later. For now, the important point is that you need to remember to store the values returned by a function in order to use them in the main program. 
+
+```{r}
+
+```
+
+**Defining multiple arguments.** You will often want to write functions with multiple arguments. To do this, separate arguments with commas.  
+
+If you are passing data to a function, best practice is to make the data the first argument(s). This is not required, but it is idiomatic and thus makes it easier to read and understand your code. 
+
+To illustrate, we will write a function that counts the number of letters in the first word of a given line in "Jabberwocky". 
+
+This function involves multiple statements. When composing a function that involves multiple steps, it's helpful to test intermediate values for accuracy by including statements to output their value. Once the function is working correctly, you can remove them.
+
+```{r}
+# define a function to count the number of letters in the first word on a given line
+#   function definition needs to contain two arguments: data and line number
+#   split the file at a specified occurrence of '\n' 
+#   trim whitespace at the beginning of lines
+#   retrieve the position of the first space on the specified line
+#   subtract 1 to find the length of the word
+
+# test by providing several different values for line_number
+
+```
+
+Note that our function isn't perfect: it can't distinguish letters from punctuation marks. This inflates the character count for words that are adjacent to punctuation, e.g. "'Twas" is counted as 5 characters rather than 4. As an exercise, try modifying the function so that it only counts alphabetic characters. Hint: regex is your friend.
+
+**Viewing function code.** If you want to see the code for *any* function, you can do so by typing its name without the `()` that is used to store input values. This works for functions in base R and for any libraries that are currently loaded. (The `View` function also works.) The ability to access code for well-constructed functions can be very handy for writing your own functions. Try looking at the code for some functions to see how they work. 
+
+```{r}
+
+```
+
+Many `tidyverse` functions are "wrappers" that simply call other functions and present them in a more consistent manner. This is the case for many of the `stringr` functions, for example. Some base R functions return the somewhat cryptic message `Primitive("c")`. This just means that the function is actually a program written in  `C` (usually to provide faster execution) and you won't be able to view the code. 
+
+
