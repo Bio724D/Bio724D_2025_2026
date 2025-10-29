@@ -205,7 +205,7 @@ str_sub(phrase, 5) # from 5 to end
 str_sub(phrase, 5, -2) # from 5 to two from the end
 ```
 
-`str_sub` can be used with assignment to replace characters:
+`str_sub` can be used with assignment to replace characters, but *BE CAREFUL* as this modifies the string passed in *in-place*.
 
 ```{r}
 str_sub(phrase, 5, 7) <- "NOW" 

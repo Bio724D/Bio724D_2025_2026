@@ -1,0 +1,104 @@
+---
+title: "Poem Analysis: In class"
+format: html
+---
+
+### Overview
+
+See [detailed class notes for goals and explanation](https://bio724d.github.io/Bio724D_2025_2026/09_application_of_controlflow_and_functions.html).
+
+### Libraries
+
+
+```{r}
+library(tidyverse)
+```
+
+
+### Poems for testing
+
+```{r}
+jabber <- read_file("https://raw.githubusercontent.com/Bio724D/Bio724D_2025_2026/refs/heads/main/data/Lewis_Carroll_Jabberwocky.txt")
+
+stranger <- read_file("https://raw.githubusercontent.com/Bio724D/Bio724D_2025_2026/refs/heads/main/data/Gabriela-Mistral_The-Stranger.txt")
+```
+
+### Final  version of analyze_poem as develop in class
+
+```{r}
+
+analyze_poem <- function(poem) { 
+  stanzas <- get_stanzas(poem)
+  
+  nstanzas <- length(stanzas)
+  
+  linects <- integer(length = nstanzas)
+  wordcts <- integer(length = nstanzas)
+  alphacts <- integer(length = nstanzas)
+  punctcts <- integer(length = nstanzas)
+  
+  for (i in 1:nstanzas) {
+    stanza <- stanzas[i]
+    
+    linect <- count_lines(stanza)
+    linects[i] <- linect
+    
+    wordct <- count_words(stanza)
+    wordcts[i] <- wordct
+    
+    alphact <- count_alphabetical(stanza)
+    alphacts[i] <- alphact
+    
+    punctct <- count_punctuation(stanza)
+    punctcts[i] <- punctct
+  }
+  
+  tibble(lines = linects,
+         words = wordcts,
+         alphas = alphacts,
+         puncts  = punctcts)
+  
+}
+
+
+get_stanzas <- function(poem) {
+  str_split_1(poem, "\\n\\n")
+}
+
+count_lines <- function(stanza) {
+  str_count(stanza, "\\n") + 1
+}
+
+count_words <- function(stanza) { 
+  words <- 
+    stanza |> 
+    str_squish() |>
+    str_split_1("\\s")
+  
+  length(words)
+}
+
+count_alphabetical <- function(stanza) { 
+  str_count(stanza, "[:alpha:]")
+}
+
+count_punctuation <- function(stanza) { 
+  str_count(stanza, "[:punct:]")
+}
+
+
+
+```
+
+### Run analysis of our test poems
+
+
+```{r}
+analyze_poem(jabber)
+```
+
+
+```{r}
+analyze_poem(stranger)
+```
+

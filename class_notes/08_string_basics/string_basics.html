@@ -2354,7 +2354,7 @@ Then Sally and I did not know what to say. Our mother was out of the house for t
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>choicestr <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(<span class="st">&quot;The integer I chose was {x}!&quot;</span>)</span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>choicestr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>The integer I chose was 27!</code></pre>
+<pre><code>The integer I chose was 1!</code></pre>
 </div>
 </div>
 </section>
@@ -2437,7 +2437,7 @@ This string has lots of whitespace around it and in it.</code></pre>
 <pre><code>[1] &quot;now, Brown Cow&quot;</code></pre>
 </div>
 </div>
-<p><code>str_sub</code> can be used with assignment to replace characters:</p>
+<p><code>str_sub</code> can be used with assignment to replace characters, but <em>BE CAREFUL</em> as this modifies the string passed in <em>in-place</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(phrase, <span class="dv">5</span>, <span class="dv">7</span>) <span class="ot">&lt;-</span> <span class="st">&quot;NOW&quot;</span> </span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>phrase</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
