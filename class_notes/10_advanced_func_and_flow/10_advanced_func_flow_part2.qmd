@@ -13,6 +13,110 @@ format:
 library(tidyverse)
 ```
 
+## Purr's map functions
+
+For-loops and other branching constructs are concepts used not just in R, but in almost every programming language. However, there are another set of control flow concepts that come from so called "functional programming" paradigms, that are less familiar, but also very powerful.  
+
+Here we introduce the basic idea of "map functions" which are fundamental to many functional programming languages.  The map function we're going to use are part of the `purr` package which  is loaded when we load `tidyverse`. 
+
+
+### basic `map`
+
+Typically, `map` takes two arguments -- a sequence (a vector, list, or data frame) and a function.  It then applies the function to each element of the sequence, returning the results as a list.
+
+To illustrate `map`, let's consider an example with a list of 2-vectors, where each vector gives the min and max values of some variable of interest for individuals in a sample (e.g. resting heart rate and maximum heart rate during exercise).  We can use the `map` function to quickly generate the difference between the resting and maximum heart rates:
+
+```{r}
+heart.rates <- list(bob = c(60, 120), fred = c(79, 150), jim = c(66, 110))
+
+diff.fxn <- function(x) {
+  x[2] - x[1]
+}
+
+# apply the diff.fxn to every item in heart.rates
+map(heart.rates, diff.fxn)
+```
+
+As a second example, here's how we could use `map` to get the class of each object in a list:
+
+```{r}
+x <- list(c(1,2,3), "a", "b", list(lead = "Michael", keyboard = "Jermaine"))
+map(x, class)
+```
+
+
+### `map_if` and `map_at`
+
+`map_if` is a variant of `map` that takes a predicate function (a function that evaluates to TRUE or FALSE) to determine which elements of the input sequence are transformed by the map function.  All elements of the sequence that do not meet the predicate are left un-transformed. 
+
+`map_at` take a vector of names or position, `.at`, which specifies which a=elements to apply the function to.
+
+Like `map`, `map_if` and `map_at` always returns lists.
+
+Here's an example of using `map_if`:
+
+```{r}
+x <- list(c(1,2,3), "a", "b", list(lead = "Michael", keyboard = "Jermaine"))
+
+map_if(x, is_character, str_to_upper)
+# compare the output you would get if instead you did the following
+# map(x, str_to_upper)
+```
+
+
+
+### mapping in parallel using `map2`
+
+The `map2` function applies a transformation function to two sequences in parallel.  The following example illustrates this:
+
+```{r}
+first.names <- c("John", "Mary", "Fred")
+last.names <- c("Smith", "Hernandez", "Kidogo")
+
+map2(first.names, last.names, str_c, sep=" ")
+```
+
+Note how we can specify  arguments to the transformation function as additional arguments to `map2` (i.e., the `sep` argument gets passed to `str_c`)
+
+
+
+### `map` variants that return vectors
+
+`map`, `map_if`, and `map_at` *always return lists*. The `purrr` library also has a series of `map` variants that *return vectors*:
+
+* `map_lgl` (for logical vectors)
+* `map_chr` (for character vectors)
+* `map_int` (integer vectors)
+* `map_dbl` (double vectors)
+
+```{r}
+# compare the outputs of map and map_chr
+a <- map(letters[1:6], str_to_upper)
+str(a)
+```
+
+```{r}
+b <- map_chr(letters[1:6], str_to_upper)
+str(b) # a vector
+```
+
+Here's an example using `map_dbl`, where we create a data frame with three columns, and compute the median of each column:
+
+```{r}
+# Make data frame for analysis
+df <- tibble(a = rnorm(100), b = rnorm(100),c = rnorm(100))
+
+map_dbl(df, median) # median of each column of df
+```
+
+You might think to yourself, "Oh, couldn't I do that with dplyr::summarize?". Indeed you can:
+
+```{r}
+df |>
+  summarize(across(where(is.double), median))
+```
+
+How do the results from the example `map_dbl` and `summarize` differ?
 
 
 
@@ -270,7 +374,7 @@ Within R Studio you can create an R Script file by choosing:
 
 Once you've created an R script, you can access the functions and any variables defined in that script by useing `source()` to read it in:
 
-```{r}
+```{r, eval=FALSE}
 # source the poemfxns.R file
 source("poemfxns.R")
 ```
