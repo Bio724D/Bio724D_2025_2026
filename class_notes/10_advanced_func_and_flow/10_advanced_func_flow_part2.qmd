@@ -14,13 +14,15 @@ library(tidyverse)
 ```
 
 
+
+
 ## Environment and Scope: How R knows what you're referring to
 
 ### Environments
 
 When we refer to a variable in R, the interpreter looks through the set of "environments" it keeps track of to see if it can find an object with a matching name.
 
-R first looks in what it considers the "current environment" (the environment in which the code is executing). If you are in an interactive session, R  then looks at the "global environment".  If it doesn't find the variable in the local or global environment, in then looks through other environments it's aware of (typically loaded packages)
+R first looks in what it considers the "current environment" (the environment in which the code is executing). If you are in an interactive session, R  then looks at the "global environment".  If it doesn't find the variable in the local or global environment, in then looks through other environments it's aware of (typically loaded packages).
 
 The function `environment()` is useful for asking what you current environment is:
 
@@ -34,10 +36,15 @@ environment()
 ```{r}
 # what environment is the function mean found in?
 environment(mean) 
+```
 
+And another example
+```{r}
 # where is filter found?
 environment(filter)
 ```
+
+#### Environment search and defined objects
 
 The `search()` function shows us the environments R searches (and their order):
 
@@ -45,7 +52,7 @@ The `search()` function shows us the environments R searches (and their order):
 search()
 ```
 
-The "global" environment is designated ".GlobalEnv" in that output of search. In this example we also see a bunch of tidyverse packages in the search path because we loaded tidyverse in the quarto document.
+The "global" environment is designated ".GlobalEnv" in the output of `search`. In this example we also see a bunch of tidyverse packages in the search path because we loaded tidyverse in our current session.
 
 
 The function `ls()` (or the equivalent `objects()`)  returns a list of the names of objects in our current environment:
@@ -57,7 +64,7 @@ y <- "Hello, world!"
 ls()
 ```
 
-`ls()` can also be called with an environment  to return the names of objects in the given environment:
+`ls()` can also be called with an environment to return the names of objects in the specified environment:
 
 ```{r}
 # list the names of objects in the string package
@@ -105,7 +112,7 @@ Names defined inside a function "mask" names defined outside a function.
 x <- 10
 
 foo <- function() {
-  x <- 5  # outer x not affected
+  x <- 5       # outer x not affected
   return(x^2)
 }
 
@@ -133,10 +140,11 @@ bar()
 
 #### Modifying global variables in functions
 
-You can't modify an object in the global environment using the standard assignment operator (`<-`), instead you need to use the "super assignment" operator
+You can't modify an object in the global environment using the standard assignment operator (`<-`), instead you need to use the "super assignment" operator (`<<-`).
+
+This first example shows that the standard assignment operator doesn't modify the variable `x` defined in the global environment:
 
 ```{r}
-
 x <- 10
 
 wont.work <- function() {
@@ -149,6 +157,7 @@ print(x)
 
 ```
 
+However, using the super assignment operator (`<<-`) you can modify the `x` in the enclosing environment:
 
 ```{r}
 
@@ -166,7 +175,7 @@ print(x)
 
 #### Function invocation creates a new environment
 
-Every time a function is invoked a new environment is created. Changes made to function local variables in one call to the function don't carry over.
+Every time a function is invoked a new environment is created. Changes made to function local variables in one call to the function don't typically carry over :
 
 
 ```{r}
@@ -186,6 +195,9 @@ self.ct()
 
 ```
 
+R does include a mechanism for maintaining state across different called "closures" but this is a fairly advanced topic. 
+
+
 
 #### Lookup in functions is dynamic
 
@@ -196,13 +208,19 @@ In functions, lookup rules apply when the function is run not when the function 
 x <- 10
 
 foo <- function(){
-  x^2
+  x^2  # x not locally defined so lookup from global envt
 }
 
 foo()
+
+# If we redefine x in global envt, it affects x inside foo because
+# of dynamic lookup
 x <- 20 
 foo()
 ```
+
+
+
 
 #### Lazy evaluation of function arguments
 
@@ -225,45 +243,46 @@ baz(stop("I'm quitting!"), evaluate.x = FALSE)
 ```
 
 
-## Organizing your code into script files
 
-Until now we've been writing all of our R code in Quarto markdown documents. 
+## R scripts
 
-Quarto markdown is great for exploratory analyses, documenting settings, etc.  However, once you start to build up a library of useful functions, the organizational structure of Quarto markdown can be an impediment to reusable and robust code. The most common case where the markdown notebook structure is less than ideal is if we craft functions that we want to use in multiple notebooks. 
+As you build up a set of related functions, you'll often find you want to use these functions across different Quarto notebooks or analyses.  Copying the code for these functions across multiple notebooks is tedious and error prone, and almost always leads to multiple slightly different versions of important functions. A better approach is to put your important functions in a single library which can be called from multiple notebooks. This also means your important functions can be updated and improved in a central location.  This is where R scripts come in.
+
+An R script is a plain text file of R code, conventionally with the file extension `.R`.  Unlike Quarto notebooks you can **only** have valid R code in an Rscript (i.e. think of an R script as one long code block).
+
+### Creating an R script
+
+Within R Studio you can create an R Script file by choosing:
+
+* `File > New File > R script`
+
+* The convention of R script is to give them the extension `.R`
 
 
-### R scripts
+#### Your turn: Create an R script for the poem analysis function
 
-An R script is a plain text file of R code, conventionally with the file extension `.R`.  Unlike Quarto notebooks you can **only** have valid R code in an Rscript (i.e. think of an R script as one long code block)
+* Create an R script, `poemfxns.R` 
 
-
-* Show RStudio menu for creating an R script
-
-* Add poem analysis to an Rscript `poemfxns.R`
-
+* Add the library calls and functions from [the poem analysis example](https://bio724d.github.io/Bio724D_2025_2026/poems_analysis_inclass.html) to your R script.
 
 
 ### Reading objects from a R script using `source()`
 
+Once you've created an R script, you can access the functions and any variables defined in that script by useing `source()` to read it in:
 
 ```{r}
 # source the poemfxns.R file
+source("poemfxns.R")
 ```
 
 
-* Sourcing an Rscript is like typing to the code directly into the console and evaluating it -- all objects (functions, values, data) created in Rscript are created in the current environment (typically the global environment.)
+* Sourcing an Rscript is like typing to the code directly into the console and evaluating it -- all objects (functions, values, data) created in the Rscript are created in the current environment (typically the global environment).
 
-
-### Running R code using `Rscript` from the terminal
-
-* See in-class demo
 
 
 ### Creating your own package
 
-The process of creating your own R package that can be loaded via the `library()` function is a little more involved.  However, RStudio makes it relatively painless to do so using the `New Project...` dialog.
-
-* See in-class demo
+The process of creating your own R package that can be loaded via the `library()` function is a little more involved.  However, RStudio makes it relatively painless to do so using the `New Project...` dialog. See the [RStudio documentation on Writing Packages](https://docs.posit.co/ide/user/ide/guide/pkg-devel/writing-packages.html) for more info.
 
 
 
