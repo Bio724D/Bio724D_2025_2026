@@ -1,0 +1,310 @@
+---
+title: "BIO724D: More on control flow and functions"
+author: "Greg Wray"
+date: today
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+```{r include = FALSE, silent = TRUE}
+library(tidyverse)
+library(palmerpenguins)
+jabber <- read_file("Jabberwocky.txt")
+```
+
+
+## Conditions: a closer look
+
+Constructing conditions is an important part of programming. Last week, we used some simple conditions in `if/else` structures. This week, we'll look at additional ways to write conditions that can be very useful. We will also look at how to incorporate conditions into loops using `where` structures.
+
+**Testing conditions.** When you start to write more complex conditions, it's a good idea to test them before incorporating them into a function or program. This is very straightforward: just construct the condition and evaluate. Remember, it must evaluate to either `TRUE` or `FALSE`.
+
+```{r}
+# define some variables
+
+# test some conditions
+
+```
+
+**Compound conditions.** You can evaluate more than one condition at once using the `&&` (AND) and `||` (OR) operators. Use the `!` operator to negate all or part of the expression, and round brackets to make grouping clear. 
+
+In the examples below, `TRUE` and `FALSE` represent any single condition. Remember that conditions must evaluate to either `TRUE` or `FALSE`. Try changing the values to learn how the operators work. Note that order doesn't matter. 
+
+```{r}
+# try different combinations
+
+# negation works on the entire compound condition
+
+# include negation within brackets to apply it to just part of the condition
+
+# nesting is allowed
+
+```
+
+**Membership as a condition.** R provides the `%in%` operator to test for membership. 
+
+You can test for membership within a range. Here, we use the `:` operator to generate an integer range for simplicity. However, you could construct more complicated ranges using approaches that we covered in previous sessions.
+
+```{r}
+# test for membership in a range of integers
+
+```
+
+The second condition is FALSE because the `:` operator generates a sequence of integers. To test if a non-integer lies within a range, use arithmetic operators in a compound condition. 
+
+```{r}
+# test for intermediate value
+
+```
+
+You can also test for membership in a set. First, define the set. In the example below, the `unique` function eliminates any repeat values; this is not required but reduces execution time with large input vectors. Once a set has been defined and assigned, you can test for membership in it at any point in the program.
+
+```{r}
+# make a list of all the species in the penguins data frame
+
+
+# test whether a species is part of the penguins data set
+
+```
+
+**Helper functions.** Base R provides several *helper functions* that can be incorporated into conditions. Some of the most useful ones are described below.
+
+Variables in conditions must be *single values*, not vectors or other data structures. The functions `any` and `all` reduce a vector, list, or data frame column to a single logical value that can be used in a condition. 
+
+Below are some examples of including these functions in conditionals.
+```{r}
+# testing with any and all
+
+```
+
+The function `identical` tests whether two data objects are exactly the same and contain the same values. 
+
+```{r}
+# testing with identical
+
+```
+
+Note that `identical` is *patient* and *picky*. The first condition is true because each argument is fully evaluated before `identical` makes the comparison. The second condition is false because one value is a double and other is an integer (numerics are double by default and `L` coerces to integer). In other words, `identical` requires identity of not just the value, but also the data type.
+
+A common use for `identical` is to compare data objects to test whether they are the same. 
+
+```{r}
+# make a copy of the penguins data set 
+
+# test for identity
+
+# modify one character in one cell in the entire data frame
+
+# now test for identity
+
+```
+
+A fourth useful helper function is `near.` Use this function when comparing numeric variables after carrying out calculations, since rounding errors can produce small differences from expected values.
+
+```{r}
+# do some math
+
+# compare values
+
+```
+
+The first condition returns `FALSE` because rounding errors made `A` not quite equal to 2. Warning: if you ask R to display the value of `A`, it will show 2, which is not strictly true! The second condition returns `TRUE` because `near` tolerates small differences. The tolerance level can be tuned as needed (refer to documentation for details). Use `near` to avoid unexpected results when using arithmetic. 
+
+Note that there is a base R function called `all.near` that has similar functionality. 
+
+**NA and conditions.** If you pass `NA` to *any* part of a condition, it will evaluate to `NA`. Similarly, if you pass a vector, list, or data frame column that contains one or more `NA`s and then use `any` or `all`, the condition will again evaluate to `NA`. Including these in an `if` or `when` structure will throw an error, because conditions must evaluate to either `TRUE` or `FALSE`. 
+
+To test whether a value is `NA`, use the function `is.na`. Do *not* use the standard comparison operators!
+
+```{r}
+# test conditions with NA
+
+```
+
+To test whether a vector, list, or data frame column contains any `NA` values, use the helper function `anyNA`. 
+
+As an example, you could use `anyNA` is to provide customized warnings about missing data.
+
+```{r}
+# test for NA values in the penguins data set
+
+```
+
+Try some different column names to test whether it works. Note that base R does not provide an `allNA` function, although you could write one!
+
+
+## Control flow: a closer look
+
+**Short control flow structures.** For all control flow structures, you can omit the curly braces if the body consists of just one statement. This can make code easier to read if the statement is simple.
+
+The two loops below do exactly the same thing.
+```{r}
+# with curly braces 
+
+# without curly braces
+
+```
+
+If the loop contains more than one line of code, curly braces are required.
+
+**While loops.** You can accomplish any programming task with just two control flow structures: `if/else` branches and `for` loops. However, there are cases where code executes faster or is easier to read if you use other control flow structures. 
+
+R provides `while` loops as a way to repeat code based on a *condition* rather than a loop counter. The loop will execute as long as the condition evaluates to `TRUE`; the loop terminates the first time the condition evaluates to `FALSE`. This is useful in situations where you don't know in advance how many iterations are needed.
+
+An example of a `while` loop is shown below. This loop finds the index of the first value in numeric vector that has 7 as a factor. This is a case where the right choice of loop structure could reduce execution time: a `for` loop will exhaustively search the vector but a `while` loop terminates once the desired value has been found.
+```{r}
+# first, create a vector of whole numbers to test
+my_vec <- c(82, -2, 18, 999, 63, 42, 51)
+
+# find the index of the first value that has 7 as a factor
+
+```
+Because the `while` loop stops executing after it finds the first value with 7 as a factor, the loop counter is also the index position of that value.
+
+Note that `while` loops *do not* automatically manage loop counters because they are based on evaluating a condition; in contrast, `for` loops automatically manage loop counters because they are based on counting iterations. If you need to use a loop counter with a `while` loop, you will need to set it up in advance and then increment it within the body of the loop (as in the example above). 
+
+A final and very important point about `while` loops: make sure that the condition eventually evaluates to `FALSE` or your `while` loop will run forever. Several mechanisms can be used to ensure that a `while` loop will eventually end. For example, you can include an a `stop` statement that executes if the loop counter reaches 1000. There are several other idiomatic mechanisms for guaranteeing that a `while` loop will end in a graceful way.
+
+**Extending the if/else structure.** You may find yourself in a situation where you want to carry out multiple `if` tests in a row. You can do this by "chaining" repeated if/else, as in the example below.
+
+```{r}
+num_legs <- function(species) {
+  if (species == "armadillo") {
+    legs = 4
+  } else if (species == "snow leopard") {
+    legs = 4 
+  } else if (species == "kangaroo") {
+    legs = 2
+  } else if (species == "fruit bat") {
+    legs = 2
+  } else if (species == "boa constrictor") {
+    legs = 0
+  } else {
+    stop("Error: unknown species.")
+  }
+}
+
+# test the function
+print(num_legs("kangaroo"))
+```
+
+There is no upper limit to the number of conditions you can chain in this way. Although it works, this structure quickly becomes hard to read and prone to error. 
+
+Note that the `stop` statement is not required, but is recommended as a way to flag any values passed to the function that cannot be matched. If this happens, `stop` will throw an error, halting execution of the program; optionally it can print a custom message that you provide. Alternatively, you may prefer to treat the lack of a match as a warning. In that case, omit the `stop` statement and print a warning message that will not halt execution of your program.
+
+**Switch structure.** A simpler solution is to use the base R `switch` structure, which allows you to choose one option from a list of alternative conditions.
+
+The code below carries out the same set of comparisons, but is simpler and easier to read.
+
+```{r}
+# make a function that returns the number of legs
+num_legs <- function(species) {
+  switch(species,
+         "armadillo" = 4,
+         "snow leopard" = 4,
+         "kangaroo" = 2,
+         "fruit bat" = 2,
+         "boa constrictor" = 0,
+         stop("Error: unknown species.")
+         )
+}
+
+# test the function
+num_legs("boa constrictor")
+```
+
+Again, the `stop` statement is not required, but it is recommended.  
+
+Note that `dplyr` provides a control flow structure called `case_when` that is similar to `switch`. We will not cover it here, but you may encounter it in code written by others.
+
+**Vectorized if/else.** R encourages vectorized operations, where a single statement applies to every item in a vector. You can apply a more limited version of an `if/else` structure to a vector using the `ifelse` function. This function takes a vector as input and returns a vector of the same length.
+
+The syntax is a bit awkward. The first argument is the condition, which you specify without round brackets. The second argument is the return value when the condition is `TRUE` ("if") and the third argument is the return value when the condition is `FALSE` ("else"). Unlike a true `if/else` structure, the second and third arguments are not statements, but values. 
+
+```{r}
+# create a vector to work with
+
+# classify each element of the vector as even or odd
+
+```
+
+This structure is most appropriate for simple conditions and outputs.
+
+**Exiting a control flow structure.** It can be useful to exit a control flow structure under specific conditions. For example, you might want avoid a lengthy computation involving a loop if it is not needed, or you might not want to proceed if a vector contains `NA`s. 
+
+To end execution of a `for` loop or a `while` loop, there are two options. Use a `next` statement to end the current iteration of the loop and a `break` statement to exit the entire loop structure. 
+
+In the example below, two consecutive if statements test the value of `i` to illustrate how `next` and `break` work in a loop structure.
+
+```{r}
+# a simple for loop to illustrate the use of next and break 
+
+```
+
+## Functions in R: a closer look 
+
+**Defining arguments.** R provides a *lot* of flexibility in how you set up and use arguments when defining a function. A function can have 0, 1, >1 arguments, of which none, some, or all can optionally have default values. It is also possible to specify that a particular argument can accept a variable number of input values. In most cases, it will be clear how many arguments to include in a function that you write. However, it's worth stopping to think about arguments before you start coding and after you test it. 
+
+If you find that your function has more than few required arguments, you may want to consider breaking it down into multiple functions. In general, it's good practice to keep functions simple. This makes them easier to debug and more widely applicable.
+
+**Halting execution.** It can be useful to stop execution of a loop, branch, or function under certain conditions. For example, you might want avoid a lengthy computation if it is not needed. Or you might not want to proceed if there are NAs in a vector and instead report a warning message. 
+
+To end execution of a function, use a `stop` statement. If a `stop` statement is executed, R automatically raises a error. Including a customize message with each `stop` statement is highly recommended: this can be very helpful when writing and debugging code, and it is useful to future you and other users of your code.
+
+Below is a function from last week's class.
+
+```{r}
+# count the number of lines in a poem 
+count_lines <- function(text) {
+  str_count(text, "\\n+")
+}
+
+# test the function
+count_lines(jabber)
+```
+
+The code below modifies the `count_lines` function we wrote earlier to avoid making an unnecessary calculation if the wrong data type is passed and report that the wrong data type was passed to the function.
+
+```{r}
+# count the number of lines in a poem after checking data type 
+
+# test the optional argument
+
+```
+
+This kind of testing is sometimes called *trapping*: the goal is to "catch" the wrong kind of input into the function. Passing the wrong data type is fairly obvious and R will usually generate an error even if you don't include error-trapping code. However, more subtle problems can arise from passing values that your function is not prepared to handle, for example an emojoi in a string, or input that results in nonsense values, such as a negative flipper length. 
+
+**Optional arguments.** Many base R and `tidyverse` functions contain optional arguments. Including optional arguments can be very useful for functions that you write as well. Refer to some of the common functions you use in R programming for useful examples. 
+
+To include one or more optional arguments, provide a default value for each.  While not strictly required, it is *strongly* recommended that you place all optional arguments *after* all required arguments. (Otherwise, you will need to use identifiers for *every* argument passed to your function, not just the optional ones.) 
+
+We can add an optional argument to report (or not) the result from within our `count_lines` function. 
+
+```{r}
+# count the number of lines in a poem after checking data type 
+
+# test the optional argument
+
+```
+
+Note that we need to know the result (the number of lines) *before* the print statement, so that we can report the value. Thus, that calculation can't be the last line of the function and will not be returned. In order to return the value to main program, we assign it to a variable and include it in a `return` statement at the end of the function body. Also note that the two simple `if/else` constructions don't require curly braces, making the code simpler and easy to follow.
+
+**Variable number of input values**. It is often very useful for an argument to accept a variable number of input values. This is essential for the role of some commonly used functions, such as `c`, `sum`, and `str_c`. A function with this capability is called a *variadic* in computer science terminology.  
+
+To define an argument that accepts any number of input values, use `...` ("dot dot dot"). 
+
+```{r}
+# write a function to sum an unknown number of inputs and convert to hexadecimal
+
+# test the function
+
+```
+
+
+
+
+
+
