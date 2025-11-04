@@ -1,0 +1,267 @@
+---
+title: "Problem Set 09"
+author: ""
+date: today
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+    theme: cosmo
+editor: source
+---
+
+
+```{r include = FALSE, silent = TRUE}
+library(tidyverse)
+```
+
+# Problems
+#### 1. Write a for-loop to read each of the files in the poems_corpus directory, returning a list with four character vectors containing: (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song.
+
+
+```{r}
+poem_files <- list.files(path="~/Downloads/poem_corpus", 
+                        pattern="*.txt",
+                        full.name = TRUE)
+poem_files
+```
+
+Now we need to write a for loop to extract (1) the authors first names; (2) authors last names; (3) poem/song title; (4) text of the poem/song from the files.
+
+Now we have first three info from the file name. for that we will use basename function to remove path. Then we remove .txt. Then we use strsplit by "_" to splot first name, last name and title. Used collapse in c() to combine things into a single string. if not, each line would become a vector
+
+```{r, warning=FALSE}
+first_name <- c()
+last_name <- c()
+poem_title <- c()
+poem_text <- c()
+
+file <- poem_files[1]
+
+for (file in poem_files) {
+  file_name_npath <- basename(file)
+  file_name_noext <- sub("\\.txt$", "", file_name_npath)
+
+  parts <- strsplit(file_name_noext, "_")[[1]]
+  
+  first_name <- c(first_name, parts[1])
+  last_name <- c(last_name, parts[2])
+  poem_title <- c(poem_title, paste(parts[3:length(parts)], collapse = " "))
+  
+  texts <- paste(readLines(file), collapse = "\n") # used paste because all the lines should be in the same vector
+  poem_text <- c(poem_text, texts)
+}
+
+poem_list <- list(
+  first_name = first_name,
+  last_name = last_name,
+  poem_title = poem_title,
+  poem_text = poem_text
+)
+```
+
+
+#### 2. Create an empty data frame with the following column names and types and assign it the variable name poems_df:
+
+first_name (character), last_name (character), title (character), stanza (integer), num_lines (integer), num_words (integer), num_alpha (integer), num_punct (integer)
+
+```{r}
+poems_df <- tibble(
+  first_name = character(),
+  last_name = character(),
+  title = character(),
+  stanza = integer(),
+  num_lines = integer(),
+  num_words = integer(),
+  num_alpha = integer(),
+  num_punct = integer()
+)
+```
+
+#### 3. Write a for-loop to iterate over the vectors you created in Problem 1 in parallel. Apply the analyze_poem function to the text of each poem, and use mutate to add author and title information to the output of analyze_poem. Merge each resulting data frame into poems_df using the dplyr::bind_rows.
+
+Analyze poem function from previous files
+
+```{r}
+get_stanzas <- function(poem) {
+  str_split_1(poem, "\\n\\s*\\n")
+}
+
+count_lines <- function(stanza) {
+  str_count(stanza, "\n") + 1
+  
+}
+
+count_words <- function(stanza) {
+  words <- 
+    stanza |> 
+    str_squish() |>
+    str_split_1("\\s")
+  
+  length(words)
+}
+
+count_alphabetical <- function(stanza) {
+  return (str_count(stanza, "[:alpha:]"))
+}
+
+count_punctuation <- function(stanza) {
+  return (str_count(stanza, "[:punct:]"))
+}
+
+####
+
+analyze_poem <- function(poem) { 
+  stanzas <- get_stanzas(poem)
+  
+  nstanzas <- length(stanzas)
+  linects <- integer(length = nstanzas)
+  wordcts <- integer(length = nstanzas)
+  alphacts <- integer(length = nstanzas)
+  punctcts <- integer(length = nstanzas)
+  
+  for (i in 1:nstanzas) {
+    stanza <- stanzas[i]
+    linects[i] <- count_lines(stanza)
+    wordcts[i] <- count_words(stanza)
+    alphacts[i] <- count_alphabetical(stanza)
+    punctcts[i] <- count_punctuation(stanza)
+  }
+  
+  tibble(lines = linects,
+         words = wordcts,
+         alpha = alphacts,
+         punct = punctcts)
+}
+
+```
+
+```{r}
+analyze_poem(poem_list[['poem_text']][1])
+get_stanzas(poem_list[['poem_text']][1])
+
+```
+
+It seems to be working. Note: I updated line break as "\\n\\n" OR "\\n \\n" in the get_stanzas() as line_breaks were defined that way in my code
+
+For loop - Just found out I dont have to do poem_list['poem_text'], can just use poem_text
+
+```{r}
+
+for (i in 1:length(poem_text)) {
+  poem_analysis <- analyze_poem(poem_text[[i]])
+  
+  poem_analysis <- poem_analysis |> 
+    mutate(
+      first_name = first_name[i],
+      last_name = last_name[i],
+      title = poem_title[i],
+      stanza = row_number()
+    ) |> 
+    rename(
+      num_lines = lines,
+      num_words = words,
+      num_alpha = alpha,
+      num_punct = punct
+    )
+  
+  poems_df <- bind_rows(poems_df, poem_analysis)
+}
+
+poems_df
+
+```
+
+#### 4. Using the output of Problem 3, add the following metrics (per stanza) to the data frame:
+
+word_complexity – the average number of alphanumeric characters per word
+punct_density – the average number of punctuation characters per line
+
+```{r}
+poems_df |> 
+  mutate(
+    word_complexity = num_alpha/num_words,
+    punct_density = num_punct/num_lines
+  )
+```
+
+#### 5. On a per poem basis (hint: group_by), generate a derived data frame with the following:
+stanza_complexity – the average word_complexity for the poem as a whole
+poem_complexity – the number of stanzas times the stanza complexity
+punct_metric – the median punct_density for the poem as a whole
+
+```{r}
+poems_df |> 
+  group_by(title) |> 
+  mutate(
+    word_complexity = num_alpha/num_words,
+    punct_density = num_punct/num_lines
+  ) |> 
+  summarise(
+    stanza_complexity = mean(word_complexity),
+    poem_complexity = n()* stanza_complexity,
+    punct_metric  = median(punct_density),
+  )
+```
+
+#### 6. What are the top three poems in terms of poem_complexity? What are the top three poems in terms of stanza_complexity?
+Will use arrange and slice for this.
+
+```{r}
+poems_df |> 
+  group_by(title) |> 
+  mutate(
+    word_complexity = num_alpha/num_words,
+    punct_density = num_punct/num_lines
+  ) |> 
+  summarise(
+    stanza_complexity = mean(word_complexity),
+    poem_complexity = n()* stanza_complexity,
+    punct_metric  = median(punct_density),
+  ) |> 
+  arrange(desc(poem_complexity)) |> 
+  slice_head(n = 3)
+```
+
+In terms of poem_complexity, Anyone-Lived-in-a-Pretty-How-Town, Jabberwocky and Circle-Game	are top 3
+
+```{r}
+poems_df |> 
+  group_by(title) |> 
+  mutate(
+    word_complexity = num_alpha/num_words,
+    punct_density = num_punct/num_lines
+  ) |> 
+  summarise(
+    stanza_complexity = mean(word_complexity),
+    poem_complexity = n()* stanza_complexity,
+    punct_metric  = median(punct_density),
+  ) |> 
+  arrange(desc(stanza_complexity)) |> 
+  slice_head(n = 3)
+```
+
+In terms of stanza_complexity, Jabberwocky, The-Colossus and The-Tyger are top 3
+
+#### 7. Which author’s poems have the smallest punct_metric?
+
+```{r}
+poems_df |> 
+  group_by(title) |> 
+  mutate(
+    word_complexity = num_alpha/num_words,
+    punct_density = num_punct/num_lines
+  ) |> 
+  summarise(
+    first_name = first_name,
+    last_name = last_name,
+    stanza_complexity = mean(word_complexity),
+    poem_complexity = n()* stanza_complexity,
+    punct_metric  = median(punct_density),
+  ) |> 
+  arrange(punct_metric) |> 
+  slice_head(n = 1) 
+```
+
+Maya Angelou’s poem has the smallest punc_metric.
+
