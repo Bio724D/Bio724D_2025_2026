@@ -23,7 +23,7 @@ library(ggspatial) # nice extras
 
 ## Data: Shapefile
 
-We're going to get data on country, state, and county boundaries from a website called "Natural Earth"](https://www.naturalearthdata.com/).  Natural Earth is a public domain map data set available at 3 different scales. The data is free to use and the development of Natural Earth is supported by the North American Cartographic Information Society.
+We're going to get data on country, state, and county boundaries from a website called ["Natural Earth"](https://www.naturalearthdata.com/).  Natural Earth is a public domain map data set available at 3 different scales. The data is free to use and the development of Natural Earth is supported by the North American Cartographic Information Society.
 
 The [downloads page on Natural Earth](https://www.naturalearthdata.com/downloads/) provides links to different types of features (cultural (political), physical, raster) at 3 different scales. We'll use the [large scale cultural data (1:10m)](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/).
 
@@ -207,7 +207,7 @@ us2 <-
 us1 + us2 # layout via patchwork
 ```
 
-## Zooming in further: US counties and North Carolia
+## Zooming in further: US counties and North Carolina
 
 Let's get even further levels of detail by plotting US county boundaries. 
 
