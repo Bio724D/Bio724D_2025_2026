@@ -1,0 +1,387 @@
+---
+title: "Introduction to SQL"
+date: today
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Background 
+
+SQL (**S**tructured **Q**uery **L**anguage) is a set of rules that define the syntax used to build, update, query, and manage a relational database. Many different software packages that offer relational database capabilities follow these rules. In computer science terms, SQL is a *specification* that defines a set of standards, and the software packages are *implementations* of those standards. 
+
+For class, we will be using **DuckDB**, a relatively recent implementation of the SQL standard that is specifically designed for data science. (Most implementations are enterprise-oriented and prioritize row operations; data science focuses more on column operations). DuckDB is also a useful implementation for learning SQL, because it simplifies many of the technical details involved in setting up a relational database. DuckDB is open-source and free. Importantly, DuckDB is engineered to optimize computationally expensive operations like sorting and filtering. DuckDB is also massively scalable (e.g., to billions of rows and thousands of columns), well beyond what R can manage. You can read more about DuckDB here: https://duckdb.org.
+
+The relational database we will be working with for the SQL class sessions is Greg's personal birding observations. See the slide deck for information about the tables, their contents, and their relations. This will also allow us to work with the new data types we learned about last week, namely dates and geolocations. 
+
+
+## Set-up
+
+To use DuckDB within a Quarto notebook, you will first need to install two packages: **duckdb**, the DuckDB implementation of SQL for R, and **DBI**, which provides an interface between R and many different implementations of SQL. 
+
+```{r library-install, include=FALSE, silent = TRUE}
+# only run this code chunck once!
+#install.packages("DBI")
+#install.packages("duckdb")
+```
+
+Set up a session: load libraries, connect to the database. 
+
+```{r set-up}
+# load packages
+library("DBI")
+library("duckdb")
+
+# establish a connection to the database
+con <- DBI::dbConnect(
+  drv = duckdb::duckdb(),
+  dbdir = "birding.db",
+  read_only = TRUE
+)
+
+# tell knitr about the connection
+knitr::opts_chunk$set(connection = "con")
+```
+
+With DuckDB running, install a package for working with date-time values.
+
+```{sql duckdb-pkg-install, connection=con, include=FALSE, silent = TRUE}
+-- only run this code chunck once!
+--INSTALL icu;
+SET default_collation = 'nocase';
+```
+
+## Interacting with the database
+
+Not much happens when the code block above is run. How can we be sure that Quarto is connected to the database? One clue is that the global environment should now contain a connection object called `con`, with "duckdb_connection" in the description. 
+
+You won't be able to see the SQL tables in the global environment because they are not R objects. However, you can access them through SQL code blocks. You can even access the database through R code!  
+
+A simple way to tell whether we are connected to the database is to use a **pragma**, a command that retrieves information about the organization of data base. The command below lists all the tables in the database. The header in the code block below tells Quarto to interpret the contents as SQL, gives it a name,,,, and tells it which connection to use (this allows a single Quarto notebook to connect with multiple databases at once). 
+
+```{sql interact-1, connection=con}
+
+```
+
+Note that pragmas are *not* standard SQL and differ among implementations; indeed, many SQL implementations don't have pragmas or use a different term for them. (The term 'pragma' has a slightly different meaning in some other programming languages, where it refers to an instruction to a compiler or interpreter.)
+
+This command lists the columns in a specific table. 
+
+```{sql interact-2, connection=con}
+
+```
+
+We can also make a standard SQL query to make sure everything is working as expected. The following command filters the `locations` table for locations that begin with the letter "V". Don't worry about the specific syntax for now; we will cover queries in detail shortly.   
+
+```{sql interact-3, connection=con}
+
+```
+
+Finally, we can extract information from the SQL database and move it into R. Use the R function `dbGetQuery` to specify the connection and issue a standard SQL command wrapped in quotes. The command below copies the entire `orders` table to an R data frame. Note that this command creates a separate copy; changing its values in R has no effect on the original SQL table. 
+
+```{r interact-4}
+
+```
+
+
+## Simple queries
+
+`SELECT` is the command for data retrieval in SQL. It can be used in simple constructions with a single table or in complex statements that involve grouping, filtering, summaries, aliases, functions, nested queries, and joins between multiple tables. We will start with a single table to introduce basic filtering and output capabilities.
+
+Every `SELECT` statement includes two components: the column(s) to return and the table(s) to work with. The simplest possible `SELECT` statement is shown below. The `*` character means return all columns. The `FROM` clause tells SQL which table you want to work with. 
+
+**All rows, all columns.** The default behavior of `SELECT` is to return all rows unless you give it other instructions. Thus, the following query returns all of the data in the `orders` table.
+
+```{sql, squery-1, connection=con}
+-- return all data from orders table
+ 
+```
+
+**Limiting output.** If you just want to see a few rows, include the keyword `LIMIT` and specify the number of rows. 
+
+```{sql, squery-2, connection=con}
+-- return just 3 rows
+ 
+```
+
+
+**Specifying columns.** If you just want to see a subset of columns, replace `*` with the column name(s) separated by commas. SQL will return them in the order you specify. 
+
+```{sql, squery-3, connection=con}
+-- return just two columns in a different order
+ 
+```
+
+**Sorting output.** An important feature of relational databases is that the rows (records) are not stored in a predictable or even stable order. This allows for faster filtering and sorting operations, but it does mean that you need to be explicit when you want results returned in a particular order.
+
+To sort output, include `ORDER BY` and specify the column(s) to sort on. If you provide more than one column name, SQL will sort on the first column and then use the second column to break any ties, and so forth. 
+
+```{sql, squery-4, connection=con}
+-- return data sorted by one column in descending order
+ 
+```
+
+To sort in reverse order, include `DESC` (short for descending).
+
+```{sql squery-5, connection=con}
+
+```
+
+`LIMIT` and `ORDER BY` are examples of optional clauses in a `SELECT` statement. Clauses can be combined, but they need to be in a specific order. As we build increasingly complex `SELECT` statements, be sure to follow the order of clauses in the examples.
+
+The following example combines the optional clauses we have covered so far. 
+
+```{sql, squery-6, connection=con}
+-- return results in a customized way
+ 
+```
+
+
+## Understanding SQL syntax
+
+### Basics of SQL syntax
+
+Here are some key points to keep in mind when writing and reading SQL code:
+
+* SQL commands are *case-insensitive*. However, convention is to use upper-case for keywords, operators, and functions, and use to lower case for identifiers (table and column names). Writing your SQL code this way will make it more readable.
+
+* In contrast, search strings in SQL are generally *case-sensitive*. This is because case may matter in a data set. The main exception is the `LIKE` operator (see below), which is case-insensitive because it is an expansion.
+
+* Enclose strings in *single quotes*, e.g. `'Hello'`. 
+
+* Use `--` (double dash) to insert a comment. At the start of a line it makes the entire line a comment, while after a command it makes the rest of a line a comment. This is similar to R and Python. 
+
+* End each line of code with a `;` (semicolon) character. If you are executing just one line, this is optional; however, it's good practice use a `;` for clarity. When executing multiple lines of code, `;` is required at the end of every line. 
+
+* It's common to split long commands across multiple lines, and use indenting to indicate the structure of the command. This makes complex queries much easier to read. See examples later in this notebook.
+
+### Declarative vs imperative languages
+
+It's helpful to understand that SQL is a *declarative* programming language. This means that with SQL, you describe what you want in general terms, and the interpreter figures out how to accomplish the task. This approach allows you to focus on the question rather than the operational details. An advantage is that complex requests can be phrased in compact, understandable commands. 
+
+In contrast, R is an *imperative* programming language. This means that you need to specify exactly how to carry out each step. This approach is more explicit and gives you more control over how tasks are accomplished. However, this generally makes the code of an imperative language more complex and therefore harder to read.
+
+A simple analogy is telling a taxi driver where you want to go: a declarative approach is: "Take me to the train station" while an imperative approach is "Go straight for 3 blocks, then turn right and go 2 blocks." 
+
+Somewhat confusingly, R is an imperative language, but ggplot is a declarative library. Being aware of the distinction between imperative and declarative languages makes it easier to learn how to use them effectively. 
+
+## Conditions in queries
+
+Many SQL operations involve filtering rows based on a condition. Include a `WHERE` clause in a `SELECT` statement to specify the condition you want to use for filtering.
+
+Follow `WHERE` with the name of the column to apply the condition to, then the condition itself. To search for a match to a value, use the `=` (identity) operator. (Note the difference from R, which uses `==` in conditions.) To search for anything other than a specific value, use the `!=` (not identity) operator.
+
+```{sql, cquery-1, connection=con}
+-- return the records for every species observed within a given genus
+
+```
+
+The examples below illustrate some of the ways to specify conditions for filtering. 
+
+Note that the operators `>`, `<`, `≥`, and `≤` work with numeric, string, and date values.
+
+```{sql, cquery-2, connection=con}
+-- return the rows where a genus contains greater than 40 species
+
+```
+
+```{sql, cquery-3, connection=con}
+-- return rows containing families with names that alphabetically follow a specified word
+
+```
+
+```{sql cquery-4, connection=con}
+-- return observations from a range of dates
+
+```
+
+Use logic operators `AND`, `OR`, and `NOT` to create compound conditions; use round brackets to indicate the logic as needed. The previous query is a simple example. Conditions can be applied to a single column or to multiple columns using logical operators.
+
+```{sql, cquery-5, connection=con}
+-- return rows containing families that contain more than 50 species and contain fewer than 10 genera
+
+```
+
+Use `IN` and `NOT IN` operators to test for membership in a set. In the example below, the set is a list of *static* values. A more common and more powerful use is testing for membership in a *dynamic* set, such as a nested query or a view (as we will see later). 
+
+```{sql, cquery-6, connection=con}
+-- return rows containing families that are part of a specified set
+
+```
+
+If you want to search a range of values, it is sometimes helpful to use the `BETWEEN` operator, which can work with strings and numbers. The most important thing to remember is that ranges are specified differently for strings and numbers.
+
+When using `BETWEEN` with numeric and date ranges, the first and second values are included in the range.
+
+```{sql, cquery-7, connection=con}
+-- return genera that contain between 28 and 30 species 
+
+```
+
+```{sql cquery-8, connection=con}
+-- return observations from 16 through 18 (inclusive) August, 2018
+
+```
+
+When using `BETWEEN` with string ranges, the behavior is different: the first value is included in the range while the second value is not, and indicates "up to but not including". Thus, the query below returns genera starting with "J" and "K" but not with "L".
+
+```{sql, ccquery-9, connection=con}
+-- return rows with genus names that start with 'J' or 'K' 
+
+```
+
+To filter based on partial matches to strings, use the `LIKE` operator and the expansion character `%` (percent) to indicate one or more characters of any kind. The expansion character can precede or follow the search sub-string, or both. Note that `LIKE` is case-sensitive with DuckDB, but this is not the case in some SQL implementations. If `LIKE` is included in code that you did not write, be sure to test it to make sure it is performing as intended. 
+
+```{sql, cquery-10, connection=con}
+-- return rows where family name starts with 'Str'
+
+```
+
+```{sql, cquery-11, connection=con}
+-- return rows where family name contains with 'opter'
+
+```
+
+
+## Summarizing and grouping data
+
+SQL offers powerful summarizing and grouping capabilities that have inspired packages in other languages (`dplyr` is designed to replicate some SQL functionality). We will explore summarizing and grouping using a single table for simplicity, but bear in mind that these operations can also be applied to the output of multi-table queries, such as those covered in later sections of this notebook.
+
+You can quickly get basic information about a numeric column using summary functions: `MIN`, `MAX`, `SUM`, and `AVG`. To use these SQL functions, indicate the column of interest in round brackets. 
+
+```{sql, gquery-1, connection=con}
+-- return the average number of genera per family
+
+```
+
+Note that SQL automatically assigns a column name for values that it computes.
+
+`MIN` and `MAX` also work with character values. 
+
+```{sql, gquery-2, connection=con}
+-- return the first and last genus in alphabetical order
+
+```
+
+The SQL function `COUNT` returns a row tally. Use it to learn how many rows are in a table.
+
+```{sql, gquery-3, connection=con}
+-- return the number of records in the families table
+
+```
+
+Or use `COUNT` to tally the number of rows that match a particular condition.
+
+```{sql, gquery-4, connection=con}
+-- return the number of families that start with the letter "M"
+
+```
+
+To aggregate rows by value, use a `GROUP BY` clause and specify the column or columns to use. This clause follows the `FROM` or `WHERE` clause (if present) and precedes `ORDER BY` and `LIMIT` clauses (if present). 
+
+The following query returns the top 10 locations with the most observations in the database. It groups by location name, tallies the number of observations at each location using the `COUNT` function, and then sorts in descending order and limits the return to 10 records. 
+
+As queries become more complex, it is common to use multiple lines and indenting to improve readability.
+
+```{sql, gquery-5, connection=con}
+-- return the number of records at each location
+                  
+```
+Another useful function is `DISTINCT.` Use it to return the number of unique entries in a column. `DISTINCT` can be combined with `COUNT` and `GROUP BY` for powerful summarizing queries.
+
+The next example nests `DISTINCT` within `COUNT` to return the number of unique locations where each species within a given genus has been observed. 
+
+```{sql, gquery-6, connection=con}
+-- returns the number of locations where a given species has been observed
+
+```
+
+
+## Aliases
+
+Looking at the results of the queries in the previous section, it's clear that the column labels that SQL assigns automatically are not ideal. Using more informative labels makes output easier to interpret. To do this, assign an *alias* using the keyword `AS` followed by a name. Aliases without any spaces do not need quotes. 
+
+Another important use for aliases is to simplify table names. We will see examples later, when we get to queries that involve multiple tables.
+
+Note that aliases are not saved in memory; they apply only to the current query.
+
+The following query returns the number of species that have been observed within each genus, and sorts them in reverse order. SQL will use the two alias in the `SELECT` clause as column headers in the output. Note that any alias introduced in the `SELECT` clause must also appear in the `ORDER BY` clause. Also note the location of the `DESC` keyword (try placing it after genus and see what happens).
+
+```{sql, alias-1, connection=con}
+-- return the number of species observed within each genus ranked by number observed
+        
+```
+
+Another helpful way to label output is to use the function `CONCAT` to create strings that can be assigned to an alias. Strings can contain a mix of column values and whatever you provide. Enclose your text in quotes and separate items with commas.
+
+With the current database, genus and species names are stored separately, so `CONCAT` is particularly useful for combining them into a single column when returning the results of a query.
+
+The following query returns the date on which each species was first observed. It uses `CONCAT` to create a column header by joining the genus and species names, separated by a space for readability. Also note that the second alias requires quotes because it contains a space.
+
+```{sql, alias-2, connection=con}
+-- returns the first observation of each species in a given genus and labels the output
+
+```
+
+By combining aliases and grouping functions, it is possible to create reports that summarize several different kinds of information. 
+
+Building on the previous query, the query below asks for additional details about the first sightings to provide additional context.
+
+```{sql, alias-3, connection=con}
+-- returns the first observation of each species within a given genus with additional context
+
+```
+
+## Nested queries
+
+Nested queries are useful when you want to first narrow a search, then query the results in a different way. With nested queries, the "inner" query is executed first; the results are then sent to the second, or "outer" query, which only considers those rows. Importantly, the two queries can access information in different tables. 
+
+The inner query is embedded within a `WHERE` clause in the outer query, which uses the `IN` operator to test for membership in the results of the inner query. There is no limit on nesting in queries, but best practice is to limit nesting to 2 or 3 levels; there are better ways to deal with highly complex queries than deep nesting. 
+
+Nested queries are particularly useful in the birding database, because the taxonomic tables represent nested taxa.
+
+The query below returns the name of every species that has been observed within a given family. This information is stored in multiple tables: the `genera` table has a column that assigns every genus to a family. It first queries the `genera` table to retrieve a list of all genera in the family of interest. Next, it queries the `species` table to retrieve the genus and species names of every entry in the list returned by the first query. 
+
+```{sql, nquery-1, connection=con}
+-- return the names of all species observed in a given family
+
+```
+
+Nested queries can also be useful for tabulating counts from multiple tables into a single report. To do this, use `SELECT` as a "wrapper" for multiple nested queries.
+
+The query below demonstrates the use of `SELECT` as a wrapper to generate a report. Note that there is no table name in the outer query; it simply aggregates the results of three nested queries. Also note that the first sub-query accesses a built-in variable using `SELECT`. Retrieving the value of `current_date` provides a date stamp on the output, recording when the query was made.
+
+```{sql, nquery-2, connection=con}
+-- return the number of species observed and the total number recognized
+
+```
+
+## Joins
+
+The real power of SQL is its ability to query data from multiple tables at once using relatively simple statements. This can be done by including a `JOIN` clause that specifies how to merge results and specifies one or more relations that link one or more columns between two or more tables.
+
+The most common kind of join is a left join. This is a good point at which to review how left joins work from our earlier session. Left joins are perfect for the taxonomic tables in the database, which have an inherently nested structure: every higher taxon contains at least one lower taxon. Left joins are also useful for the `observations` table, where multiple records may be related to a single species or trip or location.
+
+It is often the case that the same column name appears in multiple tables within a relational database. To make explicit which column of the same name you wish to reference, simply append the table name and a `.` (dot) before the column name. Columns specified in this way are said to be **fully qualified**. When writing queries that involve multiple tables, you only need to fully qualify if a column name exists in more than one table. However, fully qualifying column names is good practice even when it is not needed, as it can make the logic of a query clearer.
+
+When dealing with multiple tables, using aliases for table names can help to simplify a query. A common convention is to use a single letters corresponding the table's full name.
+
+Most versions of SQL accept more than one syntax for indicating a join. We'll use the newer and recommended syntax, but be aware that other ways to specify joins exist and are commonly used. Also be aware that it is possible (but not recommended) to create implicit joins by leaving out the JOIN keyword and simply specifying one or more relations in a WHERE clause. This produces a cross join, which can work in simple queries but is often not what you actually want. Warning: you will likely encounter these older and less clear approaches if you refer to code from AI or StackOverflow. Best practice is to always use explicit joins and the syntax introduced below.
+
+The query below returns the scientific and common names of every observed species in a given family. The information needed to do this resides in two different tables: `species` and `genera`. The query left joins the genera table onto the species table, providing information about which family that species belongs to. It then filters by family name.   
+
+```{sql, jquery-1, connection=con}
+-- returns a list of all observed species from a given family
+
+```
+
+The next query reports how many species have been observed from each genus relative to the total. It joins the genus and species tables and returns three numbers, each derived in a different way: (1) a tally of the number of species observed, using `GROUP BY` and the `COUNT` function; (2) the total number of species in that genus, read directly from the genus.num_spp column; and (3) a computed value (yes, you can do math as part of SQL query!).
+
+```{sql, jquery-2, connection=con}
+-- returns the proportion of species observed within each genus
+
+```
+
+
