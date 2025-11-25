@@ -1,0 +1,671 @@
+---
+title: "BIO724D: SQL: Beyond the Basics"
+author: "Greg Wray"
+date: today
+date-format: iso
+format: 
+  html:
+    embed-resources: true
+editor: source
+---
+
+## Background 
+
+Last week's class introduced SQL and covered various methods for querying a relational database. This week, we will cover some intermediate topics: (1) creating and populating a database, (2) modifying information in a database, (3) imposing constraints to maximize data integrity, (4) creating views, (5) transferring SQL query results into R for plotting. 
+
+## Set-up
+
+This week, we will work with the database on disk rather than in memory. To see how the data base was set up and stored to disk, refer to the Quarto notebook called `12_create_birdingDB.qmd`. The database is stored in a file called `birding.db`. This file contains the table definitions and the data in a single binary file (not a text file). Make sure that birding and the 7 `.csv` files that we worked with last week are located in your working directory. 
+
+The code below loads the necessary libraries and establishes a connection to the birding database. This week, we are setting `read_only` to `FALSE` so that we can modify the database contents.
+
+```{r label=set-up, silent=TRUE}
+# load packages
+library(tidyverse)
+library(DBI)
+
+# establish connection to database file
+con <- DBI::dbConnect(
+  drv = duckdb::duckdb(),
+  dbdir = "birding.db",
+  read_only = FALSE
+)
+
+# tell knitr about the connection
+knitr::opts_chunk$set(connection = "con")
+```
+
+## Creating a database
+
+Creating an SQL database in DuckDB is straightforward: (1) create the new database and open a connection; (2) define the tables; and (3) add data to fill the tables. 
+
+WARNING: there is no 'undo' command in SQL!! Always make sure your database is backed up (preferably in multiple places) before you make any changes in its content. 
+
+### Creating a new database
+
+The first step in creating a new database is to create a new connection. This simultaneously creates the new database and establishes the connection. DuckDB provides two options for doing this: *temporary* (in-memory) or *persistent* (on-disk). Temporary databases are useful when you are practicing, while persistent databases are what you need for an ongoing project and for sharing. 
+
+The two code blocks below create a temporary and persistent database, respectively. In either case, the new database is initially empty. 
+
+```{r}
+# create an in-memory database with a connection
+testdb <- DBI::dbConnect(duckdb::duckdb(), ":memory:")
+```
+
+We will only create a temporary database today, but the code to create a persistent database is included below in case you want to make your own database in the future. Note that this command will simply open a connection if a file of the same name already exists; it will only create a new database if there is no matching file in the working directory. 
+
+```{r}
+# create a persistent database with a connection
+pdisk <- DBI::dbConnect(
+  drv = duckdb::duckdb(),
+  dbdir = "my_practice.db",
+  read_only = FALSE
+)
+```
+
+**Deeper dive:** These code blocks are in R because the R library `dbi` provides a convenient way to establish connections with databases. If you use DuckDB in a different programming language, the code for establishing a connection will be slightly different. Refer to the DuckDB documentation  [here](https://duckdb.org/docs/stable/clients/overview). Also note that DuckDB and SQLite are unusual implementations of SQL in that they create a single, accessible file containing the entire database. This simplifies the process of setting up a database. Most other SQL implementations use a more complex client-server model where the database is hosted on a remote server and the underlying files are deliberately hidden from users. This client-server configuration is designed so that many users can access the database at once. MySQL and PostgreSQL are very popular client-server implementations of SQL. It is possible to set up a client-server SQL database on a laptop for personal use, but this offers few advantages for data science applications, while requiring more completed set-up and management. DuckDB and SQLite have become very popular for learning SQL and for data science because they provide a relatively simple way to to set up and manage SQL databases. 
+
+### Defining tables in a new database
+
+The second step in creating a new database is to define the tables. Table definitions specify each column with its name, data type, and, optionally, column constraints. 
+
+The most common data types in DuckDB are: `INT` and `DOUBLE` for integer and floating point numerics, respectively; `VARCHAR` for strings of any length; `BOOLEAN` for logical values; and `DATE` and `DATETIME` for date-time data. DuckDB provides many additional data types, including a variety of numerics, binary arrays and "blobs", time intervals, unique IDs, and nested data types. You can read more in the DuckDB documentation [here](https://duckdb.org/docs/stable/sql/data_types/overview). 
+
+The code below creates two simplified versions birding records that we will add to our database. We create two tables so that we can compare Kayla's life list with Greg's. Because Kayla and Greg use different formats for recording their observations, these new table definitions are slightly different. The column names follow the original data sources, but another option would be to use the same names for the same information in both tables. 
+
+Two points to note. First, use the correct connection. We now have open connections to multiple databases. The connection to the in-memory database we want to use is called `pmem`. Second, note the use of `DROP TABLE IF EXISTS`. This command will remove any earlier attempt to create these tables (if it exists). This is useful, because SQL will throw an error if you try to create a new table with the same name as an existing table. This step isn't necessary for archival code, but it's useful when practicing, because we may want create these tables multiple times.
+
+```{sql connection=testdb}
+-- remove the table if it already exists
+DROP TABLE IF EXISTS kw_ebird;
+-- create a table of Kayla's records
+CREATE TABLE kw_ebird (
+  Common_Name VARCHAR NOT NULL,
+  Genus VARCHAR,
+  Species VARCHAR,
+  Scientific_Name VARCHAR NOT NULL,
+  Count VARCHAR,
+  Location VARCHAR,
+  Date DATE NOT NULL,
+  Time VARCHAR
+);
+-- remove the table if it already exists
+DROP TABLE IF EXISTS gw_observations;
+-- create a table of Gregs's records
+CREATE TABLE gw_observations (
+  seq INT PRIMARY KEY,
+  genus_ioc VARCHAR NOT NULL,
+  species_ioc VARCHAR NOT NULL,
+  binomen VARCHAR,
+  individuals VARCHAR,
+  date_obs DATE NOT NULL,
+  time_obs VARCHAR,
+  location_name VARCHAR
+);
+```
+
+Check the tables to make sure everything worked as expected. Refer to the notebook from last week for an explanation of these `PRAGMA` queries.
+
+```{sql connection=testdb}
+PRAGMA show_tables;
+```
+
+```{sql connection=testdb}
+PRAGMA table_info('kw_ebird');
+```
+
+**Deeper dive:** A nice feature of SQL is that new tables and new relations among tables can be added at any time. It is also possible to modify some table features and constraints on a "live" database. However, this is generally *not* a good idea, as it can break existing relations and constraints. If you are working with a database and need to re-engineer table definitions, the best approach is to export all the data into `.csv` files, create a new database, and re-import your data into SQL tables. If you keep the code and data that you used to generate the original database (which you should always do!), this process is straightforward.  
+
+### Populating a new database
+
+The third and final step in creating a new database is to add data. This is called *populating* the database. You can add one row at a time with SQL commands, but more commonly for new database you will want to import data from a file. The most straighforward way to do this is to first get your organized into in a `.csv` file with the correct column order, names, and data types.
+
+The code below imports data into the two tables we just created. 
+
+```{sql connection=testdb}
+-- append data from .csv file
+COPY kw_ebird FROM 'kw_ebird_mod.csv' (HEADER true, delim ',');
+COPY gw_observations FROM 'gw_observations.csv' (HEADER true, delim ',');
+```
+
+### Testing a new database
+
+To test whether our new database is functioning properly, we need to make some queries. Let's see which species Kayla has recorded the most often. 
+
+```{sql, connection=testdb}
+
+```
+
+We can also list all the species that Kayla has recorded at the Reclamation Pond just north of FFSC.  
+
+```{sql connection=testdb}
+
+```
+
+Now let's find out which species Kayla has observed that Greg has **never** seen!
+
+```{sql connection=testdb}
+
+```
+
+
+## Modifying an existing database
+
+SQL allows several types of modifications to an existing database. For the following exercises, we will switch back to the full birding data base; the connection for these code blocks is `con`.
+
+### Adding new records
+Use the `INSERT` command to add a new record (row). The `VALUES` clause is where you list the new values, in column order and separated by commas.
+
+SQL does not provide any direct feedback after inserting a new record. To make sure the new record has been successfully added, it's useful to look at summary statistics or rows as we go. Run the following command before and after inserting records.
+
+```{sql, connection=con}
+
+```
+
+Now we can try inserting a new record into the `trips` table. Place the list of values inside round brackets. Be sure to provide the values in the correct column order.
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+Run the query to count the number of records again to confirm that it has increased by 1. Then run the command below to view your new entry in the database.
+
+```{sql, connection=con}
+
+```
+
+You can insert more than 1 record by providing lists of values enclosed in round brackets and separated by commas. 
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+Confirm that 3 new trips were added by running the query to show all records in reverse order again.
+
+Inserting records directly quickly becomes tedious and is highly prone to errors. To insert many rows at once in a reproducible way, assemble the data in a `.csv` file and append the contents to the existing table using the `COPY` command. Don't run the code below now, because it references a file that doesn't exist; it is included only for reference.  
+
+```{sql connection=con, eval=FALSE}
+-- append data from .csv file
+COPY trips FROM 'more_trips.csv' (HEADER true, delim ',');
+```
+
+**Deeper dive:** Different implementations of SQL use distinct approaches for loading data. The code above is the preferred method in DuckDB. It *appends* the contents of the `.csv` file to the existing records in the designated table. Beware that with some other SQL implementations, such as SQLite, the default behavior is to *overwrite* table contents unless an optional `append=TRUE` is provided. 
+
+SQL will raise a error if we attempt to insert a record that contains a duplicate value in the primary key column.
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+SQL will also raise an error if we omit a value for a `NOT NULL` column. 
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+WARNING: SQL will *not* raise an error or even a warning if we omit a value for a column that lacks the `NOT NULL` constraint.
+
+### Updating existing records
+
+To update a value in one or more existing records, use the `UPDATE` command. Use the `SET` keyword and specify the column and new value to replaces the current value(s). 
+
+Use a `WHERE` clause to specify a condition that identifies which record(s) to update. The condition can refer to a different column or columns than the one you want to update. 
+
+When writing a `WHERE` clause, it's a good idea to rely on the primary key to define the condition, since each row is guaranteed to have a unique value. Another good habit is to make the `WHERE` clause as specific as possible. Following these two suggestions will help avoid unintended consequences. 
+
+```{sql, connection=con}
+
+```
+
+A separate `UPDATE` statement is required for each new value that you want to use for updating. You can, however, use a single `UPDATE` statement on multiple records if the new value you want to insert is the same for all of them. 
+
+Best practice is to test your condition first with a `SELECT` statement.
+
+```{sql, connection=con}
+
+```
+
+The condition works as expected, so we can use it to delete the unwanted records.
+
+```{sql, connection=con}
+
+```
+
+### Removing existing records
+
+We have now accumulated several useless entries in the `trips` table. 
+
+Use the `DELETE` command to remove records from a table. **Always** use a `WHERE` clause with `DELETE.` This tells SQL which records you want to remove from the table. The `WHERE` condition can apply to any column or columns, and any condition is legal, including compound conditions and nested queries. 
+
+WARNING: if you use `DELETE` without a `WHERE` clause, it will remove all data!
+
+As with `UPDATE` commands, best practice is to use the primary key column and make the condition as specific as possible, then test the condition with a `SELECT` statement to make sure it will only alter the intended records. 
+
+Remember that there is no "undo" with SQL. When deleting rows, best practice is first to use a `SELECT` statement to test the condition; what you get back is what will be removed when you use the same condition in a `DELETE` statement.  
+
+```{sql, connection=con}
+
+```
+
+The code below is exactly the same as that above, with the exception that `SELECT *` is replaced with `DELETE`.
+
+```{sql, connection=con}
+
+```
+
+Note that SQL operates silently: it does not report if any rows met the condition and were dropped, nor how many. Best practice is to run some queries to ensure that the expected rows were actually dropped.
+
+Because `DELETE` uses `WHERE` clauses, you can easily remove all the remaining "Antarctica" trips at once. The query below tests a condition to do this.
+
+```{sql, connection=con}
+
+```
+
+Now that we know the condition works as expected, we can delete four rows at once:
+
+```{sql, connection=con}
+
+```
+
+### Modifying the definition of a table
+
+It is possible to modify an existing table by changing its name, renaming columns, adding new columns, or deleting columns. We won't cover statements that alter tables here, because they are rarely needed. However it's good to be aware that they exist. Refer to the DuckDB documentation [here](https://duckdb.org/docs/stable/sql/statements/alter_table) for details.   
+
+As a quick example, the following statement renames the `trips` table to `journeys`. 
+
+```{sql, connection=con, eval=FALSE}
+ALTER TABLE trips RENAME to journeys;
+```
+
+**Deeper dive:** Most implementations of SQL allow you to change the data type or characteristics of a column (e.g., add or remove the `NOT NULL` constraint). However, this can creates problems for reasons that should be fairly obvious. It's generally not recommended, and DuckDB provides only limited ability to modify tables. If you find that you need to change data types or  constraints, it may be more straightforward to export the data, define a new table, and re-load the data into it. See Deeper dive under "Defining tables in a new database", above.
+
+### Deleting a table
+
+Finally, SQL makes it easy (some would say too easy!) to delete a table. 
+
+The most common situation where this might occur is that you need to make extensive changes to the organization of the table and it's simply easier to start from scratch by removing the current table and creating a new one.
+
+Use the `DROP` keyword to remove a table. The syntax is simple (see below). Warning: SQL does not ask if you are sure, it immediately deletes the table. This includes not only the data but also the table definition.
+
+```{sql, connection=con, eval=FALSE}
+DROP TABLE journeys;
+```
+
+`DROP` can also be used to remove individual columns, key constraints, and other features. Refer to the DuckDB [here](https://duckdb.org/docs/stable/sql/statements/drop) for details. 
+
+**Deeper dive:** Because there is no "undo" with SQL, don't drop a table, column, relation, or constraint unless you really mean it. Keep the code you used to build your database and the data files you used to populate the tables. That way, you can always reconstitute an individual table or the entire database if you make a mistake.
+
+
+## Data Integrity
+
+SQL provides robust mechanisms to protect against errors during data entry and modification. We will cover a few of the most common ones here. 
+
+### Column constraints
+
+Many data integrity mechanisms are implemented directly into the table definition, where specific conditions can be applied to individual columns. These are known as **column constraints** in the SQL world.
+
+**NOT NULL constraint.** Include `NOT NULL` after a column definition to specify that missing values are not allowed.
+
+**UNIQUE constraint.** Include `UNIQUE` after a column definition to specify that no duplicate values are allowed.
+
+**PRIMARY KEY constraint.** Include `PRIMARY KEY` after a column definition to designate it as the primary key. `PRIMARY KEY` always implies `NOT NULL`. If there is only one primary key column (the usual situation), then it also implies `UNIQUE.` If more than one column is designated as the primary key, one or more of the primary key columns can contain duplicate values as long as all *combinations* of values are unique.
+
+**Default values.** Providing a default value for a column can contribute to data integrity and is also useful in other ways. For instance, if a column is used in queries that carry out arithmetic, you might want to replace `NULL` with `0` (zero) to avoid errors.
+
+To specify a default value for a column, include the `DEFAULT` keyword followed by round brackets surrounding the default value. When a new record is added to a table, any missing values will be replaced by the default value and all other values will be unmodified.
+
+**Check constraints.** SQL allows you to place constraints on the specific values that are allowed in a given column. For example, negative values or zero might be excluded from a numeric column. Any valid condition can be used to test whether a value is allowed.   
+
+To specify a check constraint for a column, include a line at the end of the table definition that begins with the keyword `CHECK` followed by round brackets surrounding the column name and condition. When a new record is added to a table, any records that contain values that do not meet the condition will raise an error.
+ 
+Some examples of check constraints that could be applied to the `birding` database are:    
+  `CHECK (date_obs > '1900-01-01')`    
+  `CHECK (num_sp > 0 AND num_sp < 120)`    
+  `CHECK (climate IN ('Af', 'Am', 'Aw', 'BWh', 'BWk', 'BSh', 'BSk', 'CSa', 'CSb', 'Csc'))`
+
+Regarding the last example, there are in reality many additional climates in the Köppen-Geiger classification. However, this example illustrates how to construct a *controlled vocabulary* to ensure that only valid values are present in your database.  
+
+**Example of column constraint syntax.** The following table definition illustrates the syntax of each type of constraint mentioned above. Good database design takes full advantage of these mechanisms to ensure data integrity. Note that check constraints come **after** all column definitions.
+
+```{sql, connection=con, eval=FALSE}
+-- create a test habitat table
+CREATE TABLE habitats (
+  habitat_name VARCHAR PRIMARY KEY,
+  uid INT UNIQUE NOT NULL,
+  abbreviated_name VARCHAR UNIQUE,
+  description VARCHAR DEFAULT('no notes'),
+  climate VARCHAR,
+  realm VARCHAR,
+  CHECK (uid > 0),              
+  CHECK (climate IN ('Af', 'Am', 'BWh', 'BWk', 'BSh', 'BSk', 'Cfb', 'CSb', 'Cfc')),
+  CHECK (realm IN ('terrestrial', 'marine')) 
+);
+```
+
+Test to see if it worked.
+
+```{sql connection=con, eval=FALSE}
+PRAGMA show_tables;
+```
+
+```{sql connection=con, eval=FALSE}
+PRAGMA table_info('habitats');
+```
+
+Try adding a record. Try using different values to test the each constraint.
+
+```{sql connection=con, eval=FALSE}
+
+```
+
+```{sql connection=con}
+
+```
+
+
+### Foreign keys
+
+The birding database is in third normal form. However, we haven't imposed any constraints other than designating a `PRIMARY KEY` and indicating that some columns should be `NOT NULL`. In a relational database, an important additional layer of data integrity involves imposing *foreign key constraints*. Foreign keys check the contents of the columns that form relationships between tables, ensuring that for every value in table A there is a matching value in table B. In SQL terms, the column in table A *references* the column in table B. 
+
+Note that a foreign key is a one-way relationship: every value in table A must have a match in table B, but not the other way around This means that the column in table B can contain additional values that are not in table A. Also note that the the relationship can be one-to-one or one-to-many or many-to-many. Refer to the slide deck for a visual representation.
+
+**Example of foreign key constraint syntax.** The following table definition illustrates the syntax to define a foreign key constraint. As with check constraints, this comes **after** all column definitions. If we try to reference a table or column that does not exist in the current database, SQL will throw an error.
+
+In most cases, the simplest way to create a foreign key is create the table again. Some implementations of SQL allow foreign keys to be created and dropped without needing to re-create the table, but this is not implemented in the current version of DuckDB.
+
+```{sql, connection=con, eval=FALSE}
+-- create the families table with a foreign key constraint
+DROP TABLE IF EXISTS families;
+CREATE TABLE families (
+  family_ioc VARCHAR PRIMARY KEY,
+  seq INT NOT NULL,
+  order_ioc VARCHAR,
+  family_familiar VARCHAR,
+  family_contents VARCHAR,
+  niche VARCHAR,
+  distribution VARCHAR,
+  taxonomy VARCHAR,
+  num_gen INT,
+  num_spp INT,
+  num_threat INT,
+  FOREIGN KEY (order_ioc) REFERENCES orders(order_ioc)
+);
+```
+
+Note that DuckDB will not let us drop the families table because the genera table currently references it. This is a good example of a common challenge in changing foreign key constraints within a "live" database, and a motivation for thinking about relations *before* building a database.  
+
+
+## Views
+
+A **view** is a temporary table that holds the results of a query. 
+
+One way to think about a view is that it is the equivalent of an assignment statement in R or Python: values are assigned to an identifier (variable name). 
+
+The code below creates a view. It uses a standard `SELECT` query to define which columns and rows should go into the view. Any valid query can be used when creating a view, including joins and nested queries. The keyword `AS`, which is also used for aliases, functions as an assignment operator in this context, linking it with a name. While it is possible to crea assigns the view to the . 
+
+
+The code below create a view that corresponds to a table of every genus and species observed during the year 2017. Note the use of a function to extract just the year from the `date_obs` column.
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+The `PRAGMA` command to list tables also lists views. 
+
+```{sql, connection=con}
+PRAGMA show_tables;
+```
+
+We can query our new view directly by name.
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+One use for views is to simplify other queries. For example, it's now quite easy to find how many species were observed in 2017. 
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+Or how many different genera these represent:
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+Another use for a view is to compile a report. This command creates a view reporting the number of records on each day at each location.
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+This view provides summary statistics.
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+Every time one of the physical tables in the database is updated, relevant values in the view are automatically updated. This particular view won't be updated because 2017 is over, but automatic updating can be useful in situations where there are ongoing changes in the database tables. For example, this is the mechanism that your music player uses to keep track of everything you listen to: what songs, how recently, how many times, etc.
+
+Finally, if a view is no longer needed, you can remove it using `DROP VIEW`. The `IF EXISTS` clause is optional, but it's good practice to include it to avoid error messages that halt production code. Note that this command runs silently. Use a PRAGMA to confirm that it worked.
+
+```{sql, connection=con, eval=FALSE}
+
+```
+
+**Deeper dive:** In many implementations of SQL, views only exist until the end of the session. The next time you work with the database, you can re-create the view by simply running the appropriate code. With DuckDB and SQLite, however, views are automatically saved in the database file and don't need to be re-created. When you start a new new session, SQL quietly runs the query again in the background and you can immediately query the view. 
+
+
+## Temporal and geospatial queries
+
+To wrap up the fall semester, we will combine R and SQL to produce some visualizations. These examples illustrate the value of being able to work with multiple languages and, especially, the power of being able to use them together on a same data set.  
+
+### Transferring data between R and SQL
+
+**R to SQL.** To transfer the contents of a data frame or Tibble in R to a table in SQL: (1) export the data object from R to a `.csv` file; (2) create a table definition in SQL that matches the number and order of data types in the `.csv` file; and (3) populate the new table from the `.csv` file. See examples earlier in this notebook. 
+
+**SQL to R.** To transfer the results of any SQL query to a data in R, use `dbGetQuery` and pass the connection name followed by a query wrapped in quotes and assign the result to an identifier. The function returns a standard R data frame.
+
+```{r}
+obs_r <- dbGetQuery(con, "SELECT * FROM observations")
+typeof(obs_r)
+class(obs_r)
+```
+
+**Deeper dive:** This code is not specific to DuckDB; it will work with *any* database where you have an open  connection. However, this code is specific to R. If you are working with an SQL database in Unix or Python, the details will differ, but the general process will be similar.  
+
+### Temporal queries
+
+When `dbGetQuery` extracts information from a SQL database, it correctly identifies date and date-time columns and automatically converts them into standard R date and date-time vectors. R and SQL use ISO 8601 format, so there is no need to check on the order of units.  
+
+```{r}
+# what data type is the date column?
+typeof(obs_r$date_obs)
+class(obs_r$date_obs)
+```
+
+This means you can immediately apply the full set of Lubridate functions to dates in the data frame. The code below plots the number of observations made in each year since 2000. The Lubridate functions `year` and `today` are used to extracts the year value from the date object and to provide a date stamp for the data retrieval; the StringR function `str_c` is used to create the caption.
+
+```{r}
+# select the date column, filter for > 20000, extract the year, group by year
+year_tallies <- obs_r |> 
+  select(date_obs) |> 
+  filter(date_obs >= '2000-01-01') |> 
+  mutate(year_obs = year(date_obs)) |> 
+  group_by(year_obs)  
+
+# create the plot
+ggplot(year_tallies) + 
+  geom_bar(aes(x = year_obs)) +
+  labs(x="calendar year",
+       y="number of records",
+       title="Birding observations by year",
+       caption=str_c("Data retrieved from SQL birding database on ", today())
+    ) +
+  theme_light() 
+```
+
+### Spatial queries
+
+You can also make maps with the results of queries to an SQL database. For these plots, we will build on the geospatial methods that Paul introduced earlier. Make sure you have the folder `ne_10m_admin_0_countries` in your working directory (or provide a path to it as needed). Then load the following libraries (refer to Paul's notebook for class session 11 for details).
+
+```{r}
+# libraries for working with geospatial data
+library(sf)
+library(ggspatial) 
+```
+
+**Where are the defined locations in the locations table located?** Each defined location has geocoordinates corresponding to its approximate centroid. Because these are stored in a single column, use a stringr function to split them into lattitude and longitude before converting them to shape objects.   
+
+```{r, silent=TRUE}
+# query the database
+locs_df <- dbGetQuery(con, "SELECT location_name, geoloc FROM locations")
+
+# split the geoloc column into latitude and longitude
+locs_df[c("lat", "long")] <- str_split_fixed(locs_df$geoloc, ",", 2)
+
+# read the countries shapefile (see Paul's notebook for class session 10 for details)
+countries_sf <- st_read("ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp")
+
+# make sure it worked
+#ggplot() + geom_sf(data = countries_sf)
+
+# convert coordinates in the SQL query result into a shapefile with correct coordinate system
+locs_sf <- st_as_sf(locs_df, coords = c("long","lat"), crs=4326)
+```
+Now plot locations worldwide:
+
+```{r}
+ggplot() +
+  geom_sf(data = countries_sf) +
+  geom_sf(data = locs_sf, color = "firebrick", alpha=0.5) +
+  theme_light()
+```
+Or within a defined area:
+
+```{r}
+ggplot() +
+  geom_sf(data = countries_sf) +
+  geom_sf(data = locs_sf, color = "firebrick") +
+  coord_sf(xlim = c(-10, 15), ylim = c(35, 55), expand = FALSE) +
+  theme_light()
+```
+
+**Plot all records from a given family.** Retrieving the records by family requires a nested query (or join), as the necessary information is held in two tables (see last week's notebook for an explanation). Store the result as a view so that you can query it later.   
+
+```{sql, connection=con}
+-- return the locations of all species observed in a given family
+CREATE OR REPLACE VIEW loc_fam AS 
+SELECT 
+  CONCAT (genus_ioc, ' ', species_ioc) AS species,
+  geoloc_coord
+FROM observations
+WHERE
+  genus_ioc IN (
+    SELECT genus_ioc                   
+    FROM genera
+    WHERE family_ioc = 'Accipitridae'
+    ORDER BY seq
+  )                                    
+GROUP BY
+  genus_ioc,
+  species_ioc,
+  geoloc_coord
+;
+```
+Switch to R to retrieve the query and plot the results.
+
+```{r}
+# query the database
+locs_df <- dbGetQuery(con, "SELECT * FROM loc_fam")
+
+# split the geoloc column into latitude and longitude
+locs_df[c("lat", "long")] <- str_split_fixed(locs_df$geoloc, ",", 2)
+
+# convert geolocations in SQL query result into shapefile with correct coordinate system
+locs_sf <- st_as_sf(locs_df, coords = c("long","lat"), crs=4326)
+
+# plot global distribution of observations
+ggplot() +
+  geom_sf(data = countries_sf) +
+  geom_sf(data = locs_sf, color = "firebrick") +
+  theme_light()
+```
+
+**Plot the number of observations per country.** For this last query, we need to join country names to each observation, then group by to create tallies of observations for each country.  
+
+```{sql connection=con}
+-- step 1
+-- create a view from the observations table that contains location name only
+CREATE OR REPLACE VIEW obs_v AS 
+  SELECT location_name FROM observations;
+-- create a view from the locations table that contains location name and country only
+CREATE OR REPLACE VIEW loc_v AS 
+  SELECT location_name, country_name FROM locations;
+
+-- step 2
+-- left join to attach a country name to each observation
+CREATE OR REPLACE VIEW merged_v AS
+  SELECT country_name FROM obs_v
+  LEFT JOIN loc_v ON obs_v.location_name = loc_v.location_name
+;
+
+-- step 3
+-- create tallies for each country
+CREATE OR REPLACE VIEW tally_v AS
+  SELECT 
+    country_name,
+    COUNT(*) AS 'tally'
+  FROM merged_v
+  GROUP BY country_name
+  ;
+```
+Switching to R, join the tallies to the countries shapefile and generate a choropleth plot.  
+
+```{r}
+# step 4
+
+# query the database
+tally_df <- dbGetQuery(con, "SELECT * FROM tally_v")
+
+# simplify the countries shapefile so we can check operations
+simple_countries_sf <- select(countries_sf, SOVEREIGNT, geometry)
+
+# rename a column to facilitate the join
+simple_countries_sf <- rename(simple_countries_sf, country_name=SOVEREIGNT)
+
+# join with the countries shapefile
+plot_sf <- left_join(simple_countries_sf, tally_df, by='country_name')
+
+# generate the plot
+ggplot() +
+  geom_sf(data = plot_sf, aes(fill = tally)) +
+  scale_fill_viridis_c(option = "mako", trans = "log10", na.value = "grey95",) +
+    labs(title="Birding observations by country",
+       caption=str_c("Data retrieved from SQL birding database on ", today())
+    ) +
+  theme_light()
+```
+
+Or zoom in on a region:
+
+```{r}
+# generate a zoomed-in version of the plot
+ggplot() +
+  geom_sf(data = plot_sf, aes(fill = tally)) +
+  coord_sf(xlim = c(60, 150), ylim = c(60, -20), expand = FALSE) +
+  scale_fill_viridis_c(option = "mako", trans = "log10", na.value = "grey95",) +
+    labs(title="Birding observations by country in Asia",
+       caption=str_c("Data retrieved from SQL birding database on ", today())
+    ) +
+  theme_light()
+```
+
+
+
+
+
+
+
+
