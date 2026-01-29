@@ -1,6 +1,6 @@
 # Conda
 
-[Conda](https://docs.conda.io/en/latest/) is a "package manager" tool that was originally designed for the Python ecosystem but has be generally adopted as
+[Conda](https://docs.conda.io/en/latest/) is a "package manager" tool that was originally designed for the Python ecosystem but has been generally adopted as a general package manager for a wide range of software tools.
 
 Package managers are tools for installing/uninstalling software tools, code libraries, and creating computing environments that provide specific functionality.  One of the powerful aspects of Conda is that it allows users to install and use specific version of software packages in isolated or "sandboxed" environments.  This allows users to highly customize their computing environments without impacting other users of the same system.
 
